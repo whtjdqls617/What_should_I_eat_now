@@ -41,7 +41,7 @@ public class FoodController {
 
     @GetMapping(value = "/food")
     public String list(Model model) {
-        List<Food> food = foodService.findMembers();
+        List<Food> food = foodService.findAllFood();
         model.addAttribute("food", food);
         return "food/foodList";
     }
