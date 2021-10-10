@@ -10,6 +10,7 @@ export const getData = (url, setData) => {
 	  console.log(response.data);
       setData([response.data]);
 	  return 0;
+    //return response.data로 바꿈
     })
     .catch(function (error) {
 	    console.log("err: ");

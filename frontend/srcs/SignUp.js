@@ -1,5 +1,51 @@
+import React, {useState} from 'react';
+import { View, Text, Button, TextInput, StyleSheet, Alert } from "react-native";
+import SignUp_Email from './SignUp_Email';
+import SignUp_NickName from './SignUp_NickName';
+import SignUp_PassWord from './SignUp_PassWord'
+
+const SignUp = ({ navigation }) => {
+
+	const [userinfo, setUserinfo] = useState([0, 0, 0]);
+
+	const arrayToObject = (array) => {
+		let object = {};
+		object.nickName = array[0];
+		object.email = array[1];
+		object.password = array[2];
+		return object;
+	}
+
+	return (
+    <View style={styles.container}>
+      <Text>회원가입</Text>
+	  <SignUp_NickName userinfo={userinfo} setUserinfo={setUserinfo} />
+	  <SignUp_Email userinfo={userinfo} setUserinfo={setUserinfo} />
+	  <SignUp_PassWord userinfo={userinfo} setUserinfo={setUserinfo} />
+      <Button
+        title="Ask"
+        onPress={() => {
+			let array = ["닉네임을 다시 입력해주세요", "이메일을 다시 입력해주세요", "비밀번호를 다시 입력해주세요"];
+			for (let i = 0; i < 3; i++) {
+				if (userinfo[i] == 0) {
+					Alert.alert(array[i]);
+					return ;
+				}
+			}
+			const data = arrayToObject(userinfo);
+			console.log("data: ");
+			console.log(data);
+			navigation.navigate("AskLike", data);
+		}}
+      />
+    </View>
+  );
+}
+
+export default SignUp;
 
 
+//Ask로 음식이름 데이터 넘김
 /*
 
 
@@ -51,3 +97,15 @@
 
 
 */
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  nicknamerow : {
+	flexDirection : 'row'
+  },
+  emailrow : {
+	flexDirection : 'row'
+  }
+});

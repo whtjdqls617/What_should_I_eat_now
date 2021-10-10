@@ -1,0 +1,1 @@
+{"ast":null,"code":"export var ip = \"http://10.18.250.14:8080\";","map":{"version":3,"sources":["/Users/seocho/42OpenProject/frontend/srcs/data.js"],"names":["ip"],"mappings":"AAAA,OAAO,IAAMA,EAAE,GAAG,0BAAX","sourcesContent":["export const ip = \"http://10.18.250.14:8080\";\n"]},"metadata":{},"sourceType":"module"}
