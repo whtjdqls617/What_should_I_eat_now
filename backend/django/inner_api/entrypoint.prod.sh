@@ -9,6 +9,7 @@ then
 	done
 
 	echo "PostgreSQL started"
+	echo "CREATE DATABASE create database selectfood owner postgres;" | psql -U postgres --skip-password;\
 fi
 
 exec "$@"

@@ -1,6 +1,14 @@
 version: '3.8'
 
 services:
+  outer_api:
+    build:
+      context: ../SelectFood
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - inner_api
   inner_api:
     build:
       context: ./inner_api
