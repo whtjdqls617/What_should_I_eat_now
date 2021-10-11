@@ -16,7 +16,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public Long singUp(Member member) {
+    public Long signUp(Member member) {
         validateDuplicateMember(member);
         memberRepository.save(member);
         return member.getId();
@@ -28,6 +28,14 @@ public class MemberService {
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
                 });
+    }
+
+    public Optional<Member> validateDuplicateEmail(String email) {
+        return memberRepository.findByEmail(email);
+    }
+
+    public Optional<Member> validateDuplicateNickName(String nickName) {
+        return memberRepository.findByNickName(nickName);
     }
 
     public List<Member> findAllMembers() {

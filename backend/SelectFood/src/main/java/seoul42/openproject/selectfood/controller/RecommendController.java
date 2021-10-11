@@ -19,10 +19,11 @@ public class RecommendController {
         this.recommendService = recommendService;
     }
 
-    @PostMapping("/recommend-food/ok")
+    @PostMapping("/recommend-food/select")
     public String saveSelectedFood(@RequestBody PickFood pickFood) {
 
         return "ok";
+        //저장 실패 시 return "fail";
     }
 
     // "/rest/pick-food"  get방식 뒤에 변수값 넣어서 전송
