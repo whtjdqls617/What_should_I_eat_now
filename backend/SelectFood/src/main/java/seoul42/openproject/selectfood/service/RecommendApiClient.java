@@ -21,8 +21,8 @@ public class RecommendApiClient {
 
     public PickFoodDto requestPickFood(String email, Question question) {
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+//        HttpHeaders headers = new HttpHeaders()HttpHeaders;
+//        headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
 //        headers.set("Django-Client-secret", "testaaa");
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(RecommendApiUrl_getPickFood)
@@ -34,13 +34,17 @@ public class RecommendApiClient {
                 .queryParam("question3", question.getQuestion3())
                 .queryParam("answer3", question.getAnswer3());
 
-        final HttpEntity<String> entity = new HttpEntity<>(headers);
+//        final HttpEntity<String> entity = new HttpEntity<>(headers);
 //        restTemplate.getForObject(RecommendApiUrl_getPickFood, PickFoodDto.class);
-        System.out.println(builder.toUriString());
-        return restTemplate.exchange(
-                builder.toUriString(),
-                HttpMethod.GET,
-                entity,
-                PickFoodDto.class).getBody();
+        System.out.println(builder.build().encode().toUriString());
+        return restTemplate.getForObject(
+                builder.build().encode().toUriString(),
+                PickFoodDto.class
+        );
+//        return restTemplate.exchange(
+//                builder.toUriString(),
+//                HttpMethod.GET,
+//                entity,
+//                PickFoodDto.class).getBody();
     }
 }

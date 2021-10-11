@@ -29,7 +29,7 @@ public class MemberController {
 //        return "ok";
 //    }
 
-    @GetMapping("/user/signup/check-email/{email}")
+    @GetMapping("/user/signup/check-email")
     public String checkEmail(@RequestParam String email) {
         Optional<Member> member = memberService.validateDuplicateEmail(email);
         if (member.isPresent()) {
