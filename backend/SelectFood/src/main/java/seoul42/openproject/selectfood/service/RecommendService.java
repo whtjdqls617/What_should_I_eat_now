@@ -13,7 +13,7 @@ public class RecommendService {
     private final RecommendApiClient recommendApiClient;
 
     @Transactional(readOnly = true)
-    public PickFoodDto getPickFood(String email, Question question) {
-        return recommendApiClient.requestPickFood(email, question);
+    public PickFoodDto getPickFood(Long id, Question question) {
+        return recommendApiClient.requestPickFood(id, question);
     }
 }

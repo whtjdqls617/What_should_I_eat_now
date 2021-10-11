@@ -1,23 +1,30 @@
 package seoul42.openproject.selectfood.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import seoul42.openproject.selectfood.domain.Member;
 import seoul42.openproject.selectfood.domain.PickFood;
 import seoul42.openproject.selectfood.domain.PickFoodDto;
 import seoul42.openproject.selectfood.domain.Question;
+import seoul42.openproject.selectfood.service.MemberService;
 import seoul42.openproject.selectfood.service.RecommendService;
 
+import java.util.Optional;
+
 @RestController
+@AllArgsConstructor
 @CrossOrigin(origins = "*")
 public class RecommendController {
 
     private final RecommendService recommendService;
+    private final MemberService memberService;
 
-    @Autowired
-    public RecommendController(RecommendService recommendService) {
-        this.recommendService = recommendService;
-    }
+//    @Autowired
+//    public RecommendController(RecommendService recommendService) {
+//        this.recommendService = recommendService;
+//    }
 
     @PostMapping("/recommend-food/select")
     public String saveSelectedFood(@RequestBody PickFood pickFood) {
@@ -34,8 +41,10 @@ public class RecommendController {
     @GetMapping("/recommend-food")
     public PickFood pickFood(@RequestBody Question questions) {
         //TODO : 내장 장고 서버에 api 요청하여 데이터 받기 (일단 임시 스트링데이터 넣음)
-        //TODO : member.email 가져오기
-        PickFoodDto foodDto = recommendService.getPickFood("aa@aa.com", questions);
+        //TODO : 요청한 member.id 가져오기
+        Optional<Member> member = memberService.findId(1L);
+        // member null 일 때 예외처리
+        PickFoodDto foodDto = recommendService.getPickFood(1L, questions);
         PickFood food = foodDto.getPickFood();
         System.out.println(food.getPickFoodName1());
         System.out.println(food.getImgUrl1());
