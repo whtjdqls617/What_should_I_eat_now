@@ -12,7 +12,7 @@ const AskLike = ({ navigation, route }) => {
     <>
       <Text>좋아하는 음식이 뭐야?</Text>
 	  <ShowSearchBar />
-	  <ShowLikeFoodList />
+	  {/* <ShowLikeFoodList /> */}
 	  <Button title="다음"/>
     </>
   );
