@@ -6,7 +6,7 @@ import { Setting } from "./Setting";
 import { ShowOtherFood } from "./ShowOtherFood";
 import Loading from "./Loading";
 
-export const RecommendByAlgorithm = ({navigation}) => {
+const RecommendByAlgorithm = ({navigation}) => {
 
   const [index, setIndex] = useState(0); //index: 페이지의 인덱스
   const [data, setData] = useState([]);
@@ -45,4 +45,4 @@ export const RecommendByAlgorithm = ({navigation}) => {
   }
 }
 
-//여기서 골라볼래 페이지를 렌더링하도록 해야 함!
+export default RecommendByAlgorithm;

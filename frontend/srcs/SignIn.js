@@ -1,22 +1,46 @@
-import React from "react";
-import { Text, Button } from "react-native";
+import React, { useState } from "react";
+import { Text, Button, TextInput } from "react-native";
+import { postData } from "./func_data_communication";
+import { ip } from "./data";
+import axios from "axios";
 
 const SignIn = ({ navigation }) => {
-  //스택
-  /*
-	1. SignIn: 로그인화면, 회원가입 버튼 있는 페이지 -> 간단하게 회원가입 버튼만 만들어놓고 클릭하면 회원가입 페이지로 넘어가게 하기
-	2. SignUp: 회원가입 페이지
-	3. 질문 페이지
-	4. Main 페이지
 
-	*/
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 
-  return (
-    <>
-      <Text>SignIn.page</Text>
-	  <Button title="SignUp" onPress={() => navigation.navigate("SignUp")}/>
-    </>
-  );
+	const makePostData = (email, password) => {
+		let postData = {};
+		postData.email = email;
+		postData.password = password;
+		return postData;
+	}
+
+	return (
+		<>
+			<Text>로그인</Text>
+			<TextInput placeholder="이메일" onChangeText={(input) => setEmail(input)} />
+			<TextInput placeholder="비밀번호" onChangeText={(input) => setPassword(input)} />
+			<Button title="LOG IN" onPress={() => {
+				const data = makePostData(email, password);
+				// axios
+				// 	.get(`${ip}/signin`)
+				// 	.then(function (response) {
+				// 		if (ok면)
+				//			navigation.navigate("MainStack");
+				//		else
+				//			Alert.alert("이메일 또는 비밀번호가 바르지 않습니다.")
+				// 		})
+				// 		.catch(function (error) {
+				// 			console.log("err: ");
+				// 			console.log(error);
+				// 			return 0;
+				// 		});
+				navigation.navigate("MainStackNav");
+			}} />
+			<Button title="회원가입" onPress={() => navigation.navigate("SignUp")} />
+		</>
+	);
 };
 
 export default SignIn;

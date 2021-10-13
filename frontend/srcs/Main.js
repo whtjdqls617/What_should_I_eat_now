@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { RecommendByAlgorithm } from "./RecommendByAlgorithm";
-import { Calendar } from "./Calendar";
-import { RecommendByRandom } from "./RecommendByRandom";
-import { Setting } from "./Setting";
+import RecommendByAlgorithm from "./RecommendByAlgorithm";
+import Calendar from "./Calendar";
+import RecommendByRandom from "./RecommendByRandom";
+import SettingStackNav from "./Setting";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Button, TouchableOpacity, Image } from "react-native";
 import { icons } from "./icons";
@@ -38,7 +38,7 @@ const Main = ({ navigation }) => {
             style={styles.image7}
           ></Image>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Setting")}>
+        <TouchableOpacity onPress={() => navigation.navigate("SettingStackNav")}>
           <Image
             source={icons[2]}
             resizeMode="contain"
@@ -54,35 +54,6 @@ const Main = ({ navigation }) => {
     </View>
   );
 };
-/*
-1. eat?
-2. calendar?
-3. random
-4. settings
-*/
-
-/*
-return (
-    <>
-     <Button
-        title="RecommendByAlgorithm"
-        onPress={() => navigation.navigate("RecommendByAlgorithm", navigation)}
-      />
-      <Button
-        title="Calendar"
-        onPress={() => navigation.navigate("Calendar")}
-      />
-      <Button
-        title="RecommendByRandom"
-        onPress={() => navigation.navigate("RecommendByRandom")}
-      />
-      <Button
-        title="Setting"
-        onPress={() => navigation.navigate("Setting")}
-      />
-    </>
-  );
-*/
 
 const styles = StyleSheet.create({
   container: {

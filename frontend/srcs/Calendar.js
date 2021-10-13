@@ -1,8 +1,7 @@
 import React from 'react';
 import {Text} from 'react-native'
 
-
-export const Calendar = () => {
+const Calendar = () => {
 
 	return (
 		<>
@@ -10,3 +9,5 @@ export const Calendar = () => {
 		</>
 	);
 }
+
+export default Calendar;

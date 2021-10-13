@@ -2,7 +2,7 @@ import React from 'react';
 import {Text} from 'react-native'
 
 
-export const RecommendByRandom = () => {
+const RecommendByRandom = () => {
 
 	return (
 		<>
@@ -10,3 +10,5 @@ export const RecommendByRandom = () => {
 		</>
 	);
 }
+
+export default RecommendByRandom;
