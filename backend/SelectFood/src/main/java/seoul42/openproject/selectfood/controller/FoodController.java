@@ -1,16 +1,19 @@
 package seoul42.openproject.selectfood.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import seoul42.openproject.selectfood.domain.Food;
 import seoul42.openproject.selectfood.service.FoodService;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/food")
 public class FoodController {
 
     private final FoodService foodService;
@@ -23,12 +26,12 @@ public class FoodController {
         this.foodService = foodService;
     }
 
-    @GetMapping(value = "/food/new")
+    @GetMapping(value = "/detail")
     public String createForm() {
         return "members/createMemberForm";
     }
 
-    @PostMapping(value = "/food/new")
+    @PostMapping(value = "/detail")
     public String create(FoodForm form) {
 
         Food food = new Food();
@@ -39,7 +42,7 @@ public class FoodController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "/food")
+    @GetMapping(value = "/all")
     public String list(Model model) {
         List<Food> food = foodService.findAllFood();
         model.addAttribute("food", food);

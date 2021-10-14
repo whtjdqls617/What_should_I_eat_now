@@ -29,11 +29,8 @@ public class RecommendApiClient {
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(RecommendApiUrl_getPickFood)
                 .queryParam("id", id)
-                .queryParam("question1", question.getQuestion1())
                 .queryParam("answer1", question.getAnswer1())
-                .queryParam("question2", question.getQuestion2())
                 .queryParam("answer2", question.getAnswer2())
-                .queryParam("question3", question.getQuestion3())
                 .queryParam("answer3", question.getAnswer3());
 
 //        final HttpEntity<String> entity = new HttpEntity<>(headers);
