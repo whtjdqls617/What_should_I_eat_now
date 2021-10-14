@@ -14,8 +14,7 @@ public class Food {
     @Id @GeneratedValue
     private Long id;
     private String name;
-    private String category;
-    private String taste;
+    private String tag;
     private String ingredient;
-    private String imgUrl;
+    private String youtubeUrl;
 }

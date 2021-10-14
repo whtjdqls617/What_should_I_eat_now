@@ -42,6 +42,24 @@ public class MemberController {
         return "ok";
     }
 
+    @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정")
+    @PutMapping("/user/edit")
+    public String editUserInfo(@RequestBody Member member) {
+        return "NULL";
+    }
+
+//    @ApiOperation(value = "좋아하는 음식 리스트 변경", notes = "회원 정보 수정 중 좋아하는 음식 리스트 변경")
+//    @PutMapping("/user/edit/food/like")
+//    public String editFavoriteFood(@RequestBody ) {
+//
+//    }
+//
+//    @ApiOperation(value = "싫어하는 음식 리스트 변경", notes = "회원 정보 수정 중 싫어하는 음식 리스트 변경")
+//    @PutMapping("/user/edit/food/delike")
+//    public String editFavoriteFood() {
+//
+//    }
+
     @ApiOperation(value = "로그인", notes = "임시적인 로그인")
     @GetMapping("/signin")
     public String login(@RequestBody Member member) {

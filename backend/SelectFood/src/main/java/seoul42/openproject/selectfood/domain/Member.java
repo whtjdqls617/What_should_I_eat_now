@@ -19,5 +19,6 @@ public class Member {
     private String email;
     private String password;
     private String pickedFood;
-    private String hateFood;
+    private String likeFood;
+    private String dislikeFood;
 }
