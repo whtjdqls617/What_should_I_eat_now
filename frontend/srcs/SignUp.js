@@ -33,8 +33,6 @@ const SignUp = ({ navigation }) => {
 				}
 			}
 			const data = arrayToObject(userinfo);
-			console.log("data: ");
-			console.log(data);
 			navigation.navigate("AskLike", data);
 		}}
       />

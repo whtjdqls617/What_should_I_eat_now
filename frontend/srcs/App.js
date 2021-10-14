@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import MainStackNav from "./navigations/MainStack";
+import { MainStackNav } from "./navigations/MainStack";
 import SignInStackNav from "./navigations/SignInStack";
 import { SignIn } from "./SignIn";
 import { Text } from "react-native";

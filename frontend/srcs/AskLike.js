@@ -1,24 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, Button, TextInput } from "react-native";
 import ShowSearchBar from './ShowSearchBar';
+import ShowSelectedFoodList from './ShowSelectedFoodList';
 // import data 테이블 전체
 
 const AskLike = ({ navigation, route }) => {
 
 	const userinfo = route.params;
-
+	const [likeFoodList, setLikeFoodList] = useState([]);
 
 	return (
     <>
       <Text>좋아하는 음식이 뭐야?</Text>
-	  <ShowSearchBar />
-	  {/* <ShowLikeFoodList /> */}
-	  <Button title="다음"/>
+	  <ShowSearchBar foodList={likeFoodList} setFoodList={setLikeFoodList}/>
+	  <ShowSelectedFoodList foodList={likeFoodList} setFoodList={setLikeFoodList} />
+	  <Button title="다음" onPress={() => navigation.navigate("AskDisLike", { userinfo: userinfo, likeFoodList: likeFoodList })}/>
     </>
   );
 }
-
 // navigation.navigate("AskLike", {객체: 음식 데이터, 페이지의 이름, true})
+
 
 export default AskLike;
 
