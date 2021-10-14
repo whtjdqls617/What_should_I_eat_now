@@ -4,6 +4,7 @@ import ShowSearchBar from "./ShowSearchBar";
 import ShowSelectedFoodList from "./ShowSelectedFoodList";
 import { postData } from "./func_data_communication";
 import { ip } from "./data";
+import { arrayToObjectsInArray } from "./func_change_var_type";
 // import data 테이블 전체
 
 const AskDisLike = (props) => {
@@ -12,13 +13,20 @@ const AskDisLike = (props) => {
 	const userinfo = props.route.params.userinfo;
 	const likeFoodList = props.route.params.likeFoodList;
 	const [disLikeFoodList, setDisLikeFoodList] = useState([]);
-	
+
 	const makePostData = (userinfo, likeFoodList, disLikeFoodList) => {
 		let postData = {};
 		postData.userinfo = userinfo;
 		postData.likeFoodList = likeFoodList;
 		postData.disLikeFoodList = disLikeFoodList;
-		return postData;
+		return postData; // {userinfo: {nickname: "dfd", email: "djfkd"}, likeFoodList: ["dnehd", "dfdf"]}
+		// let str = "";
+		// array.forEach((ele) => {
+		// 	str += ele;
+		// 	str += ", ";
+		// })
+		// let post = str.slice(0, str.length - 2);
+		//{nickname: "fddf", likeFoodList: }
 	};
 
 	return (

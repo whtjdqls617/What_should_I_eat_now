@@ -17,7 +17,6 @@ const ShowSelectedFoodList = ({ foodList, setFoodList }) => {
 								title="X"
 								onPress={() => {
 									const array = ObjectsInArrayToArray(foodList);
-									foodList.forEach(food => console.log(food.food));
 									array.splice(array.indexOf(item.food), 1);
 									const newFoodList = arrayToObjectsInArray(array);
 									setFoodList(newFoodList);

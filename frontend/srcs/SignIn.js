@@ -24,12 +24,13 @@ const SignIn = ({ navigation }) => {
 			<Button title="LOG IN" onPress={() => {
 				const data = makePostData(email, password);
 				// axios
-				// 	.get(`${ip}/signin`)
+				// 	.get(`${ip}/signin`, data)
 				// 	.then(function (response) {
 				// 		if (ok면)
-				//			navigation.navigate("MainStack");
-				//		else
-				//			Alert.alert("이메일 또는 비밀번호가 바르지 않습니다.")
+				// 			asyncstorage.setItem에 토큰 저장,
+				// 			setToken();
+				// 		else
+				// 			Alert.alert("이메일 또는 비밀번호가 바르지 않습니다.")
 				// 		})
 				// 		.catch(function (error) {
 				// 			console.log("err: ");
