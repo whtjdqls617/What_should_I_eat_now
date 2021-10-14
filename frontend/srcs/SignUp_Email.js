@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { Text, TextInput, Button, View, StyleSheet } from "react-native";
+import { Text, TextInput, Button, View, StyleSheet, Alert } from "react-native";
 import Modal from "react-native-modal";
 import axios from "axios";
 import { ip } from "./data";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const SignUp_Email = ({ userinfo, setUserinfo }) => {
 
   const [email, setEmail] = useState("");
   const [opacity, setOpacity] = useState(0);
   const [isokmodalVisible, setokModalVisible] = useState(false);
+  const [buttonColor, setbuttonColor] = useState("blue");
 
   const toggleokModal = () => {
     setokModalVisible(!isokmodalVisible);
@@ -35,9 +37,15 @@ const SignUp_Email = ({ userinfo, setUserinfo }) => {
             } else setOpacity(100);
           }}
         />
-        <Button
-          title="중복확인"
+        <TouchableOpacity
+		  style={{backgroundColor: buttonColor}}
           onPress={() => {
+			if (!checkEmail(email)) {
+				Alert.alert("잘못된 이메일 형식입니다.")
+				return ;
+			}
+			else
+				setbuttonColor("gray");
             // axios
             //   .get(`${ip}/user/signup/check-email`)
             //   .then(function (response) {
@@ -53,7 +61,9 @@ const SignUp_Email = ({ userinfo, setUserinfo }) => {
             //   });
             setokModalVisible(true);
           }}
-        />
+        >
+			<Text>중복 확인</Text>
+		</TouchableOpacity>
         <Modal isVisible={isokmodalVisible} hasBackdrop={true}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>

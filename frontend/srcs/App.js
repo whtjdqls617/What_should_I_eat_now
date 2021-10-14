@@ -4,11 +4,18 @@ import { MainStackNav } from "./navigations/MainStack";
 import SignInStackNav from "./navigations/SignInStack";
 import { SignIn } from "./SignIn";
 import { Text } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [token, setToken] = useState("");
   const signIn = true;
 
+  /*
+  asyncstorage에 토큰 값이 있으면 그걸 token 가져와서
+  asyncStorage.getItem();
+  setToken
+  */
   setTimeout(() => {
     setIsLoading(false);
   }, 1000);

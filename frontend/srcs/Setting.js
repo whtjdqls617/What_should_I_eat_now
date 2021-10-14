@@ -1,41 +1,20 @@
-import React from 'react';
+import React from "react";
 import { SectionList, Text, Button } from "react-native";
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from "react-native-gesture-handler";
+import ShowFoodList from "./ShowFoodList";
+import CheckPassword from "./CheckPassword";
 
 const Setting = ({ navigation }) => {
-
-	const sections = [
-		{
-			title: "회원 정보",
-			data: [{ title: "비밀 번호 수정", destination: "EditUserInfo" }]
-		},
-		{
-			title: "음식 리스트",
-			data: [{ title: "좋아하는 음식 관리", destination: "ShowLikeFoodList" }, { title: "싫어하는 음식 관리", destination: "ShowDisLikeFoodList" }]
-		}
-	];
-
-	return (
-		<>
-			<SectionList
-				sections={sections}
-				keyExtractor={(item, index) => item + index}
-				renderItem={({ item }) => {
-
-					return (
-						<>
-							<TouchableOpacity onPress={() => navigation.navigate(item.destination)}>
-								<Button title={item.title} />
-							</TouchableOpacity>
-						</>
-					);
-				}}
-				renderSectionHeader={({ section: { title } }) => (
-					<Text>{title}</Text>
-				)}
-			/>
-		</>
-	)
-}
+  return (
+    <>
+      <TouchableOpacity onPress={() => navigation.navigate("CheckPassword")}>
+        <Text>회원정보 수정</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("ShowFoodList")}>
+        <Text>음식리스트 관리</Text>
+      </TouchableOpacity>
+    </>
+  );
+};
 
 export default Setting;
