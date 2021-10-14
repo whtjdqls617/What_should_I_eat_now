@@ -24,4 +24,7 @@ const SignInStackNav = () => {
   );
 };
 
+/*
+풀리퀘 어려워...
+*/
 export default SignInStackNav;
