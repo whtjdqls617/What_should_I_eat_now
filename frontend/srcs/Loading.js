@@ -3,11 +3,10 @@ import { Text } from "react-native";
 import { getData } from "./func_data_communication";
 import { ip } from './data';
 
-const Loading = ({setData}) => {
-
+export const Loading = ({ setData }) => {
   getData(`${ip}/recommend-food`, setData);
-  console.log('getData :');
-	console.log(setData);
+  console.log("getData :");
+  console.log(setData);
 
   return (
     <>
@@ -15,5 +14,3 @@ const Loading = ({setData}) => {
     </>
   );
 };
-
-export default Loading;

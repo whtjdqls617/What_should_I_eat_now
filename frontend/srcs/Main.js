@@ -1,14 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import RecommendByAlgorithm from "./RecommendByAlgorithm";
-import Calendar from "./Calendar";
-import RecommendByRandom from "./RecommendByRandom";
-import SettingStackNav from "./Setting";
+import { RecommendByAlgorithm } from "./RecommendByAlgorithm";
+import { Calendar } from "./Calendar";
+import { RecommendByRandom } from "./RecommendByRandom";
+import { Setting } from "./Setting";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Button, TouchableOpacity, Image } from "react-native";
 import { icons } from "./icons";
 
-const Main = ({ navigation }) => {
+export const Main = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -38,7 +38,7 @@ const Main = ({ navigation }) => {
             style={styles.image7}
           ></Image>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("SettingStackNav")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Setting")}>
           <Image
             source={icons[2]}
             resizeMode="contain"
@@ -132,5 +132,3 @@ const styles = StyleSheet.create({
     marginRight: 64,
   },
 });
-
-export default Main;

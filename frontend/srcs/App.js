@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { MainStackNav } from "./navigations/MainStack";
-import SignInStackNav from "./navigations/SignInStack";
+import { SignInStackNav } from "./navigations/SignInStack";
 import { SignIn } from "./SignIn";
 import { Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -9,7 +9,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useState("");
-  const signIn = true;
+  const [signIn, setSignIn] = useState(false);
 
   /*
   asyncstorage에 토큰 값이 있으면 그걸 token 가져와서
@@ -26,10 +26,10 @@ export default function App() {
         <Text style={{ width: 100, height: 100 }}>Loading...</Text>
       </>
     );
-  } else if (signIn == true) {
+  } else if (signIn == false) {
     return (
       <NavigationContainer>
-        <SignInStackNav />
+        <SignInStackNav setSignIn={setSignIn}/>
       </NavigationContainer>
     );
   } else

@@ -1,10 +1,10 @@
 import React from "react";
-import ShowOptions from "./ShowOptions";
+import { ShowOptions } from "./ShowOptions";
 import { data } from "./question_data";
 import { StyleSheet, Text, View } from "react-native";
 
 
-export default function AskQuestion({ index, updateIndex }) {
+export const AskQuestion = ({ index, updateIndex }) => {
 
   return (
     <View style={styles.container}>

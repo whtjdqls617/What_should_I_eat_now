@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import { View, Text, Button, TextInput, StyleSheet, Alert } from "react-native";
-import SignUp_Email from './SignUp_Email';
-import SignUp_NickName from './SignUp_NickName';
-import SignUp_PassWord from './SignUp_PassWord'
+import { SignUp_Email } from './SignUp_Email';
+import { SignUp_NickName } from './SignUp_NickName';
+import { SignUp_PassWord } from './SignUp_PassWord'
 
-const SignUp = ({ navigation }) => {
+export const SignUp = ({ navigation }) => {
 
 	const [userinfo, setUserinfo] = useState([0, 0, 0]);
 
@@ -40,7 +40,6 @@ const SignUp = ({ navigation }) => {
   );
 }
 
-export default SignUp;
 
 
 //Ask로 음식이름 데이터 넘김

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ShowOneOtherOption} from './ShowOneOtherOption';
+import { ShowOneOtherOption } from './ShowOneOtherOption';
 import { Text } from 'react-native';
 import { Pcontainer } from './style';
 // import { WebView } from "react-native-webview";

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Text, TextInput, Button, View, StyleSheet } from 'react-native';
 
-const SignUp_NickName = ({userinfo, setUserinfo}) => {
+export const SignUp_NickName = ({userinfo, setUserinfo}) => {
 
 	const [opacity, setOpacity] = useState(0);
 
@@ -44,8 +44,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   }
 });
-
-export default SignUp_NickName;
 
 /*
 1. 중복확인했을 때 입력값 == 최종적으로 입력되어 있는 값 ->

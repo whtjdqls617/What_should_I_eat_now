@@ -5,7 +5,7 @@ import axios from "axios";
 import { ip } from "./data";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const SignUp_Email = ({ userinfo, setUserinfo }) => {
+export const SignUp_Email = ({ userinfo, setUserinfo }) => {
 
   const [email, setEmail] = useState("");
   const [opacity, setOpacity] = useState(0);
@@ -122,5 +122,3 @@ const styles = StyleSheet.create({
     backgroundColor: "#F194FF",
   },
 });
-
-export default SignUp_Email;
