@@ -4,7 +4,8 @@ import { postData } from "./func_data_communication";
 import { ip } from "./data";
 import axios from "axios";
 
-const SignIn = ({ navigation }) => {
+export const SignIn = ({ navigation, setSignIn }) => {
+
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -37,13 +38,13 @@ const SignIn = ({ navigation }) => {
 				// 			console.log(error);
 				// 			return 0;
 				// 		});
-				navigation.navigate("MainStackNav");
+				// navigation.navigate("MainStackNav");
+				setSignIn(true);
 			}} />
 			<Button title="회원가입" onPress={() => navigation.navigate("SignUp")} />
 		</>
 	);
 };
 
-export default SignIn;
 
 //SignUp으로 음식 이름 데이터 넘기고

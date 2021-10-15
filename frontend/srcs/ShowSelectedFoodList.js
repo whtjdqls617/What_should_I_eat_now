@@ -2,7 +2,7 @@ import React from "react";
 import { FlatList, Text, Button } from "react-native";
 import { ObjectsInArrayToArray, arrayToObjectsInArray } from "./func_change_var_type";
 
-const ShowSelectedFoodList = ({ foodList, setFoodList }) => {
+export const ShowSelectedFoodList = ({ foodList, setFoodList }) => {
 
 	return (
 		<>
@@ -20,12 +20,11 @@ const ShowSelectedFoodList = ({ foodList, setFoodList }) => {
 									array.splice(array.indexOf(item.food), 1);
 									const newFoodList = arrayToObjectsInArray(array);
 									setFoodList(newFoodList);
-								}} />
+								}}
+								/>
 						</>
 					);
 				}} />
 		</>
 	);
 }
-
-export default ShowSelectedFoodList;

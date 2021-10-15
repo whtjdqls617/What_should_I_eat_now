@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { TextInput, Button, View } from 'react-native';
 import { food_name } from './data';
-import ShowSearchPreview from './ShowSearchPreview';
+import { ShowSearchPreview } from './ShowSearchPreview';
 import { arrayToObjectsInArray } from './func_change_var_type';
 
-const ShowSearchBar = ({ foodList, setFoodList }) => {
+export const ShowSearchBar = ({ foodList, setFoodList }) => {
 
 	const [previewFood, setPreviewFood] = useState([]);
 	const [value, setValue] = useState("");
@@ -39,5 +39,3 @@ const ShowSearchBar = ({ foodList, setFoodList }) => {
 		</>
 	);
 }
-
-export default ShowSearchBar;

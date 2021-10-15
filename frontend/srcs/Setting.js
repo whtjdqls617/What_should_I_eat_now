@@ -1,10 +1,10 @@
 import React from "react";
 import { SectionList, Text, Button } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import ShowFoodList from "./ShowFoodList";
-import CheckPassword from "./CheckPassword";
+import { ShowFoodList } from "./ShowFoodList";
+import { CheckPassword } from "./CheckPassword";
 
-const Setting = ({ navigation }) => {
+export const Setting = ({ navigation }) => {
   return (
     <>
       <TouchableOpacity onPress={() => navigation.navigate("CheckPassword")}>
@@ -16,5 +16,3 @@ const Setting = ({ navigation }) => {
     </>
   );
 };
-
-export default Setting;

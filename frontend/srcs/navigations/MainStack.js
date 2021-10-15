@@ -1,10 +1,14 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import SettingStackNav from "./SettingStack";
-import RecommendByRandom from "../RecommendByRandom";
-import RecommendByAlgorithm from "../RecommendByAlgorithm";
-import Calendar from "../Calendar";
-import Main from "../Main";
+// import SettingStackNav from "./SettingStack";
+import { RecommendByRandom } from "../RecommendByRandom";
+import { RecommendByAlgorithm } from "../RecommendByAlgorithm";
+import { Calendar } from "../Calendar";
+import { Main } from "../Main";
+import { Setting } from "../Setting";
+import { CheckPassword } from "../CheckPassword";
+import { EditPassword } from "../EditPassword";
+import { ShowFoodList } from "../ShowFoodList";
 
 const MainStack = createStackNavigator();
 
@@ -15,11 +19,14 @@ export const MainStackNav = () => {
 			headerShown: true
 	  }}>
       <MainStack.Screen name="Main" component={Main} />
-      <MainStack.Screen name="SettingStackNav" component={SettingStackNav} />
+      {/* <MainStack.Screen name="SettingStackNav" component={SettingStackNav} /> */}
 	  <MainStack.Screen name="RecommendByAlgorithm" component={RecommendByAlgorithm} />
-      <MainStack.Screen name="RecommendByRandom" component={RecommendByRandom} />
       <MainStack.Screen name="Calendar" component={Calendar} />
+      <MainStack.Screen name="RecommendByRandom" component={RecommendByRandom} />
+      <MainStack.Screen name="Setting" component={Setting} />
+      <MainStack.Screen name="CheckPassword" component={CheckPassword} />
+      <MainStack.Screen name="EditPassword" component={EditPassword} />
+      <MainStack.Screen name="ShowFoodList" component={ShowFoodList} />
     </MainStack.Navigator>
   );
 };
-

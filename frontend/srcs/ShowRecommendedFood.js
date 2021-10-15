@@ -6,7 +6,7 @@ import { ip } from "./data";
 import { StyledImage } from "./style";
 
 
-export default function ShowRecommendedFood({data, updateIndex, navigation}) {
+export const ShowRecommendedFood = ( {data, updateIndex, navigation} ) => {
 
   const imgUrl = "https://reactjs.org/logo-og.png";
 

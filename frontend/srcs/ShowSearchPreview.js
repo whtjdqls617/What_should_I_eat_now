@@ -1,7 +1,8 @@
 import React, { useCallback } from "react";
 import { FlatList, Text, TouchableOpacity } from "react-native";
 import { ObjectsInArrayToArray, arrayToObjectsInArray } from "./func_change_var_type";
-const ShowSearchPreview = ({ input, previewFood, foodList, setFoodList }) => {
+
+export const ShowSearchPreview = ({ input, previewFood, foodList, setFoodList }) => {
 
 	if (input.length > 0)
 		return (
@@ -31,6 +32,3 @@ const ShowSearchPreview = ({ input, previewFood, foodList, setFoodList }) => {
 		);
 	return null;
 }
-
-export default ShowSearchPreview;
-

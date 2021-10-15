@@ -1,9 +1,9 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Setting from "../Setting";
-import CheckPassword from "../CheckPassword";
-import EditPassword from "../EditPassword";
-import ShowFoodList from "../ShowFoodList";
+import { Setting } from "../Setting";
+import { CheckPassword } from "../CheckPassword";
+import { EditPassword } from "../EditPassword";
+import { ShowFoodList } from "../ShowFoodList";
 import { MainStackNav } from "./MainStack";
 import { Text } from "react-native";
 

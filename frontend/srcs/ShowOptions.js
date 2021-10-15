@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { Text, Button, style, View, StyleSheet } from "react-native";
 import { NextButton } from "./Button";
 import { opts } from "./icons";
-import ShowOneOption from "./ShowOneOption";
+import { ShowOneOption } from "./ShowOneOption";
 
-export default function ShowOptions({ index, data, updateIndex }) {
+export const ShowOptions = ({ index, data, updateIndex }) => {
   const [answer, setAnswer] = useState([0, 0, 0]);
 
   const selectOption = (array) => {
     const new_answer = answer.slice();
-    if (index < new_answer.length) new_answer.splice(index, 1, array);
-    else new_answer.push(array);
+    if (new_answer[index][1] == array[1])
+      new_answer.splice(index, 1, 0);
+    else
+      new_answer.splice(index, 1, array); //교체
     setAnswer(new_answer);
   };
 

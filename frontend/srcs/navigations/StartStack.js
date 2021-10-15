@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import MainStack  from './MainStack';
+import { MainStack } from './MainStack';
 import { SignIn } from '../SignIn';
 
 
@@ -18,16 +18,15 @@ import { SignIn } from '../SignIn';
 
 const StartStack = createStackNavigator();
 
-const StartStackNav = () => {
+export const StartStackNav = () => {
   return (
     <StartStack.Navigator
       screenOptions={{
         headerShown: false,
-	  }}>
-      <StartStack.Screen name="MainStack" component={MainStack}/>
+      }}
+    >
+      <StartStack.Screen name="MainStack" component={MainStack} />
       <StartStack.Screen name="SignIn" component={SignIn} />
     </StartStack.Navigator>
   );
 };
-
-export default StartStackNav;

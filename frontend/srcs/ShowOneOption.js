@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { opts } from "./icons";
 import { StyledView, StyledImage, StyledOptionText } from "./style";
 
-export default function ShowOneOption({ array, image, selectOption, lightEffect, imgStyle }) {
+export const ShowOneOption = ({ array, image, selectOption, lightEffect, imgStyle }) => {
 
   const onPress = () => {
     selectOption(array);

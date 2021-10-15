@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Alert, Button, Text } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
-const EditPassword = ({ navigation }) => {
+export const EditPassword = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [samePassword, setSamePassword] = useState("");
   const [firstopacity, setfirstOpacity] = useState(0);
@@ -58,21 +58,18 @@ const EditPassword = ({ navigation }) => {
       <Button
         title="다음"
         onPress={() => {
-		   if(samePassword.length > 0)
-			/*
+          if (samePassword.length > 0)
+            /*
 			axios.put(url, password)
 			.then
 				navigation.navigate("EditPassword");
 			.error
 				Alert.alert("잘못된 비밀번호입니다.")
 			*/
-				navigation.navigate("Setting");
-			else
-				Alert.alert("비밀번호를 다시 입력해주세요.");
+            navigation.navigate("Setting");
+          else Alert.alert("비밀번호를 다시 입력해주세요.");
         }}
       />
     </>
   );
 };
-
-export default EditPassword;

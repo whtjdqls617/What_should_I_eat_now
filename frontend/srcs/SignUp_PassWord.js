@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text, TextInput, Button, View } from "react-native";
 
-const SignUp_PassWord = ({ userinfo, setUserinfo }) => {
+export const SignUp_PassWord = ({ userinfo, setUserinfo }) => {
   const [password, setPassword] = useState("");
   const [firstopacity, setfirstOpacity] = useState(0);
   const [secondopacity, setsecondOpacity] = useState(0);
@@ -56,5 +56,3 @@ const SignUp_PassWord = ({ userinfo, setUserinfo }) => {
     </>
   );
 };
-
-export default SignUp_PassWord;
