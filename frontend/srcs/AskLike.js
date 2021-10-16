@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
-import { Text, Button, TextInput } from "react-native";
-import { ShowSearchBar } from './ShowSearchBar';
-import { ShowSelectedFoodList } from './ShowSelectedFoodList';
+import React, { useState } from "react";
+import {
+  Text,
+  Button,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  View,
+} from "react-native";
+import { ShowSearchBar } from "./ShowSearchBar";
+import { ShowSelectedFoodList } from "./ShowSelectedFoodList";
 // import data 테이블 전체
 
 export const AskLike = ({ navigation, route }) => {
@@ -9,28 +16,40 @@ export const AskLike = ({ navigation, route }) => {
   const [likeFoodList, setLikeFoodList] = useState([]);
 
   return (
-    <>
-      <Text>좋아하는 음식이 뭐야?</Text>
-      <ShowSearchBar foodList={likeFoodList} setFoodList={setLikeFoodList} />
+    <View style={styles.container}>
+      <Text style={{ fontSize: 30, marginLeft : '5%' }}>좋아하는 음식이 뭐야?</Text>
+      <View style={styles.seachbar}>
+        <ShowSearchBar foodList={likeFoodList} setFoodList={setLikeFoodList} />
+      </View>
       <ShowSelectedFoodList
         foodList={likeFoodList}
         setFoodList={setLikeFoodList}
       />
-      <Button
-        title="다음"
-        onPress={() =>
-          navigation.navigate("AskDisLike", {
-            userinfo: userinfo,
-            likeFoodList: likeFoodList,
-          })
-        }
-      />
-    </>
+      <View style={styles.buttonalign}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "orange",
+            alignItems: "center",
+            height: 55,
+            width: 100,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 30,
+          }}
+          onPress={() =>
+            navigation.navigate("AskDisLike", {
+              userinfo: userinfo,
+              likeFoodList: likeFoodList,
+            })
+          }
+        >
+          <Text style={{ fontSize: 20, color: "white" }}>다음</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 // navigation.navigate("AskLike", {객체: 음식 데이터, 페이지의 이름, true})
-
-
 
 /*
 1. 좋아하는 음식이 뭐야?
@@ -42,3 +61,23 @@ export const AskLike = ({ navigation, route }) => {
 	- <Button>: 다음 페이지로 넘어감
 
 */
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+	marginTop : '10%'
+  },
+  inputalign: {
+    flexDirection: "row",
+  },
+  buttonalign: {
+    flex: 0.4,
+    margin: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  seachbar: {
+	position :'relative',
+	alignItems : 'center'
+  }
+});

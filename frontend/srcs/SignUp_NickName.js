@@ -15,7 +15,7 @@ export const SignUp_NickName = ({userinfo, setUserinfo}) => {
 	return (
 		<>
 			<View style={styles.nicknamerow}>
-				<TextInput placeholder="닉네임" onChangeText={(input) => {
+				<TextInput style={styles.textinput} placeholder="닉네임" onChangeText={(input) => {
 					if (checkNickname(input)){
 						let copy = userinfo.slice();
 						copy.splice(0, 1, input);
@@ -31,7 +31,7 @@ export const SignUp_NickName = ({userinfo, setUserinfo}) => {
 				}}/>
 
 			</View>
-			<Text style={{ opacity : opacity }}>닉네임은 두 글자 이상 적어주세요.</Text>
+			<Text style={{ opacity : opacity, marginLeft : '3%', color : 'red' }}>닉네임은 두 글자 이상 적어주세요.</Text>
 		</>
 	);
 }
@@ -42,7 +42,16 @@ const styles = StyleSheet.create({
   },
   nicknamerow: {
     flexDirection: "row",
-  }
+  },
+  textinput: {
+    margin: 8,
+    width: 200,
+    height: 40,
+    borderWidth: 0.5,
+    borderRadius: 5,
+	paddingHorizontal : '2%'
+	// textAlign: 'le',
+  },
 });
 
 /*

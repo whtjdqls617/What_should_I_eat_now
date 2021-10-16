@@ -1,22 +1,25 @@
-import React, { useCallback } from "react";
+import React, { useState } from "react";
 import { FlatList, Text, TouchableOpacity } from "react-native";
 import { ObjectsInArrayToArray, arrayToObjectsInArray } from "./func_change_var_type";
 
 export const ShowSearchPreview = ({ input, previewFood, foodList, setFoodList }) => {
 
-	if (input.length > 0)
+	if (input.length > 0  && previewFood.length > 0)
 		return (
 			<>
 				<FlatList
 					data={previewFood}
 					initialNumToRender={5}
+					style={{ width : '80%', borderWidth: 1, borderColor: 'gray', marginStart : -2}}
 					// initialScrollIndex={3}
 					// getItemLayout={(data, index) => (
 					// 	{ length: 200, offset: 200 * index, index }
 					// )}
 					renderItem={({ item }) => {
 						return (
-							<TouchableOpacity onPress={() => {
+							<TouchableOpacity
+							style = {{ margin : 5}}
+							onPress={() => {
 								const array = ObjectsInArrayToArray(foodList);
 								if (!array.includes(item.food)) {
 									array.push(item.food);
@@ -24,7 +27,7 @@ export const ShowSearchPreview = ({ input, previewFood, foodList, setFoodList })
 									setFoodList(newFoodList);
 								}
 							}}>
-								<Text>{item.food}</Text>
+								<Text style={{fontSize : 16}}>{item.food}</Text>
 							</TouchableOpacity>
 						);
 					}} />

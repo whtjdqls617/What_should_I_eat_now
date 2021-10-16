@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, TextInput, Button, View } from "react-native";
+import { Text, TextInput, Button, View, StyleSheet } from "react-native";
 
 export const SignUp_PassWord = ({ userinfo, setUserinfo }) => {
   const [password, setPassword] = useState("");
@@ -19,6 +19,7 @@ export const SignUp_PassWord = ({ userinfo, setUserinfo }) => {
   return (
     <>
       <TextInput
+        style={styles.textinput}
         placeholder="비밀번호"
         onChangeText={(input) => {
           let copy = userinfo.slice();
@@ -33,8 +34,11 @@ export const SignUp_PassWord = ({ userinfo, setUserinfo }) => {
           }
         }}
       />
-      <Text style={{ opacity: firstopacity }}>잘못된 비밀번호 형식입니다.</Text>
+      <Text style={{ opacity: firstopacity, marginLeft: "3%", color: "red" }}>
+        잘못된 비밀번호 형식입니다.
+      </Text>
       <TextInput
+        style={styles.textinput}
         placeholder="비밀번호 확인"
         onChangeText={(input) => {
           if (checkSamePassword(input)) {
@@ -50,9 +54,36 @@ export const SignUp_PassWord = ({ userinfo, setUserinfo }) => {
           }
         }}
       />
-      <Text style={{ opacity: secondopacity }}>
+      <Text style={{ opacity: secondopacity, marginLeft: "3%", color: "red" }}>
         비밀번호를 다시 확인해주세요.
       </Text>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 20,
+  },
+  textinput: {
+    margin: 8,
+    width: 200,
+    height: 40,
+    borderWidth: 0.5,
+    borderRadius: 5,
+    paddingHorizontal: "2%",
+  },
+  textinputcolumn: {
+    flex: 0.4,
+    justifyContent: "center",
+  },
+  buttonstyle: {
+    height: 40,
+    width: 110,
+    backgroundColor: "orange",
+    shadowColor: "black",
+    borderRadius: 40,
+    margin: 15,
+    justifyContent: "center",
+  },
+});

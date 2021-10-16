@@ -1,24 +1,21 @@
 import React, { useState } from "react";
-import { Text, TextInput, Button, View, StyleSheet, Alert } from "react-native";
+import { Text, TextInput, Button, View, StyleSheet, Alert, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
 import axios from "axios";
 import { ip } from "./data";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 export const SignUp_Email = ({ userinfo, setUserinfo }) => {
-
   const [email, setEmail] = useState("");
   const [opacity, setOpacity] = useState(0);
   const [isokmodalVisible, setokModalVisible] = useState(false);
-  const [buttonColor, setbuttonColor] = useState("blue");
+  const [buttonColor, setbuttonColor] = useState("orange");
 
   const toggleokModal = () => {
     setokModalVisible(!isokmodalVisible);
   };
 
   const checkEmail = (input) => {
-    if (input.includes("@") && input.includes("."))
-		return true;
+    if (input.includes("@") && input.includes(".")) return true;
     return false;
   };
 
@@ -26,6 +23,7 @@ export const SignUp_Email = ({ userinfo, setUserinfo }) => {
     <>
       <View style={styles.emailrow}>
         <TextInput
+          style={styles.textinput}
           placeholder="이메일"
           onChangeText={(input) => {
             let copy = userinfo.slice();
@@ -35,17 +33,24 @@ export const SignUp_Email = ({ userinfo, setUserinfo }) => {
             if (checkEmail(input)) {
               setOpacity(0);
             } else setOpacity(100);
+            setbuttonColor("orange");
           }}
         />
         <TouchableOpacity
-		  style={{backgroundColor: buttonColor}}
+          style={{
+            backgroundColor: buttonColor,
+            borderRadius: 4,
+            height: 30,
+            width: 60,
+            margin: 10,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
           onPress={() => {
-			if (!checkEmail(email)) {
-				Alert.alert("잘못된 이메일 형식입니다.")
-				return ;
-			}
-			else
-				setbuttonColor("gray");
+            if (!checkEmail(email)) {
+              Alert.alert("잘못된 이메일 형식입니다.");
+              return;
+            } else setbuttonColor("gray");
             // axios
             //   .get(`${ip}/user/signup/check-email`)
             //   .then(function (response) {
@@ -62,14 +67,15 @@ export const SignUp_Email = ({ userinfo, setUserinfo }) => {
             setokModalVisible(true);
           }}
         >
-			<Text>중복 확인</Text>
-		</TouchableOpacity>
+          <Text style={{ color: "white" }}>중복 확인</Text>
+        </TouchableOpacity>
         <Modal isVisible={isokmodalVisible} hasBackdrop={true}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text>사용 가능한 이메일입니다.</Text>
-              <Button
-                title="확인"
+              <Text style={{ margin: 25, fontSize: 16 }}>
+                사용 가능한 이메일입니다.
+              </Text>
+              <TouchableOpacity
                 onPress={() => {
                   let copy = userinfo.slice();
                   copy.splice(1, 1, email);
@@ -77,12 +83,16 @@ export const SignUp_Email = ({ userinfo, setUserinfo }) => {
                   toggleokModal();
                 }}
                 style={styles.button}
-              />
+              >
+                <Text style={{ color: "white" }}>확인</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>
       </View>
-      <Text style={{ opacity: opacity }}>잘못된 이메일 형식입니다.</Text>
+      <Text style={{ opacity: opacity, marginLeft: "3%", color: "red" }}>
+        잘못된 이메일 형식입니다.
+      </Text>
     </>
   );
 };
@@ -93,6 +103,7 @@ const styles = StyleSheet.create({
   },
   emailrow: {
     flexDirection: "row",
+    alignItems: "center",
   },
   centeredView: {
     flex: 1,
@@ -101,24 +112,43 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    flexDirection: "row",
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 70,
-    shadowColor: "black",
-    shadowOffset: {
-      width: 20,
-      height: 2,
-    },
-    shadowOpacity: 0.8,
-    shadowRadius: 1,
-    elevation: 5,
-    justifyContent: "space-around",
+    padding: 20,
+    alignItems: "center",
   },
   button: {
+    height: 30,
+    width: 60,
     borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    backgroundColor: "#F194FF",
+    // padding: 10,
+    backgroundColor: "orange",
+    justifyContent: "center",
+    alignItems: "center",
   },
+  text: {
+    fontSize: 20,
+  },
+  textinput: {
+    margin: 8,
+    width: 200,
+    height: 40,
+    borderWidth: 0.5,
+    borderRadius: 5,
+    paddingHorizontal: "2%",
+  },
+  textinputcolumn: {
+    flex: 0.4,
+    justifyContent: "center",
+  },
+  buttonstyle: {
+    height: 40,
+    width: 110,
+    backgroundColor: "orange",
+    shadowColor: "black",
+    borderRadius: 40,
+    margin: 15,
+    justifyContent: "center",
+  },
+  duplicatedbutton: {},
 });
