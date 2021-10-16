@@ -11,6 +11,12 @@ export default function App() {
   const [token, setToken] = useState("");
   const [signIn, setSignIn] = useState(false);
 
+  const MyTheme = {
+    dark: false,
+    colors: {
+      background: "white",
+    },
+  };
   /*
   asyncstorage에 토큰 값이 있으면 그걸 token 가져와서
   asyncStorage.getItem();
@@ -28,13 +34,13 @@ export default function App() {
     );
   } else if (signIn == false) {
     return (
-      <NavigationContainer>
+      <NavigationContainer theme={MyTheme}>
         <SignInStackNav setSignIn={setSignIn}/>
       </NavigationContainer>
     );
   } else
     return (
-      <NavigationContainer>
+      <NavigationContainer theme={MyTheme}>
         <MainStackNav />
       </NavigationContainer>
     );
