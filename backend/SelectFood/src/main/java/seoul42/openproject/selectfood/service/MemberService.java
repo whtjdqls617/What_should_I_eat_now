@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seoul42.openproject.selectfood.domain.Member;
+import seoul42.openproject.selectfood.dto.MemberEditDto;
 import seoul42.openproject.selectfood.repository.MemberRepository;
 
 import java.util.List;
@@ -48,5 +49,27 @@ public class MemberService {
 
     public Optional<Member> findEmail(String email) {
         return memberRepository.findByEmail(email);
+    }
+
+    public Long updateLikeFood(MemberEditDto memberEditDto) {
+        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
+        member.ifPresent(member1 -> {
+            member1.setLikeFood(memberEditDto.getLikeFood());
+            memberRepository.save(member1);
+        });
+        if (member.isPresent())
+            return member.get().getId();
+        return -1L;
+    }
+
+    public Long updateDislikeFood(MemberEditDto memberEditDto) {
+        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
+        member.ifPresent(member1 -> {
+            member1.setDislikeFood(memberEditDto.getDislikeFood());
+            memberRepository.save(member1);
+        });
+        if (member.isPresent())
+            return member.get().getId();
+        return -1L;
     }
 }

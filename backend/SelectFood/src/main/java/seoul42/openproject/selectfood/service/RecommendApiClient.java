@@ -1,25 +1,18 @@
 package seoul42.openproject.selectfood.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import seoul42.openproject.selectfood.domain.PickFood;
-import seoul42.openproject.selectfood.domain.PickFoodDto;
+import seoul42.openproject.selectfood.dto.PickFoodDto;
 import seoul42.openproject.selectfood.domain.Question;
-
-import java.nio.charset.StandardCharsets;
 
 @RequiredArgsConstructor
 @Service
 public class RecommendApiClient {
 
     private final RestTemplate restTemplate;
-    private String RecommendApiUrl_getPickFood = "http://localhost:8080/rest/pick-food";
+    private String RecommendApiUrl_getPickFood = "http://localhost:1337/rest/pick-food";
 
     public PickFoodDto requestPickFood(Long id, Question question) {
 

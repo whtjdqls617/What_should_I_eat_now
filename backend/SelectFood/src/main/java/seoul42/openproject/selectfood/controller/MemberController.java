@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import seoul42.openproject.selectfood.domain.Member;
+import seoul42.openproject.selectfood.dto.MemberEditDto;
 import seoul42.openproject.selectfood.service.MemberService;
 
 import java.util.Optional;
@@ -24,6 +25,7 @@ public class MemberController {
         return "ok";
     }
 
+//    나중에 사용할 수도 있음
 //    @GetMapping("/user/signup/check-nickname/{nickName}")
 //    public String checkNickName(@RequestParam String nickName) {
 //        Optional<Member> member = memberService.validateDuplicateNickName(nickName);
@@ -42,23 +44,44 @@ public class MemberController {
         return "ok";
     }
 
-    @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정")
-    @PutMapping("/user/edit")
-    public String editUserInfo(@RequestBody Member member) {
-        return "NULL";
+//    @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정")
+//    @PutMapping("/user/edit")
+//    public String editUserInfo(@RequestBody Member member) {
+//        memberService.
+//        return "ok";
+//    }
+
+    @ApiOperation(value = "좋아하는 음식 리스트 클라이언트로 보내기", notes = "회원 정보 수정 중 좋아하는 음식 리스트 변경")
+    @GetMapping("/user/edit/food/like")
+    public String getLikeFood(@RequestBody Member member) {
+        Optional<Member> memberForLike = memberService.findEmail(member.getEmail());
+        return memberForLike.get().getLikeFood();
     }
 
-//    @ApiOperation(value = "좋아하는 음식 리스트 변경", notes = "회원 정보 수정 중 좋아하는 음식 리스트 변경")
-//    @PutMapping("/user/edit/food/like")
-//    public String editFavoriteFood(@RequestBody ) {
-//
-//    }
-//
-//    @ApiOperation(value = "싫어하는 음식 리스트 변경", notes = "회원 정보 수정 중 싫어하는 음식 리스트 변경")
-//    @PutMapping("/user/edit/food/delike")
-//    public String editFavoriteFood() {
-//
-//    }
+    @ApiOperation(value = "좋아하는 음식 리스트 변경", notes = "회원 정보 수정 중 좋아하는 음식 리스트 변경")
+    @PutMapping("/user/edit/food/like")
+    public String editLikeFood(@RequestBody MemberEditDto memberEditDto) {
+        Long memberId = memberService.updateLikeFood(memberEditDto);
+        if (memberId > 0)
+            return "ok";
+        return "fail";
+    }
+
+    @ApiOperation(value = "싫어하는 음식 리스트 클라이언트로 보내기", notes = "회원 정보 수정 중 싫어하는 음식 리스트 변경")
+    @GetMapping("/user/edit/food/dislike")
+    public String getDislikeFood(@RequestBody Member member) {
+        Optional<Member> memberForDislike = memberService.findEmail(member.getEmail());
+        return memberForDislike.get().getDislikeFood();
+    }
+
+    @ApiOperation(value = "싫어하는 음식 리스트 변경", notes = "회원 정보 수정 중 싫어하는 음식 리스트 변경")
+    @PutMapping("/user/edit/food/dislike")
+    public String editDislikeFood(@RequestBody MemberEditDto memberEditDto) {
+        Long memberId = memberService.updateDislikeFood(memberEditDto);
+        if (memberId > 0)
+            return "ok";
+        return "fail";
+    }
 
     @ApiOperation(value = "로그인", notes = "임시적인 로그인")
     @GetMapping("/signin")

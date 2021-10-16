@@ -1,3 +1,4 @@
+insert into member values (1, 'nick', 'aa@bb.com','1234','','만두','간장');
 insert into food values (1, '소막창구이','회식, 술이땡김, 고소한맛','소, 내장','https://www.youtube.com/watch?v=TAVE8IHAnHc&t=58s');
 insert into food values (2, '돼지막창구이','회식, 술이땡김, 고소한맛','돼지, 내장','https://www.youtube.com/watch?v=TAVE8IHAnHc&t=58s');
 insert into food values (3, '소곱창구이','회식, 술이땡김, 고소한맛','소, 내장','https://www.youtube.com/watch?v=TAVE8IHAnHc&t=58s');

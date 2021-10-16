@@ -1,8 +1,9 @@
-package seoul42.openproject.selectfood.domain;
+package seoul42.openproject.selectfood.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import seoul42.openproject.selectfood.domain.PickFood;
 
 import java.util.List;
 

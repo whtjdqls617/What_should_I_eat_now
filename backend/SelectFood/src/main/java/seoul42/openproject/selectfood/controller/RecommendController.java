@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import seoul42.openproject.selectfood.domain.Member;
 import seoul42.openproject.selectfood.domain.PickFood;
-import seoul42.openproject.selectfood.domain.PickFoodDto;
+import seoul42.openproject.selectfood.dto.PickFoodDto;
 import seoul42.openproject.selectfood.domain.Question;
 import seoul42.openproject.selectfood.service.MemberService;
 import seoul42.openproject.selectfood.service.RecommendService;
