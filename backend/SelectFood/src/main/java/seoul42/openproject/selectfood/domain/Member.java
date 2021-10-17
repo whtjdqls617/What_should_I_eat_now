@@ -4,16 +4,15 @@ package seoul42.openproject.selectfood.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter @Setter
 public class Member {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id
+    @SequenceGenerator(name="seq-gen",sequenceName="MY_SEQ_GEN", initialValue = 10)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="seq-gen")
     private Long id;
     private String nickName;
     private String email;
