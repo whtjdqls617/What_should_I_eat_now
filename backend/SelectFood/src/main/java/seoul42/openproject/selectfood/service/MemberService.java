@@ -54,7 +54,7 @@ public class MemberService {
     public Long updateLikeFood(MemberEditDto memberEditDto) {
         Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
         member.ifPresent(member1 -> {
-            member1.setLikeFood(memberEditDto.getLikeFood());
+            member1.setLikeFoodList(memberEditDto.getLikeFood());
             memberRepository.save(member1);
         });
         if (member.isPresent())
@@ -65,7 +65,7 @@ public class MemberService {
     public Long updateDislikeFood(MemberEditDto memberEditDto) {
         Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
         member.ifPresent(member1 -> {
-            member1.setDislikeFood(memberEditDto.getDislikeFood());
+            member1.setDislikeFoodList(memberEditDto.getDislikeFood());
             memberRepository.save(member1);
         });
         if (member.isPresent())

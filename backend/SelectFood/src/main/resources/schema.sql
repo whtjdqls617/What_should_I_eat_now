@@ -17,9 +17,9 @@ CREATE TABLE MEMBER
     NICK_NAME varchar (100) NOT NULL,
     EMAIL varchar(100) NOT NULL,
     PASSWORD varchar(100) NOT NULL,
-    PICKED_FOOD varchar(200),
-    LIKE_FOOD varchar(200),
-    DISLIKE_FOOD varchar(200)
+    PICKED_FOOD_LIST varchar(200),
+    LIKE_FOOD_LIST varchar(200),
+    DISLIKE_FOOD_LIST varchar(200)
 );
 
 CREATE TABLE SELECTED_FOOD

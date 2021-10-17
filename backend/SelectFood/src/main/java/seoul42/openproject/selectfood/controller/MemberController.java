@@ -55,7 +55,7 @@ public class MemberController {
     @GetMapping("/user/edit/food/like")
     public String getLikeFood(@RequestBody Member member) {
         Optional<Member> memberForLike = memberService.findEmail(member.getEmail());
-        return memberForLike.get().getLikeFood();
+        return memberForLike.get().getLikeFoodList();
     }
 
     @ApiOperation(value = "좋아하는 음식 리스트 변경", notes = "회원 정보 수정 중 좋아하는 음식 리스트 변경")
@@ -71,7 +71,7 @@ public class MemberController {
     @GetMapping("/user/edit/food/dislike")
     public String getDislikeFood(@RequestBody Member member) {
         Optional<Member> memberForDislike = memberService.findEmail(member.getEmail());
-        return memberForDislike.get().getDislikeFood();
+        return memberForDislike.get().getDislikeFoodList();
     }
 
     @ApiOperation(value = "싫어하는 음식 리스트 변경", notes = "회원 정보 수정 중 싫어하는 음식 리스트 변경")

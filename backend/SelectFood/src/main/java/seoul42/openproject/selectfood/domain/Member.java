@@ -18,7 +18,7 @@ public class Member {
     private String nickName;
     private String email;
     private String password;
-    private String pickedFood;
-    private String likeFood;
-    private String dislikeFood;
+    private String pickedFoodList;
+    private String likeFoodList;
+    private String dislikeFoodList;
 }

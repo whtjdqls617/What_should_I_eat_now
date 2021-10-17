@@ -3,6 +3,7 @@ package seoul42.openproject.selectfood.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import seoul42.openproject.selectfood.domain.Member;
@@ -44,7 +45,7 @@ public class RecommendController {
     // 받는 형식 : {"email":"aaa@gmail.com","name1":"음식이름1","imgurl1":"http://"}:
     @ApiOperation(value = "추천음식 데이터 요청 처리", notes = "질문 답변 데이터 받고 이에 따른 음식추천결과 전송")
     @GetMapping("/")
-    public List<PickFood> pickFood(@ApiParam(value = "답변들", required = true) @RequestBody Question questions) {
+    public List<PickFood> pickFood(@RequestBody Question questions) {
         //TODO : 내장 장고 서버에 api 요청하여 데이터 받기 (일단 임시 스트링데이터 넣음)
         //TODO : 요청한 member.id 가져오기
         Optional<Member> member = memberService.findId(1L);
