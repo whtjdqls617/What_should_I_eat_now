@@ -61,8 +61,8 @@ public class MemberController {
     // swagger 에서 테스트 안되니 불편하구만
     @ApiOperation(value = "좋아하는 음식 리스트 클라이언트로 보내기", notes = "회원 정보 수정 중 좋아하는 음식 리스트 변경")
     @GetMapping("/edit/food/like")
-    public SingleResult<String> getLikeFood(@RequestBody Member member) throws Exception {
-        Optional<Member> memberForLike = memberService.findEmail(member.getEmail());
+    public SingleResult<String> getLikeFood(@RequestParam String email) throws Exception {
+        Optional<Member> memberForLike = memberService.findEmail(email);
 //        return memberForLike.get().getLikeFoodList();
         return commonResponseService.getSingleResult(memberForLike.orElseThrow(Exception::new).getDislikeFoodList());
     }
@@ -78,8 +78,8 @@ public class MemberController {
 
     @ApiOperation(value = "싫어하는 음식 리스트 클라이언트로 보내기", notes = "회원 정보 수정 중 싫어하는 음식 리스트 변경")
     @GetMapping("/edit/food/dislike")
-    public SingleResult<String> getDislikeFood(@RequestBody Member member) throws Exception {
-        Optional<Member> memberForDislike = memberService.findEmail(member.getEmail());
+    public SingleResult<String> getDislikeFood(@RequestParam String email) throws Exception {
+        Optional<Member> memberForDislike = memberService.findEmail(email);
 //        return memberForDislike.get().getDislikeFoodList();
         return commonResponseService.getSingleResult(memberForDislike.orElseThrow(Exception::new).getDislikeFoodList());
     }

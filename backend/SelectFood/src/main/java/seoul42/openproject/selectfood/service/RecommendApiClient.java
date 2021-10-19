@@ -12,7 +12,7 @@ import seoul42.openproject.selectfood.domain.Question;
 public class RecommendApiClient {
 
     private final RestTemplate restTemplate;
-    private String RecommendApiUrl_getPickFood = "http://localhost:1337/rest/pick-food";
+    private String RecommendApiUrl_getPickFood = "http://13.209.93.61:1337/rest/pick-food";
 
     public PickFoodDto requestPickFood(Long id, Question question) {
 

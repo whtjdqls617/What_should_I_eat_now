@@ -12,6 +12,6 @@ import java.util.List;
 public class PickFoodDto {
 
     private String email;
-    private List<PickFood> pickFood;
+    private PickFood pickFood;
 
 }

@@ -51,10 +51,21 @@ public class MemberService {
         return memberRepository.findByEmail(email);
     }
 
+    public Long updatePickedFood(MemberEditDto memberEditDto) {
+        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
+        member.ifPresent(member1 -> {
+            member1.setLikeFoodList(member1.getPickedFoodList() + ", " + memberEditDto.getPickedFood());
+            memberRepository.save(member1);
+        });
+        if (member.isPresent())
+            return member.get().getId();
+        return -1L;
+    }
+
     public Long updateLikeFood(MemberEditDto memberEditDto) {
         Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
         member.ifPresent(member1 -> {
-            member1.setLikeFoodList(memberEditDto.getLikeFood());
+            member1.setLikeFoodList(member1.getLikeFoodList() + ", " + memberEditDto.getLikeFood());
             memberRepository.save(member1);
         });
         if (member.isPresent())
@@ -65,7 +76,7 @@ public class MemberService {
     public Long updateDislikeFood(MemberEditDto memberEditDto) {
         Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
         member.ifPresent(member1 -> {
-            member1.setDislikeFoodList(memberEditDto.getDislikeFood());
+            member1.setDislikeFoodList(member1.getDislikeFoodList() + ", " + memberEditDto.getDislikeFood());
             memberRepository.save(member1);
         });
         if (member.isPresent())
