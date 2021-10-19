@@ -5,9 +5,12 @@ import { ip } from "./data";
 import axios from "axios";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+
+
 export const SignIn = ({ navigation, setSignIn }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+
 
   const makePostData = (email, password) => {
     let postData = {};
@@ -18,7 +21,9 @@ export const SignIn = ({ navigation, setSignIn }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 50 }}>지금 뭐먹지?</Text>
+      <Text style={{ fontSize: 45, fontFamily: 'Base' }}>
+        로그인
+      </Text>
       <View style={styles.textinputcolumn}>
         <TextInput
           style={styles.textinput}
@@ -53,13 +58,17 @@ export const SignIn = ({ navigation, setSignIn }) => {
           setSignIn(true);
         }}
       >
-          <Text style={{ fontSize : 20, textAlign: 'center' }}>로그인</Text>
+        <Text style={{ fontSize: 15, textAlign: "center", color: "white", fontFamily: 'Base' }}>
+          로그인
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonstyle}
         onPress={() => navigation.navigate("SignUp")}
       >
-        <Text style={{ fontSize : 20, textAlign: 'center' }}>회원가입</Text>
+        <Text style={{ fontSize: 15, textAlign: "center", color: "white", fontFamily : 'Base' }}>
+          회원가입
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -79,11 +88,13 @@ const styles = StyleSheet.create({
     margin: 8,
     width: 200,
     height: 40,
-    borderWidth: 0.5,
-    borderRadius: 5,
+    borderWidth: 1,
+    borderRadius: 8,
+	paddingHorizontal: '4%',
+	fontFamily : 'Base'
   },
   textinputcolumn: {
-    flex: 0.4,
+    flex: 0.3,
     justifyContent: "center",
   },
   buttonstyle: {
@@ -91,7 +102,7 @@ const styles = StyleSheet.create({
 	width : 110,
 	backgroundColor : 'orange',
 	borderRadius : 40,
-	margin : 15,
+	margin : 8,
 	justifyContent : 'center'
   }
 });

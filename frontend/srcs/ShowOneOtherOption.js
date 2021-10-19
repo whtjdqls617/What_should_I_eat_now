@@ -32,18 +32,18 @@ export const ShowOneOtherOption = ({ image, navigation, imgStyle }) => {
         <Modal isVisible={ismodalVisible} hasBackdrop={true}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Button
+              <TouchableOpacity onPress={toggleModal} style={styles.button2}>
+                <Text style={{ color: "white", fontFamily: "Base" }}>취소</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
                 title="선택"
                 onPress={() => {
                   selectFood(`${ip}/question`, "덮밥", navigation);
                 }}
                 style={styles.button}
-              />
-              <Button
-                title="취소"
-                onPress={toggleModal}
-                style={styles.button}
-              />
+              >
+                <Text style={{ color: "white", fontFamily: "Base" }}>결정</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>
@@ -63,22 +63,25 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 70,
-    shadowColor: "black",
-    shadowOffset: {
-      width: 20,
-      height: 2,
-    },
-    shadowOpacity: 0.8,
-    shadowRadius: 1,
-    elevation: 5,
-    justifyContent: "space-around",
+    padding: 25,
   },
   button: {
+    margin: 10,
+    width: 60,
+    height: 40,
     borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    backgroundColor: "#F194FF",
+    backgroundColor: "orange",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button2: {
+    margin: 10,
+    width: 60,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "gray",
+    justifyContent: "center",
+    alignItems: "center",
   },
   textStyle: {
     color: "black",

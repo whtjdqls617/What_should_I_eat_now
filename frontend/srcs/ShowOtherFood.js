@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ShowOtherOptions } from "./ShowOtherOptions";
 import { WebView } from "react-native-webview";
+import YoutubePlayer from "react-native-youtube-iframe";
 
 export const ShowOtherFood = ({ navigation }) => {
   const data = [
@@ -24,25 +25,9 @@ export const ShowOtherFood = ({ navigation }) => {
         <Text style={styles.foodname3}>{data[2][0]}</Text>
       </View>
       <Text style={styles.youtube}>유튜브 먹방</Text>
-      <WebView
-        // source={{ html: "<h1>Hello world</h1>" }}
-        style={{
-          width: "75%",
-          justifyContent: "center",
-          marginBottom: 50,
-          marginLeft: 50,
-          marginTop: 30,
-        }}
-        mixedContentMode="never"
-        source={{
-          uri: "https://reactnative.dev/",
-        }}
-        useWebKit={true} // ios 필수
-        scrollEnabled={true}
-        domStorageEnabled={true}
-        javaScriptEnabled={true}
-        allowsInlineMediaPlayback={true}
-      />
+      <View style={styles.youtubealign}>
+        <YoutubePlayer height={400} videoId={"VyAvn29ViY8"} />
+      </View>
     </View>
   );
 };
@@ -52,41 +37,49 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   foodname1: {
+    fontFamily: "Base",
     color: "#121212",
     height: 24,
     width: 88,
+    textAlign: "center",
   },
   foodname2: {
+    fontFamily: "Base",
     color: "#121212",
     height: 24,
     width: 88,
     marginLeft: 21,
+    textAlign: "center",
   },
   foodname3: {
+    fontFamily: "Base",
     color: "#121212",
     height: 24,
     width: 88,
     marginLeft: 23,
+    textAlign: "center",
   },
   foodnameRow: {
     height: 24,
     flexDirection: "row",
-    marginTop: 20,
-    marginLeft: 34,
-    marginRight: 33,
+    marginTop: "5%",
     justifyContent: "space-around",
   },
   select: {
+    fontFamily: "Base",
     color: "#121212",
     fontSize: 56,
     marginTop: 40,
     marginLeft: 9,
+    fontWeight: "bold",
   },
   youtube: {
+    fontFamily: "Base",
     color: "#121212",
     fontSize: 30,
-    marginTop: 40,
+    marginTop: "13%",
     marginLeft: 25,
+    fontWeight: "bold",
   },
   image1: {
     width: 96,
@@ -105,9 +98,11 @@ const styles = StyleSheet.create({
   image1Row: {
     height: 96,
     flexDirection: "row",
-    marginTop: 50,
-    marginLeft: 20,
-    marginRight: 25,
+    marginTop: "15%",
     justifyContent: "space-around",
+    alignItems: "center",
+  },
+  youtubealign: {
+    marginTop: "6%",
   },
 });

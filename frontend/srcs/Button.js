@@ -1,40 +1,68 @@
-import React from 'react';
-import { Button, StyleSheet, View, TouchableOpacity, Text } from 'react-native';
-import { Container } from './style';
-import { postData } from './func_data_communication';
-import axios from 'axios';
-import { ip } from './data'
-import { data } from './question_data';
+import React from "react";
+import { Button, StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { Container } from "./style";
+import { postData } from "./func_data_communication";
+import axios from "axios";
+import { ip } from "./data";
+import { data } from "./question_data";
 
-export const NextButton = ({updateIndex, answer, index}) => {
+export const NextButton = ({ updateIndex, answer, index }) => {
+  const opt = [
+    ["question1", "answer1"],
+    ["question2", "answer2"],
+    ["question3", "answer3"],
+  ];
 
-	const opt = [['question1', 'answer1'], ['question2', 'answer2'], ['question3', 'answer3']];
+  const changeAnswerToObject = () => {
+    let object = {};
+    answer.forEach((arr, i) => {
+      object[opt[i][0]] = arr[0];
+      object[opt[i][1]] = arr[1];
+    });
+    return object;
+  };
 
-	const changeAnswerToObject = () => {
-		let object = {};
-		answer.forEach((arr, i) => {
-			object[opt[i][0]] = arr[0];
-			object[opt[i][1]] = arr[1];
-		});
-		return (object);
-	}
+  const nextPressEvent = () => {
+    if (index == 2) {
+      console.log("In nextPressEvent");
+      const object = changeAnswerToObject();
+	  console.log(object);
+      axios
+        .get(`${ip}/recommend-food/`, {
+          params: {
+            answer1: "회식",
+            answer2: "회식",
+            answer3: "회식",
+            question1: "특별한 날이야?",
+            question2: "기분이 어때?",
+            question3: "무슨 맛이 땡겨?"
+          },
+        })
+        .then(function (response) {
+          console.log("response.data: ");
+          console.log(response.data);
+          // setData([response.data]);
+          return 0;
+          //return response.data로 바꿈
+        })
+        .catch(function (error) {
+          console.log("err: ");
+          console.log(error);
+          console.log(error.response.data);
+          //3초 이내에 서버한테서 답이 안 오면 에러로 처리하게 설정
+          //유저한테 에러 메시지 창 띄우고
+          //메인으로 바로 이동
+          return 0;
+        });
+    }
+    if (index != 2) updateIndex(true);
+  };
 
-	const nextPressEvent = () => {
-		if (index == 2) {
-			console.log("In nextPressEvent");
-			const object = changeAnswerToObject();
-			postData(`${ip}/question`, object, updateIndex, true);
-		}
-		if (index != 2)
-			updateIndex(true);
-  	}
+  const prevPressEvent = () => {
+    if (index > 0) updateIndex(false);
+  };
 
-	const prevPressEvent = () => {
-		if (index > 0)
-			updateIndex(false);
-	}
-
-	return (
+  return (
     <>
       {/* <Button
         title="이전"
@@ -60,7 +88,9 @@ export const NextButton = ({updateIndex, answer, index}) => {
           }}
           onPress={prevPressEvent}
         >
-          <Text style={{ fontSize: 20, color: "white" }}>이전</Text>
+          <Text style={{ fontSize: 20, color: "white", fontFamily: "Base" }}>
+            이전
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
@@ -75,7 +105,9 @@ export const NextButton = ({updateIndex, answer, index}) => {
           }}
           onPress={nextPressEvent}
         >
-          <Text style={{ fontSize: 20, color: "white" }}>다음</Text>
+          <Text style={{ fontSize: 20, color: "white", fontFamily: "Base" }}>
+            다음
+          </Text>
         </TouchableOpacity>
       </View>
     </>

@@ -2,9 +2,10 @@ import React from "react";
 import { ShowOptions } from "./ShowOptions";
 import { data } from "./question_data";
 import { StyleSheet, Text, View } from "react-native";
+import * as Font from 'expo-font';
 
 
-export const AskQuestion = ({ index, updateIndex }) => {
+export const AskQuestion = ({ setData, index, updateIndex }) => {
 
   return (
     <View style={styles.container}>
@@ -15,6 +16,7 @@ export const AskQuestion = ({ index, updateIndex }) => {
 			index={index}
 			data={data[index]}
 			updateIndex={updateIndex}
+			setData={setData}
       	/>
     </View>
   );
@@ -22,12 +24,14 @@ export const AskQuestion = ({ index, updateIndex }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   question: {
+    fontFamily: "Base",
     color: "#121212",
     fontSize: 56,
     marginTop: 81,
-    marginLeft: 9
-  }
+    marginLeft: 9,
+    fontWeight: "bold",
+  },
 });
