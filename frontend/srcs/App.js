@@ -2,14 +2,20 @@ import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { MainStackNav } from "./navigations/MainStack";
 import { SignInStackNav } from "./navigations/SignInStack";
-import { SignIn } from "./SignIn";
-import { Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { FirstLoading } from "./FirstLoading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BlackHanSans_400Regular } from "@expo-google-fonts/black-han-sans";
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useState("");
   const [signIn, setSignIn] = useState(false);
+  let [fontsLoaded] = useFonts({
+    BlackHanSans_400Regular,
+  });
 
   const MyTheme = {
     dark: false,
@@ -18,32 +24,36 @@ export default function App() {
     },
   };
   /*
-  asyncstorage에 토큰 값이 있으면 그걸 token 가져와서
-  asyncStorage.getItem();
-  setToken
-  */
+    asyncstorage에 토큰 값이 있으면 그걸 token 가져와서
+    asyncStorage.getItem();
+    setToken
+    */
   setTimeout(() => {
     setIsLoading(false);
-  }, 1000);
+  }, 1400);
 
-  if (isLoading == true) {
-    return (
-      <>
-        <Text style={{ width: 100, height: 100 }}>Loading...</Text>
-      </>
-    );
-  } else if (signIn == false) {
-    return (
-      <NavigationContainer theme={MyTheme}>
-        <SignInStackNav setSignIn={setSignIn}/>
-      </NavigationContainer>
-    );
-  } else
-    return (
-      <NavigationContainer theme={MyTheme}>
-        <MainStackNav />
-      </NavigationContainer>
-    );
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    if (isLoading == true) {
+      return (
+        <>
+          <FirstLoading />
+        </>
+      );
+    } else if (signIn == false) {
+      return (
+        <NavigationContainer theme={MyTheme}>
+          <SignInStackNav setSignIn={setSignIn} />
+        </NavigationContainer>
+      );
+    } else
+      return (
+        <NavigationContainer theme={MyTheme}>
+          <MainStackNav />
+        </NavigationContainer>
+      );
+  }
   //로그인 정보 받아오고
   //처음 앱 켜질 때 로딩 페이지
 
@@ -75,3 +85,9 @@ export default function App() {
 1. 로그아웃상태면 로그인 화면이 뜨게 하고
 2. 로그인상태면 메인페이지가 뜨게 하기
 */
+
+const sytles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
