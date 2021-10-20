@@ -1,18 +1,23 @@
 package seoul42.openproject.selectfood.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import seoul42.openproject.selectfood.dto.PickFoodDto;
 import seoul42.openproject.selectfood.domain.Question;
 
-@RequiredArgsConstructor
 @Service
 public class RecommendApiClient {
 
     private final RestTemplate restTemplate;
-    private String RecommendApiUrl_getPickFood = "http://13.209.93.61:1337/rest/pick-food";
+    private String RecommendApiUrl_getPickFood;
+
+    public RecommendApiClient(@Value("${value.innerIp}") String innerServerIp, RestTemplate restTemplate) {
+        RecommendApiUrl_getPickFood = "http://" + innerServerIp + "/rest/pick-food/";
+        this.restTemplate = restTemplate;
+    }
 
     public PickFoodDto requestPickFood(Long id, Question question) {
 
@@ -28,17 +33,16 @@ public class RecommendApiClient {
 
 //        final HttpEntity<String> entity = new HttpEntity<>(headers);
 //        restTemplate.getForObject(RecommendApiUrl_getPickFood, PickFoodDto.class);
-        //
-        System.out.println(builder.build().toUriString());
-        // 중복 인코딩 될 수 있으므로 인코딩 안 된 string or 인코딩 된 uri 둘 중 하나 사용
-        return restTemplate.getForObject(
-                builder.build().toUriString(),
-                PickFoodDto.class
-        );
 //        return restTemplate.exchange(
 //                builder.toUriString(),
 //                HttpMethod.GET,
 //                entity,
 //                PickFoodDto.class).getBody();
+
+        // 중복 인코딩 될 수 있으므로 인코딩 안 된 string or 인코딩 된 uri 둘 중 하나 사용
+        return restTemplate.getForObject(
+                builder.build().toUriString(),
+                PickFoodDto.class
+        );
     }
 }

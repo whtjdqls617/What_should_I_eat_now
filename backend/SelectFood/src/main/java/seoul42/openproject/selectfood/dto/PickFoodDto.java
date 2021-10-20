@@ -3,15 +3,15 @@ package seoul42.openproject.selectfood.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import seoul42.openproject.selectfood.domain.PickFood;
 
 import java.util.List;
 
-@Getter @Setter
+@Getter @Setter @ToString
 @AllArgsConstructor
 public class PickFoodDto {
 
-    private String email;
-    private PickFood pickFood;
+    private List<PickFood> pickFood;
 
 }

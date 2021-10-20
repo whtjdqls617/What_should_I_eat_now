@@ -8,14 +8,7 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 @AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class PickFood {
-    private String pickFoodName1;
-    private String youtubeUrl1;
-    private String pickFoodName2;
-    private String youtubeUrl2;
-    private String pickFoodName3;
-    private String youtubeUrl3;
-    private String pickFoodName4;
-    private String youtubeUrl4;
+    private String name;
+    private String youtube_url;
 }

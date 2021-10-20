@@ -1,9 +1,4 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/selectfood
-    username: postgres
-    password: pass
-    driver-class-name: org.postgresql.Driver
 
 #  내장 db
 #    url: jdbc:h2:tcp://localhost/~/jpashop
@@ -30,10 +25,5 @@ spring:
 
   sql:
     init:
-      mode: always
+      mode: never
       platform: postgresql
-
-
-logging:
-  level:
-    org.hibernate.SQL: debug
