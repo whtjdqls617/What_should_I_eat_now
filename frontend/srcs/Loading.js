@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import { getData } from "./func_data_communication";
 import { ip } from './data';
 
@@ -14,3 +14,9 @@ export const Loading = ({ setData }) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+	container : {
+		flex : 1
+	}
+})

@@ -33,8 +33,6 @@ export const postData = (url, object, func, val) =>  {
     .then(function (response) {
       console.log("post_res: ");
       console.log(response);
-      if (func != 0)
-        func(val);
     })
     .catch(function (error) {
       console.log("post_err: ");

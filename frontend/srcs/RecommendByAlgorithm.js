@@ -18,7 +18,7 @@ export const RecommendByAlgorithm = ({ navigation }) => {
   if (index < 3) {
     return (
       <>
-        <AskQuestion index={index} updateIndex={updateIndex} />
+        <AskQuestion index={index} updateIndex={updateIndex} setData={setData}/>
       </>
     );
   } else if (index == 3 && data.length == 0) {
@@ -27,7 +27,7 @@ export const RecommendByAlgorithm = ({ navigation }) => {
         <Loading setData={setData} />
       </>
     );
-  } else if (index == 3 && data.length != 0) {
+  } else if (index == 3 && data.length == 0) {
     return (
       <>
         <ShowRecommendedFood

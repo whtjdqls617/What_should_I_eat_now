@@ -27,8 +27,10 @@ export const StyledImage = styled.Image`
   width: 100px;
   margin-top: 10px;
   padding: 10px;
-  border: 6px solid ${({ lightEffect }) => (lightEffect == true ? "green" : "black")};
-  border-radius : 20px;
+  border-width: 4.5px;
+  border-color: ${({ lightEffect }) =>
+    lightEffect == true ? "#0080FF" : "black"};
+  border-radius: 20px;
 `;
 export const StyledOptionText = styled.Text`
   font-size: 20px;

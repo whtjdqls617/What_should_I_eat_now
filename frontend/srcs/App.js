@@ -3,7 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { MainStackNav } from "./navigations/MainStack";
 import { SignInStackNav } from "./navigations/SignInStack";
 import { SignIn } from "./SignIn";
-import { Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { FirstLoading } from "./FirstLoading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
@@ -24,12 +25,12 @@ export default function App() {
   */
   setTimeout(() => {
     setIsLoading(false);
-  }, 1000);
+  }, 1400);
 
   if (isLoading == true) {
     return (
       <>
-        <Text style={{ width: 100, height: 100 }}>Loading...</Text>
+        <FirstLoading />
       </>
     );
   } else if (signIn == false) {
@@ -40,9 +41,9 @@ export default function App() {
     );
   } else
     return (
-      <NavigationContainer theme={MyTheme}>
-        <MainStackNav />
-      </NavigationContainer>
+        <NavigationContainer theme={MyTheme}>
+          <MainStackNav />
+        </NavigationContainer>
     );
   //로그인 정보 받아오고
   //처음 앱 켜질 때 로딩 페이지
@@ -75,3 +76,9 @@ export default function App() {
 1. 로그아웃상태면 로그인 화면이 뜨게 하고
 2. 로그인상태면 메인페이지가 뜨게 하기
 */
+
+const sytles = StyleSheet.create({
+	container : {
+		flex : 1
+	}
+})

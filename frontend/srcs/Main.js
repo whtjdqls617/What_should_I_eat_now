@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   eat: {
+    fontFamily: "Base",
     color: "#121212",
     height: 50,
     width: 75,
@@ -99,6 +100,7 @@ const styles = StyleSheet.create({
     marginLeft: 62,
   },
   calendar: {
+    fontFamily: "Base",
     color: "#121212",
     height: 22,
     width: 62,
@@ -107,6 +109,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   random: {
+    fontFamily: "Base",
     color: "#121212",
     height: 22,
     width: 62,
@@ -116,6 +119,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   settings: {
+    fontFamily: "Base",
     color: "#121212",
     height: 22,
     width: 34,

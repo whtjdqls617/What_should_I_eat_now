@@ -15,9 +15,13 @@ export const AskDisLike = (props) => {
 
   const makePostData = (userinfo, likeFoodList, disLikeFoodList) => {
     let postData = {};
-    postData.userinfo = userinfo;
-    postData.likeFoodList = likeFoodList;
-    postData.disLikeFoodList = disLikeFoodList;
+	let likeArr = likeFoodList.map(ele => { return ele.food;});
+	let dislikeArr = disLikeFoodList.map(ele => { return ele.food;});
+    postData.email = userinfo.email;
+	postData.nickName = userinfo.nickName;
+	postData.password = userinfo.password;
+    postData.likeFoodList = likeArr.join();
+    postData.dislikeFoodList = dislikeArr.join();
     return postData; // {userinfo: {nickname: "dfd", email: "djfkd"}, likeFoodList: ["dnehd", "dfdf"]}
     // let str = "";
     // array.forEach((ele) => {
@@ -39,14 +43,6 @@ export const AskDisLike = (props) => {
         foodList={disLikeFoodList}
         setFoodList={setDisLikeFoodList}
       />
-      {/* <Button
-        title="다음"
-        onPress={() => {
-          const data = makePostData(userinfo, likeFoodList, disLikeFoodList);
-          postData(`${ip}/user/signup`, data, 0, 0);
-          navigation.navigate("SignIn");
-        }}
-      /> */}
       <View style={styles.buttonalign}>
         <TouchableOpacity
           style={{
@@ -79,6 +75,7 @@ export const AskDisLike = (props) => {
           onPress={() => {
             const data = makePostData(userinfo, likeFoodList, disLikeFoodList);
             postData(`${ip}/user/signup`, data, 0, 0);
+			console.log("data: ", data);
             navigation.navigate("SignIn");
           }}
         >
