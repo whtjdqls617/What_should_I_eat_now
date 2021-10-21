@@ -6,20 +6,20 @@ CREATE TABLE FOOD
 (
     ID   integer PRIMARY KEY,
     NAME varchar(100) NOT NULL,
-    CATEGORY varchar(100) NOT NULL,
-    TASTE varchar(200) NOT NULL,
+    TAG varchar(200) NOT NULL,
     INGREDIENT varchar(200) NOT NULL,
-    IMG_URL varchar(200) NOT NULL
+    YOUTUBE_URL varchar(200) NOT NULL
 );
 
 CREATE TABLE MEMBER
 (
     ID   integer PRIMARY KEY,
-    Nick_name varchar (100) NOT NULL,
+    NICK_NAME varchar (100) NOT NULL,
     EMAIL varchar(100) NOT NULL,
     PASSWORD varchar(100) NOT NULL,
-    PICKED_FOOD varchar(200),
-    HATE_FOOD varchar(200)
+    PICKED_FOOD_LIST varchar(200),
+    LIKE_FOOD_LIST varchar(200),
+    DISLIKE_FOOD_LIST varchar(200)
 );
 
 CREATE TABLE SELECTED_FOOD

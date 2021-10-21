@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seoul42.openproject.selectfood.domain.Member;
+import seoul42.openproject.selectfood.dto.MemberEditDto;
 import seoul42.openproject.selectfood.repository.MemberRepository;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public Long singUp(Member member) {
+    public Long signUp(Member member) {
         validateDuplicateMember(member);
         memberRepository.save(member);
         return member.getId();
@@ -30,6 +31,14 @@ public class MemberService {
                 });
     }
 
+    public Optional<Member> validateDuplicateEmail(String email) {
+        return memberRepository.findByEmail(email);
+    }
+
+    public Optional<Member> validateDuplicateNickName(String nickName) {
+        return memberRepository.findByNickName(nickName);
+    }
+
     public List<Member> findAllMembers() {
         return memberRepository.findAll();
     }
@@ -40,5 +49,38 @@ public class MemberService {
 
     public Optional<Member> findEmail(String email) {
         return memberRepository.findByEmail(email);
+    }
+
+    public Long updatePickedFood(MemberEditDto memberEditDto) {
+        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
+        member.ifPresent(member1 -> {
+            member1.setLikeFoodList(member1.getPickedFoodList() + ", " + memberEditDto.getPickedFood());
+            memberRepository.save(member1);
+        });
+        if (member.isPresent())
+            return member.get().getId();
+        return -1L;
+    }
+
+    public Long updateLikeFood(MemberEditDto memberEditDto) {
+        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
+        member.ifPresent(member1 -> {
+            member1.setLikeFoodList(member1.getLikeFoodList() + ", " + memberEditDto.getLikeFood());
+            memberRepository.save(member1);
+        });
+        if (member.isPresent())
+            return member.get().getId();
+        return -1L;
+    }
+
+    public Long updateDislikeFood(MemberEditDto memberEditDto) {
+        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
+        member.ifPresent(member1 -> {
+            member1.setDislikeFoodList(member1.getDislikeFoodList() + ", " + memberEditDto.getDislikeFood());
+            memberRepository.save(member1);
+        });
+        if (member.isPresent())
+            return member.get().getId();
+        return -1L;
     }
 }

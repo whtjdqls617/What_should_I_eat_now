@@ -10,5 +10,6 @@ public interface MemberRepository {
     // 좋아하는 음식, 싫어하는 음식 리스트 저장은 어떻게?
     Optional<Member> findById(Long id);
     Optional<Member> findByEmail(String email);
+    Optional<Member> findByNickName(String nickName);
     List<Member> findAll();
 }

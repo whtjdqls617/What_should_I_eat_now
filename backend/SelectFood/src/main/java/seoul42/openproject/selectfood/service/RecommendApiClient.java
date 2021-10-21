@@ -1,46 +1,48 @@
 package seoul42.openproject.selectfood.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import seoul42.openproject.selectfood.domain.PickFood;
-import seoul42.openproject.selectfood.domain.PickFoodDto;
+import seoul42.openproject.selectfood.dto.PickFoodDto;
 import seoul42.openproject.selectfood.domain.Question;
 
-@RequiredArgsConstructor
 @Service
 public class RecommendApiClient {
 
     private final RestTemplate restTemplate;
-    private String RecommendApiUrl_getPickFood = "http://localhost:8080/rest/pick-food";
+    private String RecommendApiUrl_getPickFood;
 
-    public PickFoodDto requestPickFood(String email, Question question) {
+    public RecommendApiClient(@Value("${value.innerIp}") String innerServerIp, RestTemplate restTemplate) {
+        RecommendApiUrl_getPickFood = "http://" + innerServerIp + "/rest/pick-food/";
+        this.restTemplate = restTemplate;
+    }
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+    public PickFoodDto requestPickFood(Long id, Question question) {
+
+//        HttpHeaders headers = new HttpHeaders()HttpHeaders;
+//        headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
 //        headers.set("Django-Client-secret", "testaaa");
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(RecommendApiUrl_getPickFood)
-                .queryParam("email", email)
-                .queryParam("question1", question.getQuestion1())
+                .queryParam("id", id)
                 .queryParam("answer1", question.getAnswer1())
-                .queryParam("question2", question.getQuestion2())
                 .queryParam("answer2", question.getAnswer2())
-                .queryParam("question3", question.getQuestion3())
                 .queryParam("answer3", question.getAnswer3());
 
-        final HttpEntity<String> entity = new HttpEntity<>(headers);
+//        final HttpEntity<String> entity = new HttpEntity<>(headers);
 //        restTemplate.getForObject(RecommendApiUrl_getPickFood, PickFoodDto.class);
-        System.out.println(builder.toUriString());
-        return restTemplate.exchange(
-                builder.toUriString(),
-                HttpMethod.GET,
-                entity,
-                PickFoodDto.class).getBody();
+//        return restTemplate.exchange(
+//                builder.toUriString(),
+//                HttpMethod.GET,
+//                entity,
+//                PickFoodDto.class).getBody();
+
+        // 중복 인코딩 될 수 있으므로 인코딩 안 된 string or 인코딩 된 uri 둘 중 하나 사용
+        return restTemplate.getForObject(
+                builder.build().toUriString(),
+                PickFoodDto.class
+        );
     }
 }
