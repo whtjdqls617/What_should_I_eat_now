@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'foo')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get('DEBUG', default=1))
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost 127.0.0.1 [::1]').split()
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost').split()
 
 
 # Application definition
@@ -79,19 +79,11 @@ WSGI_APPLICATION = 'rest_server.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'foodpool',
-    #     'USER': 'admin',
-    #     'PASSSWORD': 'secret',
-    #     'HOST': 'localhost',
-    #     'PORT': '5432',
-    # }
     'default': {
-        'ENGINE': os.environ.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
+        'ENGINE': os.environ.get('SQL_ENGINE', 'django.db.backends.db.sqlite3'),
+        'NAME': os.environ.get("SQL_DATABASE", "selectfood"),
         'USER': os.environ.get("SQL_USER", "user"),
-        'PASSWORD': os.environ.get("SQL_PASSWORD", "password"),
+        'PASSWORD': os.environ.get("SQL_PASSWORD", "pass"),
         'HOST': os.environ.get("SQL_HOST", "localhost"),
         'PORT': os.environ.get("SQL_PORT", "5432"),
     }
