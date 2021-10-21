@@ -16,17 +16,22 @@ Including another URLconf
 from django.urls import path
 from django.conf.urls import include
 from django.contrib import admin
-from rest_framework import routers, views
+from rest_framework import routers
+from food_recommand import views
 from rest_framework_swagger.views import get_swagger_view
+from rest_framework.urlpatterns import format_suffix_patterns
 
 import food_recommand.api
 
 app_name = food_recommand
 
-router = routers.DefaultRouter()
-router.register('result', food_recommand.api.FoodViewSet)
+# router = routers.DefaultRouter()
+# router.register(r'rest/pick-food', views.pick_foodViewSet, basename='Food')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('rest/pick-food/', include((router.urls, 'result'), namespace='api')),
+    path('rest/pick-food/', views.pickFood),
+    # path('', include(router.urls)),
 ]
+
+# urlpatterns = format_suffix_patterns(urlpatterns)
