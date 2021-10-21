@@ -18,9 +18,6 @@ public class FoodController {
 
     private final FoodService foodService;
 
-    // DI(의존성 주입) 은 생성자 주입을 추천
-    // 필드 주입은 중간에 바꾸지 못함
-    // 세터 주입은 public 이어서 중간에 의도치 않게 바꿀 수도 있음
     @Autowired
     public FoodController(FoodService foodService) {
         this.foodService = foodService;
