@@ -34,6 +34,7 @@ RUN addgroup -S app && adduser -S app -G app
 ENV HOME=/home/app
 ENV INNER_API_HOME=/home/app/inner_api
 RUN mkdir $INNER_API_HOME
+RUN mkdir $INNER_API_HOME/staticfiles
 WORKDIR $INNER_API_HOME
 # install dependencies
 RUN apk update && apk add libpq
