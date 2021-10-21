@@ -1,19 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { useFonts } from "@expo-google-fonts/inter";
 
 export const FirstLoading = () => {
-	const [fontsLoaded] = useFonts({
-    Base : require("../assets/fonts/BlackHanSans-Regular.ttf"),
-  });
-  if (!fontsLoaded)
-  	return null;
   return (
     <>
       <View style={styles.container}>
         <Text
           style={{
-			fontFamily : 'Base',
+            fontFamily: "BlackHanSans_400Regular",
             fontSize: 55,
             fontWeight: "bold",
           }}
@@ -22,7 +16,9 @@ export const FirstLoading = () => {
         </Text>
       </View>
       <View style={styles.editor}>
-        <Text style={{ fontSize: 18, fontFamily : 'Base' }}>2S2H</Text>
+        <Text style={{ fontSize: 18, fontFamily: "BlackHanSans_400Regular" }}>
+          2S2H
+        </Text>
       </View>
     </>
   );
