@@ -2,6 +2,7 @@ import React from "react";
 import { Options } from "./Options";
 import { data } from "../../data/question_data";
 import { StyleSheet, Text, View } from "react-native";
+import * as Font from 'expo-font';
 
 export const AskQuestion = ({ setData, index, updateIndex, navigation }) => {
 

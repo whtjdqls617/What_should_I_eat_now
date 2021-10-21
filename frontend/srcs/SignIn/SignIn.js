@@ -5,6 +5,8 @@ import { ip } from "../data/data";
 import axios from "axios";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+
+
 export const SignIn = ({ navigation, setSignIn }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
