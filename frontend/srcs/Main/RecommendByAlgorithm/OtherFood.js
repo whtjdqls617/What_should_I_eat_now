@@ -1,9 +1,5 @@
 import React from "react";
-<<<<<<< Updated upstream
-import { StyleSheet, Text, View } from "react-native";
-=======
 import { StyleSheet, Text, View, ScrollView } from "react-native";
->>>>>>> Stashed changes
 import { OtherOptions } from "./OtherOptions";
 import YoutubePlayer from "react-native-youtube-iframe";
 import { youtubeURLtoID } from "../../func/func_change_var_type";
@@ -71,37 +67,22 @@ const styles = StyleSheet.create({
 	marginTop : '25%'
   },
   foodname1: {
-<<<<<<< Updated upstream
-    fontFamily: "BlackHanSans_400Regular",
-    color: "#121212",
-=======
     flex: 1,
     fontFamily: "BlackHanSans_400Regular",
->>>>>>> Stashed changes
     height: 24,
     width: 88,
     textAlign: "center",
   },
   foodname2: {
-<<<<<<< Updated upstream
-    fontFamily: "BlackHanSans_400Regular",
-    color: "#121212",
-=======
     flex: 1,
     fontFamily: "BlackHanSans_400Regular",
->>>>>>> Stashed changes
     height: 24,
     width: 88,
     textAlign: "center",
   },
   foodname3: {
-<<<<<<< Updated upstream
-    fontFamily: "BlackHanSans_400Regular",
-    color: "#121212",
-=======
     flex: 1,
     fontFamily: "BlackHanSans_400Regular",
->>>>>>> Stashed changes
     height: 24,
     width: 88,
     textAlign: "center",
@@ -113,19 +94,11 @@ const styles = StyleSheet.create({
   },
   select: {
     fontFamily: "BlackHanSans_400Regular",
-<<<<<<< Updated upstream
-    color: "#121212",
-=======
->>>>>>> Stashed changes
     fontSize: 56,
     marginLeft: '5%',
   },
   youtube: {
     fontFamily: "BlackHanSans_400Regular",
-<<<<<<< Updated upstream
-    color: "#121212",
-=======
->>>>>>> Stashed changes
     fontSize: 30,
     marginTop: "9%",
     marginLeft: '5%',
