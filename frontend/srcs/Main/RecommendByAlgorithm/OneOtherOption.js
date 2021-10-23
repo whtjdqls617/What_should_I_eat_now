@@ -10,18 +10,19 @@ import Modal from "react-native-modal";
 import { selectFood } from "../../func/func_data_communication";
 import { ip } from "../../data/data";
 
-export const OneOtherOption = ({ image, navigation, imgStyle }) => {
+export const OneOtherOption = ({ image, navigation }) => {
   const [ismodalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!ismodalVisible);
   };
 
+    const imgUrl =
+      "https://recipe1.ezmember.co.kr/cache/recipe/2016/07/15/c242811b1f9651627f33a41416969c7a1.jpg";
   return (
     <>
-      <View>
-        <TouchableOpacity onPress={toggleModal} styled={{ padding: 10 }}>
-          <StyledImage source={image} style={imgStyle} />
+        <TouchableOpacity onPress={toggleModal}>
+          <StyledImage source={{url : imgUrl}} style={{ borderRadius: 120 }} />
         </TouchableOpacity>
         <Modal isVisible={ismodalVisible} hasBackdrop={true}>
           <View style={styles.centeredView}>
@@ -55,7 +56,6 @@ export const OneOtherOption = ({ image, navigation, imgStyle }) => {
             </View>
           </View>
         </Modal>
-      </View>
     </>
   );
 };
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     margin: 10,
     width: 60,
     height: 40,
-    borderRadius: 20,
+    borderRadius: 18,
     backgroundColor: "orange",
     justifyContent: "center",
     alignItems: "center",

@@ -14,3 +14,12 @@ export const ObjectsInArrayToArray = (objectsInArray) => {
 	const array = objectsInArray.map(object => object.food);
 	return array;
 };
+
+export const youtubeURLtoID = (url) => {
+	const firstIndex = url.indexOf("=");
+	const lastIndex = url.lastIndexOf("=");
+	if (firstIndex == lastIndex)
+		return url.slice(firstIndex + 1);
+	else
+		return url.slice(url.indexOf("=") + 1, url.lastIndexOf("="));
+}
