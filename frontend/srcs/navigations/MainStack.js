@@ -15,7 +15,7 @@ export const MainStackNav = () => {
   return (
     <MainStack.Navigator
 		screenOptions={{
-			headern: true
+			headerShown: false
 	  }}>
       <MainStack.Screen name="Main" component={Main} />
 	  <MainStack.Screen name="RecommendByAlgorithm" component={RecommendByAlgorithm} />

@@ -7,7 +7,6 @@ import { OneOption } from "./OneOption";
 export const Options = ({ index, data, updateIndex, setData, navigation }) => {
     const [answer, setAnswer] = useState([["특별한 날이야?"], ["기분이 어때?"], ["무슨 맛이 땡겨?"]]);
 
-
   const selectOption = (array) => {
     const new_answer = answer.slice();
 	if (new_answer[index].includes(array[1]))
@@ -148,6 +147,6 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: "24%",
+    marginTop: "30%",
   },
 });

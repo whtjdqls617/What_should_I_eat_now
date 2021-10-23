@@ -9,7 +9,6 @@ export const FirstLoading = () => {
           style={{
             fontFamily: "BlackHanSans_400Regular",
             fontSize: 55,
-            fontWeight: "bold",
           }}
         >
           지금 뭐먹지

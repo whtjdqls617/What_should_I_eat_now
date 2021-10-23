@@ -7,77 +7,94 @@ import {
   Text,
   View,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import styled from "styled-components/native";
 import { getData, selectFood } from "../../func/func_data_communication";
 import { ip } from "../../data/data";
 import { StyledImage } from "../../style";
+import YoutubePlayer from "react-native-youtube-iframe";
 
 export const RecommendedFood = ({ data, updateIndex, navigation }) => {
-  const imgUrl = "https://reactjs.org/logo-og.png";
+  const imgUrl =
+    "https://recipe1.ezmember.co.kr/cache/recipe/2016/07/15/c242811b1f9651627f33a41416969c7a1.jpg";
+  const food_name = data.list[0].name;
+  const youtube_url = data.list[0].youtube_url;
+  const youtube_id = youtube_url.slice(
+    youtube_url.indexOf("=") + 1,
+    youtube_url.lastIndexOf("=")
+  );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>이걸로 결정?</Text>
-      <Image
-        source={{ uri: imgUrl }}
-        resizeMode="contain"
-        style={styles.img_recommend_food}
-      />
-      <Text style={styles.foodname}>{data[0].pickFoodName1}</Text>
-      <View style={styles.button_align}>
-        <TouchableOpacity
-          style={{
-            margin: "10%",
-            backgroundColor: "orange",
-            alignItems: "center",
-            height: 55,
-            width: 100,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 30,
-          }}
-          onPress={() => {
-            selectFood(`${ip}/question`, "덮밥", navigation);
-          }}
-        >
-          <Text
+    <ScrollView style={{ width: "100%" }}>
+      <View style={styles.container}>
+        <Text style={styles.title}>이걸로 결정?</Text>
+        <Image
+          source={{ uri: imgUrl }}
+          resizeMode="contain"
+          style={styles.img_recommend_food}
+        />
+        <Text style={styles.foodname}>{food_name}</Text>
+        {/* <Text style={styles.foodname}>계란빵</Text> */}
+
+        <View style={styles.button_align}>
+          <TouchableOpacity
             style={{
-              fontSize: 20,
-              color: "white",
-              fontFamily: "BlackHanSans_400Regular",
+              margin: "10%",
+              backgroundColor: "orange",
+              alignItems: "center",
+              height: 55,
+              width: 100,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 30,
+            }}
+            onPress={() => {
+              selectFood(`${ip}/question`, "덮밥", navigation);
             }}
           >
-            응!
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            margin: "10%",
-            backgroundColor: "orange",
-            alignItems: "center",
-            height: 55,
-            width: 100,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 30,
-          }}
-          onPress={() => {
-            updateIndex(true);
-          }}
-        >
-          <Text
+            <Text
+              style={{
+                fontSize: 20,
+                color: "white",
+                fontFamily: "BlackHanSans_400Regular",
+              }}
+            >
+              응!
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             style={{
-              fontSize: 20,
-              color: "white",
-              fontFamily: "BlackHanSans_400Regular",
+              margin: "10%",
+              backgroundColor: "orange",
+              alignItems: "center",
+              height: 55,
+              width: 100,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 30,
+            }}
+            onPress={() => {
+              updateIndex(true);
             }}
           >
-            고민좀...
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 20,
+                color: "white",
+                fontFamily: "BlackHanSans_400Regular",
+              }}
+            >
+              고민좀...
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.youtube}>유튜브 먹방</Text>
       </View>
-    </View>
+      <View style={styles.youtubealign}>
+        <YoutubePlayer height={270} videoId={"S6AWVf0vLgM"} />
+      </View>
+    </ScrollView>
   );
 };
 
@@ -85,18 +102,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+	marginTop : '15%'
   },
   title: {
+	textAlign : 'center',
     fontFamily: "BlackHanSans_400Regular",
-    color: "#121212",
     height: 49,
     width: 207,
     fontSize: 40,
     marginTop: 92,
-    fontWeight: "bold",
   },
   foodname: {
-    color: "#121212",
+	fontSize : 25,
+    fontFamily: "BlackHanSans_400Regular",
     height: 22,
     width: 126,
     marginTop: 30,
@@ -104,13 +122,27 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   button_align: {
-    marginTop: 80,
-    width: 100,
+	justifyContent :'center',
+	flexDirection : 'row',
+    marginTop: '10%',
+    width: '50%',
     alignItems: "center",
   },
   img_recommend_food: {
+	borderWidth : 3,
+	borderRadius : 140,
     width: 242,
     height: 242,
-    marginTop: 30,
+    marginTop: '14%',
+  },
+  youtube: {
+    width: 200,
+    fontFamily: "BlackHanSans_400Regular",
+    fontSize: 30,
+    textAlign: "center",
+    marginTop: "12%",
+  },
+  youtubealign: {
+    marginTop: "6%",
   },
 });

@@ -16,12 +16,16 @@ export const RecommendByAlgorithm = ({ navigation }) => {
   if (index < 3 && data.length == 0) {
     return (
       <>
+<<<<<<< Updated upstream
         <AskQuestion
           index={index}
           updateIndex={updateIndex}
           setData={setData}
           navigation={navigation}
         />
+=======
+        <AskQuestion index={index} updateIndex={updateIndex} setData={setData} navigation={navigation}/>
+>>>>>>> Stashed changes
       </>
     );
   } else if (index == 2 && data.length != 0) {
@@ -30,7 +34,11 @@ export const RecommendByAlgorithm = ({ navigation }) => {
         <Loading updateIndex={updateIndex} />
       </>
     );
+<<<<<<< Updated upstream
   } else if (index == 3) {
+=======
+  } else if (index == 3 && data.length != 0) {
+>>>>>>> Stashed changes
     return (
       <>
         <RecommendedFood

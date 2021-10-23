@@ -63,9 +63,10 @@ export const Main = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   top: {
-    flex: 1.5,
+    flex: 1.8,
     justifyContent: "center",
     alignItems: "center",
+	marginTop : '12%'
   },
   bottom: {
     flex: 1,

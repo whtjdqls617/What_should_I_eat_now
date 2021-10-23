@@ -30,6 +30,7 @@ export const NextButton = ({
 
   const nextPressEvent = () => {
     if (index == 2) {
+		// updateIndex(true);
       const object = changeAnswerToObject();
       axios
         .get(`${ip}/recommend-food/`, {
@@ -51,7 +52,6 @@ export const NextButton = ({
         .catch(function (error) {
           console.log("err: ");
           console.log(error);
-          console.log(error.response.data);
           Alert.alert("서버와 통신이 끊어졌습니다.");
           navigation.navigate("Main");
           //3초 이내에 서버한테서 답이 안 오면 에러로 처리하게 설정
