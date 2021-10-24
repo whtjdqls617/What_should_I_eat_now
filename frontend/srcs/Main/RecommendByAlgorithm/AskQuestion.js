@@ -1,19 +1,18 @@
 import React from "react";
 import { Options } from "./Options";
-import { data } from "../../data/question_data";
+import { question_and_answers } from "../../data/question_data";
 import { StyleSheet, Text, View } from "react-native";
-import * as Font from 'expo-font';
 
 export const AskQuestion = ({ setData, index, updateIndex, navigation }) => {
 
   return (
     <View style={styles.container}>
       	<Text style={styles.question}>
-		  	{data[index][0]}
+		  	{question_and_answers[index][0]}
 		</Text>
       	<Options
 			index={index}
-			data={data[index]}
+			qna={question_and_answers[index]}
 			updateIndex={updateIndex}
 			setData={setData}
 			navigation={navigation}

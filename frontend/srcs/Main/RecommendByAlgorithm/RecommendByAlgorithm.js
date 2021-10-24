@@ -15,31 +15,23 @@ export const RecommendByAlgorithm = ({ navigation }) => {
 
   if (index < 3 && data.length == 0) {
     return (
-      <>
         <AskQuestion index={index} updateIndex={updateIndex} setData={setData} navigation={navigation}/>
-      </>
     );
   } else if (index == 2 && data.length != 0) {
     return (
-      <>
         <Loading updateIndex={updateIndex} />
-      </>
     );
   } else if (index == 3 && data.length != 0) {
     return (
-      <>
         <RecommendedFood
           data={data}
           updateIndex={updateIndex}
           navigation={navigation}
         />
-      </>
     );
   } else {
     return (
-      <>
         <OtherFood data={data} navigation={navigation} />
-      </>
     );
   }
 };
