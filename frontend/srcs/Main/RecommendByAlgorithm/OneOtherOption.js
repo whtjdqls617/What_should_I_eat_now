@@ -17,12 +17,10 @@ export const OneOtherOption = ({ image, navigation }) => {
     setModalVisible(!ismodalVisible);
   };
 
-    const imgUrl =
-      "https://recipe1.ezmember.co.kr/cache/recipe/2016/07/15/c242811b1f9651627f33a41416969c7a1.jpg";
   return (
     <>
         <TouchableOpacity onPress={toggleModal}>
-          <StyledImage source={{url : imgUrl}} style={{ borderRadius: 120 }} />
+          <StyledImage source={image} style={{ borderRadius: 120 }} />
         </TouchableOpacity>
         <Modal isVisible={ismodalVisible} hasBackdrop={true}>
           <View style={styles.centeredView}>
