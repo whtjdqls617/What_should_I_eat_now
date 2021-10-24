@@ -1,22 +1,22 @@
 import React from 'react';
 import { OneOtherOption } from './OneOtherOption';
 
-export const OtherOptions = ({ data, navigation }) => {
+export const OtherOptions = ({ food_image, navigation }) => {
 
 
 
 	return (
       <>
         <OneOtherOption
-          image={data[0][1]}
+          image={food_image[0]}
           navigation={navigation}
         />
         <OneOtherOption
-          image={data[1][1]}
+          image={food_image[1]}
           navigation={navigation}
         />
         <OneOtherOption
-          image={data[2][1]}
+          image={food_image[2]}
           navigation={navigation}
         />
       </>

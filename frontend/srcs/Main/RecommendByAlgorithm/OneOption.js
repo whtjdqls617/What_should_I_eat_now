@@ -11,6 +11,7 @@ export const OneOption = ({ array, image, selectOption, lightEffect, imgStyle })
 
   return (
 		<>
+
 			<TouchableOpacity onPress={onPress}>
 				<StyledImage source={image} lightEffect={lightEffect} style={imgStyle}/>
 			</TouchableOpacity>

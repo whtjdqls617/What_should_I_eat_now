@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  Alert,
-  Button,
   Image,
   StyleSheet,
   Text,
@@ -9,16 +7,15 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import styled from "styled-components/native";
-import { getData, selectFood } from "../../func/func_data_communication";
-import { ip } from "../../data/data";
-import { StyledImage } from "../../style";
+import { selectFood } from "../../func/func_data_communication";
+import { ip, food_image } from "../../data/data";
 import YoutubePlayer from "react-native-youtube-iframe";
 
 export const RecommendedFood = ({ data, updateIndex, navigation }) => {
-  const imgUrl =
-    "https://recipe1.ezmember.co.kr/cache/recipe/2016/07/15/c242811b1f9651627f33a41416969c7a1.jpg";
+//   const imgUrl =
+//     "https://recipe1.ezmember.co.kr/cache/recipe/2016/07/15/c242811b1f9651627f33a41416969c7a1.jpg";
   const food_name = data.list[0].name;
+  const food_name_without_space = food_name.replaceAll(' ', '');
   const youtube_url = data.list[0].youtube_url;
   const youtube_id = youtube_url.slice(
     youtube_url.indexOf("=") + 1,
@@ -30,12 +27,11 @@ export const RecommendedFood = ({ data, updateIndex, navigation }) => {
       <View style={styles.container}>
         <Text style={styles.title}>이걸로 결정?</Text>
         <Image
-          source={{ uri: imgUrl }}
+          source={ food_image[food_name_without_space] }
           resizeMode="contain"
           style={styles.img_recommend_food}
         />
         <Text style={styles.foodname}>{food_name}</Text>
-        {/* <Text style={styles.foodname}>계란빵</Text> */}
 
         <View style={styles.button_align}>
           <TouchableOpacity
@@ -92,7 +88,7 @@ export const RecommendedFood = ({ data, updateIndex, navigation }) => {
         <Text style={styles.youtube}>유튜브 먹방</Text>
       </View>
       <View style={styles.youtubealign}>
-        <YoutubePlayer height={270} videoId={"S6AWVf0vLgM"} />
+        <YoutubePlayer height={270} videoId={youtube_id} />
       </View>
     </ScrollView>
   );
