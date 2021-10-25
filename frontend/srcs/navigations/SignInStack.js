@@ -12,10 +12,15 @@ export const SignInStackNav = ({ setSignIn }) => {
   return (
     <SignInStack.Navigator
       screenOptions={{
-        headern: true,
+        headerShown: false,
       }}
     >
-      <SignInStack.Screen name="SignIn" children={({navigation}) => <SignIn setSignIn={setSignIn} navigation={navigation} />} />
+      <SignInStack.Screen
+        name="SignIn"
+        children={({ navigation }) => (
+          <SignIn setSignIn={setSignIn} navigation={navigation} />
+        )}
+      />
       <SignInStack.Screen name="SignUp" component={SignUp} />
       <SignInStack.Screen name="AskLike" component={AskLike} />
       <SignInStack.Screen name="AskDisLike" component={AskDisLike} />

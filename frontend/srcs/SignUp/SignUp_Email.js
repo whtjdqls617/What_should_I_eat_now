@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Text, TextInput, View, StyleSheet, Alert, TouchableOpacity } from "react-native";
+import {
+  Text,
+  TextInput,
+  View,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import Modal from "react-native-modal";
 import axios from "axios";
 import { ip } from "../data/data";
@@ -15,8 +22,9 @@ export const SignUp_Email = ({ userinfo, setUserinfo }) => {
   };
 
   const checkEmail = (input) => {
-    if (input.includes("@") && input.includes(".")) return true;
-    return false;
+    if ((input.includes("@") && input.includes(".")) || input.length == 0)
+      return true;
+    else return false;
   };
 
   return (

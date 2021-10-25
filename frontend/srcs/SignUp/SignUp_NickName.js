@@ -1,18 +1,15 @@
-import React, {useState} from 'react';
-import { Text, TextInput, View, StyleSheet } from 'react-native';
+import React, { useState } from "react";
+import { Text, TextInput, View, StyleSheet } from "react-native";
 
-export const SignUp_NickName = ({userinfo, setUserinfo}) => {
+export const SignUp_NickName = ({ userinfo, setUserinfo }) => {
+  const [opacity, setOpacity] = useState(0);
 
-	const [opacity, setOpacity] = useState(0);
+  const checkNickname = (nickname) => {
+    if (nickname.length > 1 || nickname.length == 0) return true;
+    else return false;
+  };
 
-	const checkNickname = (nickname) => {
-		if (nickname.length > 1)
-			return true;
-		else
-			return false;
-	};
-
-	return (
+  return (
     <>
       <View style={styles.nicknamerow}>
         <TextInput
@@ -45,7 +42,7 @@ export const SignUp_NickName = ({userinfo, setUserinfo}) => {
       </Text>
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

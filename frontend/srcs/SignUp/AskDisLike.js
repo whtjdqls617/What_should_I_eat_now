@@ -14,11 +14,15 @@ export const AskDisLike = (props) => {
 
   const makePostData = (userinfo, likeFoodList, disLikeFoodList) => {
     let postData = {};
-	let likeArr = likeFoodList.map(ele => { return ele.food;});
-	let dislikeArr = disLikeFoodList.map(ele => { return ele.food;});
+    let likeArr = likeFoodList.map((ele) => {
+      return ele.food;
+    });
+    let dislikeArr = disLikeFoodList.map((ele) => {
+      return ele.food;
+    });
     postData.email = userinfo.email;
-	postData.nickName = userinfo.nickName;
-	postData.password = userinfo.password;
+    postData.nickName = userinfo.nickName;
+    postData.password = userinfo.password;
     postData.likeFoodList = likeArr.join();
     postData.dislikeFoodList = dislikeArr.join();
     return postData; // {userinfo: {nickname: "dfd", email: "djfkd"}, likeFoodList: ["dnehd", "dfdf"]}
@@ -32,14 +36,22 @@ export const AskDisLike = (props) => {
   };
 
   return (
-    <>
-      <Text style={{ fontSize: 30, fontFamily: "BlackHanSans_400Regular" }}>
+    <View style={styles.container}>
+      <Text
+        style={{
+          marginLeft: "5%",
+          fontSize: 35,
+          fontFamily: "BlackHanSans_400Regular",
+        }}
+      >
         싫어하는 음식이 뭐야?
       </Text>
-      <SearchBar
-        foodList={disLikeFoodList}
-        setFoodList={setDisLikeFoodList}
-      />
+      <View style={styles.seachbar}>
+        <SearchBar
+          foodList={disLikeFoodList}
+          setFoodList={setDisLikeFoodList}
+        />
+      </View>
       <SelectedFoodList
         foodList={disLikeFoodList}
         setFoodList={setDisLikeFoodList}
@@ -99,19 +111,25 @@ export const AskDisLike = (props) => {
           </Text>
         </TouchableOpacity>
       </View>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: "25%",
   },
   buttonalign: {
-	flexDirection : 'row',
+    flexDirection: "row",
     flex: 0.4,
     margin: 10,
     alignItems: "center",
     justifyContent: "center",
+  },
+  seachbar: {
+    // position: "relative",
+    alignItems: "center",
+    marginTop: "4%",
   },
 });
