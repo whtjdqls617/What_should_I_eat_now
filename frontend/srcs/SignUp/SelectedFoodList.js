@@ -1,22 +1,30 @@
 import React from "react";
-import { FlatList, Text, View, TouchableOpacity, StyleSheet } from "react-native";
-import { ObjectsInArrayToArray, arrayToObjectsInArray } from "../func/func_change_var_type";
+import {
+  FlatList,
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import {
+  ObjectsInArrayToArray,
+  arrayToObjectsInArray,
+} from "../func/func_change_var_type";
 
 export const SelectedFoodList = ({ foodList, setFoodList }) => {
-
-	return (
-		<>
-			<FlatList
-				style={{flex : 1}}
-				data={foodList}
-				initialNumToRender={10}
-				renderItem={({ item }) => {
-					return (
+  return (
+    <>
+      <FlatList
+        style={{ flex: 1, marginTop: "8%" }}
+        data={foodList}
+        initialNumToRender={10}
+        renderItem={({ item }) => {
+          return (
             <>
               <View style={styles.todolistalign}>
                 <Text
                   style={{
-                    fontSize: 15,
+                    fontSize: 22,
                     fontFamily: "BlackHanSans_400Regular",
                   }}
                 >
@@ -43,18 +51,19 @@ export const SelectedFoodList = ({ foodList, setFoodList }) => {
               </View>
             </>
           );
-				}} />
-		</>
-	);
-}
+        }}
+      />
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   todolistalign: {
-	flexDirection : 'row',
-	justifyContent : 'center',
-	alignItems : 'center'
-  }
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

@@ -13,7 +13,7 @@ const SettingStackNav = () => {
   return (
     <SettingStack.Navigator
       screenOptions={{
-        headern: true,
+        headerShown: false,
       }}
     >
       <SettingStack.Screen name="Setting" component={Setting} />

@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { TextInput, View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import {
+  TextInput,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 import { food_name } from "../data/data";
 import { SearchPreview } from "./SearchPreview";
 import { arrayToObjectsInArray } from "../func/func_change_var_type";
@@ -30,6 +36,7 @@ export const SearchBar = ({ foodList, setFoodList }) => {
           color: "white",
           paddingHorizontal: "4%",
           fontFamily: "BlackHanSans_400Regular",
+          opacity: 0.8,
         }}
         placeholder="음식 검색!"
         placeholderTextColor="white"

@@ -30,7 +30,7 @@ export const NextButton = ({
 
   const nextPressEvent = () => {
     if (index == 2) {
-		// updateIndex(true);
+      // updateIndex(true);
       const object = changeAnswerToObject();
       axios
         .get(`${ip}/recommend-food/`, {
@@ -70,51 +70,11 @@ export const NextButton = ({
   return (
     <>
       <View style={styles.buttonalign}>
-        <TouchableOpacity
-          style={{
-            margin: "25%",
-            backgroundColor: "orange",
-            alignItems: "center",
-            height: 55,
-            width: 100,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 30,
-          }}
-          onPress={prevPressEvent}
-        >
-          <Text
-            style={{
-              fontSize: 20,
-              color: "white",
-              fontFamily: "BlackHanSans_400Regular",
-            }}
-          >
-            이전
-          </Text>
+        <TouchableOpacity style={styles.buttonstyle} onPress={prevPressEvent}>
+          <Text style={styles.textstyle}>이전</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            margin: "25%",
-            backgroundColor: "orange",
-            alignItems: "center",
-            height: 55,
-            width: 100,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 30,
-          }}
-          onPress={nextPressEvent}
-        >
-          <Text
-            style={{
-              fontSize: 20,
-              color: "white",
-              fontFamily: "BlackHanSans_400Regular",
-            }}
-          >
-            다음
-          </Text>
+        <TouchableOpacity style={styles.buttonstyle} onPress={nextPressEvent}>
+          <Text style={styles.textstyle}>다음</Text>
         </TouchableOpacity>
       </View>
     </>
@@ -131,5 +91,20 @@ const styles = StyleSheet.create({
     margin: 10,
     alignItems: "center",
     justifyContent: "center",
+  },
+  buttonstyle: {
+    margin: "25%",
+    backgroundColor: "orange",
+    alignItems: "center",
+    height: 55,
+    width: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 30,
+  },
+  textstyle: {
+    fontSize: 20,
+    color: "white",
+    fontFamily: "BlackHanSans_400Regular",
   },
 });

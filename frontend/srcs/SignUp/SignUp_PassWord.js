@@ -7,7 +7,8 @@ export const SignUp_PassWord = ({ userinfo, setUserinfo }) => {
   const [secondopacity, setsecondOpacity] = useState(0);
 
   const checkFormPassword = (input) => {
-    if (input.length > 7 && input.length < 21) return true;
+    if ((input.length > 7 && input.length < 21) || input.length == 0)
+      return true;
     else return false;
   };
 

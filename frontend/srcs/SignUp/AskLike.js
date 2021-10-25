@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Text, TouchableOpacity, StyleSheet, View } from "react-native";
 import { SearchBar } from "./SearchBar";
 import { SelectedFoodList } from "./SelectedFoodList";
 // import data 테이블 전체
@@ -17,7 +12,7 @@ export const AskLike = ({ navigation, route }) => {
     <View style={styles.container}>
       <Text
         style={{
-          fontSize: 30,
+          fontSize: 35,
           marginLeft: "5%",
           fontFamily: "BlackHanSans_400Regular",
         }}
@@ -27,10 +22,7 @@ export const AskLike = ({ navigation, route }) => {
       <View style={styles.seachbar}>
         <SearchBar foodList={likeFoodList} setFoodList={setLikeFoodList} />
       </View>
-      <SelectedFoodList
-        foodList={likeFoodList}
-        setFoodList={setLikeFoodList}
-      />
+      <SelectedFoodList foodList={likeFoodList} setFoodList={setLikeFoodList} />
       <View style={styles.buttonalign}>
         <TouchableOpacity
           style={{
@@ -73,13 +65,12 @@ export const AskLike = ({ navigation, route }) => {
 	- 선택한 목록
 		- x 버튼: 클릭하면 해당 음식 목록에서 삭제됨
 	- <Button>: 다음 페이지로 넘어감
-
 */
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-	marginTop : '10%'
+    marginTop: "25%",
   },
   buttonalign: {
     flex: 0.4,
@@ -88,7 +79,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   seachbar: {
-	position :'relative',
-	alignItems : 'center'
-  }
+    position: "relative",
+    alignItems: "center",
+    marginTop: "4%",
+  },
 });

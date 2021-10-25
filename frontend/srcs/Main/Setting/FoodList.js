@@ -1,10 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import {
-  Text,
-  TouchableOpacity,
-  Button,
-} from "react-native";
+import { Text, TouchableOpacity, Button, StyleSheet, View } from "react-native";
 import { SearchBar } from "../../SignUp/SearchBar";
 import { SelectedFoodList } from "../../SignUp/SelectedFoodList";
 
@@ -32,19 +28,38 @@ export const FoodList = ({ navigation }) => {
 	*/
 
   return (
-    <>
-      <TouchableOpacity onPress={() => setSignal(0)}>
-        <Text>좋아하는 것</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => setSignal(1)}>
-        <Text>싫어하는 것</Text>
-      </TouchableOpacity>
+    <View style={styles.container}>
+      <View style={styles.titlealign}>
+        <TouchableOpacity style={{ flex: 1 }} onPress={() => setSignal(0)}>
+          <Text
+            style={{
+              fontSize: 70,
+              textAlign: "center",
+              fontFamily: "BlackHanSans_400Regular",
+              color: signal == 0 ? "black" : "gray",
+              opacity: signal == 0 ? 1 : 0.3,
+            }}
+          >
+            좋아
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ flex: 1 }} onPress={() => setSignal(1)}>
+          <Text
+            style={{
+              fontSize: 70,
+              textAlign: "center",
+              fontFamily: "BlackHanSans_400Regular",
+              color: signal != 0 ? "black" : "gray",
+              opacity: signal != 0 ? 1 : 0.3,
+            }}
+          >
+            싫어
+          </Text>
+        </TouchableOpacity>
+      </View>
       {signal == 0 ? (
         <>
-          <SearchBar
-            foodList={likeFoodList}
-            setFoodList={setLikeFoodList}
-          />
+          <SearchBar foodList={likeFoodList} setFoodList={setLikeFoodList} />
           <SelectedFoodList
             foodList={likeFoodList}
             setFoodList={setLikeFoodList}
@@ -62,16 +77,54 @@ export const FoodList = ({ navigation }) => {
           />
         </>
       )}
-	  <Button title="적용" onPress={() => {
-      /*
+      <View style={styles.buttonalign}>
+        <TouchableOpacity
+          style={styles.buttonstyle}
+          onPress={() => {
+            /*
       axios.put(url, data)
         .then
           navigation.navigate("Setting");
         .error
           Alert.alert("전송 실패");
       */
-          navigation.navigate("Setting");
-      }}/>
-    </>
+            navigation.navigate("Setting");
+          }}
+        >
+          <Text style={styles.textstyle}>적용</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: "10%",
+  },
+  titlealign: {
+    flex: 0.2,
+    flexDirection: "row",
+    marginTop: "13%",
+    alignItems: "center",
+  },
+  textstyle: {
+    fontSize: 20,
+    color: "white",
+    fontFamily: "BlackHanSans_400Regular",
+    textAlign: "center",
+  },
+  buttonstyle: {
+    height: 55,
+    width: 110,
+    backgroundColor: "orange",
+    borderRadius: 40,
+    justifyContent: "center",
+  },
+  buttonalign: {
+    flex: 0.3,
+  },
+});
