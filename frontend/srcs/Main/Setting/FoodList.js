@@ -20,12 +20,7 @@ export const FoodList = ({ navigation }) => {
   ];
 
   const [likeFoodList, setLikeFoodList] = useState(likefoodlist);
-  const [disLikeFoodList, setDisLikeFoodList] = useState(dislikefoodlist); /*
-	if 토글 on
-		return ( 푸드리스트 보여주는 컴포넌트 렌더링 <- 좋아하는 음식 리스트 넣어줌)
-	else
-		return ( "" <- 싫어하는 음식 리스트 넣어줌)
-	*/
+  const [disLikeFoodList, setDisLikeFoodList] = useState(dislikefoodlist);
 
   return (
     <View style={styles.container}>

@@ -22,7 +22,7 @@ export const getData = (url, setData) => {
     });
 };
 
-export const postData = (url, object, func, val) =>  {
+export const postData = (url, object) =>  {
   const json = JSON.stringify(object);
   const api = axios.create({
     baseURL: ip,
@@ -48,6 +48,6 @@ export const selectFood = (url, food_name, navigation) => {
   console.log("navigation: ");
   console.log(navigation);
   const object = { selectFood : food_name };
-  postData(url, object, 0, 0);
+  postData(url, object);
   navigation.reset({ routes : [{name : 'Main'}]});
 };

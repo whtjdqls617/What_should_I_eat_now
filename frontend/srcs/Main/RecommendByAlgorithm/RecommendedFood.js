@@ -10,16 +10,13 @@ import {
 import { selectFood } from "../../func/func_data_communication";
 import { ip, food_image } from "../../data/data";
 import YoutubePlayer from "react-native-youtube-iframe";
+import { youtubeURLtoID } from "../../func/func_change_var_type";
 
 export const RecommendedFood = ({ data, updateIndex, navigation }) => {
 
 	const food_name = data.list[0].name;
 	const food_name_without_space = food_name.replaceAll(' ', '');
-	const youtube_url = data.list[0].youtube_url;
-	const youtube_id = youtube_url.slice(
-		youtube_url.indexOf("=") + 1,
-		youtube_url.lastIndexOf("=")
-	);
+	const youtube_id = youtubeURLtoID(data.list[0].youtube_url);
 
 	return (
 		<ScrollView style={{ width: "100%" }}>
@@ -31,39 +28,18 @@ export const RecommendedFood = ({ data, updateIndex, navigation }) => {
 					style={styles.img_recommend_food}
 				/>
 				<Text style={styles.foodname}>{food_name}</Text>
-
 				<View style={styles.button_align}>
 					<TouchableOpacity
 						style={styles.button}
-						onPress={() => {
-							selectFood(`${ip}/question`, "덮밥", navigation);
-						}}
+						onPress={() => selectFood(`${ip}/question`, food_name, navigation)}
 					>
-						<Text
-							style={{
-								fontSize: 20,
-								color: "white",
-								fontFamily: "BlackHanSans_400Regular",
-							}}
-						>
-							응!
-						</Text>
+						<Text style={styles.buttonText}>응!</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
 						style={styles.button}
-						onPress={() => {
-							updateIndex(true);
-						}}
+						onPress={() => updateIndex(true)}
 					>
-						<Text
-							style={{
-								fontSize: 20,
-								color: "white",
-								fontFamily: "BlackHanSans_400Regular",
-							}}
-						>
-							고민좀...
-						</Text>
+						<Text style={styles.buttonText}>고민좀...</Text>
 					</TouchableOpacity>
 				</View>
 				<Text style={styles.youtube}>유튜브 먹방</Text>
@@ -132,4 +108,9 @@ const styles = StyleSheet.create({
 	youtubealign: {
 		marginTop: "6%",
 	},
+	buttonText: {
+		fontSize: 20,
+		color: "white",
+		fontFamily: "BlackHanSans_400Regular",
+	}
 });
