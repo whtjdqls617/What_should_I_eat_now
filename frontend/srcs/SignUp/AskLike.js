@@ -13,15 +13,13 @@ export const AskLike = ({ navigation, route }) => {
       <Text
         style={{
           fontSize: 35,
-          marginLeft: "5%",
+          marginRight: "10%",
           fontFamily: "BlackHanSans_400Regular",
         }}
       >
         좋아하는 음식이 뭐야?
       </Text>
-      <View style={styles.seachbar}>
-        <SearchBar foodList={likeFoodList} setFoodList={setLikeFoodList} />
-      </View>
+      <SearchBar foodList={likeFoodList} setFoodList={setLikeFoodList} />
       <SelectedFoodList foodList={likeFoodList} setFoodList={setLikeFoodList} />
       <View style={styles.buttonalign}>
         <TouchableOpacity
@@ -71,6 +69,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: "25%",
+	alignItems : 'center'
   },
   buttonalign: {
     flex: 0.4,

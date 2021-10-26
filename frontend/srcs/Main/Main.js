@@ -22,7 +22,7 @@ export const Main = ({ navigation }) => {
         <View style={styles.bottomimg_align}>
           <TouchableOpacity
             style={{ flex: 1, alignItems: "center" }}
-            onPress={() => navigation.navigate("Calendar")}
+            onPress={() => navigation.navigate("CustomCalendar")}
           >
             <Image
               source={icons[0]}

@@ -4,7 +4,6 @@ import { SearchBar } from "./SearchBar";
 import { SelectedFoodList } from "./SelectedFoodList";
 import { postData } from "../func/func_data_communication";
 import { ip } from "../data/data";
-// import data 테이블 전체
 
 export const AskDisLike = (props) => {
   const navigation = props.navigation;
@@ -25,33 +24,24 @@ export const AskDisLike = (props) => {
     postData.password = userinfo.password;
     postData.likeFoodList = likeArr.join();
     postData.dislikeFoodList = dislikeArr.join();
-    return postData; // {userinfo: {nickname: "dfd", email: "djfkd"}, likeFoodList: ["dnehd", "dfdf"]}
-    // let str = "";
-    // array.forEach((ele) => {
-    // 	str += ele;
-    // 	str += ", ";
-    // })
-    // let post = str.slice(0, str.length - 2);
-    //{nickname: "fddf", likeFoodList: }
+    return postData;
   };
 
   return (
     <View style={styles.container}>
       <Text
         style={{
-          marginLeft: "5%",
+          marginRight: "10%",
           fontSize: 35,
           fontFamily: "BlackHanSans_400Regular",
         }}
       >
         싫어하는 음식이 뭐야?
       </Text>
-      <View style={styles.seachbar}>
         <SearchBar
           foodList={disLikeFoodList}
           setFoodList={setDisLikeFoodList}
         />
-      </View>
       <SelectedFoodList
         foodList={disLikeFoodList}
         setFoodList={setDisLikeFoodList}
@@ -95,7 +85,7 @@ export const AskDisLike = (props) => {
           }}
           onPress={() => {
             const data = makePostData(userinfo, likeFoodList, disLikeFoodList);
-            postData(`${ip}/user/signup`, data, 0, 0);
+            postData(`${ip}/user/signup`, data);
             console.log("data: ", data);
             navigation.navigate("SignIn");
           }}
@@ -119,6 +109,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: "25%",
+	alignItems : 'center'
   },
   buttonalign: {
     flexDirection: "row",
