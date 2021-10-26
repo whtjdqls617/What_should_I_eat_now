@@ -11,7 +11,10 @@ export const Loading = ({ updateIndex }) => {
 	setTimeout(() => {
 		const copy = text.substring();
 		if (copy.length == 6)
+		{
 			updateIndex(true);
+			return (0);
+		}
 		const newText = copy + ".";
 		setText(newText);
 	}, 700);
