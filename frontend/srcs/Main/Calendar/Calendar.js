@@ -1,51 +1,89 @@
 import React, { useState } from "react";
-import { Text, View, Alert } from "react-native";
+import { Text, View, Alert, ScrollView, Image, StyleSheet, TouchableOpacity, Button, Fl } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { EatenFood } from "./EatenFood";
+import { food_image } from "../../data/data";
+import { AddEatenFood } from "./AddEatenFood";
+import { EatenFoods } from "./EatenFoods";
+import { ThisMonthCalendar } from "./ThisMonthCalendar";
+
 
 export const CustomCalendar = () => {
-  const now = new Date();
-  const initialMonth = now.getMonth();
-  const [month, setMonth] = useState(initialMonth + 1);
+	const now = new Date();
+	const initialMonth = now.getMonth();
+	// const [month, setMonth] = useState([서버에서 전송받은 이번달 먹은 내역 초기값]);
+	const [day, setDay] = useState(["소막창구이", "소막창구이", "소막창구이"]);
+	const [eatingHistory, setEatingHistory] = useState([{날짜: "20211021", 먹은음식: ["소막창구이", "소막창구이", "엽기떡볶이"]}]);
+	//state임 적용 버튼을 누르면 서버에 이게 날라감 = [{날짜: 2021-10-21, 먹은 음식: [소막창구이, 소막창구이, 엽기떡볶이]}, {날짜: 2022-10-21, 먹은 음식: [소막창구이]}]
 
-  const vacation = { key: "vacation", color: "red"  };
-  const massage = { key: "massage", color: "blue" };
-  const workout = { key: "workout", color: "green" };
-  /* 해당 달에 먹은 내역을 형식에 맞게 정리해줘야 함 */
-  const markedDates = {
-    "2021-10-16": { selected: true, marked: true, selectedColor: "blue" },
-    "2021-10-17": { marked: true },
-    "2021-10-18": { marked: true, dotColor: "red", activeOpacity: 0 },
-    "2021-10-19": { disabled: true, disableTouchEvent: true },
-  };
-
-  return (
-    <View style={{ justifyContent: "center", marginTop: 100 }}>
-      <Calendar
-        onDayPress={(date) => Alert.alert(`${date.dateString} is selected!`)}
-        onMonthChange={(date) => {
-
-          /*
-          axios.get
-          .then
-            setMonth(date.month);
-          .error
-            Alert.alert("Sorry");
-          */
-         setMonth(date.month);
-        }}
-        markingType={"multi-dot"}
-        markedDates={{
-          "2021-10-25": {
-            dots: [vacation, massage, workout],
-            selected: true,
-            // selectedColor: "red",
-          },
-          "2021-10-26": { dots: [massage, workout], disabled: true },
-        }}
-      />
-    </View>
-  );
+	return (
+		<>
+			<View style={styles.top}>
+				<ThisMonthCalendar />
+			</View>
+			<View style={styles.bottom}>
+				<ScrollView horizontal={true}>
+					<EatenFoods number={day.length} foods={day}/>
+					<AddEatenFood day={day} setDay={setDay} eatingHistory={eatingHistory} setEatingHistory={setEatingHistory}/>
+				</ScrollView>
+			</View>
+			<View style={styles.button}>
+				<TouchableOpacity>
+					<Text>적용</Text>
+				</TouchableOpacity>
+				<TouchableOpacity>
+					<Text>취소</Text>
+				</TouchableOpacity>
+			</View>
+		</>
+	);
 };
+
+//취소 버튼 누르면 메인으로 감
+const styles = StyleSheet.create({
+	top: {
+		flex: 2,
+		marginTop: '25%',
+	},
+	bottom: {
+		flex: 1,
+		// alignItems: 'center',
+	},
+	button: {
+		flex: 1,
+		flexDirection: 'row',
+		// justifyContent : 'space-around',
+		//   alignItems : 'center'
+	},
+	imagerow: {
+		flexDirection: 'row',
+		// 	justifyContent : 'space-around',
+		//   alignItems : 'center'
+	},
+	imagestyle: {
+		// margin : '10%',
+    borderRadius : 130,
+    borderWidth : 3,
+		height: 100,
+		width: 100,
+	},
+	textrow: {
+		flexDirection: 'row',
+		// justifyContent : 'space-around',
+		// alignItems : 'center'
+	},
+	textstyle: {
+		textAlign: 'center'
+	},
+	xbuttonrow: {
+		flexDirection: 'row',
+	},
+	xbuttonstyles: {
+		flex: 1
+	},
+})
+
+
 
 
 /*
