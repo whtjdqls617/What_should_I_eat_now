@@ -10,10 +10,9 @@ import { food_name } from "../data/data";
 import { SearchPreview } from "./SearchPreview";
 import { arrayToObjectsInArray } from "../func/func_change_var_type";
 
-export const SearchBar = ({ foodList, setFoodList }) => {
+export const SearchBar = ({ onPress }) => {
   const [previewFood, setPreviewFood] = useState([]);
   const [value, setValue] = useState("");
-  const [buttonOpacity, setButtonOpacity] = useState(0);
 
   const matchFoodName = (input) => {
     let foodObject = [];
@@ -43,36 +42,13 @@ export const SearchBar = ({ foodList, setFoodList }) => {
         value={value}
         onChangeText={(input) => {
           setValue(input);
-          if (input.length > 0) setButtonOpacity(100);
-          else setButtonOpacity(0);
           matchFoodName(input);
         }}
       />
-      <View
-        style={{
-          opacity: buttonOpacity,
-          position: "absolute",
-          marginTop: "6.5%",
-          paddingStart: "90%",
-        }}
-      >
-        <TouchableOpacity
-          style={{ width: 20 }}
-          onPress={() => {
-            setButtonOpacity(0);
-            setValue("");
-          }}
-        >
-          <Text style={{ color: "black", fontSize: 20, color: "white" }}>
-            x
-          </Text>
-        </TouchableOpacity>
-      </View>
       <SearchPreview
         input={value}
         previewFood={previewFood}
-        foodList={foodList}
-        setFoodList={setFoodList}
+        onPress={onPress}
       />
     </>
   );
