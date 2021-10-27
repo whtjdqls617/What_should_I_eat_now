@@ -2,56 +2,67 @@ import React, { useState } from "react";
 import { Text, TouchableOpacity, StyleSheet, View } from "react-native";
 import { SearchBar } from "./SearchBar";
 import { SelectedFoodList } from "./SelectedFoodList";
+import { ObjectsInArrayToArray, arrayToObjectsInArray } from "../func/func_change_var_type";
+
 // import data 테이블 전체
 
 export const AskLike = ({ navigation, route }) => {
-  const userinfo = route.params;
-  const [likeFoodList, setLikeFoodList] = useState([]);
+	const userinfo = route.params;
+	const [likeFoodList, setLikeFoodList] = useState([]);
 
-  return (
-    <View style={styles.container}>
-      <Text
-        style={{
-          fontSize: 35,
-          marginRight: "10%",
-          fontFamily: "BlackHanSans_400Regular",
-        }}
-      >
-        좋아하는 음식이 뭐야?
-      </Text>
-      <SearchBar foodList={likeFoodList} setFoodList={setLikeFoodList} />
-      <SelectedFoodList foodList={likeFoodList} setFoodList={setLikeFoodList} />
-      <View style={styles.buttonalign}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "orange",
-            alignItems: "center",
-            height: 55,
-            width: 100,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 30,
-          }}
-          onPress={() =>
-            navigation.navigate("AskDisLike", {
-              userinfo: userinfo,
-              likeFoodList: likeFoodList,
-            })
-          }
-        >
-          <Text
-            style={{
-              fontSize: 20,
-              color: "white",
-              fontFamily: "BlackHanSans_400Regular",
-            }}
-          >
-            다음
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+	const onPress = (item) => {
+		const array = ObjectsInArrayToArray(likeFoodList);
+		if (!array.includes(item.food)) {
+			array.push(item.food);
+			const newFoodList = arrayToObjectsInArray(array);
+			setLikeFoodList(newFoodList);
+		}
+	};
+
+	return (
+		<View style={styles.container}>
+			<Text
+				style={{
+					fontSize: 35,
+					marginRight: "10%",
+					fontFamily: "BlackHanSans_400Regular",
+				}}
+			>
+				좋아하는 음식이 뭐야?
+			</Text>
+			<SearchBar onPress={onPress} />
+			<SelectedFoodList foodList={likeFoodList} setFoodList={setLikeFoodList} />
+			<View style={styles.buttonalign}>
+				<TouchableOpacity
+					style={{
+						backgroundColor: "orange",
+						alignItems: "center",
+						height: 55,
+						width: 100,
+						alignItems: "center",
+						justifyContent: "center",
+						borderRadius: 30,
+					}}
+					onPress={() =>
+						navigation.navigate("AskDisLike", {
+							userinfo: userinfo,
+							likeFoodList: likeFoodList,
+						})
+					}
+				>
+					<Text
+						style={{
+							fontSize: 20,
+							color: "white",
+							fontFamily: "BlackHanSans_400Regular",
+						}}
+					>
+						다음
+					</Text>
+				</TouchableOpacity>
+			</View>
+		</View>
+	);
 };
 // navigation.navigate("AskLike", {객체: 음식 데이터, 페이지의 이름, true})
 
@@ -66,20 +77,20 @@ export const AskLike = ({ navigation, route }) => {
 */
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: "25%",
-	alignItems : 'center'
-  },
-  buttonalign: {
-    flex: 0.4,
-    margin: 10,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  seachbar: {
-    position: "relative",
-    alignItems: "center",
-    marginTop: "4%",
-  },
+	container: {
+		flex: 1,
+		marginTop: "25%",
+		alignItems: 'center'
+	},
+	buttonalign: {
+		marginBottom: '20%',
+		margin: 10,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	seachbar: {
+		position: "relative",
+		alignItems: "center",
+		marginTop: "4%",
+	},
 });

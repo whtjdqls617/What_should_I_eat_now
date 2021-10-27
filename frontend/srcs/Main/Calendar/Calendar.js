@@ -16,6 +16,8 @@ export const CustomCalendar = () => {
 	const [eatingHistory, setEatingHistory] = useState([{날짜: "20211021", 먹은음식: ["소막창구이", "소막창구이", "엽기떡볶이"]}]);
 	//state임 적용 버튼을 누르면 서버에 이게 날라감 = [{날짜: 2021-10-21, 먹은 음식: [소막창구이, 소막창구이, 엽기떡볶이]}, {날짜: 2022-10-21, 먹은 음식: [소막창구이]}]
 
+	
+	
 	return (
 		<>
 			<View style={styles.top}>
