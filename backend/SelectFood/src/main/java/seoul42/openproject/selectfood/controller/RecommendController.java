@@ -5,16 +5,15 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import seoul42.openproject.selectfood.domain.Member;
-import seoul42.openproject.selectfood.domain.PickFood;
+import seoul42.openproject.selectfood.dto.PickFood;
 import seoul42.openproject.selectfood.dto.PickFoodDto;
-import seoul42.openproject.selectfood.domain.Question;
+import seoul42.openproject.selectfood.dto.Question;
 import seoul42.openproject.selectfood.dto.common.CommonResult;
 import seoul42.openproject.selectfood.dto.common.ListResult;
 import seoul42.openproject.selectfood.service.CommonResponseService;
 import seoul42.openproject.selectfood.service.MemberService;
 import seoul42.openproject.selectfood.service.RecommendService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,20 +28,20 @@ public class RecommendController {
     private final MemberService memberService;
     private final CommonResponseService commonResponseService;
 
-    @ApiOperation(value = "사용자 선택한 음식 저장", notes = "최종 선택 음식을 유저 먹은 음식 리스트에 저장")
-    @PostMapping("/select")
-    public CommonResult saveSelectedFood(@RequestParam String email, @RequestParam String foodName) throws Exception {
-        Optional<Member> member = memberService.findEmail(email);
-        if (member.isPresent())
-        {
-            member.orElseThrow(Exception::new).setPickedFoodList(
-                    member.get().getPickedFoodList() + ", "
-                    + foodName
-            );
-            return commonResponseService.getSuccessResult();
-        }
-        return commonResponseService.getFailResult();
-    }
+//    @ApiOperation(value = "사용자 선택한 음식 저장", notes = "최종 선택 음식을 유저 먹은 음식 리스트에 저장")
+//    @PostMapping("/select")
+//    public CommonResult saveSelectedFood(@RequestParam String email, @RequestParam String foodName) throws Exception {
+//        Optional<Member> member = memberService.findEmail(email);
+//        if (member.isPresent())
+//        {
+//            member.orElseThrow(Exception::new).setPickedFoodList(
+//                    member.get().getPickedFoodList() + ", "
+//                    + foodName
+//            );
+//            return commonResponseService.getSuccessResult();
+//        }
+//        return commonResponseService.getFailResult();
+//    }
 
     @ApiOperation(value = "추천음식 데이터 요청 처리", notes = "질문 답변 데이터 받고 이에 따른 음식추천결과 전송")
     @GetMapping("/")

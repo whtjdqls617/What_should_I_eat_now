@@ -4,13 +4,16 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import seoul42.openproject.selectfood.domain.Food;
 import seoul42.openproject.selectfood.domain.Member;
-import seoul42.openproject.selectfood.dto.MemberEditDto;
 import seoul42.openproject.selectfood.dto.common.CommonResult;
-import seoul42.openproject.selectfood.dto.common.SingleResult;
+import seoul42.openproject.selectfood.dto.member.MemberSignUpDto;
+import seoul42.openproject.selectfood.repository.MemberSelectFoodRepository;
 import seoul42.openproject.selectfood.service.CommonResponseService;
+import seoul42.openproject.selectfood.service.FoodService;
 import seoul42.openproject.selectfood.service.MemberService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Api(tags = "member")
@@ -20,12 +23,28 @@ import java.util.Optional;
 public class MemberController {
 
     private final MemberService memberService;
+    private final FoodService foodService;
+    private final MemberSelectFoodRepository memberSelectFoodRepository;
+//    private final MemberSelectFoodRepository memberLikeFoodRepository;
+//    private final MemberSelectFoodRepository memberDislikeFoodRepository;
     private final CommonResponseService commonResponseService;
 
     @ApiOperation(value = "회원 가입", notes = "사용자의 선호 음식 리스트 내역과 회원정보까지 저장")
     @PostMapping("/signup")
-    public CommonResult signUpMember(@RequestBody Member member) {
-        memberService.signUp(member);
+    public CommonResult signUpMember(@RequestBody MemberSignUpDto signUpDto) {
+//        Member member = memberService.signUp(signUpDto.getMember());
+        // 선택한 음식이 없다면 어떻게 될까?
+        Member member1 = new Member();
+        member1.setEmail(signUpDto.getEmail());
+        member1.setNickName(signUpDto.getNickName());
+        member1.setPassword(signUpDto.getPassword());
+        Member member = memberService.signUp(member1);
+        List<String> foodNames = signUpDto.getFoodName();
+        for (String name:
+             foodNames) {
+            Food food = foodService.findByName(name).get();
+            memberSelectFoodRepository.save(member, food);
+        }
         return commonResponseService.getSuccessResult();
     }
 
@@ -59,39 +78,39 @@ public class MemberController {
 
     // 유저 이메일만 받거나 토큰 받으면 될 것 같은데...
     // swagger 에서 테스트 안되니 불편하구만
-    @ApiOperation(value = "좋아하는 음식 리스트 클라이언트로 보내기", notes = "회원 정보 수정 중 좋아하는 음식 리스트 변경")
-    @GetMapping("/edit/food/like")
-    public SingleResult<String> getLikeFood(@RequestParam String email) throws Exception {
-        Optional<Member> memberForLike = memberService.findEmail(email);
-//        return memberForLike.get().getLikeFoodList();
-        return commonResponseService.getSingleResult(memberForLike.orElseThrow(Exception::new).getDislikeFoodList());
-    }
-
-    @ApiOperation(value = "좋아하는 음식 리스트 변경", notes = "회원 정보 수정 중 좋아하는 음식 리스트 변경")
-    @PutMapping("/edit/food/like")
-    public CommonResult editLikeFood(@RequestBody MemberEditDto memberEditDto) {
-        Long memberId = memberService.updateLikeFood(memberEditDto);
-        if (memberId > 0)
-            return commonResponseService.getSuccessResult();
-        return commonResponseService.getFailResult();
-    }
-
-    @ApiOperation(value = "싫어하는 음식 리스트 클라이언트로 보내기", notes = "회원 정보 수정 중 싫어하는 음식 리스트 변경")
-    @GetMapping("/edit/food/dislike")
-    public SingleResult<String> getDislikeFood(@RequestParam String email) throws Exception {
-        Optional<Member> memberForDislike = memberService.findEmail(email);
-//        return memberForDislike.get().getDislikeFoodList();
-        return commonResponseService.getSingleResult(memberForDislike.orElseThrow(Exception::new).getDislikeFoodList());
-    }
-
-    @ApiOperation(value = "싫어하는 음식 리스트 변경", notes = "회원 정보 수정 중 싫어하는 음식 리스트 변경")
-    @PutMapping("/edit/food/dislike")
-    public CommonResult editDislikeFood(@RequestBody MemberEditDto memberEditDto) {
-        Long memberId = memberService.updateDislikeFood(memberEditDto);
-        if (memberId > 0)
-            return commonResponseService.getSuccessResult();
-        return commonResponseService.getFailResult();
-    }
+//    @ApiOperation(value = "좋아하는 음식 리스트 클라이언트로 보내기", notes = "회원 정보 수정 중 좋아하는 음식 리스트 변경")
+//    @GetMapping("/edit/food/like")
+//    public SingleResult<String> getLikeFood(@RequestParam String email) throws Exception {
+//        Optional<Member> memberForLike = memberService.findEmail(email);
+////        return memberForLike.get().getLikeFoodList();
+//        return commonResponseService.getSingleResult(memberForLike.orElseThrow(Exception::new).getDislikeFoodList());
+//    }
+//
+//    @ApiOperation(value = "좋아하는 음식 리스트 변경", notes = "회원 정보 수정 중 좋아하는 음식 리스트 변경")
+//    @PutMapping("/edit/food/like")
+//    public CommonResult editLikeFood(@RequestBody MemberEditDto memberEditDto) {
+//        Long memberId = memberService.updateLikeFood(memberEditDto);
+//        if (memberId > 0)
+//            return commonResponseService.getSuccessResult();
+//        return commonResponseService.getFailResult();
+//    }
+//
+//    @ApiOperation(value = "싫어하는 음식 리스트 클라이언트로 보내기", notes = "회원 정보 수정 중 싫어하는 음식 리스트 변경")
+//    @GetMapping("/edit/food/dislike")
+//    public SingleResult<String> getDislikeFood(@RequestParam String email) throws Exception {
+//        Optional<Member> memberForDislike = memberService.findEmail(email);
+////        return memberForDislike.get().getDislikeFoodList();
+//        return commonResponseService.getSingleResult(memberForDislike.orElseThrow(Exception::new).getDislikeFoodList());
+//    }
+//
+//    @ApiOperation(value = "싫어하는 음식 리스트 변경", notes = "회원 정보 수정 중 싫어하는 음식 리스트 변경")
+//    @PutMapping("/edit/food/dislike")
+//    public CommonResult editDislikeFood(@RequestBody MemberEditDto memberEditDto) {
+//        Long memberId = memberService.updateDislikeFood(memberEditDto);
+//        if (memberId > 0)
+//            return commonResponseService.getSuccessResult();
+//        return commonResponseService.getFailResult();
+//    }
 
     @ApiOperation(value = "로그인", notes = "임시적인 로그인")
     @GetMapping("/signin")

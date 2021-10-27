@@ -1,4 +1,4 @@
-package seoul42.openproject.selectfood.dto;
+package seoul42.openproject.selectfood.dto.member;
 
 import lombok.Getter;
 import lombok.Setter;

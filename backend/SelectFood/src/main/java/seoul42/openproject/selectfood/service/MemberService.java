@@ -4,23 +4,22 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seoul42.openproject.selectfood.domain.Member;
-import seoul42.openproject.selectfood.dto.MemberEditDto;
 import seoul42.openproject.selectfood.repository.MemberRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @AllArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public Long signUp(Member member) {
+    @Transactional
+    public Member signUp(Member member) {
         validateDuplicateMember(member);
-        memberRepository.save(member);
-        return member.getId();
+        return memberRepository.save(member);
     }
 
     private void validateDuplicateMember(Member member) {
@@ -51,36 +50,36 @@ public class MemberService {
         return memberRepository.findByEmail(email);
     }
 
-    public Long updatePickedFood(MemberEditDto memberEditDto) {
-        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
-        member.ifPresent(member1 -> {
-            member1.setLikeFoodList(member1.getPickedFoodList() + ", " + memberEditDto.getPickedFood());
-            memberRepository.save(member1);
-        });
-        if (member.isPresent())
-            return member.get().getId();
-        return -1L;
-    }
-
-    public Long updateLikeFood(MemberEditDto memberEditDto) {
-        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
-        member.ifPresent(member1 -> {
-            member1.setLikeFoodList(member1.getLikeFoodList() + ", " + memberEditDto.getLikeFood());
-            memberRepository.save(member1);
-        });
-        if (member.isPresent())
-            return member.get().getId();
-        return -1L;
-    }
-
-    public Long updateDislikeFood(MemberEditDto memberEditDto) {
-        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
-        member.ifPresent(member1 -> {
-            member1.setDislikeFoodList(member1.getDislikeFoodList() + ", " + memberEditDto.getDislikeFood());
-            memberRepository.save(member1);
-        });
-        if (member.isPresent())
-            return member.get().getId();
-        return -1L;
-    }
+//    public Long updatePickedFood(MemberEditDto memberEditDto) {
+//        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
+//        member.ifPresent(member1 -> {
+//            member1.setLikeFoodList(member1.getPickedFoodList() + ", " + memberEditDto.getPickedFood());
+//            memberRepository.save(member1);
+//        });
+//        if (member.isPresent())
+//            return member.get().getId();
+//        return -1L;
+//    }
+//
+//    public Long updateLikeFood(MemberEditDto memberEditDto) {
+//        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
+//        member.ifPresent(member1 -> {
+//            member1.setLikeFoodList(member1.getLikeFoodList() + ", " + memberEditDto.getLikeFood());
+//            memberRepository.save(member1);
+//        });
+//        if (member.isPresent())
+//            return member.get().getId();
+//        return -1L;
+//    }
+//
+//    public Long updateDislikeFood(MemberEditDto memberEditDto) {
+//        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
+//        member.ifPresent(member1 -> {
+//            member1.setDislikeFoodList(member1.getDislikeFoodList() + ", " + memberEditDto.getDislikeFood());
+//            memberRepository.save(member1);
+//        });
+//        if (member.isPresent())
+//            return member.get().getId();
+//        return -1L;
+//    }
 }

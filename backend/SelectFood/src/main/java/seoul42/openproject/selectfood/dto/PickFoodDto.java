@@ -1,7 +1,6 @@
 package seoul42.openproject.selectfood.dto;
 
 import lombok.*;
-import seoul42.openproject.selectfood.domain.PickFood;
 
 import java.util.List;
 

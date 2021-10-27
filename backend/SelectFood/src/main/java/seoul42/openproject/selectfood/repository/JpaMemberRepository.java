@@ -1,6 +1,7 @@
 package seoul42.openproject.selectfood.repository;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import seoul42.openproject.selectfood.domain.Member;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class JpaMemberRepository implements MemberRepository{
 
     private final EntityManager em;

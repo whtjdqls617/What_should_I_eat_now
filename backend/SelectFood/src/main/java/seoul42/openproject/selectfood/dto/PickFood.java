@@ -1,4 +1,4 @@
-package seoul42.openproject.selectfood.domain;
+package seoul42.openproject.selectfood.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
