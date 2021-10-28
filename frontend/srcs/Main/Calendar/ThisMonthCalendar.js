@@ -1,8 +1,10 @@
 import React from "react";
+import { Alert } from "react-native";
 import { Calendar } from "react-native-calendars";
 
+// prop으로 month, setDay를 받아야한다
 
-export const ThisMonthCalendar = () => {
+export const ThisMonthCalendar = ({ setDay }) => {
 
 
 	const vacation = { key: "vacation", color: "red" };
@@ -19,11 +21,11 @@ export const ThisMonthCalendar = () => {
 	return (
 		<Calendar
 		onDayPress={(date) => {
+			setDay(["도넛", "삼겹살", "크로넛"]);
 			/*
 			그날 먹은 내역 = 함수(그달의 먹은 내역, 그날);
 			setDay(그날 먹은 내역);
 			*/
-			Alert.alert(`${date.dateString} is selected!`)
 		}
 	}
 		onMonthChange={(date) => {

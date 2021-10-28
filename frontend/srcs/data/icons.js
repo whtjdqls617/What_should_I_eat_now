@@ -31,3 +31,9 @@ export var icons = [
   require("../../image/setting.png"),
   require("../../image/food.png"),
 ]
+
+export var plus = require("../../image/plus.png");
+
+export var home = require("../../image/home.png");
+
+export var random = require("../../image/randomFood.png");
