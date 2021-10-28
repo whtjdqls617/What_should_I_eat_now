@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import seoul42.openproject.selectfood.domain.Food;
 import seoul42.openproject.selectfood.repository.FoodRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +25,7 @@ public class FoodService {
         // optional 에서 orElseGet() 이 많이 쓰임(있으면 리턴 없으면 뒤에 메소드 실행)
         validateDuplicateFood(food);
         foodRepository.save(food);
-        return food.getFood_id();
+        return food.getId();
     }
 
     private void validateDuplicateFood(Food food) {
@@ -44,7 +45,14 @@ public class FoodService {
     }
 
     public Optional<Food> findByName(String foodName) {
-
         return foodRepository.findByName(foodName);
+    }
+
+    public List<Food> findByNameList(List<String> foodNames) {
+        List<Food> foods= new ArrayList<Food>();
+        for (String foodName : foodNames) {
+            foods.add(foodRepository.findByName(foodName).orElseGet(Food::new));
+        }
+        return foods;
     }
 }

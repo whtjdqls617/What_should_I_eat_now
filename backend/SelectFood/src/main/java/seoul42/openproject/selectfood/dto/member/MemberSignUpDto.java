@@ -12,5 +12,6 @@ public class MemberSignUpDto {
     private String nickName;
     private String email;
     private String password;
-    List<String> foodName;
+    List<String> likeFoodNames;
+    List<String> dislikeFoodNames;
 }

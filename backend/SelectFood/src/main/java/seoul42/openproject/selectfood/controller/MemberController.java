@@ -11,6 +11,7 @@ import seoul42.openproject.selectfood.dto.member.MemberSignUpDto;
 import seoul42.openproject.selectfood.repository.MemberSelectFoodRepository;
 import seoul42.openproject.selectfood.service.CommonResponseService;
 import seoul42.openproject.selectfood.service.FoodService;
+import seoul42.openproject.selectfood.service.ManageMemberFoodService;
 import seoul42.openproject.selectfood.service.MemberService;
 
 import java.util.List;
@@ -23,10 +24,7 @@ import java.util.Optional;
 public class MemberController {
 
     private final MemberService memberService;
-    private final FoodService foodService;
-    private final MemberSelectFoodRepository memberSelectFoodRepository;
-//    private final MemberSelectFoodRepository memberLikeFoodRepository;
-//    private final MemberSelectFoodRepository memberDislikeFoodRepository;
+    private final ManageMemberFoodService manageMemberFoodService;
     private final CommonResponseService commonResponseService;
 
     @ApiOperation(value = "회원 가입", notes = "사용자의 선호 음식 리스트 내역과 회원정보까지 저장")
@@ -34,17 +32,18 @@ public class MemberController {
     public CommonResult signUpMember(@RequestBody MemberSignUpDto signUpDto) {
 //        Member member = memberService.signUp(signUpDto.getMember());
         // 선택한 음식이 없다면 어떻게 될까?
-        Member member1 = new Member();
-        member1.setEmail(signUpDto.getEmail());
-        member1.setNickName(signUpDto.getNickName());
-        member1.setPassword(signUpDto.getPassword());
-        Member member = memberService.signUp(member1);
-        List<String> foodNames = signUpDto.getFoodName();
-        for (String name:
-             foodNames) {
-            Food food = foodService.findByName(name).get();
-            memberSelectFoodRepository.save(member, food);
-        }
+//        Member member1 = new Member();
+//        member1.setEmail(signUpDto.getEmail());
+//        member1.setNickName(signUpDto.getNickName());
+//        member1.setPassword(signUpDto.getPassword());
+//        Member member = memberService.saveMember(member1);
+//        List<String> foodNames = signUpDto.getFoodName();
+//        for (String name:
+//             foodNames) {
+//            Food food = foodService.findByName(name).get();
+//            memberSelectFoodRepository.save(member, food);
+//        }
+        manageMemberFoodService.signUpWithFoods(signUpDto);
         return commonResponseService.getSuccessResult();
     }
 

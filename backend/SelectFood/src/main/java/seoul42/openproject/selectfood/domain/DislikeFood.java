@@ -10,14 +10,22 @@ import javax.persistence.*;
 public class DislikeFood {
 
     @Id
+    @Column(name = "DISLIKE_FOOD_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long selectedFoodId;
+    private Long dislikeFoodId;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "food_id")
+    @JoinColumn(name = "FOOD_ID")
     private Food food;
+
+    public static DislikeFood createDislikeFood(Food food) {
+        DislikeFood dislikeFood = new DislikeFood();
+        dislikeFood.setFood(food);
+
+        return dislikeFood;
+    }
 }

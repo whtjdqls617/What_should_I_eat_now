@@ -12,16 +12,14 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class JpaMemberSelectFoodRepository implements MemberSelectFoodRepository{
+public class JpaLikeFoodRepository implements MemberSelectFoodRepository{
 
     private final EntityManager em;
 
     @Override
     public void save(Member member, Food food) {
         SelectedFood selectedFood = new SelectedFood();
-        em.persist(selectedFood);
         selectedFood.setMember(member);
-        em.persist(selectedFood);
         selectedFood.setFood(food);
         em.persist(selectedFood);
     }
@@ -33,11 +31,6 @@ public class JpaMemberSelectFoodRepository implements MemberSelectFoodRepository
 
     @Override
     public Optional<Member> findByEmail(String email) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<Member> findByNickName(String nickName) {
         return Optional.empty();
     }
 

@@ -1,8 +1,10 @@
 package seoul42.openproject.selectfood.service;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import seoul42.openproject.selectfood.domain.Food;
 import seoul42.openproject.selectfood.domain.Member;
 import seoul42.openproject.selectfood.repository.MemberRepository;
 
@@ -11,13 +13,13 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Member signUp(Member member) {
+    public Member saveMember(Member member) {
         validateDuplicateMember(member);
         return memberRepository.save(member);
     }

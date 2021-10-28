@@ -6,18 +6,27 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "LIKE_FOOD")
 @Getter @Setter
 public class LikeFood {
 
     @Id
+    @Column(name = "LIKE_FOOD_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long selectedFoodId;
+    private Long likeFoodId;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @ManyToOne
-    @JoinColumn(name = "food_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FOOD_ID")
     private Food food;
+
+    public static LikeFood createLikeFood(Food food) {
+        LikeFood likeFood = new LikeFood();
+        likeFood.setFood(food);
+
+        return likeFood;
+    }
 }

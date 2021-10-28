@@ -11,6 +11,5 @@ public interface MemberSelectFoodRepository {
     void save(Member member, Food food);
     Optional<SelectedFood> findByMemberId(Long memberId);
     Optional<Member> findByEmail(String email);
-    Optional<Member> findByNickName(String nickName);
     List<Member> findAll();
 }
