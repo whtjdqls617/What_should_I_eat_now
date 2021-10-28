@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Text, TouchableOpacity, Button, StyleSheet, View } from "react-native";
 import { SearchBar } from "../../SignUp/SearchBar";
 import { SelectedFoodList } from "../../SignUp/SelectedFoodList";
+import { HomeButton } from "../HomeButton";
 
 export const FoodList = ({ navigation }) => {
   //props로 음식 리스트 받아온 상태
@@ -23,6 +24,8 @@ export const FoodList = ({ navigation }) => {
   const [disLikeFoodList, setDisLikeFoodList] = useState(dislikefoodlist);
 
   return (
+	  <>
+    <HomeButton navigation={navigation} />
     <View style={styles.container}>
       <View style={styles.titlealign}>
         <TouchableOpacity style={{ flex: 1 }} onPress={() => setSignal(0)}>
@@ -90,6 +93,7 @@ export const FoodList = ({ navigation }) => {
         </TouchableOpacity>
       </View>
     </View>
+	</>
   );
 };
 

@@ -26,107 +26,175 @@ export const SignUp_Email = ({ userinfo, setUserinfo }) => {
       return true;
     else return false;
   };
-
-  return (
-    <>
-      <View style={styles.emailrow}>
-        <TextInput
-          style={styles.textinput}
-          placeholder="이메일"
-          onChangeText={(input) => {
-            let copy = userinfo.slice();
-            copy.splice(1, 1, 0);
-            setUserinfo(copy);
-            setEmail(input);
-            if (checkEmail(input)) {
-              setOpacity(0);
-            } else setOpacity(100);
-            setbuttonColor("orange");
-          }}
-        />
-        <TouchableOpacity
-          style={{
-            backgroundColor: buttonColor,
-            borderRadius: 4,
-            height: 30,
-            width: 60,
-            margin: 10,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          onPress={() => {
-            if (!checkEmail(email)) {
-              Alert.alert("잘못된 이메일 형식입니다.");
-              return;
-            } else setbuttonColor("gray");
-            // axios
-            //   .get(`${ip}/user/signup/check-email`)
-            //   .then(function (response) {
-            //     //response.dfd == "ok"
-            //     setokModalVisible(true);
-            //     //response.dfds == "fail"
-            //     // Alert.alert("이미 가입이 된 이메일입니다")
-            //   })
-            //   .catch(function (error) {
-            //     console.log("err: ");
-            //     console.log(error);
-            //     return 0;
-            //   });
-            setokModalVisible(true);
-          }}
-        >
-          <Text
-            style={{ color: "white", fontFamily: "BlackHanSans_400Regular" }}
+  if (isokmodalVisible)
+    return (
+      <>
+        <View style={styles.emailrow}>
+          <TextInput
+            style={styles.textinput}
+            placeholder="이메일"
+            onChangeText={(input) => {
+              let copy = userinfo.slice();
+              copy.splice(1, 1, 0);
+              setUserinfo(copy);
+              setEmail(input);
+              if (checkEmail(input)) {
+                setOpacity(0);
+              } else setOpacity(100);
+              setbuttonColor("orange");
+            }}
+          />
+          <TouchableOpacity
+            style={{
+              backgroundColor: buttonColor,
+              borderRadius: 4,
+              height: 30,
+              width: 60,
+              margin: 10,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onPress={() => {
+              if (!checkEmail(email)) {
+                Alert.alert("잘못된 이메일 형식입니다.");
+                return;
+              } else setbuttonColor("gray");
+              // axios
+              //   .get(`${ip}/user/signup/check-email`)
+              //   .then(function (response) {
+              //     //response.dfd == "ok"
+              //     setokModalVisible(true);
+              //     //response.dfds == "fail"
+              //     // Alert.alert("이미 가입이 된 이메일입니다")
+              //   })
+              //   .catch(function (error) {
+              //     console.log("err: ");
+              //     console.log(error);
+              //     return 0;
+              //   });
+              setokModalVisible(true);
+            }}
           >
-            중복 확인
-          </Text>
-        </TouchableOpacity>
-        <Modal isVisible={isokmodalVisible} hasBackdrop={true}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text
-                style={{
-                  margin: 25,
-                  fontSize: 16,
-                  fontFamily: "BlackHanSans_400Regular",
-                }}
-              >
-                사용 가능한 이메일입니다.
-              </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  let copy = userinfo.slice();
-                  copy.splice(1, 1, email);
-                  setUserinfo(copy);
-                  toggleokModal();
-                }}
-                style={styles.button}
-              >
+            <Text
+              style={{ color: "white", fontFamily: "BlackHanSans_400Regular" }}
+            >
+              중복 확인
+            </Text>
+          </TouchableOpacity>
+          <Modal isVisible={true} hasBackdrop={true}>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
                 <Text
                   style={{
-                    color: "white",
+                    margin: 25,
+                    fontSize: 16,
                     fontFamily: "BlackHanSans_400Regular",
                   }}
                 >
-                  확인
+                  사용 가능한 이메일입니다.
                 </Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    let copy = userinfo.slice();
+                    copy.splice(1, 1, email);
+                    setUserinfo(copy);
+                    toggleokModal();
+                  }}
+                  style={styles.button}
+                >
+                  <Text
+                    style={{
+                      color: "white",
+                      fontFamily: "BlackHanSans_400Regular",
+                    }}
+                  >
+                    확인
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </Modal>
-      </View>
-      <Text
-        style={{
-          opacity: opacity,
-          marginLeft: "3%",
-          color: "red",
-          fontFamily: "BlackHanSans_400Regular",
-        }}
-      >
-        잘못된 이메일 형식입니다.
-      </Text>
-    </>
-  );
+          </Modal>
+        </View>
+        <Text
+          style={{
+            opacity: opacity,
+            marginLeft: "3%",
+            color: "red",
+            fontFamily: "BlackHanSans_400Regular",
+          }}
+        >
+          잘못된 이메일 형식입니다.
+        </Text>
+      </>
+    );
+  else
+    return (
+      <>
+        <View style={styles.emailrow}>
+          <TextInput
+            style={styles.textinput}
+            placeholder="이메일"
+            onChangeText={(input) => {
+              let copy = userinfo.slice();
+              copy.splice(1, 1, 0);
+              setUserinfo(copy);
+              setEmail(input);
+              if (checkEmail(input)) {
+                setOpacity(0);
+              } else setOpacity(100);
+              setbuttonColor("orange");
+            }}
+          />
+          <TouchableOpacity
+            style={{
+              backgroundColor: buttonColor,
+              borderRadius: 4,
+              height: 30,
+              width: 60,
+              margin: 10,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onPress={() => {
+              if (!checkEmail(email)) {
+                Alert.alert("잘못된 이메일 형식입니다.");
+                return;
+              } else setbuttonColor("gray");
+              // axios
+              //   .get(`${ip}/user/signup/check-email`)
+              //   .then(function (response) {
+              //     //response.dfd == "ok"
+              //     setokModalVisible(true);
+              //     //response.dfds == "fail"
+              //     // Alert.alert("이미 가입이 된 이메일입니다")
+              //   })
+              //   .catch(function (error) {
+              //     console.log("err: ");
+              //     console.log(error);
+              //     return 0;
+              //   });
+              setokModalVisible(true);
+            }}
+          >
+            <Text
+              style={{ color: "white", fontFamily: "BlackHanSans_400Regular" }}
+            >
+              중복 확인
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <Text
+          style={{
+            opacity: opacity,
+            marginLeft: "3%",
+            color: "red",
+            fontFamily: "BlackHanSans_400Regular",
+          }}
+        >
+          잘못된 이메일 형식입니다.
+        </Text>
+      </>
+    );
 };
 
 const styles = StyleSheet.create({
