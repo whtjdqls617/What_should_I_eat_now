@@ -7,7 +7,9 @@ import { ObjectsInArrayToArray, arrayToObjectsInArray } from "../func/func_chang
 // import data 테이블 전체
 
 export const AskLike = ({ navigation, route }) => {
-	const userinfo = route.params;
+	const userinfo = route.params.userinfo;
+	const disLikeFoodList = route.params.disLikeFoodList;
+	console.log("userinfo: ", userinfo);
 	const [likeFoodList, setLikeFoodList] = useState([]);
 
 	const onPress = (item) => {
@@ -47,6 +49,7 @@ export const AskLike = ({ navigation, route }) => {
 						navigation.navigate("AskDisLike", {
 							userinfo: userinfo,
 							likeFoodList: likeFoodList,
+							disLikeFoodList: disLikeFoodList
 						})
 					}
 				>

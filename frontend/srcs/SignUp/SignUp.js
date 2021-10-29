@@ -48,7 +48,7 @@ export const SignUp = ({ navigation }) => {
                 return;
               }
             }
-            const data = arrayToObject(userinfo);
+            const data = { userinfo: arrayToObject(userinfo), disLikeFoodList: []};
             navigation.navigate("AskLike", data);
           }}
         >
@@ -84,3 +84,6 @@ const styles = StyleSheet.create({
     marginTop: "50%",
   },
 });
+
+
+//{ userinfo: {rkqt}, disLikeFoodList: [] }

@@ -16,8 +16,14 @@ export const OtherFood = ({ data, navigation }) => {
     data.list[2].name,
     data.list[3].name,
   ];
-  const other_food_name_without_space = other_food_name.map((ele) =>
-    ele.replaceAll(" ", "")
+  const other_food_name_without_space = other_food_name.map((foodName) => {
+    
+	let foodName_without_space = foodName.slice();
+	while (foodName_without_space.includes(' ')) {
+	  foodName_without_space = foodName_without_space.replace(' ', ''); 
+	}
+	return foodName_without_space;	
+  }
   );
   const other_food_image = other_food_name_without_space.map(
     (ele) => food_image[ele]

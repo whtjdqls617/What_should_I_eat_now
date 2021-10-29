@@ -4,7 +4,11 @@ import { TouchableOpacity, Image } from "react-native";
 import { icons } from "../data/icons";
 
 export const Main = ({ navigation }) => {
-  return (
+  
+	
+
+
+	return (
     <>
       <View style={styles.top}>
         <TouchableOpacity

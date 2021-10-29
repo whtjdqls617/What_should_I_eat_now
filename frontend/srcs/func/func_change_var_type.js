@@ -23,3 +23,11 @@ export const youtubeURLtoID = (url) => {
 	else
 		return url.slice(url.indexOf("=") + 1, url.lastIndexOf("="));
 }
+
+export const arrayToObject = (array) => {
+    let object = {};
+    object.nickName = array[0];
+    object.email = array[1];
+    object.password = array[2];
+    return object;
+  };
