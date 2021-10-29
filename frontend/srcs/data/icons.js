@@ -37,3 +37,11 @@ export var plus = require("../../image/plus.png");
 export var home = require("../../image/home.png");
 
 export var random = require("../../image/randomFood.png");
+
+export var loading = [
+  require("../../image/loading1.png"),
+  require("../../image/loading2.png"),
+  require("../../image/loading3.png"),
+  require("../../image/loading4.png"),
+  require("../../image/loading5.png"),
+];

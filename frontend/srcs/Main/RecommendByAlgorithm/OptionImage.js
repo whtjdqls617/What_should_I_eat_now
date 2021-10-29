@@ -1,25 +1,45 @@
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
-import { StyledImage } from "../../style";
+import { StyledImage, StyledImage2 } from "../../style";
 
 export const OptionImage = ({ array, image, selectOption, lightEffect }) => {
-
-	const onPress = () => {
-		selectOption(array);
-	};
-
-	return (
-		<>
-			<TouchableOpacity onPress={onPress}>
-				<StyledImage source={image} lightEffect={lightEffect} style={styles.optImage} />
-			</TouchableOpacity>
-		</>
-	);
-}
+  const onPress = () => {
+    selectOption(array);
+  };
+if (lightEffect)
+{
+    return (
+      <>
+        <TouchableOpacity onPress={onPress}>
+          <StyledImage source={image} style={styles.optImage} />
+        </TouchableOpacity>
+      </>
+    );
+	}
+	else{
+	    return (
+        <>
+          <TouchableOpacity onPress={onPress}>
+            <StyledImage2
+              source={image}
+              style={styles.optImage}
+            />
+          </TouchableOpacity>
+        </>
+      );
+		}
+};
 
 const styles = StyleSheet.create({
-	optImage: {
-		alignItems: "center",
-		justifyContent: "center",
-	},
+  optImage: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  imageStyle: {
+    height: 100,
+    width: 100,
+    borderWidth: 5.5,
+    borderRadius: 20,
+    marginTop: 10,
+  },
 });
