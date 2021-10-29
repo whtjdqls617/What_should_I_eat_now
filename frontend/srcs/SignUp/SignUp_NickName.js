@@ -5,8 +5,10 @@ export const SignUp_NickName = ({ userinfo, setUserinfo }) => {
   const [opacity, setOpacity] = useState(0);
 
   const checkNickname = (nickname) => {
-    if (nickname.length > 1 || nickname.length == 0) return true;
-    else return false;
+    if (nickname.length > 1 || nickname.length == 0) 
+		return true;
+    else 
+		return false;
   };
 
   return (

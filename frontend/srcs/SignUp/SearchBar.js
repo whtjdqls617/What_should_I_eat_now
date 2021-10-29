@@ -23,27 +23,19 @@ export const SearchBar = ({ onPress }) => {
     setPreviewFood(foodObject);
   };
 
+  const searchFoodName = (input) => {
+	setValue(input);
+	matchFoodName(input);
+  };
+
   return (
     <>
       <TextInput
-        style={{
-          marginTop: "5%",
-          height: 40,
-          width: "90%",
-          backgroundColor: "gray",
-          borderRadius: 30,
-          color: "white",
-          paddingHorizontal: "4%",
-          fontFamily: "BlackHanSans_400Regular",
-          opacity: 0.8,
-        }}
+        style={styles.textInputStyle}
         placeholder="음식 검색!"
         placeholderTextColor="white"
         value={value}
-        onChangeText={(input) => {
-          setValue(input);
-          matchFoodName(input);
-        }}
+        onChangeText={(input) => searchFoodName(input)}
       />
       <SearchPreview
         input={value}
@@ -57,5 +49,16 @@ export const SearchBar = ({ onPress }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  textInputStyle: {
+	marginTop: "5%",
+	height: 40,
+	width: "90%",
+	backgroundColor: "gray",
+	borderRadius: 30,
+	color: "white",
+	paddingHorizontal: "4%",
+	fontFamily: "BlackHanSans_400Regular",
+	opacity: 0.8,
   },
 });

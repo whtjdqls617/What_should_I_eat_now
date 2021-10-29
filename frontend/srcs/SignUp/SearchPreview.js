@@ -1,45 +1,42 @@
 import React from "react";
-import { FlatList, Text, TouchableOpacity } from "react-native";
+import { FlatList, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 export const SearchPreview = ({ input, previewFood, onPress }) => {
 
-	// const onPress = (item) => {
-	// 	const array = ObjectsInArrayToArray(foodList);
-	// 	if (!array.includes(item.food)) {
-	// 		array.push(item.food);
-	// 		const newFoodList = arrayToObjectsInArray(array);
-	// 		setFoodList(newFoodList);
-	// 	}
-	// };
 	if (input.length > 0 && previewFood.length > 0)
 		return (
 			<>
 				<FlatList
 					data={previewFood}
 					initialNumToRender={5}
-					style={{ width: '80%', maxHeight: 150, borderWidth: 1, borderColor: 'gray', marginStart: -2 }}
-					// initialScrollIndex={3}
-					// getItemLayout={(data, index) => (
-					// 	{ length: 200, offset: 200 * index, index }
-					// )}
+					style={styles.flatlist}
 					renderItem={({ item }) => {
 						return (
 							<TouchableOpacity
 								style={{ margin: 5 }}
 								onPress={() => onPress(item)}
 							>
-								<Text
-									style={{
-										fontSize: 16,
-										fontFamily: "BlackHanSans_400Regular",
-									}}
-								>
-									{item.food}
-								</Text>
+								<Text style={styles.text}>{item.food}</Text>
 							</TouchableOpacity>
 						);
-					}} />
+					}} 
+				/>
 			</>
 		);
 	return null;
 }
+
+
+const styles = StyleSheet.create({
+	flatlist: {
+		width: '80%',
+		maxHeight: 150,
+		borderWidth: 1,
+		borderColor: 'gray',
+		marginStart: -2,
+	},
+	text: {
+		fontSize: 16,
+		fontFamily: "BlackHanSans_400Regular",
+	},
+});
