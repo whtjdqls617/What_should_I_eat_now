@@ -4,21 +4,22 @@ import { SearchBar } from "./SearchBar";
 import { SelectedFoodList } from "./SelectedFoodList";
 import { postData } from "../func/func_data_communication";
 import { ip } from "../data/data";
-import { ObjectsInArrayToArray, arrayToObjectsInArray } from "../func/func_change_var_type";
+import { ObjectsInArrayToArray, arrayToObjectsInArray, arrayToObject } from "../func/func_change_var_type";
 
 
-export const AskDisLike = (props) => {
-	const navigation = props.navigation;
-	const userinfo = props.route.params.userinfo;
-	const likeFoodList = props.route.params.likeFoodList;
-	const [disLikeFoodList, setDisLikeFoodList] = useState([]);
-
+export const AskDisLike = ({ navigation, route}) => {
+	const userinfo = route.params.userinfo;
+	console.log("In D, userinfo: ", userinfo);
+	const likeFoodList = route.params.likeFoodList;
+	const [disLikeFoodList, setDisLikeFoodList] = useState(route.params.disLikeFoodList);
+	console.log("disLikeFood: ", disLikeFoodList);
 	const makePostData = (userinfo, likeFoodList, disLikeFoodList) => {
 		let postData = {};
 		let likeArr = likeFoodList.map((ele) => {
 			return ele.food;
 		});
-		let dislikeArr = disLikeFoodList.map((ele) => {
+		
+		let dislikeArr = disLikeFoodList.length == 0 ? [] : disLikeFoodList.map((ele) => {
 			return ele.food;
 		});
 		postData.email = userinfo.email;
@@ -70,7 +71,10 @@ export const AskDisLike = (props) => {
 						borderRadius: 30,
 					}}
 					onPress={() => {
-						navigation.navigate("AskLike");
+						navigation.navigate("AskLike", {
+							userinfo: userinfo,
+							disLikeFoodList: disLikeFoodList
+						} );
 					}}
 				>
 					<Text

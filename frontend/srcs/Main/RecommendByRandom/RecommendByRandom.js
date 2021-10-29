@@ -16,7 +16,11 @@ export const RecommendByRandom = ({ navigation }) => {
   const [foodName, setFoodName] = useState("");
   const [pushRandom, setpushRandom] = useState(false);
   const headerText = foodName.length > 0 ? "이건 어때?" : "랜덤 추천";
-  const foodName_without_space = foodName.replaceAll(" ", "");
+
+  let foodName_without_space = foodName.slice();
+  while (foodName_without_space.includes(' ')) {
+	foodName_without_space = foodName_without_space.replace(' ', ''); 
+  }
 
   const randomFood = () => {
     const index = Math.floor(Math.random() * food_name.length);

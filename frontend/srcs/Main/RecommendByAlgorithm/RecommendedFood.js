@@ -15,7 +15,11 @@ import { youtubeURLtoID } from "../../func/func_change_var_type";
 export const RecommendedFood = ({ data, updateIndex, navigation }) => {
 
 	const food_name = data.list[0].name;
-	const food_name_without_space = food_name.replaceAll(' ', '');
+
+	let food_name_without_space = food_name.slice();
+	while (food_name_without_space.includes(' ')) {
+	  food_name_without_space = food_name_without_space.replace(' ', ''); 
+	}
 	const youtube_id = youtubeURLtoID(data.list[0].youtube_url);
 
 	return (
