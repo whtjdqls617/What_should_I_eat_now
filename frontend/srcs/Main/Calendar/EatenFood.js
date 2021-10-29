@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
   imagestyle: {
     borderRadius: 130,
     borderWidth: 3,
+	borderColor : 'black',
     height: 90,
     width: 90,
   },
