@@ -17,16 +17,17 @@ public class Food {
     @Column(name = "FOOD_ID")
     private Long id;
 
-    @Column(name = "NAME")
+//    @Column(name = "NICK_NAME", nullable = false, length = 100)
+    @Column(name = "NAME", nullable = false, unique = true, length = 100)
     private String name;
 
-    @Column(name = "TAG")
+    @Column(name = "TAG", nullable = false, length = 200)
     private String tag;
 
-    @Column(name = "INGREDIENT")
+    @Column(name = "INGREDIENT", nullable = false, length = 200)
     private String ingredient;
 
-    @Column(name = "YOUTUBE_URL")
+    @Column(name = "YOUTUBE_URL", nullable = false, length = 200)
     private String youtubeUrl;
 
     @OneToMany(mappedBy = "food")

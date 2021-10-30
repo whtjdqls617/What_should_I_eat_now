@@ -51,10 +51,9 @@ public class RecommendController {
                                          @RequestParam(value = "question1") String questions1,
                                          @RequestParam(value = "question2") String questions2,
                                          @RequestParam(value = "question3") String questions3) {
-        //TODO : 내장 장고 서버에 api 요청하여 데이터 받기 (일단 임시 스트링데이터 넣음)
-        //TODO : 요청한 member.id 가져오기
-        Optional<Member> member = memberService.findId(1L);
+//        Optional<Member> member = memberService.findId(1L);
 //         member null 일 때 예외처리
+        //TODO : member 토큰 인증 후 member_id 조회 후 id 넘기기
         Question questions = new Question(questions1, answer1, questions2, answer2, questions3, answer3);
         PickFoodDto foodDto = recommendService.getPickFood(1L, questions);
         List<PickFood> foods = foodDto.getPickFood();

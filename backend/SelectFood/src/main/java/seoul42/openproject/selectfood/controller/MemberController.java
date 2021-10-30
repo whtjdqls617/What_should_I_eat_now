@@ -1,17 +1,22 @@
 package seoul42.openproject.selectfood.controller;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import seoul42.openproject.selectfood.domain.Food;
+import seoul42.openproject.selectfood.advice.exception.CEmailExistException;
+import seoul42.openproject.selectfood.advice.exception.CUserNotFoundException;
 import seoul42.openproject.selectfood.domain.Member;
 import seoul42.openproject.selectfood.dto.common.CommonResult;
+import seoul42.openproject.selectfood.dto.common.ListResult;
+import seoul42.openproject.selectfood.dto.common.SingleResult;
+import seoul42.openproject.selectfood.dto.member.MemberEditDto;
 import seoul42.openproject.selectfood.dto.member.MemberSignUpDto;
-import seoul42.openproject.selectfood.repository.MemberSelectFoodRepository;
 import seoul42.openproject.selectfood.service.CommonResponseService;
-import seoul42.openproject.selectfood.service.FoodService;
-import seoul42.openproject.selectfood.service.ManageMemberFoodService;
 import seoul42.openproject.selectfood.service.MemberService;
 
 import java.util.List;
@@ -24,50 +29,21 @@ import java.util.Optional;
 public class MemberController {
 
     private final MemberService memberService;
-    private final ManageMemberFoodService manageMemberFoodService;
     private final CommonResponseService commonResponseService;
 
-    @ApiOperation(value = "회원 가입", notes = "사용자의 선호 음식 리스트 내역과 회원정보까지 저장")
-    @PostMapping("/signup")
-    public CommonResult signUpMember(@RequestBody MemberSignUpDto signUpDto) {
-//        Member member = memberService.signUp(signUpDto.getMember());
-        // 선택한 음식이 없다면 어떻게 될까?
-//        Member member1 = new Member();
-//        member1.setEmail(signUpDto.getEmail());
-//        member1.setNickName(signUpDto.getNickName());
-//        member1.setPassword(signUpDto.getPassword());
-//        Member member = memberService.saveMember(member1);
-//        List<String> foodNames = signUpDto.getFoodName();
-//        for (String name:
-//             foodNames) {
-//            Food food = foodService.findByName(name).get();
-//            memberSelectFoodRepository.save(member, food);
-//        }
-        manageMemberFoodService.signUpWithFoods(signUpDto);
-        return commonResponseService.getSuccessResult();
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @GetMapping(value = "/info")
+    public SingleResult<MemberEditDto> findUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        Member member = memberService.findEmail(email).orElseThrow(CUserNotFoundException::new);
+        MemberEditDto memberEditDto = new MemberEditDto();
+        memberEditDto.setEmail(member.getEmail());
+        memberEditDto.setNickName(member.getNickName());
+        return commonResponseService.getSingleResult(memberEditDto);
     }
-
-//    나중에 사용할 수도 있음
-//    @GetMapping("/user/signup/check-nickname/{nickName}")
-//    public String checkNickName(@RequestParam String nickName) {
-//        Optional<Member> member = memberService.validateDuplicateNickName(nickName);
-//        if (member.isPresent()) {
-//            return "fail";
-//        }
-//        return "ok";
-//    }
-
-    // /signup/available-email  이 어울릴 듯?
-    @ApiOperation(value = "중복 이메일 체크", notes = "회원 가입 중 이메일 중복 체크")
-    @GetMapping("/signup/check-email")
-    public CommonResult checkEmail(@RequestParam String email) {
-        Optional<Member> member = memberService.validateDuplicateEmail(email);
-        if (member.isPresent()) {
-            return commonResponseService.getFailResult();
-        }
-        return commonResponseService.getSuccessResult();
-    }
-
 //    @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정")
 //    @PutMapping("/user/edit")
 //    public String editUserInfo(@RequestBody Member member) {
@@ -75,14 +51,13 @@ public class MemberController {
 //        return "ok";
 //    }
 
-    // 유저 이메일만 받거나 토큰 받으면 될 것 같은데...
-    // swagger 에서 테스트 안되니 불편하구만
+//     유저 이메일만 받거나 토큰 받으면 될 것 같은데...
 //    @ApiOperation(value = "좋아하는 음식 리스트 클라이언트로 보내기", notes = "회원 정보 수정 중 좋아하는 음식 리스트 변경")
 //    @GetMapping("/edit/food/like")
-//    public SingleResult<String> getLikeFood(@RequestParam String email) throws Exception {
+//    public ListResult<String> getLikeFood(@RequestParam String email) throws Exception {
 //        Optional<Member> memberForLike = memberService.findEmail(email);
-////        return memberForLike.get().getLikeFoodList();
-//        return commonResponseService.getSingleResult(memberForLike.orElseThrow(Exception::new).getDislikeFoodList());
+//        List<String> likeFoods = memberService.getLikeFoods(memberForLike.orElseThrow(Exception::new).getId());
+//        return commonResponseService.getListResult(likeFoods);
 //    }
 //
 //    @ApiOperation(value = "좋아하는 음식 리스트 변경", notes = "회원 정보 수정 중 좋아하는 음식 리스트 변경")
@@ -111,15 +86,15 @@ public class MemberController {
 //        return commonResponseService.getFailResult();
 //    }
 
-    @ApiOperation(value = "로그인", notes = "임시적인 로그인")
-    @GetMapping("/signin")
-    public String login(@RequestBody Member member) {
-        Optional<Member> dbMember = memberService.findEmail(member.getEmail());
-        if (dbMember.isPresent()) {
-            if (member.getPassword().equals(dbMember.get().getPassword())) {
-                return "ok";
-            }
-        }
-        return "fail";
-    }
+//    @ApiOperation(value = "로그인", notes = "임시적인 로그인")
+//    @GetMapping("/signin")
+//    public String login(@RequestBody Member member) {
+//        Optional<Member> dbMember = memberService.findEmail(member.getEmail());
+//        if (dbMember.isPresent()) {
+//            if (member.getPassword().equals(dbMember.get().getPassword())) {
+//                return "ok";
+//            }
+//        }
+//        return "fail";
+//    }
 }

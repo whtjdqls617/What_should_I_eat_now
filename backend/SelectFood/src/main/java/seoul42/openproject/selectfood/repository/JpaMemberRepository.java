@@ -1,9 +1,9 @@
 package seoul42.openproject.selectfood.repository;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import seoul42.openproject.selectfood.domain.Member;
+import seoul42.openproject.selectfood.dto.member.MemberEditDto;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -36,12 +36,18 @@ public class JpaMemberRepository implements MemberRepository{
     }
 
     @Override
-    public Optional<Member> findByNickName(String nickName) {
-        List<Member> resultList = em.createQuery("select m from Member m where m.nickName= :nickName", Member.class)
-                .setParameter("nickName", nickName)
-                .getResultList();
-        return resultList.stream().findAny();
+    public List<String> findLikeFood(Long id) {
+        //TODO: JOIN 으로 조회 시 JPQL 이 편할까? JPA 가 편할까?
+        return em.createQuery("select m from LikeFood m where m.member= :id", String.class).getResultList();
     }
+
+//    @Override
+//    public Optional<Member> findByNickName(String nickName) {
+//        List<Member> resultList = em.createQuery("select m from Member m where m.nickName= :nickName", Member.class)
+//                .setParameter("nickName", nickName)
+//                .getResultList();
+//        return resultList.stream().findAny();
+//    }
 
     @Override
     public List<Member> findAll() {

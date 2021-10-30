@@ -1,4 +1,4 @@
-package seoul42.openproject.selectfood;
+package seoul42.openproject.selectfood.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
