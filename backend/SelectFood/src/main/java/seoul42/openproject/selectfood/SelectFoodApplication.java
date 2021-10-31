@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 public class SelectFoodApplication {
 
     static {
-        System.setProperty("spring.config.location", "classpath:/connection.yml,classpath:/application.yml,classpath:/exception_msg.yml");
+        System.setProperty("spring.config.location", "classpath:/connection.yml,classpath:/application.yml");
     }
 
     public static void main(String[] args) {
