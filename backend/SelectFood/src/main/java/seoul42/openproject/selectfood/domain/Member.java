@@ -1,23 +1,178 @@
 package seoul42.openproject.selectfood.domain;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import seoul42.openproject.selectfood.dto.member.MemberSignUpDto;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
+@Table(name = "MEMBER")
 @Getter @Setter
-public class Member {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Member implements UserDetails {
 
     @Id
-    @SequenceGenerator(name="seq-gen",sequenceName="MY_SEQ_GEN", initialValue = 10)
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="seq-gen")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MEMBER_ID")
     private Long id;
+
+    @Column(name = "NICK_NAME", nullable = false, length = 100)
     private String nickName;
+
+    @Column(name = "EMAIL", nullable = false, unique = true, length = 100)
     private String email;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(name = "PASSWORD", nullable = false, length = 100)
     private String password;
-    private String pickedFoodList;
-    private String likeFoodList;
-    private String dislikeFoodList;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<SelectedFood> selectedFoods = new ArrayList<SelectedFood>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<LikeFood> likeFoods = new ArrayList<LikeFood>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<DislikeFood> dislikeFoods = new ArrayList<DislikeFood>();
+
+    public static Member createMember(MemberSignUpDto memberInfo, List<LikeFood> likeFoods, List<DislikeFood> dislikeFoods) {
+        Member member = new Member();
+        member.setEmail(memberInfo.getEmail());
+        member.setNickName(memberInfo.getNickName());
+        member.setPassword(memberInfo.getPassword());
+        member.setRoles(Collections.singletonList("ROLE_USER"));
+        for (LikeFood likeFood : likeFoods) {
+            member.addLikeFood(likeFood);
+        }
+        for (DislikeFood dislikeFood : dislikeFoods) {
+            member.addDislikeFood(dislikeFood);
+        }
+        return member;
+    }
+
+    /* 연관관계 매서드 */
+    public void addSelectedFood(SelectedFood selectedFood) {
+        selectedFoods.add(selectedFood);
+        selectedFood.setMember(this);
+    }
+
+    public void addLikeFood(LikeFood likeFood) {
+        likeFoods.add(likeFood);
+        likeFood.setMember(this);
+    }
+
+    public void addDislikeFood(DislikeFood dislikeFood) {
+        dislikeFoods.add(dislikeFood);
+        dislikeFood.setMember(this);
+    }
+
+    @Override
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    }
+
+    @Override
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    public boolean isEnabled() {
+        return true;
+    }
+
+//    /* getter setter */
+//
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public String getNickName() {
+//        return nickName;
+//    }
+//
+//    public void setNickName(String nickName) {
+//        this.nickName = nickName;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
+//
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
+//
+//    public List<SelectedFood> getSelectedFoods() {
+//        return selectedFoods;
+//    }
+//
+//    public void setSelectedFoods(List<SelectedFood> selectedFoods) {
+//        this.selectedFoods = selectedFoods;
+//    }
+//
+//    public List<LikeFood> getLikeFoods() {
+//        return likeFoods;
+//    }
+//
+//    public void setLikeFoods(List<LikeFood> likeFoods) {
+//        this.likeFoods = likeFoods;
+//    }
+//
+//    public List<DislikeFood> getDislikeFoods() {
+//        return dislikeFoods;
+//    }
+//
+//    public void setDislikeFoods(List<DislikeFood> dislikeFoods) {
+//        this.dislikeFoods = dislikeFoods;
+//    }
 }

@@ -5,13 +5,14 @@ import org.springframework.transaction.annotation.Transactional;
 import seoul42.openproject.selectfood.domain.Food;
 import seoul42.openproject.selectfood.repository.FoodRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 // service 에서는 비지니스 로직에 가까운 용어 선택
 // 서비스는 주로 비지니스 로직 처리
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class FoodService {
 
     private final FoodRepository foodRepository;
@@ -21,8 +22,6 @@ public class FoodService {
     }
 
     public Long join(Food food) {
-        // cmd + opt + v 로 자동변수 선언 가능
-        // ctrl + t  refactory 여러 기능 호출
         // optional 에서 orElseGet() 이 많이 쓰임(있으면 리턴 없으면 뒤에 메소드 실행)
         validateDuplicateFood(food);
         foodRepository.save(food);
@@ -43,5 +42,17 @@ public class FoodService {
 
     public Optional<Food> findOne(Long foodId) {
         return foodRepository.findById(foodId);
+    }
+
+    public Optional<Food> findByName(String foodName) {
+        return foodRepository.findByName(foodName);
+    }
+
+    public List<Food> findByNameList(List<String> foodNames) {
+        List<Food> foods= new ArrayList<Food>();
+        for (String foodName : foodNames) {
+            foods.add(foodRepository.findByName(foodName).orElseGet(Food::new));
+        }
+        return foods;
     }
 }

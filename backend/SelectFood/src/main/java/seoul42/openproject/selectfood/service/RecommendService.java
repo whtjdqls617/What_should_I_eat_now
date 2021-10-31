@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seoul42.openproject.selectfood.dto.PickFoodDto;
-import seoul42.openproject.selectfood.domain.Question;
+import seoul42.openproject.selectfood.dto.Question;
 
 @RequiredArgsConstructor
 @Service

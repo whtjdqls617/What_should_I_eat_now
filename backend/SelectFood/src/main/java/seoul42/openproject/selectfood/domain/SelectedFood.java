@@ -1,0 +1,25 @@
+package seoul42.openproject.selectfood.domain;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "SELECTED_FOOD")
+@Getter @Setter
+public class SelectedFood{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SELECT_FOOD_ID")
+    private Long selectedFoodId;
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "FOOD_ID")
+    private Food food;
+}
