@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { RecommendByRandom } from "../Main/RecommendByRandom/RecommendByRandom";
 import { RecommendByAlgorithm } from "../Main/RecommendByAlgorithm/RecommendByAlgorithm";
-import { Calendar } from "../Main/Calendar/Calendar";
+import { CustomCalendar } from "../Main/Calendar/Calendar";
 import { Main } from "../Main/Main";
 import { Setting } from "../Main/Setting/Setting";
 import { CheckPassword } from "../Main/Setting/CheckPassword";
@@ -19,7 +19,7 @@ export const MainStackNav = () => {
 	  }}>
       <MainStack.Screen name="Main" component={Main} />
 	  <MainStack.Screen name="RecommendByAlgorithm" component={RecommendByAlgorithm} />
-      <MainStack.Screen name="Calendar" component={Calendar} />
+      <MainStack.Screen name="CustomCalendar" component={CustomCalendar} />
       <MainStack.Screen name="RecommendByRandom" component={RecommendByRandom} />
       <MainStack.Screen name="Setting" component={Setting} />
       <MainStack.Screen name="CheckPassword" component={CheckPassword} />

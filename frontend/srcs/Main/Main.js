@@ -4,7 +4,11 @@ import { TouchableOpacity, Image } from "react-native";
 import { icons } from "../data/icons";
 
 export const Main = ({ navigation }) => {
-  return (
+  
+	
+
+
+	return (
     <>
       <View style={styles.top}>
         <TouchableOpacity
@@ -22,7 +26,14 @@ export const Main = ({ navigation }) => {
         <View style={styles.bottomimg_align}>
           <TouchableOpacity
             style={{ flex: 1, alignItems: "center" }}
-            onPress={() => navigation.navigate("Calendar")}
+            onPress={() => 
+				/*
+				axios.get() -> 이번 달 먹은 내역 [{날짜: 9/1, 먹은음식:[고기, 라면, 밥]}, {날짜: 9/2}..]
+					.then
+						navigation.navigate("CustomCalendar", 이번 달 먹은 내역);
+				*/
+				
+				navigation.navigate("CustomCalendar")}
           >
             <Image
               source={icons[0]}

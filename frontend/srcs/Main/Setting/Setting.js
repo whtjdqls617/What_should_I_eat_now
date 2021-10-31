@@ -1,9 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { HomeButton } from "../HomeButton";
 
 export const Setting = ({ navigation }) => {
   return (
+	  <>
+    <HomeButton navigation={navigation}/>
     <View style={styles.container}>
       <View style={styles.buttonalign}>
         <TouchableOpacity
@@ -22,6 +25,7 @@ export const Setting = ({ navigation }) => {
         </TouchableOpacity>
       </View>
     </View>
+	</>
   );
 };
 
