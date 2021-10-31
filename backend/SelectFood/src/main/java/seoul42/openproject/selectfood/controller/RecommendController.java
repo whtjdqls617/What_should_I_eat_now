@@ -1,6 +1,8 @@
 package seoul42.openproject.selectfood.controller;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +45,9 @@ public class RecommendController {
 //        return commonResponseService.getFailResult();
 //    }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
     @ApiOperation(value = "추천음식 데이터 요청 처리", notes = "질문 답변 데이터 받고 이에 따른 음식추천결과 전송")
     @GetMapping("/")
     public ListResult<PickFood> pickFood(@RequestParam(value = "answer1") String answer1,
