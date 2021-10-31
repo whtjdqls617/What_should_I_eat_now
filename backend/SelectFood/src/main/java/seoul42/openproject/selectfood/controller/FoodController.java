@@ -1,6 +1,5 @@
 package seoul42.openproject.selectfood.controller;
 
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,7 +33,7 @@ public class FoodController {
         Food food = new Food();
         food.setName(form.getName());
 
-        foodService.join(food);
+        foodService.save(food);
 
         return "redirect:/";
     }

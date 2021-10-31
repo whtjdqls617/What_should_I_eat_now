@@ -21,7 +21,7 @@ public class FoodService {
         this.foodRepository = foodRepository;
     }
 
-    public Long join(Food food) {
+    public Long save(Food food) {
         // optional 에서 orElseGet() 이 많이 쓰임(있으면 리턴 없으면 뒤에 메소드 실행)
         validateDuplicateFood(food);
         foodRepository.save(food);
@@ -49,7 +49,7 @@ public class FoodService {
     }
 
     public List<Food> findByNameList(List<String> foodNames) {
-        List<Food> foods= new ArrayList<Food>();
+        List<Food> foods= new ArrayList<>();
         for (String foodName : foodNames) {
             foods.add(foodRepository.findByName(foodName).orElseGet(Food::new));
         }
