@@ -3,12 +3,15 @@ package seoul42.openproject.selectfood.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import seoul42.openproject.selectfood.advice.exception.CEmailExistException;
+import seoul42.openproject.selectfood.advice.exception.CFoodNotFoundException;
 import seoul42.openproject.selectfood.advice.exception.CUserNotFoundException;
 import seoul42.openproject.selectfood.domain.*;
 import seoul42.openproject.selectfood.dto.member.MemberSignUpDto;
 import seoul42.openproject.selectfood.repository.MemberRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +25,7 @@ public class MemberService {
 
     @Transactional
     public Long signUpWithFoods(MemberSignUpDto memberInfo) {
+        //TODO : 음식이 데이터베이스에 없을 때 EXCEPTION 발생하도록 추가하기
         List<Food> foods1 = foodService.findByNameList(memberInfo.getLikeFoodNames());
         List<LikeFood> likeFoods = new ArrayList<>();
         for (Food food : foods1) {
@@ -33,25 +37,22 @@ public class MemberService {
             dislikeFoods.add(DislikeFood.createDislikeFood(food));
         }
         Member member = Member.createMember(memberInfo, likeFoods, dislikeFoods);
+        validateDuplicateMember(member);
         memberRepository.save(member);
         return member.getId();
     }
 
-//    private void validateDuplicateMember(Member member) {
-//        memberRepository.findByEmail(member.getEmail())
-//                // isPresent() 와 혼동 주의
-//                .ifPresent(m -> {
-//                    throw new IllegalStateException("이미 존재하는 회원입니다.");
-//                });
-//    }
+    private void validateDuplicateMember(Member member) {
+        memberRepository.findByEmail(member.getEmail())
+                // isPresent() 와 혼동 주의
+                .ifPresent(m -> {
+                    throw new CEmailExistException();
+                });
+    }
 
     public Optional<Member> validateDuplicateEmail(String email) {
         return memberRepository.findByEmail(email);
     }
-
-//    public Optional<Member> validateDuplicateNickName(String nickName) {
-//        return memberRepository.findByNickName(nickName);
-//    }
 
     public List<Member> findAllMembers() {
         return memberRepository.findAll();
@@ -95,17 +96,30 @@ public class MemberService {
         return foodNames;
     }
 
+    @Transactional
+    public void saveSelectedFood(String email, String foodName) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
+        Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
+        member.addSelectedFood(new SelectedFood(member, food, new Date()));
+        memberRepository.save(member);
+    }
 
-//    public Long updatePickedFood(MemberEditDto memberEditDto) {
-//        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
-//        member.ifPresent(member1 -> {
-//            member1.setLikeFoodList(member1.getPickedFoodList() + ", " + memberEditDto.getPickedFood());
-//            memberRepository.save(member1);
-//        });
-//        if (member.isPresent())
-//            return member.get().getId();
-//        return -1L;
-//    }
+    @Transactional
+    public void saveLikeFood(String email, String foodName) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
+        Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
+        member.addLikeFood(new LikeFood(member, food));
+        memberRepository.save(member);
+    }
+
+    @Transactional
+    public void saveDislikeFood(String email, String foodName) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
+        Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
+        member.addDislikeFood(new DislikeFood(member, food));
+        memberRepository.save(member);
+    }
+
 //
 //    public Long updateLikeFood(MemberEditDto memberEditDto) {
 //        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());

@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import seoul42.openproject.selectfood.advice.exception.CUserNotFoundException;
@@ -15,9 +14,6 @@ import seoul42.openproject.selectfood.dto.common.SingleResult;
 import seoul42.openproject.selectfood.dto.member.MemberEditDto;
 import seoul42.openproject.selectfood.service.CommonResponseService;
 import seoul42.openproject.selectfood.service.MemberService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Api(tags = "member")
 @RestController
@@ -33,8 +29,7 @@ public class MemberController {
     })
     @GetMapping(value = "/info")
     public SingleResult<MemberEditDto> findUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Member member = memberService.findEmail(email).orElseThrow(CUserNotFoundException::new);
         MemberEditDto memberEditDto = new MemberEditDto();
         memberEditDto.setEmail(member.getEmail());

@@ -23,6 +23,14 @@ public class LikeFood {
     @JoinColumn(name = "FOOD_ID")
     private Food food;
 
+    public LikeFood() {
+    }
+
+    public LikeFood(Member member, Food food) {
+        this.member = member;
+        this.food = food;
+    }
+
     public static LikeFood createLikeFood(Food food) {
         LikeFood likeFood = new LikeFood();
         likeFood.setFood(food);

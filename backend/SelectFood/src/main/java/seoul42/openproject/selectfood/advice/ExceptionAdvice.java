@@ -2,7 +2,6 @@ package seoul42.openproject.selectfood.advice;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import seoul42.openproject.selectfood.advice.exception.CEmailExistException;
 import seoul42.openproject.selectfood.advice.exception.CEmailSigninFailedException;
+import seoul42.openproject.selectfood.advice.exception.CFoodNotFoundException;
 import seoul42.openproject.selectfood.advice.exception.CUserNotFoundException;
 import seoul42.openproject.selectfood.dto.common.CommonResult;
 import seoul42.openproject.selectfood.service.CommonResponseService;
@@ -38,6 +38,13 @@ public class ExceptionAdvice {
                     "계정이 존재하지 않습니다.");
     }
 
+    @ExceptionHandler(CFoodNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult foodNotFound(HttpServletRequest request, CUserNotFoundException e) {
+        return commonResponseService.getFailResult(-13,
+                "음식 정보가 존재하지 않습니다.");
+    }
+
     @ExceptionHandler(CEmailSigninFailedException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected CommonResult emailSigninFailed(HttpServletRequest request, CEmailSigninFailedException e) {
@@ -51,13 +58,4 @@ public class ExceptionAdvice {
         return commonResponseService.getFailResult(-15,
                     "현재 이메일이 가입되어 있습니다.");
     }
-    private String getMessage(String code) {
-        return getMessage(code, null);
-    }
-
-    private String getMessage(String code, Object[] args) {
-        return messageSource.getMessage(code, args, LocaleContextHolder.getLocale());
-    }
-
-
 }

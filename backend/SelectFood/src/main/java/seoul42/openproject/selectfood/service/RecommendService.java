@@ -8,11 +8,12 @@ import seoul42.openproject.selectfood.dto.Question;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class RecommendService {
 
     private final RecommendApiClient recommendApiClient;
 
-    @Transactional(readOnly = true)
+    @Transactional
     public PickFoodDto getPickFood(Long id, Question question) {
         return recommendApiClient.requestPickFood(id, question);
     }
