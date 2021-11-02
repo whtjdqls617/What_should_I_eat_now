@@ -8,15 +8,15 @@ export const SlotMachine = ({ setFoodName, randomFood }) => {
 	const [index, setIndex] = useState(0);
 
 	let second = 100;
-	if (index >= 4 && index < 8)
+	if (index >= 2 && index < 4)
 		second = 150;
-	else if (index >= 8 && index < 12)
+	else if (index >= 4 && index < 6)
 		second = 300;
-	else if (index >= 12)
+	else if (index >= 6)
 		second = 500;
 
 	setTimeout(() => {
-		if (index == 14) {
+		if (index == 7) {
 			setFoodName(randomFood());
 			return (0);
 		}

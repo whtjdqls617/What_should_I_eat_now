@@ -6,38 +6,38 @@ import { HomeButton } from "../HomeButton";
 
 export const Setting = ({ navigation, setSignIn }) => {
   return (
-	  <>
-    <HomeButton navigation={navigation}/>
-    <View style={styles.container}>
-      <View style={styles.buttonalign}>
-        <TouchableOpacity
-          style={styles.buttonstyle}
-          onPress={() => navigation.navigate("UserInfo")}
-        >
-          <Text style={styles.textstyle}>회원정보</Text>
-        </TouchableOpacity>
+    <>
+      <HomeButton navigation={navigation} />
+      <View style={styles.container}>
+        <View style={styles.buttonalign}>
+          <TouchableOpacity
+            style={styles.buttonstyle}
+            onPress={() => navigation.navigate("UserInfo")}
+          >
+            <Text style={styles.textstyle}>회원정보</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonalign}>
+          <TouchableOpacity
+            style={styles.buttonstyle}
+            onPress={() => navigation.navigate("FoodList")}
+          >
+            <Text style={styles.textstyle}>음식리스트</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonalign}>
+          <TouchableOpacity
+            style={styles.buttonstyle}
+            onPress={() => {
+              AsyncStorage.clear();
+              setSignIn(false);
+            }}
+          >
+            <Text style={styles.textstyle}>로그아웃</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.buttonalign}>
-        <TouchableOpacity
-          style={styles.buttonstyle}
-          onPress={() => navigation.navigate("FoodList")}
-        >
-          <Text style={styles.textstyle}>음식리스트</Text>
-        </TouchableOpacity>
-      </View>
-	  <View style={styles.buttonalign}>
-        <TouchableOpacity
-          style={styles.buttonstyle}
-          onPress={() => {
-			  AsyncStorage.clear();
-			  setSignIn(false);
-			}}
-        >
-          <Text style={styles.textstyle}>로그아웃</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-	</>
+    </>
   );
 };
 
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: "5%",
   },
   buttonalign: {
     justifyContent: "center",
