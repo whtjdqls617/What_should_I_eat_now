@@ -1,4 +1,4 @@
-package seoul42.openproject.selectfood.dto;
+package seoul42.openproject.selectfood.dto.recommend;
 
 import lombok.*;
 

@@ -77,6 +77,16 @@ public class Member implements UserDetails {
         likeFood.setMember(this);
     }
 
+    public boolean hasLikeFood(Long foodId) {
+        LikeFood likeFood = likeFoods.stream()
+                .filter(likeFood1 -> likeFood1.getFood().getId() == foodId)
+                .findAny()
+                .orElse(null);
+        if (likeFood == null)
+            return false;
+        return true;
+    }
+
     public void addDislikeFood(DislikeFood dislikeFood) {
         dislikeFoods.add(dislikeFood);
         dislikeFood.setMember(this);
@@ -117,62 +127,4 @@ public class Member implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-//    /* getter setter */
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getNickName() {
-//        return nickName;
-//    }
-//
-//    public void setNickName(String nickName) {
-//        this.nickName = nickName;
-//    }
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
-//
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
-//
-//    public List<SelectedFood> getSelectedFoods() {
-//        return selectedFoods;
-//    }
-//
-//    public void setSelectedFoods(List<SelectedFood> selectedFoods) {
-//        this.selectedFoods = selectedFoods;
-//    }
-//
-//    public List<LikeFood> getLikeFoods() {
-//        return likeFoods;
-//    }
-//
-//    public void setLikeFoods(List<LikeFood> likeFoods) {
-//        this.likeFoods = likeFoods;
-//    }
-//
-//    public List<DislikeFood> getDislikeFoods() {
-//        return dislikeFoods;
-//    }
-//
-//    public void setDislikeFoods(List<DislikeFood> dislikeFoods) {
-//        this.dislikeFoods = dislikeFoods;
-//    }
 }

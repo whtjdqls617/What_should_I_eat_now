@@ -22,6 +22,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final FoodService foodService;
+    private final LikeFoodService likeFoodService;
 
     @Transactional
     public Long signUpWithFoods(MemberSignUpDto memberInfo) {
@@ -69,7 +70,7 @@ public class MemberService {
     public List<String> getLikeFoods(String email) {
         List<String> foodNames = new ArrayList<>();
         List<LikeFood> likeFoods = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new).getLikeFoods();
-        for (LikeFood likeFood:
+        for (LikeFood likeFood :
                 likeFoods) {
             foodNames.add(likeFood.getFood().getName());
         }
@@ -79,7 +80,7 @@ public class MemberService {
     public List<String> getDisLikeFoods(String email) {
         List<String> foodNames = new ArrayList<>();
         List<DislikeFood> dislikeFoods = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new).getDislikeFoods();
-        for (DislikeFood dislikeFood:
+        for (DislikeFood dislikeFood :
                 dislikeFoods) {
             foodNames.add(dislikeFood.getFood().getName());
         }
@@ -89,7 +90,7 @@ public class MemberService {
     public List<String> getSelectedFoods(String email) {
         List<String> foodNames = new ArrayList<>();
         List<SelectedFood> selectedFoods = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new).getSelectedFoods();
-        for (SelectedFood selectedFood:
+        for (SelectedFood selectedFood :
                 selectedFoods) {
             foodNames.add(selectedFood.getFood().getName());
         }
@@ -104,42 +105,74 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+//    @Transactional
+//    public void saveSelectedFood(String email, List<String> foodNames) {
+//        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
+//        for (String foodName :
+//                foodNames) {
+//            Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
+////            member.addSelectedFood(new SelectedFood(member,));
+//        }
+//        memberRepository.save(member);
+//    }
+
     @Transactional
-    public void saveLikeFood(String email, String foodName) {
+    public void saveLikeFood(String email, List<String> foodNames) {
         Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
-        Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
-        member.addLikeFood(new LikeFood(member, food));
+        for (String foodName :
+                foodNames) {
+            Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
+            member.addLikeFood(new LikeFood(member, food));
+        }
         memberRepository.save(member);
     }
 
     @Transactional
-    public void saveDislikeFood(String email, String foodName) {
+    public void saveDislikeFood(String email, List<String> foodNames) {
         Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
-        Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
-        member.addDislikeFood(new DislikeFood(member, food));
+        for (String foodName :
+                foodNames) {
+            Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
+            member.addDislikeFood(new DislikeFood(member, food));
+        }
         memberRepository.save(member);
     }
 
-//
-//    public Long updateLikeFood(MemberEditDto memberEditDto) {
-//        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
-//        member.ifPresent(member1 -> {
-//            member1.setLikeFoodList(member1.getLikeFoodList() + ", " + memberEditDto.getLikeFood());
-//            memberRepository.save(member1);
-//        });
-//        if (member.isPresent())
-//            return member.get().getId();
-//        return -1L;
+//    @Transactional
+//    public void deleteSelectedFood(String email, List<String> foodNames, Date date) {
+//        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
+//        for (String foodName:
+//                foodNames) {
+//            Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
+//            // TODO : member 와 food id 찾고 이 것으로 테이블 조회해서 찾음 다음 삭제해야하나?
+//            // 리스트는 어떻게 삭제하지?
+//        }
+//        memberRepository.save(member);
 //    }
 //
-//    public Long updateDislikeFood(MemberEditDto memberEditDto) {
-//        Optional<Member> member = memberRepository.findByEmail(memberEditDto.getEmail());
-//        member.ifPresent(member1 -> {
-//            member1.setDislikeFoodList(member1.getDislikeFoodList() + ", " + memberEditDto.getDislikeFood());
-//            memberRepository.save(member1);
-//        });
-//        if (member.isPresent())
-//            return member.get().getId();
-//        return -1L;
-//    }
+    @Transactional
+    public void deleteLikeFood(String email, List<String> foodNames) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
+        for (String foodName:
+                foodNames) {
+            Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
+            // TODO : 아래 코드 수정해야 함.
+            if (member.hasLikeFood(food.getId())) {
+                member.getLikeFoods().removeIf(food1 -> food1.getFood().getName().equals(foodName));
+                likeFoodService.deleteLikeFood(member.getId(), food.getId());
+            }
+        }
+        memberRepository.save(member);
+    }
+
+    @Transactional
+    public void deleteDislikeFood(String email, List<String> foodNames) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
+        for (String foodName:
+                foodNames) {
+            Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
+
+        }
+        memberRepository.save(member);
+    }
 }

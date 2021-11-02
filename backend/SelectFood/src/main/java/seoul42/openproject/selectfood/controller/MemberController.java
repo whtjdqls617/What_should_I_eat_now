@@ -9,9 +9,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import seoul42.openproject.selectfood.advice.exception.CUserNotFoundException;
 import seoul42.openproject.selectfood.domain.*;
+import seoul42.openproject.selectfood.dto.common.CommonResult;
 import seoul42.openproject.selectfood.dto.common.ListResult;
 import seoul42.openproject.selectfood.dto.common.SingleResult;
 import seoul42.openproject.selectfood.dto.member.MemberEditDto;
+import seoul42.openproject.selectfood.dto.member.MemberEditFoodDto;
 import seoul42.openproject.selectfood.service.CommonResponseService;
 import seoul42.openproject.selectfood.service.MemberService;
 
@@ -50,22 +52,55 @@ public class MemberController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "좋아하는 음식 리스트 조회", notes = "회원 정보 수정 중 좋아하는 음식 리스트 조회")
-    @GetMapping("/info/food/like")
-    public ListResult<String> getLikeFood() {
+    @ApiOperation(value = "호불호 음식 리스트 조회", notes = "회원 정보 수정 중 호불호 음식 리스트 조회")
+    @GetMapping("/info/food")
+    public SingleResult<MemberEditFoodDto> getLikeFood() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return commonResponseService.getListResult(memberService.getLikeFoods(email));
+        MemberEditFoodDto memberEditFoodDto = new MemberEditFoodDto();
+        memberEditFoodDto.setLikeFoodList(memberService.getLikeFoods(email));
+        memberEditFoodDto.setDislikeFoodList(memberService.getDisLikeFoods(email));
+        return commonResponseService.getSingleResult(memberEditFoodDto);
     }
+
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+//    })
+//    @ApiOperation(value = "선택한 음식 리스트 수정", notes = "선택한 음식 리스트 수정")
+//    @PutMapping("/info/food/selected")
+//    public CommonResult updateSelectedFood(@RequestBody MemberEditFoodDto foodNames) {
+//        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+//        memberService.saveSelectedFood(email, foodNames.getAddFoodList());
+//        return commonResponseService.getSuccessResult();
+//    }
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "싫어하는 음식 리스트 조회", notes = "회원 정보 수정 중 싫어하는 음식 리스트 조회")
-    @GetMapping("/info/food/dislike")
-    public ListResult<String> getDislikeFood() {
+    @ApiOperation(value = "회원 정보 중 호불호 음식 리스트 수정", notes = "회원 정보 수정 중 좋아하는 음식, 싫어하는 음식 리스트 수정")
+    @PutMapping("/info/food")
+    public CommonResult updateLikeFood(@RequestBody MemberEditFoodDto foodNames) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return commonResponseService.getListResult(memberService.getDisLikeFoods(email));
+        memberService.saveLikeFood(email, foodNames.getLikeFoodDto().getAddFoodList());
+        memberService.deleteLikeFood(email, foodNames.getLikeFoodDto().getDeleteFoodList());
+        memberService.saveDislikeFood(email, foodNames.getDislikeFoodDto().getAddFoodList());
+        memberService.deleteDislikeFood(email, foodNames.getDislikeFoodDto().getDeleteFoodList());
+        return commonResponseService.getSuccessResult();
     }
+
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+//    })
+//    @ApiOperation(value = "싫어하는 음식 리스트 수정", notes = "회원 정보 수정 중 싫어하는 음식 리스트 수정")
+//    @PutMapping("/info/food/dislike")
+//    public CommonResult updateDislikeFood(@RequestBody MemberEditFoodDto foodNames) {
+//        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+//        memberService.saveDislikeFood(email, foodNames.getMemberEditDislikeFoodDto().getAddFoodList());
+//        memberService.deleteDislikeFood(email, foodNames.getMemberEditDislikeFoodDto().getDeleteFoodList());
+//        return commonResponseService.getSuccessResult();
+//    }
+
+
+
 
 //    @ApiOperation(value = "좋아하는 음식 리스트 변경", notes = "회원 정보 수정 중 좋아하는 음식 리스트 변경")
 //    @PutMapping("/edit/food/like")

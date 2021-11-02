@@ -19,4 +19,7 @@ public class MemberEditDto {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String changePassword;
 }
