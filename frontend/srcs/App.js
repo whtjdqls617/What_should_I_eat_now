@@ -11,7 +11,7 @@ import AppLoading from "expo-app-loading";
 
 export default function App() {
 	const [isLoading, setIsLoading] = useState(true);
-	const [signIn, setSignIn] = useState(false);
+	const [signIn, setSignIn] = useState(true);
 	let [fontsLoaded] = useFonts({
 		BlackHanSans_400Regular,
 	});
@@ -34,7 +34,7 @@ export default function App() {
 		}
 	}
 
-	getData();
+	// getData();
 
 	setTimeout(() => {
 		setIsLoading(false);

@@ -2,24 +2,19 @@ import React, { useState } from "react";
 import { Button, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
-export const CheckPassword = ({ navigation }) => {
-  const [password, setPassword] = useState("");
+export const CheckPassword = ({ navigation, setPasswords, passwords }) => {
+
   return (
     <View style={styles.container}>
-      <View style={{ flex: 0.2 }}>
         <Text style={styles.titlestyle}>현재 비밀번호 입력</Text>
         <TextInput
-          style={{
-            borderWidth: 1,
-            width: 200,
-            height: 35,
-            marginTop: "10%",
-            borderRadius: 8,
-            paddingHorizontal: "4%",
+          style={styles.textinputstyle}
+          onChangeText={(input) => {
+            const copy = passwords.slice();
+            copy.splice(0, 1, input);
+            setPasswords(copy);
           }}
-          onChangeText={(input) => setPassword(input)}
         />
-      </View>
     </View>
   );
 };
@@ -47,7 +42,7 @@ const styles = StyleSheet.create({
   },
   titlestyle: {
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 25,
     color: "black",
     fontFamily: "BlackHanSans_400Regular",
   },
@@ -55,5 +50,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "white",
     fontFamily: "BlackHanSans_400Regular",
+  },
+  textinputstyle: {
+    borderWidth: 1,
+    height: 35,
+    width: 200,
+    borderRadius: 5,
+    paddingHorizontal: "2%",
+    fontFamily: "BlackHanSans_400Regular",
+	marginTop : '2%'
   },
 });

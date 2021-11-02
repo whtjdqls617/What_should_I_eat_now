@@ -16,17 +16,18 @@ export const SigninButton = ({ json, setSignIn }) => {
 			console.log("error: ", e);
 		}
 	};
-	
+
 	const resFunc = (data) => {
 		if (data.msg == "ok") {
 			storeData(data.data);
 		}
 		else
-			Alert.alert("이메일 또는 비밀번호가 바르지 않습니다.");
+			Alert.alert("이메일 혹은 비밀번호가 일치하지 않습니다.");
 	};
 
 	const errFunc = () => {
-		Alert.alert("서버와 통신이 바르지 않습니다.");
+		// Alert.alert("서버와 통신이 바르지 않습니다.");
+		Alert.alert("이메일 혹은 비밀번호가 일치하지 않습니다.");
 	}
 
 

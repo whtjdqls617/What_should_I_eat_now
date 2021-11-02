@@ -9,9 +9,8 @@ import {
   TextInput,
 } from "react-native";
 
-export const EditPassword = ({ navigation }) => {
+export const EditPassword = ({ navigation, passwords, setPasswords }) => {
   const [password, setPassword] = useState("");
-  const [samePassword, setSamePassword] = useState("");
   const [firstopacity, setfirstOpacity] = useState(0);
   const [secondopacity, setsecondOpacity] = useState(0);
 
@@ -40,7 +39,9 @@ export const EditPassword = ({ navigation }) => {
             setPassword("");
             setfirstOpacity(100);
           }
-          setSamePassword("");
+          const copy = passwords.slice();
+          copy.pop();
+          setPasswords(copy);
         }}
       />
       <Text
@@ -59,10 +60,14 @@ export const EditPassword = ({ navigation }) => {
         placeholder="비밀번호 확인"
         onChangeText={(input) => {
           if (checkSamePassword(input)) {
-            setSamePassword(input);
+            const copy = passwords.slice();
+            copy.push(input);
+            setPasswords(copy);
             setsecondOpacity(0);
           } else {
-            setSamePassword("");
+            const copy = passwords.slice();
+            copy.pop();
+            setPasswords(copy);
             setsecondOpacity(100);
           }
         }}
@@ -77,36 +82,8 @@ export const EditPassword = ({ navigation }) => {
       >
         비밀번호를 다시 확인해주세요.
       </Text>
-      <View style={styles.buttonalign}>
-        <TouchableOpacity
-          style={styles.buttonstyle}
-          onPress={() => {
-            navigation.navigate("Setting");
-          }}
-        >
-          <Text style={styles.textstyle}>취소</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonstyle}
-          onPress={() => {
-            if (samePassword.length > 0)
-              /*
-			axios.put(url, password)
-			.then
-				navigation.navigate("EditPassword");
-			.error
-				Alert.alert("잘못된 비밀번호입니다.")
-			*/
-              navigation.navigate("Setting");
-            else Alert.alert("비밀번호를 다시 입력해주세요.");
-          }}
-        >
-          <Text style={styles.textstyle}>확인</Text>
-        </TouchableOpacity>
-      </View>
     </View>
-  );
-};
+)};
 
 const styles = StyleSheet.create({
   container: {
@@ -145,8 +122,8 @@ const styles = StyleSheet.create({
   },
   textinputstyle: {
     borderWidth: 1,
-    height: 25,
-    width: 180,
+    height: 35,
+    width: 200,
     borderRadius: 5,
     paddingHorizontal: "2%",
     fontFamily: "BlackHanSans_400Regular",

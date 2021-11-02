@@ -5,7 +5,6 @@ import {
   Image,
   TouchableOpacity,
   View,
-  Alert,
 } from "react-native";
 import { food_name, food_image } from "../../data/data";
 import { random } from "../../data/icons";
@@ -18,8 +17,8 @@ export const RecommendByRandom = ({ navigation }) => {
   const headerText = foodName.length > 0 ? "이건 어때?" : "랜덤 추천";
 
   let foodName_without_space = foodName.slice();
-  while (foodName_without_space.includes(' ')) {
-	foodName_without_space = foodName_without_space.replace(' ', ''); 
+  while (foodName_without_space.includes(" ")) {
+    foodName_without_space = foodName_without_space.replace(" ", "");
   }
 
   const randomFood = () => {
@@ -27,8 +26,7 @@ export const RecommendByRandom = ({ navigation }) => {
     return food_name[index];
   };
 
-  if (foodName.length > 0 && pushRandom)
-    setpushRandom(false);
+  if (foodName.length > 0 && pushRandom) setpushRandom(false);
 
   if (pushRandom)
     return (
@@ -36,7 +34,7 @@ export const RecommendByRandom = ({ navigation }) => {
         <HomeButton navigation={navigation} />
         <View style={styles.container}>
           <Text>{headerText}</Text>
-          <SlotMachine setFoodName={setFoodName} randomFood={randomFood}/>
+          <SlotMachine setFoodName={setFoodName} randomFood={randomFood} />
           <TouchableOpacity>
             <Image source={random} />
           </TouchableOpacity>
@@ -122,5 +120,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: "5%",
   },
 });
