@@ -38,6 +38,7 @@ export const AskDisLike = ({ navigation, route }) => {
 					userinfo={userinfo}
 					likeFoodList={likeFoodList}
 					disLikeFoodList={disLikeFoodList}
+					navigation={navigation}
 				/>
 			</View>
 		</View>

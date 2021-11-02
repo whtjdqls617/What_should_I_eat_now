@@ -1,0 +1,80 @@
+import React from "react";
+import { TouchableOpacity, StyleSheet, Text, Alert } from "react-native";
+import { getTokenFromStorage, postDataToServer } from "../func/func_data_communication";
+import { ip } from "../data/data";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
+export const SigninButton = ({ json, setSignIn }) => {
+
+
+	const storeData = async (value) => {
+		try {
+			await AsyncStorage.setItem('@storage_Key', value);
+			setSignIn(true);
+		} catch (e) {
+			console.log("error: ", e);
+		}
+	};
+	
+	const resFunc = (data) => {
+		if (data.msg == "ok") {
+			storeData(data.data);
+		}
+		else
+			Alert.alert("이메일 또는 비밀번호가 바르지 않습니다.");
+	};
+
+	const errFunc = () => {
+		Alert.alert("서버와 통신이 바르지 않습니다.");
+	}
+
+
+	return (
+		<TouchableOpacity
+			style={styles.buttonstyle}
+			onPress={() => postDataToServer(`${ip}/user/signin`, json, 0, resFunc, errFunc)
+			}
+		>
+			<Text
+				style={{
+					fontSize: 15,
+					textAlign: "center",
+					color: "white",
+					fontFamily: "BlackHanSans_400Regular",
+				}}
+			>
+				로그인
+			</Text>
+		</TouchableOpacity>
+	);
+}
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	textinput: {
+		margin: 8,
+		width: 200,
+		height: 40,
+		borderWidth: 1,
+		borderRadius: 8,
+		paddingHorizontal: "4%",
+		fontFamily: "BlackHanSans_400Regular",
+	},
+	textinputstyle: {
+		flex: 0.3,
+		justifyContent: "center",
+	},
+	buttonstyle: {
+		height: 40,
+		width: 110,
+		backgroundColor: "orange",
+		borderRadius: 40,
+		margin: 8,
+		justifyContent: "center",
+	},
+});
