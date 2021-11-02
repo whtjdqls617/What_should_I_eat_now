@@ -7,10 +7,11 @@ import {
 	TouchableOpacity,
 	ScrollView,
 } from "react-native";
-import { selectFood } from "../../func/func_data_communication";
 import { ip, food_image } from "../../data/data";
 import YoutubePlayer from "react-native-youtube-iframe";
 import { youtubeURLtoID } from "../../func/func_change_var_type";
+import { getTokenFromStorage, postDataToServer } from "../../func/func_data_communication";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const RecommendedFood = ({ data, updateIndex, navigation }) => {
 
@@ -18,7 +19,7 @@ export const RecommendedFood = ({ data, updateIndex, navigation }) => {
 
 	let food_name_without_space = food_name.slice();
 	while (food_name_without_space.includes(' ')) {
-	  food_name_without_space = food_name_without_space.replace(' ', ''); 
+		food_name_without_space = food_name_without_space.replace(' ', '');
 	}
 	const youtube_id = youtubeURLtoID(data.list[0].youtube_url);
 
@@ -35,7 +36,18 @@ export const RecommendedFood = ({ data, updateIndex, navigation }) => {
 				<View style={styles.button_align}>
 					<TouchableOpacity
 						style={styles.button}
-						onPress={() => selectFood(`${ip}/question`, food_name, navigation)}
+						onPress={() => {
+
+							const okFunc = (value) => {
+
+								postDataToServer(`${ip}/recommend-food/select`, food_name , value, 0, 0);
+								navigation.reset({ routes : [{name : 'Main'}]});
+
+							};
+
+							getTokenFromStorage(okFunc, 0, 0);
+
+						}}
 					>
 						<Text style={styles.buttonText}>응!</Text>
 					</TouchableOpacity>
@@ -72,8 +84,6 @@ const styles = StyleSheet.create({
 	foodname: {
 		fontSize: 25,
 		fontFamily: "BlackHanSans_400Regular",
-		height: 22,
-		width: 126,
 		marginTop: 30,
 		justifyContent: "center",
 		textAlign: "center",

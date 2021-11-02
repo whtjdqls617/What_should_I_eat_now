@@ -10,6 +10,7 @@ import {
 import Modal from "react-native-modal";
 import axios from "axios";
 import { ip } from "../data/data";
+import { getDataFromServer, getTokenFromStorage } from "../func/func_data_communication";
 
 export const SignUp_Email = ({ userinfo, setUserinfo }) => {
   const [email, setEmail] = useState("");
@@ -59,20 +60,10 @@ export const SignUp_Email = ({ userinfo, setUserinfo }) => {
                 Alert.alert("잘못된 이메일 형식입니다.");
                 return;
               } else setbuttonColor("gray");
-              // axios
-              //   .get(`${ip}/user/signup/check-email`)
-              //   .then(function (response) {
-              //     //response.dfd == "ok"
-              //     setokModalVisible(true);
-              //     //response.dfds == "fail"
-              //     // Alert.alert("이미 가입이 된 이메일입니다")
-              //   })
-              //   .catch(function (error) {
-              //     console.log("err: ");
-              //     console.log(error);
-              //     return 0;
-              //   });
-              setokModalVisible(true);
+			  
+			  const okFunc = () => setokModalVisible(true);
+			  const noFunc = () => Alert.alert("이미 가입된 이메일입니다.");
+              getDataFromServer(`${ip}/user/signup/available-email`, { params: email }, okFunc, noFunc, 0);
             }}
           >
             <Text
@@ -160,20 +151,9 @@ export const SignUp_Email = ({ userinfo, setUserinfo }) => {
                 Alert.alert("잘못된 이메일 형식입니다.");
                 return;
               } else setbuttonColor("gray");
-              // axios
-              //   .get(`${ip}/user/signup/check-email`)
-              //   .then(function (response) {
-              //     //response.dfd == "ok"
-              //     setokModalVisible(true);
-              //     //response.dfds == "fail"
-              //     // Alert.alert("이미 가입이 된 이메일입니다")
-              //   })
-              //   .catch(function (error) {
-              //     console.log("err: ");
-              //     console.log(error);
-              //     return 0;
-              //   });
-              setokModalVisible(true);
+              const okFunc = () => setokModalVisible(true);
+			  const noFunc = () => Alert.alert("이미 가입된 이메일입니다.");
+              getDataFromServer(`${ip}/user/signup/available-email`, { params: {email: email}}, okFunc, noFunc, 0);
             }}
           >
             <Text

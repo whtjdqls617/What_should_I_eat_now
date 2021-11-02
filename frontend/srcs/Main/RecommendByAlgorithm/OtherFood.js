@@ -25,16 +25,14 @@ export const OtherFood = ({ data, navigation }) => {
 	return foodName_without_space;	
   }
   );
-  const other_food_image = other_food_name_without_space.map(
-    (ele) => food_image[ele]
-  );
+  const other_food_image = other_food_name_without_space.map( ele => food_image[ele] );
   const arrayForMap = Array(3).fill(0);
   return (
     <ScrollView>
       <View style={styles.container}>
         <Text style={styles.select}>골라볼래?</Text>
         <View style={styles.img_food_align}>
-          <OtherOptions food_image={other_food_image} navigation={navigation} />
+          <OtherOptions food_name={other_food_name} food_image={other_food_image} navigation={navigation} />
         </View>
         <View style={styles.foodnameRow}>
           {

@@ -23,11 +23,13 @@ export const CustomCalendar = ({navigation}) => {
   const initialMonth = now.getMonth();
   // const [month, setMonth] = useState([서버에서 전송받은 이번달 먹은 내역 초기값]);
   const [day, setDay] = useState(["소막창구이", "소막창구이", "소막창구이"]);
-  const [eatingHistory, setEatingHistory] = useState([
-    { 날짜: "20211021", 먹은음식: ["소막창구이", "소막창구이", "엽기떡볶이"] },
-  ]);
+  const [eatingHistory, setEatingHistory] = useState(
+    [{ 날짜: "20211021", 추가된음식: ["소막창구이", "소막창구이", "엽기떡볶이"], 삭제된음식: ["라면"]}, {}]  
+  );
+
   //state임 적용 버튼을 누르면 서버에 이게 날라감 = [{날짜: 2021-10-21, 먹은 음식: [소막창구이, 소막창구이, 엽기떡볶이]}, {날짜: 2022-10-21, 먹은 음식: [소막창구이]}]
 
+  //{ {날짜: '10/21', 삭제된 음식: ['라면', '김밥'], 추가된 음식: [치킨]}}
   const onXPress = (index) => {
 
     //day에서 해당 음식이 지워져야 함
@@ -38,8 +40,8 @@ export const CustomCalendar = ({navigation}) => {
 
   return (
     <>
+      <HomeButton navigation={navigation} />
       <View style={styles.top}>
-        <HomeButton navigation={navigation} />
         <ThisMonthCalendar setDay={setDay}/>
       </View>
       <View style={styles.bottom}>

@@ -20,32 +20,6 @@ export const CheckPassword = ({ navigation }) => {
           onChangeText={(input) => setPassword(input)}
         />
       </View>
-      <View style={styles.buttonalign}>
-        <TouchableOpacity
-          style={styles.buttonstyle}
-          onPress={() => {
-            navigation.navigate("Setting");
-          }}
-        >
-          <Text style={styles.textstyle}>취소</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonstyle}
-          onPress={() => {
-            /*
-		  axios.get(url, password)
-		  .then
-		  	if (ok)
-			  navigation.navigate("EditPassword");
-			else
-			  Alert.alert("잘못된 비밀번호입니다.")
-		  */
-            navigation.navigate("EditPassword");
-          }}
-        >
-          <Text style={styles.textstyle}>다음</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };

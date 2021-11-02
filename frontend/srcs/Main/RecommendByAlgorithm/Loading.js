@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from "react-native";
-import { getData } from "../../func/func_data_communication";
-import { ip } from '../../data/data';
 
 
 export const Loading = ({ updateIndex }) => {

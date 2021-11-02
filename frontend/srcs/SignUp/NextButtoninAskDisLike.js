@@ -1,9 +1,9 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
-import { postData } from "../func/func_data_communication";
+import { getTokenFromStorage, postDataToServer } from "../func/func_data_communication";
 import { ip } from "../data/data";
 
-export const NextButtoninAskDisLike = ({ userinfo, likeFoodList, disLikeFoodList }) => {
+export const NextButtoninAskDisLike = ({ userinfo, likeFoodList, disLikeFoodList, navigation }) => {
 
 	const makePostData = (userinfo, likeFoodList, disLikeFoodList) => {
 
@@ -13,8 +13,8 @@ export const NextButtoninAskDisLike = ({ userinfo, likeFoodList, disLikeFoodList
 			email: userinfo.email,
 			nickName: userinfo.nickName,
 			password: userinfo.password,
-			likeFoodList: likeArr.join(),
-			disLikeFoodList: dislikeArr.join(),
+			likeFoodNames: likeArr,
+			dislikeFoodNames: dislikeArr,
 		}
 
 		return postData;
@@ -23,8 +23,8 @@ export const NextButtoninAskDisLike = ({ userinfo, likeFoodList, disLikeFoodList
 	const onPress = () => {
 
 		const data = makePostData(userinfo, likeFoodList, disLikeFoodList);
+		postDataToServer(`${ip}/user/signup`, data, 0, 0, 0);
 		
-		postData(`${ip}/user/signup`, data);
 		navigation.navigate("SignIn");
 	};
 

@@ -1,11 +1,11 @@
-import { StyledImage } from "../../style";
+import { StyledImage, StyledImage2 } from "../../style";
 import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import Modal from "react-native-modal";
-import { selectFood } from "../../func/func_data_communication";
+import { getTokenFromStorage, postDataToServer } from "../../func/func_data_communication";
 import { ip } from "../../data/data";
 
-export const OneOtherOption = ({ image, navigation }) => {
+export const OneOtherOption = ({ image, navigation, name }) => {
   const [ismodalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -24,7 +24,13 @@ export const OneOtherOption = ({ image, navigation }) => {
             <TouchableOpacity
               title="선택"
               onPress={() => {
-                selectFood(`${ip}/question`, "덮밥", navigation);
+				const okFunc = (value) => {
+
+					postDataToServer(`${ip}/recommend-food/select`, name, value, 0, 0);
+					navigation.reset({ routes : [{name : 'Main'}]});
+				};
+
+				getTokenFromStorage(okFunc, 0, 0);
               }}
               style={styles.button}
             >
@@ -56,7 +62,7 @@ export const OneOtherOption = ({ image, navigation }) => {
     return (
       <>
       <TouchableOpacity onPress={toggleModal}>
-        <StyledImage source={image} style={{ borderRadius: 120 }} />
+        <StyledImage2 source={image} style={{ borderRadius: 120 }} />
       </TouchableOpacity>
     </>
     );
