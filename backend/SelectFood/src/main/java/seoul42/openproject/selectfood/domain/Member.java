@@ -77,19 +77,28 @@ public class Member implements UserDetails {
         likeFood.setMember(this);
     }
 
-    public boolean hasLikeFood(Long foodId) {
-        LikeFood likeFood = likeFoods.stream()
-                .filter(likeFood1 -> likeFood1.getFood().getId() == foodId)
-                .findAny()
-                .orElse(null);
-        if (likeFood == null)
-            return false;
-        return true;
-    }
-
     public void addDislikeFood(DislikeFood dislikeFood) {
         dislikeFoods.add(dislikeFood);
         dislikeFood.setMember(this);
+    }
+
+    public boolean hasLikeFood(Long foodId) {
+        for (LikeFood likeFood:
+                this.likeFoods) {
+            if (likeFood.getFood().getId() == foodId) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean hasDislikeFood(Long foodId) {
+        for (DislikeFood dislikeFood:
+                this.dislikeFoods) {
+            if (dislikeFood.getFood().getId() == foodId) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

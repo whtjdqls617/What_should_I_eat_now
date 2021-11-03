@@ -23,6 +23,8 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final FoodService foodService;
     private final LikeFoodService likeFoodService;
+    private final DislikeFoodService dislikeFoodService;
+
 
     @Transactional
     public Long signUpWithFoods(MemberSignUpDto memberInfo) {
@@ -156,7 +158,6 @@ public class MemberService {
         for (String foodName:
                 foodNames) {
             Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
-            // TODO : 아래 코드 수정해야 함.
             if (member.hasLikeFood(food.getId())) {
                 member.getLikeFoods().removeIf(food1 -> food1.getFood().getName().equals(foodName));
                 likeFoodService.deleteLikeFood(member.getId(), food.getId());
@@ -171,7 +172,10 @@ public class MemberService {
         for (String foodName:
                 foodNames) {
             Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
-
+            if (member.hasDislikeFood(food.getId())) {
+                member.getDislikeFoods().removeIf(food1 -> food1.getFood().getName().equals(foodName));
+                dislikeFoodService.deleteDislikeFood(member.getId(), food.getId());
+            }
         }
         memberRepository.save(member);
     }
