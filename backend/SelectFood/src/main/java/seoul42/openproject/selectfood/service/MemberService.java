@@ -32,6 +32,11 @@ public class MemberService {
     }
 
     @Transactional
+    public void delete(Member member) {
+        memberRepository.delete(member);
+    }
+
+    @Transactional
     public Long signUpWithFoods(MemberSignUpDto memberInfo) {
         //TODO : 음식이 데이터베이스에 없을 때 EXCEPTION 발생하도록 추가하기
         List<Food> foods1 = foodService.findByNameList(memberInfo.getLikeFoodNames());

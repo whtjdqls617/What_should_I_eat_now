@@ -152,4 +152,14 @@ public class MemberController {
 //            return commonResponseService.getSuccessResult();
 //        return commonResponseService.getFailResult();
 //    }
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @DeleteMapping(value = "/account")
+    public CommonResult deleteMember() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = memberService.findEmail(email).orElseThrow(CUserNotFoundException::new);
+        memberService.delete(member);
+        return commonResponseService.getSuccessResult();
+    }
 }
