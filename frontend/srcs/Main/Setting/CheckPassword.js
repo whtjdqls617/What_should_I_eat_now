@@ -5,7 +5,7 @@ import { TextInput } from "react-native-gesture-handler";
 export const CheckPassword = ({ navigation, setPasswords, passwords }) => {
 
   return (
-    <View style={styles.container}>
+    <>
         <Text style={styles.titlestyle}>현재 비밀번호 입력</Text>
         <TextInput
           style={styles.textinputstyle}
@@ -15,7 +15,7 @@ export const CheckPassword = ({ navigation, setPasswords, passwords }) => {
             setPasswords(copy);
           }}
         />
-    </View>
+    </>
   );
 };
 
@@ -52,12 +52,12 @@ const styles = StyleSheet.create({
     fontFamily: "BlackHanSans_400Regular",
   },
   textinputstyle: {
-    borderWidth: 1,
+    borderBottomWidth: 0.5,
     height: 35,
     width: 200,
     borderRadius: 5,
     paddingHorizontal: "2%",
     fontFamily: "BlackHanSans_400Regular",
-	marginTop : '2%'
+    marginTop: "2%",
   },
 });

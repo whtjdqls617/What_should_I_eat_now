@@ -9,6 +9,7 @@ import {
 import { food_name } from "../data/data";
 import { SearchPreview } from "./SearchPreview";
 import { arrayToObjectsInArray } from "../func/func_change_var_type";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 export const SearchBar = ({ onPress }) => {
   const [previewFood, setPreviewFood] = useState([]);

@@ -4,6 +4,7 @@ import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { StyledImage } from "../../style";
 import { checkNickname } from "../../func/func_check_userinfo";
 import Modal from "react-native-modal";
+import { HomeButton } from "../HomeButton";
 
 export const UserInfo = ({ navigation }) => {
   const [nickName, setNickName] = useState("기존닉네임");
@@ -12,24 +13,33 @@ export const UserInfo = ({ navigation }) => {
 
   if (modalVisible)
     return (
+		<>
+		<HomeButton navigation={navigation}/>
       <View style={styles.container}>
-        <Text style={styles.head}>회원정보</Text>
-        <Text style={styles.title}>이메일</Text>
-        <Text style={styles.detail}>111@gmail.com</Text>
-        <Text style={styles.title}>닉네임</Text>
-        <View style={styles.nicknamealign}>
-          <TextInput
-            onChangeText={(input) => {
-              if (checkNickname(input) && input.length != 0) setNickName(input);
-            }}
-          >
-            <Text>기존닉네임</Text>
-          </TextInput>
-          <TouchableOpacity
-            style={styles.changebutton}
-            onPress={() => {
-              setModalVisible(true);
-              /*
+        <View style={{ flex: 0.2 }}>
+          <Text style={styles.head}>회원정보</Text>
+        </View>
+        <View style={{ flex: 0.1 }}>
+          <Text style={styles.title}>이메일</Text>
+          <Text style={styles.detail}>111@gmail.com</Text>
+        </View>
+        <View style={{ flex: 0.2 }}>
+          <Text style={styles.title}>닉네임</Text>
+          <View style={styles.nicknamealign}>
+            <TextInput
+              style={styles.textinputstyle}
+              onChangeText={(input) => {
+                if (checkNickname(input) && input.length != 0)
+                  setNickName(input);
+              }}
+            >
+              <Text>기존닉네임</Text>
+            </TextInput>
+            <TouchableOpacity
+              style={styles.changebutton}
+              onPress={() => {
+                setModalVisible(true);
+                /*
          const okFunc = () => {
            const resFunc = () => {
              setAlertMessage("사용 가능한 닉네임입니다.");
@@ -48,69 +58,83 @@ export const UserInfo = ({ navigation }) => {
 
          getTokenFromStorage(okFunc, noFunc, 0);
         */
-            }}
-          >
-            <Text style={styles.buttonText}>변경</Text>
-          </TouchableOpacity>
-          <Modal isVisible={true} hasBackdrop={true}>
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text
-                  style={{
-                    margin: 25,
-                    fontSize: 16,
-                    fontFamily: "BlackHanSans_400Regular",
-                  }}
-                >
-                  {alertMessage}
-                </Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    setModalVisible(false);
-                  }}
-                  style={styles.button}
-                >
+              }}
+            >
+              <Text style={styles.buttonText}>변경</Text>
+            </TouchableOpacity>
+            <Modal isVisible={true} hasBackdrop={true}>
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
                   <Text
                     style={{
-                      color: "white",
+                      margin: 25,
+                      fontSize: 16,
                       fontFamily: "BlackHanSans_400Regular",
                     }}
                   >
-                    확인
+                    {alertMessage}
                   </Text>
-                </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setModalVisible(false);
+                    }}
+                    style={styles.button}
+                  >
+                    <Text
+                      style={{
+                        color: "white",
+                        fontFamily: "BlackHanSans_400Regular",
+                      }}
+                    >
+                      확인
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-          </Modal>
+            </Modal>
+          </View>
         </View>
-        <TouchableOpacity
-          style={styles.buttonstyle}
-          onPress={() => navigation.navigate("UserPassword")}
-        >
-          <Text style={styles.buttonText}>비밀번호 변경</Text>
-        </TouchableOpacity>
+        <View style={{ flex: 0.2 }}>
+          <TouchableOpacity
+            style={styles.buttonstyle}
+            onPress={() => navigation.navigate("UserPassword")}
+          >
+            <Text style={styles.buttonText}>비밀번호 변경</Text>
+          </TouchableOpacity>
+        </View>
       </View>
+	  </>
     );
   else
     return (
-      <View style={styles.container}>
-        <Text style={styles.head}>회원정보</Text>
-        <Text style={styles.title}>이메일</Text>
-        <Text style={styles.detail}>111@gmail.com</Text>
-        <Text style={styles.title}>닉네임</Text>
-        <View style={styles.nicknamealign}>
-          <TextInput
-            onChangeText={(input) => {
-              if (checkNickname(input) && input.length != 0) setNickName(input);
-            }}
-          >
-            <Text>기존닉네임</Text>
-          </TextInput>
-          <TouchableOpacity
-            style={styles.changebutton}
-            onPress={() => {
-              setModalVisible(true);
-               /*
+      <>
+        <HomeButton navigation={navigation} />
+        <View style={{ flex: 1, marginTop: "15%" }}>
+          <View style={{ marginTop: "25%", alignItems: "center" }}>
+            <Text style={styles.head}>회원정보</Text>
+          </View>
+          <View style={styles.container}>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.title}>이메일</Text>
+              <Text style={styles.detail}>111@gmail.com</Text>
+            </View>
+            <View style={{ flex: 1.2 }}>
+              <Text style={styles.title}>닉네임</Text>
+              <View style={styles.nicknamealign}>
+                <TextInput
+                  style={styles.textinputstyle}
+                  onChangeText={(input) => {
+                    if (checkNickname(input) && input.length != 0)
+                      setNickName(input);
+                  }}
+                >
+                  <Text>기존닉네임</Text>
+                </TextInput>
+                <TouchableOpacity
+                  style={styles.changebutton}
+                  onPress={() => {
+                    setModalVisible(true);
+                    /*
          const okFunc = () => {
            const resFunc = () => {
              setAlertMessage("사용 가능한 닉네임입니다.");
@@ -129,26 +153,33 @@ export const UserInfo = ({ navigation }) => {
 
          getTokenFromStorage(okFunc, noFunc, 0);
         */
-            }}
-          >
-            <Text style={styles.buttonText}>변경</Text>
-          </TouchableOpacity>
+                  }}
+                >
+                  <Text style={styles.buttonText}>변경</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+          <View style={{ marginBottom: "45%", alignItems: "center" }}>
+            <TouchableOpacity
+              style={styles.buttonstyle}
+              onPress={() => navigation.navigate("UserPassword")}
+            >
+              <Text style={styles.buttonText}>비밀번호 변경</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity
-          style={styles.buttonstyle}
-          onPress={() => navigation.navigate("UserPassword")}
-        >
-          <Text style={styles.buttonText}>비밀번호 변경</Text>
-        </TouchableOpacity>
-      </View>
+      </>
     );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "space-around",
-    alignItems: "center",
+	  flex: 0.8,
+	  marginLeft : '25%',
+    marginTop: "20%",
+    justifyContent: "center",
+    // alignItems: "center",
   },
   head: {
     fontSize: 50,
@@ -159,14 +190,17 @@ const styles = StyleSheet.create({
     fontFamily: "BlackHanSans_400Regular",
   },
   detail: {
+    marginTop: "3%",
     fontSize: 15,
     fontFamily: "BlackHanSans_400Regular",
     opacity: 0.4,
   },
   nicknamealign: {
+    marginTop: "3%",
     flexDirection: "row",
   },
   changebutton: {
+	marginLeft : '15%',
     height: 30,
     width: 60,
     backgroundColor: "orange",
@@ -205,5 +239,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 20,
     alignItems: "center",
+  },
+  textinputstyle: {
+    borderBottomWidth: 0.5,
+    height: 35,
+    width: 120,
+    borderRadius: 5,
+    paddingHorizontal: "2%",
+    fontFamily: "BlackHanSans_400Regular",
+	opacity : 0.4
   },
 });

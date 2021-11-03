@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     margin: 8,
     width: 200,
     height: 40,
-    borderWidth: 1,
+    borderBottomWidth: 0.5,
     borderRadius: 8,
     paddingHorizontal: "4%",
     fontFamily: "BlackHanSans_400Regular",

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { TouchableOpacity, Image, View, Text, StyleSheet, Alert } from "react-native";
+import { TouchableOpacity, Image, View, Text, StyleSheet, Alert, KeyboardAvoidingView } from "react-native";
 import { plus } from "../../data/icons"
 import Modal from "react-native-modal";
 import { SearchBar } from "../../SignUp/SearchBar"
+
 export const AddEatenFood = ({ day, setDay, eatingHistory, setEatingHistory }) => {
     const [ismodalVisible, setModalVisible] = useState(false);
     const toggleModal = () => {
@@ -16,26 +17,30 @@ export const AddEatenFood = ({ day, setDay, eatingHistory, setEatingHistory }) =
 		setDay(array);
 	}
 
-	const onBackdropPress = () => {
-		toggleModal();
-
-	}
-
   if (ismodalVisible)
     return (
       <>
-        <TouchableOpacity onPress={toggleModal}>
-          <Image
-            style={{
-              borderRadius: 130,
-              height: 100,
-              width: 100,
-              margin: 10,
-            }}
-            source={plus}
-          />
-        </TouchableOpacity>
+        <View
+          style={{ flexDirection: "column", alignItems: "center", margin: 10 }}
+        >
+          <TouchableOpacity onPress={toggleModal}>
+            <Image style={styles.imagestyle} source={plus} />
+          </TouchableOpacity>
+          <Text style={styles.textstyle}>no</Text>
+          <TouchableOpacity style={{ marginTop: 5 }}>
+            <Text
+              style={{
+                fontSize: 30,
+                fontFamily: "BlackHanSans_400Regular",
+                color: "white",
+              }}
+            >
+              x
+            </Text>
+          </TouchableOpacity>
+        </View>
         <Modal
+          style={{ position: "absolute", width: "90%", height: 700 }}
           isVisible={true}
           animationOutTiming={400}
           onBackdropPress={() => toggleModal()}
@@ -61,31 +66,52 @@ export const AddEatenFood = ({ day, setDay, eatingHistory, setEatingHistory }) =
   else
     return (
       <>
-        <TouchableOpacity onPress={toggleModal}>
-          <Image
-            style={{
-              borderRadius: 130,
-              height: 100,
-              width: 100,
-              margin: 10,
-            }}
-            source={plus}
-          />
-        </TouchableOpacity>
+        <View
+          style={{ flexDirection: "column", alignItems: "center", margin: 10 }}
+        >
+          <TouchableOpacity onPress={toggleModal}>
+            <Image style={styles.imagestyle} source={plus} />
+          </TouchableOpacity>
+          <Text style={styles.textstyle}>no</Text>
+          <TouchableOpacity style={{ marginTop: 5 }}>
+            <Text
+              style={{
+                fontSize: 30,
+                fontFamily: "BlackHanSans_400Regular",
+                color: "white",
+              }}
+            >
+              x
+            </Text>
+          </TouchableOpacity>
+        </View>
       </>
     );
 };
 const styles = StyleSheet.create({
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    modalView: {
-        height : '50%',
-        width : '90%',
-        backgroundColor: "white",
-        borderRadius: 20,
-        alignItems : 'center'
-    },
-})
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalView: {
+    height: "50%",
+    width: "90%",
+    backgroundColor: "white",
+    borderRadius: 20,
+    alignItems: "center",
+  },
+  imagestyle: {
+    borderRadius: 130,
+    // borderWidth: 3,
+    // borderColor: "black",
+    height: 90,
+    width: 90,
+  },
+  textstyle: {
+    textAlign: "center",
+    fontFamily: "BlackHanSans_400Regular",
+	color: "white",
+    marginTop: 8,
+  },
+});

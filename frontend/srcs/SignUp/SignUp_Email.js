@@ -60,7 +60,7 @@ export const SignUp_Email = ({ userinfo, setUserinfo }) => {
                 Alert.alert("잘못된 이메일 형식입니다.");
                 return;
               } else setbuttonColor("gray");
-			  
+
 			  const okFunc = () => setokModalVisible(true);
 			  const noFunc = () => Alert.alert("이미 가입된 이메일입니다.");
               getDataFromServer(`${ip}/user/signup/available-email`, { params: email }, okFunc, noFunc, 0);
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     margin: 8,
     width: 200,
     height: 40,
-    borderWidth: 0.5,
+    borderBottomWidth: 0.5,
     borderRadius: 5,
     paddingHorizontal: "2%",
     fontFamily: "BlackHanSans_400Regular",

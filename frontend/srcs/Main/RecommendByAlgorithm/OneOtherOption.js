@@ -1,5 +1,5 @@
 import { StyledImage2 } from "../../style";
-import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, View, StyleSheet, Image } from "react-native";
 import React, { useState } from "react";
 import Modal from "react-native-modal";
 import {
@@ -19,7 +19,7 @@ export const OneOtherOption = ({ image, navigation, name }) => {
     return (
       <>
         <TouchableOpacity onPress={toggleModal}>
-          <StyledImage2 source={image} style={{ borderRadius: 120 }} />
+          <Image source={image} style={styles.image} />
         </TouchableOpacity>
         <Modal isVisible={true} hasBackdrop={true}>
           <View style={styles.centeredView}>
@@ -70,7 +70,7 @@ export const OneOtherOption = ({ image, navigation, name }) => {
     return (
       <>
         <TouchableOpacity onPress={toggleModal}>
-          <StyledImage2 source={image} style={{ borderRadius: 120 }} />
+          <Image source={image} style={styles.image} />
         </TouchableOpacity>
       </>
     );
@@ -107,4 +107,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  image: {
+	height: 100,
+	width : 100,
+	marginTop : 10,
+	padding : 10,
+	borderColor : 'black',
+	borderRadius : 130,
+	borderWidth : 3
+  }
 });

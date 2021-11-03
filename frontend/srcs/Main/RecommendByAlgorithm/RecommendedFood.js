@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
   img_recommend_food: {
     borderWidth: 3,
     borderRadius: 140,
+	borderColor : 'black',
     width: 242,
     height: 242,
     marginTop: "14%",
