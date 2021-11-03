@@ -12,7 +12,6 @@ import seoul42.openproject.selectfood.dto.common.CommonResult;
 import seoul42.openproject.selectfood.dto.common.SingleResult;
 import seoul42.openproject.selectfood.dto.member.Login;
 import seoul42.openproject.selectfood.dto.member.MemberSignUpDto;
-import seoul42.openproject.selectfood.repository.MemberRepository;
 import seoul42.openproject.selectfood.service.CommonResponseService;
 import seoul42.openproject.selectfood.service.MemberService;
 
@@ -25,11 +24,10 @@ import java.util.Optional;
 public class SignController {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final CommonResponseService responseService;
     private final PasswordEncoder passwordEncoder;
+    private final CommonResponseService responseService;
     private final MemberService memberService;
     private final CommonResponseService commonResponseService;
-    private final MemberRepository memberRepository;
 
     @ApiOperation(value = "중복 이메일 체크", notes = "회원 가입 중 이메일 중복 체크")
     @GetMapping("/signup/available-email")
@@ -53,7 +51,7 @@ public class SignController {
     @PostMapping(value = "/signin")
     public SingleResult<String> signin(@RequestBody Login login) {
 
-        Member member = memberRepository.findByEmail(login.getEmail()).orElseThrow(CEmailSigninFailedException::new);
+        Member member = memberService.findEmail(login.getEmail()).orElseThrow(CEmailSigninFailedException::new);
         if (!passwordEncoder.matches(login.getPassword(), member.getPassword()))
             throw new CEmailSigninFailedException();
 

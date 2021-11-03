@@ -6,7 +6,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import seoul42.openproject.selectfood.advice.exception.CEmailSigninFailedException;
 import seoul42.openproject.selectfood.advice.exception.CUserNotFoundException;
 import seoul42.openproject.selectfood.domain.*;
 import seoul42.openproject.selectfood.dto.common.CommonResult;
@@ -14,6 +16,7 @@ import seoul42.openproject.selectfood.dto.common.ListResult;
 import seoul42.openproject.selectfood.dto.common.SingleResult;
 import seoul42.openproject.selectfood.dto.member.MemberEditDto;
 import seoul42.openproject.selectfood.dto.member.MemberEditFoodDto;
+import seoul42.openproject.selectfood.dto.member.MemberEditPass;
 import seoul42.openproject.selectfood.service.CommonResponseService;
 import seoul42.openproject.selectfood.service.MemberService;
 
@@ -25,6 +28,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final CommonResponseService commonResponseService;
+    private final PasswordEncoder passwordEncoder;
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
@@ -37,6 +41,35 @@ public class MemberController {
         memberEditDto.setEmail(member.getEmail());
         memberEditDto.setNickName(member.getNickName());
         return commonResponseService.getSingleResult(memberEditDto);
+    }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @PutMapping(value = "/info/nickname")
+    public CommonResult updateNickName(@RequestBody String nickName) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = memberService.findEmail(email).orElseThrow(CUserNotFoundException::new);
+        member.setNickName(nickName);
+        memberService.save(member);
+        return commonResponseService.getSuccessResult();
+    }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @ApiOperation(value = "비밀번호 변경", notes = "회원 정보 수정 화면에서 비밀번호 변경")
+    @PutMapping("/info/pass")
+    public CommonResult updatePassword(@RequestBody MemberEditPass memberEditPass) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = memberService.findEmail(email).orElseThrow(CUserNotFoundException::new);
+        if (!passwordEncoder.matches(memberEditPass.getOldPass(), member.getPassword()))
+        {
+            throw new CEmailSigninFailedException();
+        }
+        member.setPassword(passwordEncoder.encode(memberEditPass.getNewPass()));
+        memberService.save(member);
+        return commonResponseService.getSuccessResult();
     }
 
     @ApiImplicitParams({

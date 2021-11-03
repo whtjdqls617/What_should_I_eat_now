@@ -25,6 +25,11 @@ public class MemberService {
     private final LikeFoodService likeFoodService;
     private final DislikeFoodService dislikeFoodService;
 
+    @Transactional
+    public Member save(Member member)
+    {
+        return memberRepository.save(member);
+    }
 
     @Transactional
     public Long signUpWithFoods(MemberSignUpDto memberInfo) {
