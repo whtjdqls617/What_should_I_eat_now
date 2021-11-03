@@ -26,7 +26,7 @@ export const EditPassword = ({ navigation, passwords, setPasswords }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <>
       <Text style={styles.titlestyle}>새 비밀번호</Text>
       <TextInput
         style={styles.textinputstyle}
@@ -46,6 +46,7 @@ export const EditPassword = ({ navigation, passwords, setPasswords }) => {
       />
       <Text
         style={{
+          marginTop: "3%",
           opacity: firstopacity,
           fontSize: 15,
           color: "red",
@@ -74,6 +75,7 @@ export const EditPassword = ({ navigation, passwords, setPasswords }) => {
       />
       <Text
         style={{
+          marginTop: "3%",
           opacity: secondopacity,
           fontSize: 15,
           color: "red",
@@ -82,8 +84,8 @@ export const EditPassword = ({ navigation, passwords, setPasswords }) => {
       >
         비밀번호를 다시 확인해주세요.
       </Text>
-    </View>
-)};
+    </>
+  );};
 
 const styles = StyleSheet.create({
   container: {
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
     fontFamily: "BlackHanSans_400Regular",
   },
   textinputstyle: {
-    borderWidth: 1,
+    borderBottomWidth: 0.5,
     height: 35,
     width: 200,
     borderRadius: 5,

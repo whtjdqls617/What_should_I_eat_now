@@ -5,6 +5,8 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { EatenFood } from "./EatenFood";
@@ -38,52 +40,56 @@ export const CustomCalendar = ({ navigation }) => {
   };
 
   return (
-    <>
-      <View style={styles.top}>
-        <ThisMonthCalendar setDay={setDay} />
-      </View>
-      <View style={styles.bottom}>
-        <ScrollView horizontal={true}>
-          <EatenFoods number={day.length} day={day} onXPress={onXPress} />
-          <AddEatenFood
-            day={day}
-            setDay={setDay}
-            eatingHistory={eatingHistory}
-            setEatingHistory={setEatingHistory}
-          />
-        </ScrollView>
-      </View>
-      <View style={styles.button}>
-        <TouchableOpacity style={styles.button_1}>
-          <Text style={styles.buttontextstyle}>적용</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button_2}
-          onPress={() => navigation.navigate("Main")}
-        >
-          <Text style={styles.buttontextstyle}>취소</Text>
-        </TouchableOpacity>
-      </View>
-    </>
+    // <>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "heigth"}
+      >
+        <View style={styles.top}>
+          <ThisMonthCalendar setDay={setDay} />
+        </View>
+        <View style={styles.bottom}>
+          <ScrollView horizontal={true}>
+            <EatenFoods number={day.length} day={day} onXPress={onXPress} />
+            <AddEatenFood
+              day={day}
+              setDay={setDay}
+              eatingHistory={eatingHistory}
+              setEatingHistory={setEatingHistory}
+            />
+          </ScrollView>
+        </View>
+        <View style={styles.button}>
+          <TouchableOpacity style={styles.button_1}>
+            <Text style={styles.buttontextstyle}>적용</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button_2}
+            onPress={() => navigation.navigate("Main")}
+          >
+            <Text style={styles.buttontextstyle}>취소</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    // {/* </> */}
   );
 };
 
 //취소 버튼 누르면 메인으로 감
 const styles = StyleSheet.create({
   top: {
-    flex: 2,
+    // flex: 2,
     marginTop: "35%",
   },
   bottom: {
-    flex: 1,
+    // flex: 1,
     marginTop: "10%",
   },
   button: {
-    flex: 1,
+    // flex: 1,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: "5%",
+	marginTop : '5%'
   },
   button_1: {
     margin: "8%",

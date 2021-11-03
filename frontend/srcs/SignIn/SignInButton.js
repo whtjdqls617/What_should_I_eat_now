@@ -52,24 +52,6 @@ export const SigninButton = ({ json, setSignIn }) => {
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-	},
-	textinput: {
-		margin: 8,
-		width: 200,
-		height: 40,
-		borderWidth: 1,
-		borderRadius: 8,
-		paddingHorizontal: "4%",
-		fontFamily: "BlackHanSans_400Regular",
-	},
-	textinputstyle: {
-		flex: 0.3,
-		justifyContent: "center",
-	},
 	buttonstyle: {
 		height: 40,
 		width: 110,

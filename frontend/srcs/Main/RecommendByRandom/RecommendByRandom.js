@@ -33,7 +33,7 @@ export const RecommendByRandom = ({ navigation }) => {
       <>
         <HomeButton navigation={navigation} />
         <View style={styles.container}>
-          <Text>{headerText}</Text>
+          <Text style={styles.title}>{headerText}</Text>
           <SlotMachine setFoodName={setFoodName} randomFood={randomFood} />
           <TouchableOpacity>
             <Image source={random} />
@@ -57,7 +57,7 @@ export const RecommendByRandom = ({ navigation }) => {
       <>
         <HomeButton navigation={navigation} />
         <View style={styles.container}>
-          <Text>{headerText}</Text>
+          <Text style={styles.title}>{headerText}</Text>
           <Text>Hello</Text>
           <TouchableOpacity
             onPress={() => {
@@ -85,21 +85,24 @@ export const RecommendByRandom = ({ navigation }) => {
       <>
         <HomeButton navigation={navigation} />
         <View style={styles.container}>
-          <Text>{headerText}</Text>
+          <Text style={styles.title}>{headerText}</Text>
           <Image
-            style={{ height: 200, width: 200 }}
+            style={styles.img_recommend_food}
             source={food_image[foodName_without_space]}
           />
-          <Text>{foodName}</Text>
+          <Text style={styles.foodname}>{foodName}</Text>
           <TouchableOpacity
+		  	style={{borderWidth : 2, borderColor : 'black', borderRadius : 130, backgroundColor : 'orange'}}
             onPress={() => {
               setFoodName("");
               setpushRandom(true);
             }}
           >
-            <Image source={random} />
+            {/* <Image source={random} /> */}
+			<Text style={{height : 40, width : 40, textAlign : 'center'}}>PUSH</Text>
           </TouchableOpacity>
           <TouchableOpacity
+		  style={styles.button}
             onPress={() => {
               /*
         axios.post()
@@ -108,7 +111,7 @@ export const RecommendByRandom = ({ navigation }) => {
               navigation.navigate("Main");
             }}
           >
-            <Text>결정</Text>
+            <Text style={styles.buttonText}>결정</Text>
           </TouchableOpacity>
         </View>
       </>
@@ -120,6 +123,43 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: "5%",
+    marginBottom: "15%",
+  },
+  img_recommend_food: {
+    borderWidth: 3,
+    borderRadius: 140,
+	borderColor : 'black',
+    width: 242,
+    height: 242,
+    marginTop: "14%",
+  },
+  title: {
+    textAlign: "center",
+    fontFamily: "BlackHanSans_400Regular",
+    fontSize: 45,
+    marginTop: 92,
+  },
+  foodname: {
+    textAlign: "center",
+    fontFamily: "BlackHanSans_400Regular",
+    height: 49,
+    width: 207,
+    fontSize: 25,
+    marginTop: '5%',
+  },
+  button: {
+    margin: "10%",
+    backgroundColor: "orange",
+    alignItems: "center",
+    height: 55,
+    width: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 30,
+  },
+  buttonText: {
+    fontSize: 20,
+    color: "white",
+    fontFamily: "BlackHanSans_400Regular",
   },
 });

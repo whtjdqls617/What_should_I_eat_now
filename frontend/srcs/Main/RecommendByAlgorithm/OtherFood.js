@@ -29,6 +29,7 @@ export const OtherFood = ({ data, navigation }) => {
     (ele) => food_image[ele]
   );
   const arrayForMap = Array(3).fill(0);
+
   return (
     <ScrollView>
       <HomeButton navigation={navigation} />
@@ -55,7 +56,7 @@ export const OtherFood = ({ data, navigation }) => {
               <Text key={i + 3} style={styles.youtubetext}>
                 {other_food_name[i]}
               </Text>
-              <YoutubePlayer key={i + 6} height={200} videoId={youtube_id[i]} />
+              <YoutubePlayer key={i + 6} height={230} videoId={youtube_id[i]} />
             </View>
           );
         })}
