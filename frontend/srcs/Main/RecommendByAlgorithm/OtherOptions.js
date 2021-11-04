@@ -1,27 +1,22 @@
 import React from 'react';
 import { OneOtherOption } from './OneOtherOption';
 
-export const OtherOptions = ({ food_name, food_image, navigation }) => {
+export const OtherOptions = ({ SignInExpired, food_name, food_image, navigation }) => {
 
-
+	const arrayForMap = Array(3).fill(0);
 
 	return (
-      <>
-        <OneOtherOption
-		  name={food_name[0]}
-          image={food_image[0]}
-          navigation={navigation}
-        />
-        <OneOtherOption
-		  name={food_name[1]}
-          image={food_image[1]}
-          navigation={navigation}
-        />
-        <OneOtherOption
-		  name={food_name[2]}
-          image={food_image[2]}
-          navigation={navigation}
-        />
-      </>
-  );
+		<>
+			{
+				arrayForMap.map((ele, i) =>
+					<OneOtherOption
+						key={i}
+						name={food_name[i]}
+						image={food_image[i]}
+						navigation={navigation}
+						SignInExpired={SignInExpired}
+					/>)
+			}
+		</>
+	);
 }

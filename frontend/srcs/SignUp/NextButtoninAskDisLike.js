@@ -7,14 +7,12 @@ export const NextButtoninAskDisLike = ({ userinfo, likeFoodList, disLikeFoodList
 
 	const makePostData = (userinfo, likeFoodList, disLikeFoodList) => {
 
-		let likeArr = likeFoodList.map((ele) => ele.food);
-		let dislikeArr = disLikeFoodList.length == 0 ? [] : disLikeFoodList.map((ele) => ele.food);
 		let postData = {
 			email: userinfo.email,
 			nickName: userinfo.nickName,
 			password: userinfo.password,
-			likeFoodNames: likeArr,
-			dislikeFoodNames: dislikeArr,
+			likeFoodNames: likeFoodList,
+			dislikeFoodNames: disLikeFoodList,
 		}
 
 		return postData;

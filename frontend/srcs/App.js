@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { MainStackNav } from "./navigations/MainStack";
 import { SignInStackNav } from "./navigations/SignInStack";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Alert } from "react-native";
 import { FirstLoading } from "./FirstLoading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BlackHanSans_400Regular } from "@expo-google-fonts/black-han-sans";
@@ -11,7 +11,7 @@ import AppLoading from "expo-app-loading";
 
 export default function App() {
 	const [isLoading, setIsLoading] = useState(true);
-	const [signIn, setSignIn] = useState(true);
+	const [signIn, setSignIn] = useState(false);
 	let [fontsLoaded] = useFonts({
 		BlackHanSans_400Regular,
 	});
@@ -21,6 +21,12 @@ export default function App() {
 		colors: {
 			background: "white",
 		},
+	};
+
+	const SignInExpired = () => {
+		Alert.alert("새로 로그인 해주세요");
+		AsyncStorage.clear();
+		setSignIn(false);
 	};
 
 	const getData = async () => {
@@ -34,7 +40,7 @@ export default function App() {
 		}
 	}
 
-	// getData();
+	getData();
 
 	setTimeout(() => {
 		setIsLoading(false);
@@ -59,25 +65,10 @@ export default function App() {
 		} else
 			return (
 				<NavigationContainer theme={MyTheme}>
-					<MainStackNav setSignIn={setSignIn}/>
+					<MainStackNav setSignIn={setSignIn} SignInExpired={SignInExpired}/>
 				</NavigationContainer>
 			);
 	}
-	//로그인 정보 받아오고
-	//처음 앱 켜질 때 로딩 페이지
-
-	//로그인 정보가 어떠냐에 따라서
-	//if (로그인 상태일 때)
-	// return MainStackNav
-	// else if (로그아웃 상태일 때 )
-	// return signinNav
-
-	//서버에서 데이터를 Get하는 작업이 끝나면 로딩화면에서 로그인/메인 화면이 나타나게 해야 함
-	// return (
-	//   <NavigationContainer>
-	//     <StartStackNav />
-	//   </NavigationContainer>
-	// );
 }
 
 /*

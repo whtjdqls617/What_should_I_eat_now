@@ -3,7 +3,12 @@ import { Image, Text } from 'react-native';
 import { food_name, food_image } from '../../data/data';
 import { loading } from '../../data/icons';
 
-export const SlotMachine = ({ setFoodName, randomFood }) => {
+export const SlotMachine = ({ setFoodName }) => {
+
+	const randomFood = () => {
+		const index = Math.floor(Math.random() * food_name.length);
+		return food_name[index];
+	};
 
 	const [index, setIndex] = useState(0);
 

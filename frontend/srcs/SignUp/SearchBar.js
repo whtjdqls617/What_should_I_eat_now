@@ -16,12 +16,11 @@ export const SearchBar = ({ onPress }) => {
   const [value, setValue] = useState("");
 
   const matchFoodName = (input) => {
-    let foodObject = [];
-    if (input.length > 0) {
-      const food = food_name.filter((food) => food.includes(input));
-      foodObject = arrayToObjectsInArray(food);
+    let food = [];
+	if (input.length > 0) {
+      food = food_name.filter((food) => food.includes(input));
     }
-    setPreviewFood(foodObject);
+    setPreviewFood(food);
   };
 
   const searchFoodName = (input) => {

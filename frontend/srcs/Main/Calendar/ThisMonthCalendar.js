@@ -2,8 +2,6 @@ import React from "react";
 import { Alert } from "react-native";
 import { Calendar } from "react-native-calendars";
 
-// prop으로 month, setDay를 받아야한다
-
 export const ThisMonthCalendar = ({ setDay }) => {
 
 
