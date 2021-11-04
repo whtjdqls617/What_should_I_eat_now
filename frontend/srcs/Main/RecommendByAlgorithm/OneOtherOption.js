@@ -8,7 +8,7 @@ import {
 } from "../../func/func_data_communication";
 import { ip } from "../../data/data";
 
-export const OneOtherOption = ({ image, navigation, name }) => {
+export const OneOtherOption = ({ SignInExpired, image, navigation, name }) => {
   const [ismodalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -28,13 +28,7 @@ export const OneOtherOption = ({ image, navigation, name }) => {
                 title="선택"
                 onPress={() => {
                   const okFunc = (value) => {
-                    postDataToServer(
-                      `${ip}/recommend-food/select`,
-                      name,
-                      value,
-                      0,
-                      0
-                    );
+                    postDataToServer(`${ip}/recommend-food/select`, name, value, 0, SignInExpired);
                     navigation.reset({ routes: [{ name: "Main" }] });
                   };
 

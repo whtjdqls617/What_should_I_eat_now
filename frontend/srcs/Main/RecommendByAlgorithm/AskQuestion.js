@@ -3,7 +3,7 @@ import { Options } from "./Options";
 import { question_and_answers } from "../../data/question_data";
 import { StyleSheet, Text, View } from "react-native";
 
-export const AskQuestion = ({ setData, index, updateIndex, navigation }) => {
+export const AskQuestion = ({ SignInExpired, setData, index, updateIndex, navigation }) => {
 
   return (
     <View style={styles.container}>
@@ -11,6 +11,7 @@ export const AskQuestion = ({ setData, index, updateIndex, navigation }) => {
 		  	{question_and_answers[index][0]}
 		</Text>
       	<Options
+		  SignInExpired={SignInExpired}
 			index={index}
 			qna={question_and_answers[index]}
 			updateIndex={updateIndex}

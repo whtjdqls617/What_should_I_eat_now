@@ -14,10 +14,9 @@ import {
   getTokenFromStorage,
   postDataToServer,
 } from "../../func/func_data_communication";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { HomeButton } from "../HomeButton";
 
-export const RecommendedFood = ({ data, updateIndex, navigation }) => {
+export const RecommendedFood = ({ SignInExpired, data, updateIndex, navigation }) => {
   const food_name = data.list[0].name;
 
   let food_name_without_space = food_name.slice();
@@ -47,7 +46,7 @@ export const RecommendedFood = ({ data, updateIndex, navigation }) => {
                   food_name,
                   value,
                   0,
-                  0
+                  SignInExpired
                 );
                 navigation.reset({ routes: [{ name: "Main" }] });
               };

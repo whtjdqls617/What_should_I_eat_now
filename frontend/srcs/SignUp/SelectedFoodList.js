@@ -18,7 +18,9 @@ export const SelectedFoodList = ({ foodList, setFoodList }) => {
         style={{ flex: 1, marginTop: "8%" }}
         data={foodList}
         initialNumToRender={10}
+		keyExtractor={( item, index ) => index.toString() }
         renderItem={({ item }) => {
+
           return (
             <>
               <View style={styles.todolistalign}>
@@ -28,13 +30,12 @@ export const SelectedFoodList = ({ foodList, setFoodList }) => {
                     fontFamily: "BlackHanSans_400Regular",
                   }}
                 >
-                  {item.food}
+                  {item}
                 </Text>
                 <TouchableOpacity
                   onPress={() => {
-                    const array = ObjectsInArrayToArray(foodList);
-                    array.splice(array.indexOf(item.food), 1);
-                    const newFoodList = arrayToObjectsInArray(array);
+                    const newFoodList = foodList.slice();
+                    newFoodList.splice(newFoodList.indexOf(item), 1);
                     setFoodList(newFoodList);
                   }}
                 >

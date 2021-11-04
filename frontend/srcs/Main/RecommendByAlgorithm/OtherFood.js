@@ -6,7 +6,7 @@ import { youtubeURLtoID } from "../../func/func_change_var_type";
 import { food_image } from "../../data/data";
 import { HomeButton } from "../HomeButton";
 
-export const OtherFood = ({ data, navigation }) => {
+export const OtherFood = ({ data, navigation, SignInExpired }) => {
   const youtube_url = [
     data.list[1].youtube_url,
     data.list[2].youtube_url,
@@ -37,6 +37,7 @@ export const OtherFood = ({ data, navigation }) => {
         <Text style={styles.select}>골라볼래?</Text>
         <View style={styles.img_food_align}>
           <OtherOptions
+		  	SignInExpired={SignInExpired}
             food_name={other_food_name}
             food_image={other_food_image}
             navigation={navigation}
@@ -64,6 +65,7 @@ export const OtherFood = ({ data, navigation }) => {
     </ScrollView>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

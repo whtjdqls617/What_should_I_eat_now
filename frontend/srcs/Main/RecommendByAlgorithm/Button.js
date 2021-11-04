@@ -4,7 +4,7 @@ import { StyleSheet, View, TouchableOpacity, Text, Alert } from "react-native";
 import { ip } from "../../data/data";
 import { getTokenFromStorage, getDataFromServer } from "../../func/func_data_communication";
 
-export const NextButton = ({ updateIndex, answer, index, setData, navigation }) => {
+export const NextButton = ({ SignInExpired, updateIndex, answer, index, setData, navigation }) => {
 
 	const answers = {
 		answer1: answer[0][1] == undefined ? "" : answer[0][1],
@@ -24,11 +24,12 @@ export const NextButton = ({ updateIndex, answer, index, setData, navigation }) 
 			}
 		};
 
-		const okFunc = (food_list) => {
+		const okFunc2 = (food_list) => {
 			setData(food_list);
 		};
 
-		getDataFromServer(`${ip}/recommend-food/`, params, okFunc, 0, 0);
+
+		getDataFromServer(`${ip}/recommend-food/`, params, okFunc2, 0, SignInExpired);
 	};
 
 	const errFunc = () => {

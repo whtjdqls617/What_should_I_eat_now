@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
-export const CheckPassword = ({ navigation, setPasswords, passwords }) => {
+export const CurrentPassword = ({ navigation, setPasswords, passwords }) => {
 
   return (
     <>
