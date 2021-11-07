@@ -32,6 +32,7 @@ public class MemberController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
+    @ApiOperation(value = "회원정보 (email, nickname) 조회", notes = "회원 정보 수정 화면에 출력할 데이터 조회")
     @GetMapping(value = "/info")
     public SingleResult<MemberEditDto> findUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -45,6 +46,7 @@ public class MemberController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
+    @ApiOperation(value = "닉네임 변경", notes = "회원 정보 수정 화면에서 닉네임 변경")
     @PutMapping(value = "/info/nickname")
     public CommonResult updateNickName(@RequestBody String nickName) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -87,7 +89,7 @@ public class MemberController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "회원 정보 중 호불호 음식 리스트 수정", notes = "회원 정보 수정 중 좋아하는 음식, 싫어하는 음식 리스트 수정")
+    @ApiOperation(value = "회원 정보 중 호불호 음식 리스트 변경", notes = "회원 정보 수정 중 좋아하는 음식, 싫어하는 음식 리스트 변경")
     @PutMapping("/info/food")
     public CommonResult updateLikeFood(@RequestBody MemberEditFoodDto foodNames) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -101,6 +103,7 @@ public class MemberController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
+    @ApiOperation(value = "회원 탈퇴", notes = "회원 정보 삭제")
     @DeleteMapping(value = "/account")
     public CommonResult deleteMember() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();

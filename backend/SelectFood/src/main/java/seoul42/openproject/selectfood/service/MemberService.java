@@ -101,33 +101,11 @@ public class MemberService {
         return foodNames;
     }
 
-    public List<CalendarDayFoodDto> getSelectedFoods(String email) {
-        List<CalendarDayFoodDto> foodNames = new ArrayList<>();
-        List<SelectedFood> selectedFoods = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new).getSelectedFoods();
-        for (SelectedFood selectedFood :
-                selectedFoods) {
-            foodNames.add(new CalendarDayFoodDto(selectedFood.getFood().getName(), selectedFood.getSelectDate().toString()));
-        }
-        return foodNames;
-    }
-
     @Transactional
     public void saveSelectedFood(String email, String foodName) {
         Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
         Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
         member.addSelectedFood(new SelectedFood(member, food, LocalDate.now()));
-        memberRepository.save(member);
-    }
-
-    @Transactional
-    public void saveSelectedFoods(String email, List<String> foodNames, String inDate) {
-        LocalDate localDate = LocalDate.parse(inDate);
-        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
-        for (String foodName :
-                foodNames) {
-            Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
-            member.addSelectedFood(new SelectedFood(member, food, localDate));
-        }
         memberRepository.save(member);
     }
 
@@ -149,21 +127,6 @@ public class MemberService {
                 foodNames) {
             Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
             member.addDislikeFood(new DislikeFood(member, food));
-        }
-        memberRepository.save(member);
-    }
-
-    @Transactional
-    public void deleteSelectedFood(String email, List<String> foodNames, String inDate) {
-        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
-        for (String foodName:
-                foodNames) {
-            Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
-            if (member.hasSelectedFood(food.getId(), LocalDate.parse(inDate))) {
-                member.getSelectedFoods().removeIf(food1 -> food1.getFood().getName().equals(foodName) &&
-                        food1.getSelectDate().equals(LocalDate.parse(inDate)));
-                calendarService.deleteSelectedFood(member.getId(), food.getId(), LocalDate.parse(inDate));
-            }
         }
         memberRepository.save(member);
     }
