@@ -25,7 +25,6 @@ export const OneOtherOption = ({ SignInExpired, image, navigation, name }) => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <TouchableOpacity
-                title="선택"
                 onPress={() => {
                   const okFunc = (value) => {
                     postDataToServer(`${ip}/recommend-food/select`, name, value, 0, SignInExpired);

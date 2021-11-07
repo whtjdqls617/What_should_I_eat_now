@@ -23,7 +23,7 @@ export const SignUp_Email = ({ userinfo, setUserinfo }) => {
   };
 
   const checkEmail = (input) => {
-    if ((input.includes("@") && input.includes(".")) || input.length == 0)
+    if (input.includes("@") && input.includes("."))
       return true;
     else return false;
   };

@@ -22,7 +22,7 @@ export const putDataToServer = (url, object, token, okFunc, noFunc, errFunc) => 
 	api
 		.put(url, json)
 		.then(function (response) {
-			console.log("post_res: ");
+			console.log("put_res: ");
 			console.log(response);
 			const success = response.data.success;
 			if (success && okFunc)
@@ -31,12 +31,13 @@ export const putDataToServer = (url, object, token, okFunc, noFunc, errFunc) => 
 				noFunc();
 		})
 		.catch(function (error) {
-			console.log("post_err: ");
+			console.log("put_err: ");
 			console.log(error);
-			if (error.code == 403 && errFunc != 0)
+			const status = error.response.status;
+			if (status == 403 && errFunc != 0)
 				errFunc();
-			else if (error.code == 500)
-				Alert.alert("서버와의 연결이 끊어졌습니다");
+			else if (status == 500)
+				Alert.alert(error.response.data.msg);
 			//3초 이내에 서버한테서 답이 안 오면 에러로 처리하게 설정
 			//유저한테 에러 메시지 창 띄우고
 			//메인으로 바로 이동
@@ -97,11 +98,12 @@ export const postDataToServer = (url, object, token, resFunc, errFunc) => {
 		})
 		.catch(function (error) {
 			console.log("post_err: ");
-			console.log(error);
-			if (error.code == 403 && errFunc != 0)
+			console.log(error.response);
+			const status = error.response.status;
+			if (status == 403 && errFunc != 0)
 				errFunc();
-			else if (error.code == 500)
-				Alert.alert("서버와의 연결이 끊어졌습니다");
+			else if (status == 500)
+				Alert.alert(error.response.data.msg);
 			//3초 이내에 서버한테서 답이 안 오면 에러로 처리하게 설정
 			//유저한테 에러 메시지 창 띄우고
 			//메인으로 바로 이동

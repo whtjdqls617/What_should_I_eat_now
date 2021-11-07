@@ -16,11 +16,44 @@ import { getTokenFromStorage, putDataToServer } from "../../func/func_data_commu
 import { ip } from "../../data/data";
 
 export const FoodList = ({ navigation, route }) => {
-	//props로 음식 리스트 받아온 상태
+
+	const originLikeFood = route.params.data.likeFoodList;
+	const originDisLikeFood = route.params.data.dislikeFoodList;
 
 	const [signal, setSignal] = useState(0);
 	const [likeFoodList, setLikeFoodList] = useState(route.params.data.likeFoodList);
 	const [disLikeFoodList, setDisLikeFoodList] = useState(route.params.data.dislikeFoodList);
+
+	const updateFoodList = (originLikeFood, originDisLikeFood, likeFoodList, disLikeFoodList) => {
+
+		let object = {
+			dislikeFoodDto: {},
+			likeFoodDto: {}
+		  };
+
+		object.likeFoodDto.deleteFoodList = originLikeFood.map(food => {
+			if (!likeFoodList.includes(food))
+				return (food);
+		}).filter(food => food != null);
+
+		object.dislikeFoodDto.deleteFoodList = originDisLikeFood.map(food => {
+			if (!disLikeFoodList.includes(food))
+				return (food);
+		}).filter(food => food != null);
+
+		object.likeFoodDto.addFoodList = likeFoodList.map(food => {
+			if (!originLikeFood.includes(food))
+				return (food);
+		}).filter(food => food != null);
+
+		object.dislikeFoodDto.addFoodList = disLikeFoodList.map(food => {
+			if (!originDisLikeFood.includes(food))
+				return (food);
+		}).filter(food => food != null);
+
+		return object;
+	};
+
 
 	const onPressInLSP = (item) => {
 		onPressInLikeSearchPreview(
@@ -82,17 +115,16 @@ export const FoodList = ({ navigation, route }) => {
 				<View style={styles.buttonalign}>
 					<TouchableOpacity
 						style={styles.buttonstyle}
-						// onPress={() => {
+						onPress={() => {
 
-						// 	const okFunc = () => {
-								
-						// 		putDataToServer(`${ip}/user/info/food`, , );
-						// 	};
+							const okFunc = (value) => {
 
-
-						// 	getTokenFromStorage(okFunc, 0, 0);
-						// 	navigation.navigate("Setting");
-						// }}
+								const resFunc = () => navigation.navigate("Setting");
+								const params = updateFoodList(originLikeFood, originDisLikeFood, likeFoodList, disLikeFoodList);
+								putDataToServer(`${ip}/user/info/food`, params, value, resFunc, 0, 0);
+							};
+							getTokenFromStorage(okFunc, 0, 0);
+						}}
 					>
 						<Text style={styles.textstyle}>적용</Text>
 					</TouchableOpacity>

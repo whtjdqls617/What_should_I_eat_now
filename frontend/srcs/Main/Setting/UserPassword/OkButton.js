@@ -11,22 +11,21 @@ export const OkButton = ({ navigation, passwords }) => {
 		<TouchableOpacity
 			style={styles.buttonstyle}
 			onPress={() => {
-				if (passwords[1].length > 0) {
+				if (passwords.length > 1 && passwords[1].length > 0) {
 
-					const okFunc = () => {
+					const okFunc = (value) => {
 
 						const resFunc = () => {
 							Alert.alert("비밀번호가 변경되었습니다");
 							navigation.navigate("Setting");
-						}
-						
+						};
+
 						const params = {
 							newPass: passwords[1],
 							oldPass: passwords[0]
 						};
 
-						putDataToServer(`${ip}/user​/info​/pass`, params, resFunc, 0, 0);
-
+						putDataToServer(`${ip}/user/info/pass`, params, value, resFunc, 0, 0);
 					};
 
 					getTokenFromStorage(okFunc, 0, 0);

@@ -16,9 +16,9 @@ export const NextButton = ({ SignInExpired, updateIndex, answer, index, setData,
 	};
 
 	const okFunc = (value) => {
-		
+
 		const params = {
-			params: answers, 
+			params: answers,
 			headers: {
 				"X-AUTH-TOKEN": value,
 			}
@@ -38,9 +38,8 @@ export const NextButton = ({ SignInExpired, updateIndex, answer, index, setData,
 	};
 
 	const nextPressEvent = () => {
-		if (index == 2) 
+		if (index == 2)
 			getTokenFromStorage(okFunc, 0, errFunc);
-			// AsyncStorage.clear();
 		else updateIndex(true);
 	};
 

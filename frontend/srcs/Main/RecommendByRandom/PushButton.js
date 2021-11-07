@@ -1,31 +1,36 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import { random } from '../../data/icons';
 
 export const PushButton = ({ setFoodName }) => {
 
 	return (
 		<TouchableOpacity
-			style={{ marginTop: '7%', backgroundColor: 'orange'}}
+			style={styles.button}
 			onPress={() => {
 				setFoodName("");
 			}}
 		>
-			<Text
-				style={{
-					borderWidth: 2,
-					borderRadius: 100,
-					textShadowColor: 'rgba(0, 0, 0, 0.2)',
-					textShadowOffset: { height: 1.3, width: 1.3 },
-					textShadowRadius: 0.5,
-					fontFamily: "BlackHanSans_400Regular",
-					color: '#0099FF',
-					fontSize: 25,
-					textAlign: 'center'
-				}}>다른거!</Text>
+			<Image
+			style={{height : 70, width : 70}}
+				source={random}
+			/>
+
 		</TouchableOpacity>
 	);
 };
 
 const styles = StyleSheet.create({
-
+  button: {
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 100,
+    marginTop: "3%",
+  },
+  buttonText: {
+    fontSize: 50,
+    color: "red",
+    fontFamily: "BlackHanSans_400Regular",
+  },
 });

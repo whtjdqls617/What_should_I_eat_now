@@ -12,8 +12,7 @@ import { ip } from "../../data/data";
 
 export const UserInfo = ({ navigation, route }) => {
 
-	console.log("route: ", route);
-	const [nickName, setNickName] = useState("기존닉네임");
+	const [nickName, setNickName] = useState(route.params.data.nickName);
 	const [modalVisible, setModalVisible] = useState(false);
 	const [alertMessage, setAlertMessage] = useState("");
 
@@ -26,7 +25,7 @@ export const UserInfo = ({ navigation, route }) => {
 					<Text style={styles.head}>회원정보</Text>
 				</View>
 				<View style={styles.container}>
-					<UserEmail />
+					<UserEmail email={route.params.data.email}/>
 					<View style={{ flex: 1.2 }}>
 						<Text style={styles.title}>닉네임</Text>
 						<View style={styles.nicknamealign}>
@@ -37,39 +36,39 @@ export const UserInfo = ({ navigation, route }) => {
 										setNickName(input);
 								}}
 							>
-								<Text>기존닉네임</Text>
+								<Text>{nickName}</Text>
 							</TextInput>
 							<TouchableOpacity
 								style={styles.changebutton}
-								onPress={() => {
-									setModalVisible(true);
+								onPress={
+									() => {
+										setModalVisible(true);
 
-									const okFunc = (value) => {
-										const resFunc = () => {
-											setAlertMessage("사용 가능한 닉네임입니다.");
-											setModalVisible(true);
-										}
-										const noFunc = () => {
-											setAlertMessage("중복된 닉네임입니다.");
-											setModalVisible(true);
-										}
-										const errFunc = () => {
-											Alert.alert("서버와 통신이 되지 않습니다.");
-										}
-										const params = nickName;
-										putDataToServer(`${ip}​/user​/info​/nickname`, params, value, resFunc, noFunc, errFunc)
-									};
-
-									getTokenFromStorage(okFunc, 0, 0);
-
-								}}
+										const okFunc = (value) => {
+											const resFunc = () => {
+												setAlertMessage("사용 가능한 닉네임입니다.");
+												setModalVisible(true);
+											}
+											const noFunc = () => {
+												setAlertMessage("중복된 닉네임입니다.");
+												setModalVisible(true);
+											}
+											const errFunc = () => {
+												Alert.alert("서버와 통신이 되지 않습니다.");
+											}
+											const params = nickName;
+											putDataToServer(`${ip}/user/info/nickname`, params, value, resFunc, noFunc, errFunc);
+										};
+										getTokenFromStorage(okFunc, 0, 0);
+									}
+								}
 							>
 								<Text style={styles.buttonText}>변경</Text>
 							</TouchableOpacity>
 
 							{
 								modalVisible ?
-									<Modal isVisible={true} hasBackdrop={true}>
+									<Modal isVisible={true}>
 										<View style={styles.centeredView}>
 											<View style={styles.modalView}>
 												<Text
@@ -124,7 +123,6 @@ const styles = StyleSheet.create({
 		marginLeft: '25%',
 		marginTop: "20%",
 		justifyContent: "center",
-		// alignItems: "center",
 	},
 	head: {
 		fontSize: 50,
