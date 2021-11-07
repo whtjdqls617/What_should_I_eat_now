@@ -9,18 +9,18 @@ import {
 import { food_name } from "../data/data";
 import { SearchPreview } from "./SearchPreview";
 import { arrayToObjectsInArray } from "../func/func_change_var_type";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 export const SearchBar = ({ onPress }) => {
   const [previewFood, setPreviewFood] = useState([]);
   const [value, setValue] = useState("");
 
   const matchFoodName = (input) => {
-    let foodObject = [];
-    if (input.length > 0) {
-      const food = food_name.filter((food) => food.includes(input));
-      foodObject = arrayToObjectsInArray(food);
+    let food = [];
+	if (input.length > 0) {
+      food = food_name.filter((food) => food.includes(input));
     }
-    setPreviewFood(foodObject);
+    setPreviewFood(food);
   };
 
   const searchFoodName = (input) => {

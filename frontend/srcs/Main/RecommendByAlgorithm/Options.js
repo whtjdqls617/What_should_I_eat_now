@@ -5,7 +5,7 @@ import { opts } from "../../data/icons";
 import { OptionImageRow } from "./OptionImageRow";
 import { OptionTextRow } from "./OptionTextRow";
 
-export const Options = ({ index, qna, updateIndex, setData, navigation }) => {
+export const Options = ({ SignInExpired, index, qna, updateIndex, setData, navigation }) => {
 
 	const [answer, setAnswer] = useState([["특별한 날이야?"], ["기분이 어때?"], ["무슨 맛이 땡겨?"]]);
 
@@ -40,7 +40,7 @@ export const Options = ({ index, qna, updateIndex, setData, navigation }) => {
 				<OptionTextRow add={3} lightEffect={selectStatus} qna={qna} />
 			</View>
 			<View style={styles.nextbutton}>
-				<NextButton updateIndex={updateIndex} answer={answer} index={index} setData={setData} navigation={navigation} />
+				<NextButton SignInExpired={SignInExpired} updateIndex={updateIndex} answer={answer} index={index} setData={setData} navigation={navigation} />
 			</View>
 		</>
 	);

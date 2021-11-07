@@ -1,31 +1,20 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { StyleSheet, View } from "react-native";
 import { HomeButton } from "../HomeButton";
+import { FoodListButton } from "./FoodListButton";
+import { SignOutButton } from "./SignOutButton";
+import { UserInfoButton } from "./UserInfoButton";
 
-export const Setting = ({ navigation }) => {
+export const Setting = ({ navigation, setSignIn }) => {
   return (
-	  <>
-    <HomeButton navigation={navigation}/>
-    <View style={styles.container}>
-      <View style={styles.buttonalign}>
-        <TouchableOpacity
-          style={styles.buttonstyle}
-          onPress={() => navigation.navigate("CheckPassword")}
-        >
-          <Text style={styles.textstyle}>회원정보</Text>
-        </TouchableOpacity>
+    <>
+      <HomeButton navigation={navigation} />
+      <View style={styles.container}>
+         <UserInfoButton navigation={navigation} />
+         <FoodListButton navigation={navigation} />
+         <SignOutButton setSignIn={setSignIn} />
       </View>
-      <View style={styles.buttonalign}>
-        <TouchableOpacity
-          style={styles.buttonstyle}
-          onPress={() => navigation.navigate("FoodList")}
-        >
-          <Text style={styles.textstyle}>음식리스트</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-	</>
+    </>
   );
 };
 
@@ -34,6 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: "5%",
   },
   buttonalign: {
     justifyContent: "center",

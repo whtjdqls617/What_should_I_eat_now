@@ -18,7 +18,7 @@ export const EatenFood = ({ food_name, index, onXPress }) => {
         <Image style={styles.imagestyle} source={food_image[food_name]} />
         <Text style={styles.textstyle}>{food_name}</Text>
         <TouchableOpacity style={{ marginTop: 5 }} onPress={toggleModal}>
-          <Text style={{ fontFamily: "BlackHanSans_400Regular", color: "red" }}>
+          <Text style={{ fontSize : 30, fontFamily: "BlackHanSans_400Regular", color: "red" }}>
             x
           </Text>
         </TouchableOpacity>
@@ -80,7 +80,13 @@ export const EatenFood = ({ food_name, index, onXPress }) => {
         <Image style={styles.imagestyle} source={food_image[food_name]} />
         <Text style={styles.textstyle}>{food_name}</Text>
         <TouchableOpacity style={{ marginTop: 5 }} onPress={toggleModal}>
-          <Text style={{ fontFamily: "BlackHanSans_400Regular", color: "red" }}>
+          <Text
+            style={{
+              fontSize: 30,
+              fontFamily: "BlackHanSans_400Regular",
+              color: "red",
+            }}
+          >
             x
           </Text>
         </TouchableOpacity>

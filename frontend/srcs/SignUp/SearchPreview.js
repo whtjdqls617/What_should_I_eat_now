@@ -10,13 +10,14 @@ export const SearchPreview = ({ input, previewFood, onPress }) => {
 					data={previewFood}
 					initialNumToRender={5}
 					style={styles.flatlist}
+					keyExtractor={( item, index ) => index.toString() }
 					renderItem={({ item }) => {
 						return (
 							<TouchableOpacity
 								style={{ margin: 5 }}
 								onPress={() => onPress(item)}
 							>
-								<Text style={styles.text}>{item.food}</Text>
+								<Text style={styles.text}>{item}</Text>
 							</TouchableOpacity>
 						);
 					}} 

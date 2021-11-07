@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Text, TextInput, StyleSheet, View } from "react-native";
-import { postData } from "../func/func_data_communication";
-import { ip } from "../data/data";
-import axios from "axios";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { SigninButton } from "./SignInButton";
 
 
 
@@ -36,39 +34,7 @@ export const SignIn = ({ navigation, setSignIn }) => {
           onChangeText={(input) => setPassword(input)}
         />
       </View>
-      <TouchableOpacity
-        style={styles.buttonstyle}
-        onPress={() => {
-          const data = makePostData(email, password);
-          // axios
-          // 	.get(`${ip}/signin`, data)
-          // 	.then(function (response) {
-          // 		if (ok면)
-          // 			asyncstorage.setItem에 토큰 저장,
-          // 			setToken();
-          // 		else
-          // 			Alert.alert("이메일 또는 비밀번호가 바르지 않습니다.")
-          // 		})
-          // 		.catch(function (error) {
-          // 			console.log("err: ");
-          // 			console.log(error);
-          // 			return 0;
-          // 		});
-          // navigation.navigate("MainStackNav");
-          setSignIn(true);
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 15,
-            textAlign: "center",
-            color: "white",
-            fontFamily: "BlackHanSans_400Regular",
-          }}
-        >
-          로그인
-        </Text>
-      </TouchableOpacity>
+      <SigninButton json={makePostData(email, password)} setSignIn={setSignIn}/>
       <TouchableOpacity
         style={styles.buttonstyle}
         onPress={() => navigation.navigate("SignUp")}
@@ -88,7 +54,6 @@ export const SignIn = ({ navigation, setSignIn }) => {
   );
 };
 
-//SignUp으로 음식 이름 데이터 넘기고
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -99,7 +64,7 @@ const styles = StyleSheet.create({
     margin: 8,
     width: 200,
     height: 40,
-    borderWidth: 1,
+    borderBottomWidth: 0.5,
     borderRadius: 8,
     paddingHorizontal: "4%",
     fontFamily: "BlackHanSans_400Regular",

@@ -4,37 +4,79 @@ import { Text, TouchableOpacity, Button, StyleSheet, View } from "react-native";
 import { SearchBar } from "../../SignUp/SearchBar";
 import { SelectedFoodList } from "../../SignUp/SelectedFoodList";
 import { HomeButton } from "../HomeButton";
-import { ObjectsInArrayToArray, arrayToObjectsInArray } from "../../func/func_change_var_type"
-import { onPressInLikeSearchPreview, onPressInDisLikeSearchPreview } from "../../func/func_on_press";
+import {
+	ObjectsInArrayToArray,
+	arrayToObjectsInArray,
+} from "../../func/func_change_var_type";
+import {
+	onPressInLikeSearchPreview,
+	onPressInDisLikeSearchPreview,
+} from "../../func/func_on_press";
+import { getTokenFromStorage, putDataToServer } from "../../func/func_data_communication";
+import { ip } from "../../data/data";
 
-export const FoodList = ({ navigation }) => {
-	//props로 음식 리스트 받아온 상태
+export const FoodList = ({ navigation, route }) => {
 
-	const likefoodlist = [
-		{ food: "돈까스", id: "1" },
-		{ food: "라면", id: "2" },
-		{ food: "떡볶이", id: "3" },
-	];
-	const dislikefoodlist = [
-		{ food: "회", id: "4" },
-		{ food: "햄버거", id: "5" },
-		{ food: "치킨", id: "6" },
-	];
+	const originLikeFood = route.params.data.likeFoodList;
+	const originDisLikeFood = route.params.data.dislikeFoodList;
+
 	const [signal, setSignal] = useState(0);
-	const [likeFoodList, setLikeFoodList] = useState(likefoodlist);
-	const [disLikeFoodList, setDisLikeFoodList] = useState(dislikefoodlist);
+	const [likeFoodList, setLikeFoodList] = useState(route.params.data.likeFoodList);
+	const [disLikeFoodList, setDisLikeFoodList] = useState(route.params.data.dislikeFoodList);
+
+	const updateFoodList = (originLikeFood, originDisLikeFood, likeFoodList, disLikeFoodList) => {
+
+		let object = {
+			dislikeFoodDto: {},
+			likeFoodDto: {}
+		  };
+
+		object.likeFoodDto.deleteFoodList = originLikeFood.map(food => {
+			if (!likeFoodList.includes(food))
+				return (food);
+		}).filter(food => food != null);
+
+		object.dislikeFoodDto.deleteFoodList = originDisLikeFood.map(food => {
+			if (!disLikeFoodList.includes(food))
+				return (food);
+		}).filter(food => food != null);
+
+		object.likeFoodDto.addFoodList = likeFoodList.map(food => {
+			if (!originLikeFood.includes(food))
+				return (food);
+		}).filter(food => food != null);
+
+		object.dislikeFoodDto.addFoodList = disLikeFoodList.map(food => {
+			if (!originDisLikeFood.includes(food))
+				return (food);
+		}).filter(food => food != null);
+
+		return object;
+	};
+
 
 	const onPressInLSP = (item) => {
-		onPressInLikeSearchPreview(item, likeFoodList, disLikeFoodList, setLikeFoodList);
-	}
+		onPressInLikeSearchPreview(
+			item,
+			likeFoodList,
+			disLikeFoodList,
+			setLikeFoodList
+		);
+	};
 
 	const onPressInDLSP = (item) => {
-		onPressInDisLikeSearchPreview(item, likeFoodList, disLikeFoodList, setDisLikeFoodList);
-	}
+		onPressInDisLikeSearchPreview(
+			item,
+			likeFoodList,
+			disLikeFoodList,
+			setDisLikeFoodList
+		);
+	};
 
-	const [onPress, foodList, setFoodList] = signal == 0 ?
-		[onPressInLSP, likeFoodList, setLikeFoodList]
-		: [onPressInDLSP, disLikeFoodList, setDisLikeFoodList];
+	const [onPress, foodList, setFoodList] =
+		signal == 0
+			? [onPressInLSP, likeFoodList, setLikeFoodList]
+			: [onPressInDLSP, disLikeFoodList, setDisLikeFoodList];
 
 	return (
 		<>
@@ -69,22 +111,19 @@ export const FoodList = ({ navigation }) => {
 					</TouchableOpacity>
 				</View>
 				<SearchBar onPress={onPress} />
-				<SelectedFoodList
-					foodList={foodList}
-					setFoodList={setFoodList}
-				/>
+				<SelectedFoodList foodList={foodList} setFoodList={setFoodList} />
 				<View style={styles.buttonalign}>
 					<TouchableOpacity
 						style={styles.buttonstyle}
 						onPress={() => {
-							/*
-					  axios.put(url, data)
-						.then
-						  navigation.navigate("Setting");
-						.error
-						  Alert.alert("전송 실패");
-					  */
-							navigation.navigate("Setting");
+
+							const okFunc = (value) => {
+
+								const resFunc = () => navigation.navigate("Setting");
+								const params = updateFoodList(originLikeFood, originDisLikeFood, likeFoodList, disLikeFoodList);
+								putDataToServer(`${ip}/user/info/food`, params, value, resFunc, 0, 0);
+							};
+							getTokenFromStorage(okFunc, 0, 0);
 						}}
 					>
 						<Text style={styles.textstyle}>적용</Text>
@@ -100,7 +139,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
-		marginTop: "10%",
+		marginBottom: "5%",
 	},
 	titlealign: {
 		flex: 0.2,
@@ -125,3 +164,15 @@ const styles = StyleSheet.create({
 		flex: 0.3,
 	},
 });
+
+//회원정보 클릭하면 -> Get (이메일, 닉네임)
+//이메일
+//닉네임, 닉네임 수정 -> 새 닉네임 Put;
+//비밀번호 변경
+//현재 비밀번호 입력
+//새 비밀번호
+//새 비밀번호 확인
+//확인 -> Put;
+
+//음식리스트 클릭하면 -> Get (좋아하는 음식, 싫어하는 음식)
+//적용 -> Put { 좋아하는음식: {추가: ["", ""], 삭제: [""]}, 싫어하는음식: {}}

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Text, TextInput, View, StyleSheet } from "react-native";
+import { checkNickname } from "../func/func_check_userinfo";
 
 export const SignUp_NickName = ({ userinfo, setUserinfo }) => {
   const [opacity, setOpacity] = useState(0);
 
   const checkNickname = (nickname) => {
-    if (nickname.length > 1 || nickname.length == 0) 
-		return true;
-    else 
-		return false;
+    if (nickname.length < 9 && nickname.length > 1)
+      return true;
+    else return false;
   };
 
   return (
@@ -40,7 +40,7 @@ export const SignUp_NickName = ({ userinfo, setUserinfo }) => {
           fontFamily: "BlackHanSans_400Regular",
         }}
       >
-        닉네임은 두 글자 이상 적어주세요.
+        닉네임은 2~8글자 사이로 적어주세요.
       </Text>
     </>
   );
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     margin: 8,
     width: 200,
     height: 40,
-    borderWidth: 0.5,
+    borderBottomWidth: 0.5,
     borderRadius: 5,
     paddingHorizontal: "2%",
     fontFamily: "BlackHanSans_400Regular",
