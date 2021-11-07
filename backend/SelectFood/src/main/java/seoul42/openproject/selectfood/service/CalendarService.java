@@ -41,6 +41,26 @@ public class CalendarService {
     }
 
     @Transactional
+    public void saveSelectedFoodWithDate(String email, String foodName, String date) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
+        Food food = foodRepository.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
+        member.addSelectedFood(new SelectedFood(member, food, LocalDate.parse(date)));
+        memberRepository.save(member);
+    }
+
+    @Transactional
+    public void deleteSelectedFood(String email, String foodName, String inDate) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
+        Food food = foodRepository.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
+        if (member.hasSelectedFood(food.getId(), LocalDate.parse(inDate))) {
+            member.getSelectedFoods().removeIf(food1 -> food1.getFood().getName().equals(foodName) &&
+                    food1.getSelectDate().equals(LocalDate.parse(inDate)));
+            selectedFoodRepository.deleteByMemberIdAndFoodIdAndSelectDate(member.getId(), food.getId(), LocalDate.parse(inDate));
+        }
+        memberRepository.save(member);
+    }
+
+    @Transactional
     public void saveSelectedFoods(String email, List<String> foodNames, String inDate) {
         LocalDate localDate = LocalDate.parse(inDate);
         Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
@@ -53,7 +73,7 @@ public class CalendarService {
     }
 
     @Transactional
-    public void deleteSelectedFood(String email, List<String> foodNames, String inDate) {
+    public void deleteSelectedFoods(String email, List<String> foodNames, String inDate) {
         Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
         for (String foodName:
                 foodNames) {

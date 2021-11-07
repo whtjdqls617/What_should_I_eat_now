@@ -39,14 +39,36 @@ public class CalendarController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "달력 화면 중 먹었던 음식 리스트 변경", notes = "지정한 하루 동안 먹었던 음식 리스트 변경")
+    @ApiOperation(value = "달력 화면 중 먹었던 음식 리스트 한꺼번에 변경", notes = "지정한 하루 동안 먹었던 음식 리스트 추가할 것과 삭제할 것 한꺼번에 변경")
     @PutMapping(value = "/food")
     public CommonResult updateFoodInCalendar(@RequestBody CalendarEditDto calendarEditDto) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         calendarService.saveSelectedFoods(email, calendarEditDto.getSelectedFood().getAddFoodList(),
                 calendarEditDto.getDate());
-        calendarService.deleteSelectedFood(email, calendarEditDto.getSelectedFood().getDeleteFoodList(),
+        calendarService.deleteSelectedFoods(email, calendarEditDto.getSelectedFood().getDeleteFoodList(),
                 calendarEditDto.getDate());
+        return commonResponseService.getSuccessResult();
+    }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @ApiOperation(value = "지정한 하루 먹었던 음식 1개 추가", notes = "달력 화면에서 지정한 하루에 해당 음식을 selectedFood 에 추가")
+    @PutMapping(value = "/food/{name}/{date}")
+    public CommonResult addFoodInCalendarInDay(@PathVariable("name") String name, @PathVariable("date") String date) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        calendarService.saveSelectedFoodWithDate(email, name, date);
+        return commonResponseService.getSuccessResult();
+    }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @ApiOperation(value = "지정한 하루 먹었던 음식 1개 삭제", notes = "달력 화면에서 지정한 하루에 해당 음식을 selectedFood 에서 삭제")
+    @DeleteMapping(value = "/food/{name}/{date}")
+    public CommonResult deleteFoodInCalendarInDay(@PathVariable("name") String name, @PathVariable("date") String date) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        calendarService.deleteSelectedFood(email, name, date);
         return commonResponseService.getSuccessResult();
     }
 }
