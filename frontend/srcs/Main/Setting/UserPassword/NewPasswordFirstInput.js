@@ -8,7 +8,7 @@ export const NewPasswordFirstInput = ({ setPassword, setfirstOpacity, setPasswor
 		  return true;
 		else return false;
 	  };
-	
+
 	return (
 		<TextInput
         style={styles.textinputstyle}
@@ -21,9 +21,6 @@ export const NewPasswordFirstInput = ({ setPassword, setfirstOpacity, setPasswor
             setPassword("");
             setfirstOpacity(100);
           }
-          const copy = passwords.slice();
-          copy.pop();
-          setPasswords(copy);
         }}
       />
 	);
@@ -74,4 +71,3 @@ const styles = StyleSheet.create({
 	  fontFamily: "BlackHanSans_400Regular",
 	},
   });
-  

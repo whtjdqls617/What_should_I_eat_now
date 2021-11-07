@@ -32,10 +32,10 @@ export const RecommendByRandom = ({ navigation, SignInExpired }) => {
 							<Text style={styles.foodname}>{foodName}</Text>
 							<PushButton setFoodName={setFoodName} />
 							<View style={{ flex: 0.6, marginTop: '5%' }}>
-								<DecisionButton SignInExpired={SignInExpired} navigation={navigation} />
+								<DecisionButton SignInExpired={SignInExpired} navigation={navigation} foodName={foodName}/>
 							</View>
 						</>
-						: 
+						:
 				<>
 				<View style={{flex : 0.2, marginBottom : '30%'}}>
 					<SlotMachine
@@ -59,7 +59,6 @@ export const RecommendByRandom = ({ navigation, SignInExpired }) => {
 					</TouchableOpacity>
 				</>
 				}
-				
 			</View>
 		</>
 	);
@@ -92,6 +91,7 @@ const styles = StyleSheet.create({
 		width: 207,
 		fontSize: 25,
 		marginTop: '5%',
+		color : 'black'
 	},
 	button: {
 		margin: "10%",

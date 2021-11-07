@@ -12,24 +12,20 @@ export const UserInfoButton = ({ navigation }) => {
 				onPress={() => {
 
 					const okFunc = (value) => {
-
 						const params = {
 							headers: {
 								"X-AUTH-TOKEN": value,
 							}
 						};
 
-						const okFunc2 = (data) => {
-							navigation.navigate("UserInfo", data);
-						};
-						
-						getDataFromServer(`${ip}​/user​/info`, params, okFunc2, 0, 0);
+						const okFunc1 = (data) => navigation.navigate("UserInfo", data);
+
+						getDataFromServer(`${ip}/user/info`, params, okFunc1, 0, 0);
 					};
 					getTokenFromStorage(okFunc, 0, 0);
-				}}
-			>
+				}} >
 				<Text style={styles.textstyle}>회원정보</Text>
-			</TouchableOpacity>
+				</TouchableOpacity>
 		</View>
 	);
 };
