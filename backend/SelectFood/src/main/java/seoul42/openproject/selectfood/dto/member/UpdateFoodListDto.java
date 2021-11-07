@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter @Setter
 @AllArgsConstructor
-public class LikeFoodDto {
+public class UpdateFoodListDto {
 
     private List<String> addFoodList;
     private List<String> deleteFoodList;

@@ -18,8 +18,8 @@ public class MemberEditDto {
     private String nickName;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String password;
+    private String oldPass;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String changePassword;
+    private String newPass;
 }

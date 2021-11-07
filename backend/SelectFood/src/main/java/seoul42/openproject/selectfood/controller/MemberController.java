@@ -8,21 +8,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import seoul42.openproject.selectfood.advice.exception.CEmailSigninFailedException;
+import seoul42.openproject.selectfood.advice.exception.CPasswordAuthFailedException;
 import seoul42.openproject.selectfood.advice.exception.CUserNotFoundException;
 import seoul42.openproject.selectfood.domain.*;
 import seoul42.openproject.selectfood.dto.common.CommonResult;
-import seoul42.openproject.selectfood.dto.common.ListResult;
 import seoul42.openproject.selectfood.dto.common.SingleResult;
 import seoul42.openproject.selectfood.dto.member.MemberEditDto;
 import seoul42.openproject.selectfood.dto.member.MemberEditFoodDto;
-import seoul42.openproject.selectfood.dto.member.MemberEditPass;
 import seoul42.openproject.selectfood.service.CommonResponseService;
 import seoul42.openproject.selectfood.service.MemberService;
 
 @Api(tags = "member")
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/user")
 public class MemberController {
 
@@ -60,26 +59,16 @@ public class MemberController {
     })
     @ApiOperation(value = "비밀번호 변경", notes = "회원 정보 수정 화면에서 비밀번호 변경")
     @PutMapping("/info/pass")
-    public CommonResult updatePassword(@RequestBody MemberEditPass memberEditPass) {
+    public CommonResult updatePassword(@RequestBody MemberEditDto memberEditPass) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Member member = memberService.findEmail(email).orElseThrow(CUserNotFoundException::new);
         if (!passwordEncoder.matches(memberEditPass.getOldPass(), member.getPassword()))
         {
-            throw new CEmailSigninFailedException();
+            throw new CPasswordAuthFailedException();
         }
         member.setPassword(passwordEncoder.encode(memberEditPass.getNewPass()));
         memberService.save(member);
         return commonResponseService.getSuccessResult();
-    }
-
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
-    })
-    @ApiOperation(value = "선택했던 음식 리스트 조회", notes = "달력 중 선택했던 음식 리스트 조회")
-    @GetMapping("/info/food/selected")
-    public ListResult<String> getSelectedFood() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return commonResponseService.getListResult(memberService.getSelectedFoods(email));
     }
 
     @ApiImplicitParams({
@@ -95,17 +84,6 @@ public class MemberController {
         return commonResponseService.getSingleResult(memberEditFoodDto);
     }
 
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
-//    })
-//    @ApiOperation(value = "선택한 음식 리스트 수정", notes = "선택한 음식 리스트 수정")
-//    @PutMapping("/info/food/selected")
-//    public CommonResult updateSelectedFood(@RequestBody MemberEditFoodDto foodNames) {
-//        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-//        memberService.saveSelectedFood(email, foodNames.getAddFoodList());
-//        return commonResponseService.getSuccessResult();
-//    }
-
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
@@ -113,45 +91,13 @@ public class MemberController {
     @PutMapping("/info/food")
     public CommonResult updateLikeFood(@RequestBody MemberEditFoodDto foodNames) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        memberService.saveLikeFood(email, foodNames.getLikeFoodDto().getAddFoodList());
-        memberService.deleteLikeFood(email, foodNames.getLikeFoodDto().getDeleteFoodList());
-        memberService.saveDislikeFood(email, foodNames.getDislikeFoodDto().getAddFoodList());
-        memberService.deleteDislikeFood(email, foodNames.getDislikeFoodDto().getDeleteFoodList());
+        memberService.saveLikeFood(email, foodNames.getLikeFood().getAddFoodList());
+        memberService.deleteLikeFood(email, foodNames.getLikeFood().getDeleteFoodList());
+        memberService.saveDislikeFood(email, foodNames.getDislikeFood().getAddFoodList());
+        memberService.deleteDislikeFood(email, foodNames.getDislikeFood().getDeleteFoodList());
         return commonResponseService.getSuccessResult();
     }
 
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
-//    })
-//    @ApiOperation(value = "싫어하는 음식 리스트 수정", notes = "회원 정보 수정 중 싫어하는 음식 리스트 수정")
-//    @PutMapping("/info/food/dislike")
-//    public CommonResult updateDislikeFood(@RequestBody MemberEditFoodDto foodNames) {
-//        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-//        memberService.saveDislikeFood(email, foodNames.getMemberEditDislikeFoodDto().getAddFoodList());
-//        memberService.deleteDislikeFood(email, foodNames.getMemberEditDislikeFoodDto().getDeleteFoodList());
-//        return commonResponseService.getSuccessResult();
-//    }
-
-
-
-
-//    @ApiOperation(value = "좋아하는 음식 리스트 변경", notes = "회원 정보 수정 중 좋아하는 음식 리스트 변경")
-//    @PutMapping("/edit/food/like")
-//    public CommonResult editLikeFood(@RequestBody MemberEditDto memberEditDto) {
-//        Long memberId = memberService.updateLikeFood(memberEditDto);
-//        if (memberId > 0)
-//            return commonResponseService.getSuccessResult();
-//        return commonResponseService.getFailResult();
-//    }
-
-//    @ApiOperation(value = "싫어하는 음식 리스트 변경", notes = "회원 정보 수정 중 싫어하는 음식 리스트 변경")
-//    @PutMapping("/edit/food/dislike")
-//    public CommonResult editDislikeFood(@RequestBody MemberEditDto memberEditDto) {
-//        Long memberId = memberService.updateDislikeFood(memberEditDto);
-//        if (memberId > 0)
-//            return commonResponseService.getSuccessResult();
-//        return commonResponseService.getFailResult();
-//    }
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })

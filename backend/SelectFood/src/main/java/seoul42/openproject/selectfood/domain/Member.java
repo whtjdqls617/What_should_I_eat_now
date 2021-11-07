@@ -9,10 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import seoul42.openproject.selectfood.dto.member.MemberSignUpDto;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -82,6 +80,16 @@ public class Member implements UserDetails {
         dislikeFood.setMember(this);
     }
 
+    public boolean hasSelectedFood(Long foodId, LocalDate date) {
+        for (SelectedFood selectedFood:
+                this.selectedFoods) {
+            if ((selectedFood.getFood().getId() == foodId) && (selectedFood.getSelectDate().equals(date))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean hasLikeFood(Long foodId) {
         for (LikeFood likeFood:
                 this.likeFoods) {
@@ -91,6 +99,7 @@ public class Member implements UserDetails {
         }
         return false;
     }
+
     public boolean hasDislikeFood(Long foodId) {
         for (DislikeFood dislikeFood:
                 this.dislikeFoods) {

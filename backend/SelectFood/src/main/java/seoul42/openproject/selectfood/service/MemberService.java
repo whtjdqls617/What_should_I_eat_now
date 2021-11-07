@@ -7,11 +7,12 @@ import seoul42.openproject.selectfood.advice.exception.CEmailExistException;
 import seoul42.openproject.selectfood.advice.exception.CFoodNotFoundException;
 import seoul42.openproject.selectfood.advice.exception.CUserNotFoundException;
 import seoul42.openproject.selectfood.domain.*;
+import seoul42.openproject.selectfood.dto.calendar.CalendarDayFoodDto;
 import seoul42.openproject.selectfood.dto.member.MemberSignUpDto;
 import seoul42.openproject.selectfood.repository.MemberRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,7 @@ public class MemberService {
     private final FoodService foodService;
     private final LikeFoodService likeFoodService;
     private final DislikeFoodService dislikeFoodService;
+    private final CalendarService calendarService;
 
     @Transactional
     public Member save(Member member)
@@ -99,12 +101,12 @@ public class MemberService {
         return foodNames;
     }
 
-    public List<String> getSelectedFoods(String email) {
-        List<String> foodNames = new ArrayList<>();
+    public List<CalendarDayFoodDto> getSelectedFoods(String email) {
+        List<CalendarDayFoodDto> foodNames = new ArrayList<>();
         List<SelectedFood> selectedFoods = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new).getSelectedFoods();
         for (SelectedFood selectedFood :
                 selectedFoods) {
-            foodNames.add(selectedFood.getFood().getName());
+            foodNames.add(new CalendarDayFoodDto(selectedFood.getFood().getName(), selectedFood.getSelectDate().toString()));
         }
         return foodNames;
     }
@@ -113,20 +115,21 @@ public class MemberService {
     public void saveSelectedFood(String email, String foodName) {
         Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
         Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
-        member.addSelectedFood(new SelectedFood(member, food, new Date()));
+        member.addSelectedFood(new SelectedFood(member, food, LocalDate.now()));
         memberRepository.save(member);
     }
 
-//    @Transactional
-//    public void saveSelectedFood(String email, List<String> foodNames) {
-//        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
-//        for (String foodName :
-//                foodNames) {
-//            Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
-////            member.addSelectedFood(new SelectedFood(member,));
-//        }
-//        memberRepository.save(member);
-//    }
+    @Transactional
+    public void saveSelectedFoods(String email, List<String> foodNames, String inDate) {
+        LocalDate localDate = LocalDate.parse(inDate);
+        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
+        for (String foodName :
+                foodNames) {
+            Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
+            member.addSelectedFood(new SelectedFood(member, food, localDate));
+        }
+        memberRepository.save(member);
+    }
 
     @Transactional
     public void saveLikeFood(String email, List<String> foodNames) {
@@ -150,18 +153,21 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-//    @Transactional
-//    public void deleteSelectedFood(String email, List<String> foodNames, Date date) {
-//        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
-//        for (String foodName:
-//                foodNames) {
-//            Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
-//            // TODO : member 와 food id 찾고 이 것으로 테이블 조회해서 찾음 다음 삭제해야하나?
-//            // 리스트는 어떻게 삭제하지?
-//        }
-//        memberRepository.save(member);
-//    }
-//
+    @Transactional
+    public void deleteSelectedFood(String email, List<String> foodNames, String inDate) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);
+        for (String foodName:
+                foodNames) {
+            Food food = foodService.findByName(foodName).orElseThrow(CFoodNotFoundException::new);
+            if (member.hasSelectedFood(food.getId(), LocalDate.parse(inDate))) {
+                member.getSelectedFoods().removeIf(food1 -> food1.getFood().getName().equals(foodName) &&
+                        food1.getSelectDate().equals(LocalDate.parse(inDate)));
+                calendarService.deleteSelectedFood(member.getId(), food.getId(), LocalDate.parse(inDate));
+            }
+        }
+        memberRepository.save(member);
+    }
+
     @Transactional
     public void deleteLikeFood(String email, List<String> foodNames) {
         Member member = memberRepository.findByEmail(email).orElseThrow(CUserNotFoundException::new);

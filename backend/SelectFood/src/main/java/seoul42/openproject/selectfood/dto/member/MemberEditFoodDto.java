@@ -1,7 +1,6 @@
 package seoul42.openproject.selectfood.dto.member;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,8 +16,8 @@ public class MemberEditFoodDto {
     private List<String> dislikeFoodList;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private LikeFoodDto likeFoodDto;
+    private UpdateFoodListDto likeFood;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private DislikeFoodDto dislikeFoodDto;
+    private UpdateFoodListDto dislikeFood;
 }
