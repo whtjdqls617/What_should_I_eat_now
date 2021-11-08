@@ -2,11 +2,10 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity, Image } from "react-native";
 import { icons } from "../data/icons";
+import { getDataFromServer, getTokenFromStorage } from "../func/func_data_communication";
+import { ip } from "../data/data";
 
 export const Main = ({ navigation }) => {
-  
-	
-
 
 	return (
     <>
@@ -26,14 +25,38 @@ export const Main = ({ navigation }) => {
         <View style={styles.bottomimg_align}>
           <TouchableOpacity
             style={{ flex: 1, alignItems: "center" }}
-            onPress={() => 
-				/*
-				axios.get() -> 이번 달 먹은 내역 [{날짜: 9/1, 먹은음식:[고기, 라면, 밥]}, {날짜: 9/2}..]
-					.then
-						navigation.navigate("CustomCalendar", 이번 달 먹은 내역);
-				*/
-				
-				navigation.navigate("CustomCalendar")}
+            onPress={() => {
+
+              const okFunc = (value) => {
+
+                const now = new Date();
+                const year = now.getFullYear().toString();
+                const month = (now.getMonth() + 1).toString().padStart(2, '0');
+                const day = '01';
+                const date = year + '-' + month + '-' + day;
+                const today = year + '-' + month + '-' + now.getDate().toString().padStart(2, '0');
+
+                const params = {
+                  params: { month: date },
+                  headers: {
+                    "X-AUTH-TOKEN": value,
+                  }
+                };
+
+                const resFunc = (data) => {
+                  const object = {
+                    data: data,
+                    today: today
+                  };
+                  navigation.navigate("CustomCalendar", object);
+                };
+
+                getDataFromServer(`${ip}/calendar/food`, params, resFunc, 0, 0);
+              };
+
+              getTokenFromStorage(okFunc, 0, 0);
+
+            }}
           >
             <Image
               source={icons[0]}

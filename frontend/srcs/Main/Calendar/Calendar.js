@@ -13,39 +13,67 @@ import { ApplyButton } from "./ApplyButton";
 import { CancelButton } from "./CancelButton";
 import { EatenFoods } from "./EatenFoods";
 import { ThisMonthCalendar } from "./ThisMonthCalendar";
+import { ip } from "../../data/data";
+import { getTokenFromStorage } from "../../func/func_data_communication";
+import { deleteDataFromServer } from "../../func/func_data_communication";
+import { HomeButton } from "../HomeButton";
+import { StatusMessage } from "./StatusMessage";
 
-export const CustomCalendar = ({ navigation }) => {
-	const now = new Date();
-	const initialMonth = now.getMonth();
-	// const [month, setMonth] = useState([서버에서 전송받은 이번달 먹은 내역 초기값]);
-	const [day, setDay] = useState(["소막창구이", "소막창구이", "소막창구이"]);
-	const [eatingHistory, setEatingHistory] = useState([
-		{
-			날짜: "20211021",
-			추가된음식: ["소막창구이", "소막창구이", "엽기떡볶이"],
-			삭제된음식: ["라면"],
-		},
-		{},
-	]);
+export const CustomCalendar = ({ navigation, route }) => {
 
-	//state임 적용 버튼을 누르면 서버에 이게 날라감 = [{날짜: 2021-10-21, 먹은 음식: [소막창구이, 소막창구이, 엽기떡볶이]}, {날짜: 2022-10-21, 먹은 음식: [소막창구이]}]
+	const monthFoodData = route.params.data.data.monthFoodData;
+	const today = route.params.today;
 
-	//{ {날짜: '10/21', 삭제된 음식: ['라면', '김밥'], 추가된 음식: [치킨]}}
+	const initialDayFood = monthFoodData.map(object => {
+
+		if (object.date == today)
+		return object.foodName;
+
+	}).filter(ele => ele != null);
+
+	const [day, setDay] = useState(initialDayFood);
+	const [date, setDate] = useState(today);
+	const [month, setMonth] = useState(monthFoodData);
+
 	const onXPress = (index) => {
 		//day에서 해당 음식이 지워져야 함
 		const array = day.slice();
-		array.splice(index, 1);
+		const deletedFood = array.splice(index, 1)[0];
 		setDay(array);
+		for (let i = 0; i < month.length; i++) {
+			if (month[i].date == date && month[i].foodName == deletedFood) {
+				let copyMonth = month.slice();
+				copyMonth.splice(i, 1);
+				setMonth(copyMonth);
+				break;
+			}
+		}
+
+		const okFunc = (value) => {
+
+			const name = deletedFood;
+
+			const params = {
+				headers: {
+				  "X-AUTH-TOKEN": value,
+				}
+			  };
+			deleteDataFromServer(`${ip}/calendar/food/${name}/${date}`, params, 0, 0, 0);
+		}
+
+		getTokenFromStorage(okFunc, 0, 0);
 	};
 
 	return (
 		<KeyboardAvoidingView
 			behavior={Platform.OS === "ios" ? "padding" : "heigth"}
 		>
+			<HomeButton navigation={navigation}/>
 			<View style={styles.top}>
-				<ThisMonthCalendar setDay={setDay} />
+				<ThisMonthCalendar setDay={setDay} month={month} setMonth={setMonth} setDate={setDate}/>
 			</View>
 			<View style={styles.bottom}>
+				<Text style={styles.date}>{date}</Text>
 				<ScrollView horizontal={true}>
 					<EatenFoods
 						number={day.length}
@@ -54,84 +82,60 @@ export const CustomCalendar = ({ navigation }) => {
 					<AddEatenFood
 						day={day}
 						setDay={setDay}
-						eatingHistory={eatingHistory}
-						setEatingHistory={setEatingHistory}
+						month={month}
+						setMonth={setMonth}
+						date={date}
 					/>
 				</ScrollView>
-			</View>
-			<View style={styles.button}>
-				<ApplyButton />
-				<CancelButton navigation={navigation} />
+				<StatusMessage day={day} />
 			</View>
 		</KeyboardAvoidingView>
 	);
 };
 
-//취소 버튼 누르면 메인으로 감
 const styles = StyleSheet.create({
-	top: {
-		// flex: 2,
-		marginTop: "35%",
-	},
-	bottom: {
-		// flex: 1,
-		marginTop: "10%",
-	},
-	button: {
-		// flex: 1,
-		flexDirection: "row",
-		justifyContent: "center",
-		alignItems: "center",
-		marginTop: '5%'
-	},
-	button_1: {
-		margin: "8%",
-		backgroundColor: "orange",
-		alignItems: "center",
-		height: 55,
-		width: 100,
-		alignItems: "center",
-		justifyContent: "center",
-		borderRadius: 30,
-	},
-	button_2: {
-		margin: "8%",
-		backgroundColor: "gray",
-		alignItems: "center",
-		height: 55,
-		width: 100,
-		alignItems: "center",
-		justifyContent: "center",
-		borderRadius: 30,
-	},
-	imagerow: {
-		flexDirection: "row",
-	},
-	imagestyle: {
-		borderRadius: 130,
-		borderWidth: 3,
-		height: 100,
-		width: 100,
-	},
-	textrow: {
-		flexDirection: "row",
-		// justifyContent : 'space-around',
-		// alignItems : 'center'
-	},
-	textstyle: {
-		textAlign: "center",
-	},
-	xbuttonrow: {
-		flexDirection: "row",
-	},
-	xbuttonstyles: {
-		flex: 1,
-	},
-	buttontextstyle: {
-		fontSize: 20,
-		color: "white",
-		fontFamily: "BlackHanSans_400Regular",
-	},
+  top: {
+    // flex: 2,
+    marginTop: "15%",
+  },
+  bottom: {
+    // flex: 1,
+    marginTop: "10%",
+  },
+  imagerow: {
+    flexDirection: "row",
+  },
+  imagestyle: {
+    borderRadius: 130,
+    borderWidth: 3,
+    height: 100,
+    width: 100,
+  },
+  textrow: {
+    flexDirection: "row",
+    // justifyContent : 'space-around',
+    // alignItems : 'center'
+  },
+  textstyle: {
+    textAlign: "center",
+  },
+  xbuttonrow: {
+    flexDirection: "row",
+  },
+  xbuttonstyles: {
+    flex: 1,
+  },
+  buttontextstyle: {
+    fontSize: 20,
+    color: "white",
+    fontFamily: "BlackHanSans_400Regular",
+  },
+  date: {
+    fontSize: 23,
+    color: "black",
+    fontFamily: "BlackHanSans_400Regular",
+	textAlign : 'center'
+  },
 });
 /*
 필요한 정보

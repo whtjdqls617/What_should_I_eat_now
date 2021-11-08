@@ -20,7 +20,7 @@ export const SearchPreview = ({ input, previewFood, onPress }) => {
 								<Text style={styles.text}>{item}</Text>
 							</TouchableOpacity>
 						);
-					}} 
+					}}
 				/>
 			</>
 		);
