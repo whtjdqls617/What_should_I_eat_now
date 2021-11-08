@@ -1,52 +1,84 @@
 import React from "react";
 import { Alert } from "react-native";
 import { Calendar } from "react-native-calendars";
+import { getTokenFromStorage } from "../../func/func_data_communication";
+import { getDataFromServer } from "../../func/func_data_communication";
+import { ip } from "../../data/data";
 
-export const ThisMonthCalendar = ({ setDay }) => {
+export const ThisMonthCalendar = ({ setDay, setMonth, month, setDate }) => {
 
+	let foodNumber = {};
+  	month.map(day => {
+		foodNumber[day.date] = foodNumber[day.date] == undefined ? 1 : foodNumber[day.date] + 1;
+	  });
 
-	const vacation = { key: "vacation", color: "red" };
-	const massage = { key: "massage", color: "blue" };
-	const workout = { key: "workout", color: "green" };
-	/* 해당 달에 먹은 내역을 형식에 맞게 정리해줘야 함 */
-	const markedDates = {
-		"2021-10-16": { selected: true, marked: true, selectedColor: "blue" },
-		"2021-10-17": { marked: true },
-		"2021-10-18": { marked: true, dotColor: "red", activeOpacity: 0 },
-		"2021-10-19": { disabled: true, disableTouchEvent: true },
-	};
+	let markedDates = {};
+	const dates = Object.keys(foodNumber);
+	dates.map(day => {
 
-	return (
-		<Calendar
-		onDayPress={(date) => {
-			setDay(["도넛", "삼겹살", "크로넛"]);
-			/*
-			그날 먹은 내역 = 함수(그달의 먹은 내역, 그날);
-			setDay(그날 먹은 내역);
-			*/
+		switch (foodNumber[day]) {
+			case 1:
+				markedDates[day] = { selected: true, marked: true, selectedColor: "red" };
+				break;
+			case 2:
+				markedDates[day] = { selected: true, marked: true, selectedColor: "orange" };
+				break;
+			case 3:
+				markedDates[day] = { selected: true, marked: true, selectedColor: "green" };
+				break;
+			default:
+				break;
 		}
-	}
-		onMonthChange={(date) => {
+	})
 
-			/*
-			axios.get -> 그달의 먹은 내역
-			.then
-				setMonth(서버에서 받아온 그달의 먹은 내역);
-			.error
-				Alert.alert("Sorry");
-			*/
-			// setMonth(date.month);
-		}}
-		markingType={"multi-dot"}
-		markedDates={{
-			"2021-10-25": {
-				dots: [vacation, massage, workout],
-				selected: true,
-				// selectedColor: "red",
-			},
-			"2021-10-26": { dots: [massage, workout], disabled: true },
-		}}
-		style={{ borderWidth: 1, borderColor: 'gray' }}
-	/>
-	);
+
+  return (
+    <Calendar
+      onDayPress={(date) => {
+        const day = date.dateString;
+        const dayFood = month
+          .map((object) => {
+            if (object.date == day) return object.foodName;
+          })
+          .filter((ele) => ele != null);
+        setDay(dayFood);
+        setDate(day);
+      }}
+      onMonthChange={(date) => {
+        const okFunc = (value) => {
+          const firstDay = date.dateString.substring(0, 8) + "01";
+
+          const params = {
+            params: { month: firstDay },
+            headers: {
+              "X-AUTH-TOKEN": value,
+            },
+          };
+
+          const resFunc = (data) => {
+            setMonth(data.data.monthFoodData);
+            const dayFood = month
+              .map((object) => {
+                if (object.date.substring(8) == "01") return object.foodName;
+              })
+              .filter((ele) => ele != null);
+            setDay(dayFood);
+          };
+
+          getDataFromServer(`${ip}/calendar/food`, params, resFunc, 0, 0);
+        };
+
+        getTokenFromStorage(okFunc, 0, 0);
+      }}
+      markingType={"multi-dot"}
+      markedDates={markedDates}
+      style={{ borderWidth: 1, borderColor: "gray" }}
+      theme={{
+        textMonthFontFamily: "BlackHanSans_400Regular",
+        textDayFontSize: 100,
+        backgroundColor: "red",
+        calendarBackground: "red",
+      }}
+    />
+  );
 };

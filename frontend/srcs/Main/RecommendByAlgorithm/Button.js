@@ -7,9 +7,9 @@ import { getTokenFromStorage, getDataFromServer } from "../../func/func_data_com
 export const NextButton = ({ SignInExpired, updateIndex, answer, index, setData, navigation }) => {
 
 	const answers = {
-		answer1: answer[0][1] == undefined ? "" : answer[0][1],
-		answer2: answer[1][1] == undefined ? "" : answer[1][1],
-		answer3: answer[2][1] == undefined ? "" : answer[2][1],
+		answer1: answer[0].slice(1).join(),
+		answer2: answer[1].slice(1).join(),
+		answer3: answer[2].slice(1).join(),
 		question1: answer[0][0],
 		question2: answer[1][0],
 		question3: answer[2][0],
@@ -27,7 +27,6 @@ export const NextButton = ({ SignInExpired, updateIndex, answer, index, setData,
 		const okFunc2 = (food_list) => {
 			setData(food_list);
 		};
-
 
 		getDataFromServer(`${ip}/recommend-food/`, params, okFunc2, 0, SignInExpired);
 	};

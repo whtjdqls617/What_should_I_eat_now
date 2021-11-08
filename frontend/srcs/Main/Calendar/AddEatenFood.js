@@ -5,18 +5,35 @@ import Modal from "react-native-modal";
 import { SearchBar } from "../../SignUp/SearchBar"
 import { AddEatenFoodSign } from "./AddEatenFoodSign";
 import { BlankSpace } from "./BlankSpace";
+import { getTokenFromStorage } from "../../func/func_data_communication";
+import { ip } from "../../data/data";
+import { putDataToServer } from "../../func/func_data_communication";
 
-export const AddEatenFood = ({ day, setDay, eatingHistory, setEatingHistory }) => {
+export const AddEatenFood = ({ day, setDay, month, setMonth, date }) => {
 	const [ismodalVisible, setModalVisible] = useState(false);
 	const toggleModal = () => {
 		setModalVisible(!ismodalVisible);
 	};
 
 	const onPress = (newFood) => {
-		const array = day.slice();
-		array.push(newFood.food);
+
+		const copyDay = day.slice();
+		copyDay.push(newFood);
 		toggleModal();
-		setDay(array);
+		setDay(copyDay);
+
+		let copyMonth = month.slice();
+		copyMonth.push({ date: date, foodName: newFood });
+		setMonth(copyMonth);
+
+		const okFunc = (token) => {
+
+			const name = newFood;
+
+			putDataToServer(`${ip}/calendar/food/${name}/${date}`, "", token, 0, 0, 0);
+		};
+
+		getTokenFromStorage(okFunc, 0, 0);
 	}
 
 	return (
