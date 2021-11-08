@@ -22,6 +22,14 @@ public class DislikeFood {
     @JoinColumn(name = "FOOD_ID")
     private Food food;
 
+    public DislikeFood(Member member, Food food) {
+        this.member = member;
+        this.food = food;
+    }
+
+    public DislikeFood() {
+    }
+
     public static DislikeFood createDislikeFood(Food food) {
         DislikeFood dislikeFood = new DislikeFood();
         dislikeFood.setFood(food);

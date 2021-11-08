@@ -9,10 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import seoul42.openproject.selectfood.dto.member.MemberSignUpDto;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -82,6 +80,36 @@ public class Member implements UserDetails {
         dislikeFood.setMember(this);
     }
 
+    public boolean hasSelectedFood(Long foodId, LocalDate date) {
+        for (SelectedFood selectedFood:
+                this.selectedFoods) {
+            if ((selectedFood.getFood().getId() == foodId) && (selectedFood.getSelectDate().equals(date))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasLikeFood(Long foodId) {
+        for (LikeFood likeFood:
+                this.likeFoods) {
+            if (likeFood.getFood().getId() == foodId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasDislikeFood(Long foodId) {
+        for (DislikeFood dislikeFood:
+                this.dislikeFoods) {
+            if (dislikeFood.getFood().getId() == foodId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -117,62 +145,4 @@ public class Member implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-//    /* getter setter */
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getNickName() {
-//        return nickName;
-//    }
-//
-//    public void setNickName(String nickName) {
-//        this.nickName = nickName;
-//    }
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
-//
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
-//
-//    public List<SelectedFood> getSelectedFoods() {
-//        return selectedFoods;
-//    }
-//
-//    public void setSelectedFoods(List<SelectedFood> selectedFoods) {
-//        this.selectedFoods = selectedFoods;
-//    }
-//
-//    public List<LikeFood> getLikeFoods() {
-//        return likeFoods;
-//    }
-//
-//    public void setLikeFoods(List<LikeFood> likeFoods) {
-//        this.likeFoods = likeFoods;
-//    }
-//
-//    public List<DislikeFood> getDislikeFoods() {
-//        return dislikeFoods;
-//    }
-//
-//    public void setDislikeFoods(List<DislikeFood> dislikeFoods) {
-//        this.dislikeFoods = dislikeFoods;
-//    }
 }
