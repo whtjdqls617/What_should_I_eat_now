@@ -5,10 +5,6 @@ import { SearchBar } from "../../SignUp/SearchBar";
 import { SelectedFoodList } from "../../SignUp/SelectedFoodList";
 import { HomeButton } from "../HomeButton";
 import {
-	ObjectsInArrayToArray,
-	arrayToObjectsInArray,
-} from "../../func/func_change_var_type";
-import {
 	onPressInLikeSearchPreview,
 	onPressInDisLikeSearchPreview,
 } from "../../func/func_on_press";
@@ -27,26 +23,26 @@ export const FoodList = ({ navigation, route }) => {
 	const updateFoodList = (originLikeFood, originDisLikeFood, likeFoodList, disLikeFoodList) => {
 
 		let object = {
-			dislikeFoodDto: {},
-			likeFoodDto: {}
+			dislikeFood: {},
+			likeFood: {}
 		  };
 
-		object.likeFoodDto.deleteFoodList = originLikeFood.map(food => {
+		object.likeFood.deleteFoodList = originLikeFood.map(food => {
 			if (!likeFoodList.includes(food))
 				return (food);
 		}).filter(food => food != null);
 
-		object.dislikeFoodDto.deleteFoodList = originDisLikeFood.map(food => {
+		object.dislikeFood.deleteFoodList = originDisLikeFood.map(food => {
 			if (!disLikeFoodList.includes(food))
 				return (food);
 		}).filter(food => food != null);
 
-		object.likeFoodDto.addFoodList = likeFoodList.map(food => {
+		object.likeFood.addFoodList = likeFoodList.map(food => {
 			if (!originLikeFood.includes(food))
 				return (food);
 		}).filter(food => food != null);
 
-		object.dislikeFoodDto.addFoodList = disLikeFoodList.map(food => {
+		object.dislikeFood.addFoodList = disLikeFoodList.map(food => {
 			if (!originDisLikeFood.includes(food))
 				return (food);
 		}).filter(food => food != null);
@@ -165,14 +161,21 @@ const styles = StyleSheet.create({
 	},
 });
 
-//회원정보 클릭하면 -> Get (이메일, 닉네임)
-//이메일
-//닉네임, 닉네임 수정 -> 새 닉네임 Put;
-//비밀번호 변경
-//현재 비밀번호 입력
-//새 비밀번호
-//새 비밀번호 확인
-//확인 -> Put;
-
-//음식리스트 클릭하면 -> Get (좋아하는 음식, 싫어하는 음식)
-//적용 -> Put { 좋아하는음식: {추가: ["", ""], 삭제: [""]}, 싫어하는음식: {}}
+// {
+// 	"dislikeFood": {
+// 	  "addFoodList": [
+// 		"string"
+// 	  ],
+// 	  "deleteFoodList": [
+// 		"string"
+// 	  ]
+// 	},
+// 	"likeFood": {
+// 	  "addFoodList": [
+// 		"string"
+// 	  ],
+// 	  "deleteFoodList": [
+// 		"string"
+// 	  ]
+// 	}
+//   }

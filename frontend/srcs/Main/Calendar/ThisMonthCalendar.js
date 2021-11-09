@@ -16,19 +16,15 @@ export const ThisMonthCalendar = ({ setDay, setMonth, month, setDate }) => {
 	const dates = Object.keys(foodNumber);
 	dates.map(day => {
 
-		switch (foodNumber[day]) {
-			case 1:
-				markedDates[day] = { selected: true, marked: true, selectedColor: "red" };
-				break;
-			case 2:
-				markedDates[day] = { selected: true, marked: true, selectedColor: "orange" };
-				break;
-			case 3:
-				markedDates[day] = { selected: true, marked: true, selectedColor: "green" };
-				break;
-			default:
-				break;
-		}
+		if (foodNumber[day] == 1)
+			markedDates[day] = { selected: true, marked: true, selectedColor: "#FF684C" };
+		else if (foodNumber[day] == 2)
+			markedDates[day] = { selected: true, marked: true, selectedColor: "#FFBB00" };
+		else if (foodNumber[day] > 2 && foodNumber[day] < 7)
+			markedDates[day] = { selected: true, marked: true, selectedColor: "#7DBD38" };
+		else if (foodNumber[day] >= 7)
+			markedDates[day] = { selected: true, marked: true, selectedColor: "#FF684C" };
+
 	})
 
 
@@ -57,12 +53,13 @@ export const ThisMonthCalendar = ({ setDay, setMonth, month, setDate }) => {
 
           const resFunc = (data) => {
             setMonth(data.data.monthFoodData);
-            const dayFood = month
+            const dayFood = data.data.monthFoodData
               .map((object) => {
                 if (object.date.substring(8) == "01") return object.foodName;
               })
               .filter((ele) => ele != null);
             setDay(dayFood);
+			setDate(firstDay);
           };
 
           getDataFromServer(`${ip}/calendar/food`, params, resFunc, 0, 0);
@@ -72,12 +69,14 @@ export const ThisMonthCalendar = ({ setDay, setMonth, month, setDate }) => {
       }}
       markingType={"multi-dot"}
       markedDates={markedDates}
-      style={{ borderWidth: 1, borderColor: "gray" }}
+      style={{ borderWidth: 0, borderColor: "gray" }}
       theme={{
         textMonthFontFamily: "BlackHanSans_400Regular",
-        textDayFontSize: 100,
-        backgroundColor: "red",
-        calendarBackground: "red",
+        textDayFontFamily: "BlackHanSans_400Regular",
+        textDayHeaderFontFamily: "BlackHanSans_400Regular",
+        textDayFontSize: 18,
+        textMonthFontSize: 20,
+        textDayHeaderFontSize: 12,
       }}
     />
   );

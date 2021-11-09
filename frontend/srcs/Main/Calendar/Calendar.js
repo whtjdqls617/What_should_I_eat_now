@@ -18,6 +18,7 @@ import { getTokenFromStorage } from "../../func/func_data_communication";
 import { deleteDataFromServer } from "../../func/func_data_communication";
 import { HomeButton } from "../HomeButton";
 import { StatusMessage } from "./StatusMessage";
+import { DateText } from "./DateText";
 
 export const CustomCalendar = ({ navigation, route }) => {
 
@@ -72,8 +73,10 @@ export const CustomCalendar = ({ navigation, route }) => {
 			<View style={styles.top}>
 				<ThisMonthCalendar setDay={setDay} month={month} setMonth={setMonth} setDate={setDate}/>
 			</View>
+			<View style={{marginTop : '5%'}}>
+				<DateText date={date} />
+			</View>
 			<View style={styles.bottom}>
-				<Text style={styles.date}>{date}</Text>
 				<ScrollView horizontal={true}>
 					<EatenFoods
 						number={day.length}
@@ -87,6 +90,8 @@ export const CustomCalendar = ({ navigation, route }) => {
 						date={date}
 					/>
 				</ScrollView>
+			</View>
+			<View style={{marginTop : '11%'}}>
 				<StatusMessage day={day} />
 			</View>
 		</KeyboardAvoidingView>
@@ -95,12 +100,10 @@ export const CustomCalendar = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   top: {
-    // flex: 2,
-    marginTop: "15%",
+    marginTop: "2%",
   },
   bottom: {
-    // flex: 1,
-    marginTop: "10%",
+    marginTop: "8%",
   },
   imagerow: {
     flexDirection: "row",
@@ -113,8 +116,6 @@ const styles = StyleSheet.create({
   },
   textrow: {
     flexDirection: "row",
-    // justifyContent : 'space-around',
-    // alignItems : 'center'
   },
   textstyle: {
     textAlign: "center",
@@ -131,6 +132,7 @@ const styles = StyleSheet.create({
     fontFamily: "BlackHanSans_400Regular",
   },
   date: {
+	marginTop : '2%',
     fontSize: 23,
     color: "black",
     fontFamily: "BlackHanSans_400Regular",

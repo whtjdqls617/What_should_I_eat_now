@@ -41,7 +41,7 @@ export const SelectedFoodList = ({ foodList, setFoodList }) => {
                 >
                   <Text
                     style={{
-                      color: "blue",
+                      color: "red",
                       margin: 10,
                       fontFamily: "BlackHanSans_400Regular",
                     }}

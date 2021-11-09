@@ -32,7 +32,6 @@ export const RecommendedFood = ({ SignInExpired, data, updateIndex, navigation }
         <Text style={styles.title}>이걸로 결정?</Text>
         <Image
           source={food_image[food_name_without_space]}
-          resizeMode="contain"
           style={styles.img_recommend_food}
         />
         <Text style={styles.foodname}>{food_name}</Text>
