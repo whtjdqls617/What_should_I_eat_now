@@ -15,10 +15,10 @@ export const SelectedFoodList = ({ foodList, setFoodList }) => {
   return (
     <>
       <FlatList
-        style={{ flex: 1, marginTop: "8%" }}
+        style={{marginTop: "8%" }}
         data={foodList}
         initialNumToRender={10}
-		keyExtractor={( item, index ) => index.toString() }
+		    keyExtractor={( item, index ) => index.toString() }
         renderItem={({ item }) => {
 
           return (

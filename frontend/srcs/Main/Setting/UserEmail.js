@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 export const UserEmail = ({ email }) => {
 
 	return (
-		<View style={{ flex: 1 }}>
+		<View>
 			<Text style={styles.title}>이메일</Text>
 			<Text style={styles.detail}>{email}</Text>
 		</View>

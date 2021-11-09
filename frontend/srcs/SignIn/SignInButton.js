@@ -34,24 +34,15 @@ export const SigninButton = ({ json, setSignIn }) => {
 	return (
 		<TouchableOpacity
 			style={styles.buttonstyle}
-			onPress={() => postDataToServer(`${ip}/user/signin`, json, 0, resFunc, errFunc)
-			}
+			onPress={() => postDataToServer(`${ip}/user/signin`, json, 0, resFunc, errFunc)}
 		>
-			<Text
-				style={{
-					fontSize: 15,
-					textAlign: "center",
-					color: "white",
-					fontFamily: "BlackHanSans_400Regular",
-				}}
-			>
-				로그인
-			</Text>
+			<Text style={styles.textstyle}>로그인</Text>
 		</TouchableOpacity>
 	);
 }
 
 const styles = StyleSheet.create({
+
 	buttonstyle: {
 		height: 40,
 		width: 110,
@@ -60,4 +51,10 @@ const styles = StyleSheet.create({
 		margin: 8,
 		justifyContent: "center",
 	},
+	textstyle: {
+		fontSize: 15,
+		textAlign: "center",
+		color: "white",
+		fontFamily: "BlackHanSans_400Regular",
+	}
 });

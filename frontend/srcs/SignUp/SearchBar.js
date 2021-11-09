@@ -47,9 +47,6 @@ export const SearchBar = ({ onPress }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   textInputStyle: {
 	marginTop: "5%",
 	height: 40,

@@ -16,10 +16,10 @@ export const CancelButton = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-	
+
 	buttonstyle: {
 	  margin: "3%",
-	  backgroundColor: "orange",
+	  backgroundColor: "gray",
 	  alignItems: "center",
 	  height: 45,
 	  width: 100,

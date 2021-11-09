@@ -3,12 +3,9 @@ import { Text, TextInput, StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SigninButton } from "./SignInButton";
 
-
-
 export const SignIn = ({ navigation, setSignIn }) => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const makePostData = (email, password) => {
     let postData = {};
@@ -18,47 +15,44 @@ export const SignIn = ({ navigation, setSignIn }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={{ fontSize: 45, fontFamily: "BlackHanSans_400Regular" }}>
-        로그인
-      </Text>
-      <View style={styles.textinputstyle}>
-        <TextInput
-          style={styles.textinput}
-          placeholder="이메일"
-          onChangeText={(input) => setEmail(input)}
+      <View style={styles.container}>
+        <Text style={styles.headerText}>로그인</Text>
+        <View style={styles.textinputstyle}>
+          <TextInput
+            style={styles.textinput}
+            placeholder="이메일"
+            onChangeText={(input) => setEmail(input)}
+          />
+          <TextInput
+            style={styles.textinput}
+            placeholder="비밀번호"
+            onChangeText={(input) => setPassword(input)}
+          />
+        </View>
+        <SigninButton
+          json={makePostData(email, password)}
+          setSignIn={setSignIn}
         />
-        <TextInput
-          style={styles.textinput}
-          placeholder="비밀번호"
-          onChangeText={(input) => setPassword(input)}
-        />
-      </View>
-      <SigninButton json={makePostData(email, password)} setSignIn={setSignIn}/>
-      <TouchableOpacity
-        style={styles.buttonstyle}
-        onPress={() => navigation.navigate("SignUp")}
-      >
-        <Text
-          style={{
-            fontSize: 15,
-            textAlign: "center",
-            color: "white",
-            fontFamily: "BlackHanSans_400Regular",
-          }}
+        <TouchableOpacity
+          style={styles.buttonstyle_signup}
+          onPress={() => navigation.navigate("SignUp")}
         >
-          회원가입
-        </Text>
-      </TouchableOpacity>
-    </View>
+          <Text style={styles.buttonText}>회원가입</Text>
+        </TouchableOpacity>
+      </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: "13%",
     justifyContent: "center",
     alignItems: "center",
+  },
+  headerText: {
+    fontSize: 45,
+    fontFamily: "BlackHanSans_400Regular",
   },
   textinput: {
     margin: 8,
@@ -73,12 +67,18 @@ const styles = StyleSheet.create({
     flex: 0.3,
     justifyContent: "center",
   },
-  buttonstyle: {
+  buttonstyle_signup: {
     height: 40,
     width: 110,
-    backgroundColor: "orange",
+    backgroundColor: "gray",
     borderRadius: 40,
     margin: 8,
     justifyContent: "center",
+  },
+  buttonText: {
+    fontSize: 15,
+    textAlign: "center",
+    color: "white",
+    fontFamily: "BlackHanSans_400Regular",
   },
 });

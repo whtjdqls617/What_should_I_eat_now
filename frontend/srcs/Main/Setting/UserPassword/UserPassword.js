@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { NewPassword } from "./NewPassword";
 import { CurrentPassword } from "./CurrentPassword";
 import { TouchableOpacity, Text, StyleSheet, View, Alert } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { CancelButton } from "./CancelButton";
 import { OkButton } from "./OkButton";
 
@@ -11,7 +10,6 @@ export const UserPassword = ({ navigation }) => {
 
 	const [passwords, setPasswords] = useState([]);
 	return (
-		<KeyboardAwareScrollView>
 			<View style={styles.container}>
 				<CurrentPassword
 					setPasswords={setPasswords}
@@ -20,13 +18,12 @@ export const UserPassword = ({ navigation }) => {
 					setPasswords={setPasswords}
 					passwords={passwords} />
 				<View style={styles.buttonalign}>
-					<CancelButton navigation={navigation} />
 					<OkButton
 						navigation={navigation}
 						passwords={passwords} />
+					<CancelButton navigation={navigation} />
 				</View>
 			</View>
-		</KeyboardAwareScrollView>
 	);
 };
 
@@ -35,7 +32,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
-		marginTop: "60%",
+		marginTop : '10%'
 	},
 	buttonalign: {
 		flex: 0.1,

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Text, TouchableOpacity, Button, StyleSheet, View } from "react-native";
+import { Text, TouchableOpacity, Button, StyleSheet, View, KeyboardAvoidingView } from "react-native";
 import { SearchBar } from "../../SignUp/SearchBar";
 import { SelectedFoodList } from "../../SignUp/SelectedFoodList";
 import { HomeButton } from "../HomeButton";
@@ -10,6 +10,8 @@ import {
 } from "../../func/func_on_press";
 import { getTokenFromStorage, putDataToServer } from "../../func/func_data_communication";
 import { ip } from "../../data/data";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 
 export const FoodList = ({ navigation, route }) => {
 
@@ -74,73 +76,79 @@ export const FoodList = ({ navigation, route }) => {
 			? [onPressInLSP, likeFoodList, setLikeFoodList]
 			: [onPressInDLSP, disLikeFoodList, setDisLikeFoodList];
 
+
 	return (
-		<>
-			<HomeButton navigation={navigation} />
-			<View style={styles.container}>
-				<View style={styles.titlealign}>
-					<TouchableOpacity style={{ flex: 1 }} onPress={() => setSignal(0)}>
-						<Text
-							style={{
-								fontSize: 70,
-								textAlign: "center",
-								fontFamily: "BlackHanSans_400Regular",
-								color: signal == 0 ? "black" : "gray",
-								opacity: signal == 0 ? 1 : 0.3,
-							}}
-						>
-							좋아
-						</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={{ flex: 1 }} onPress={() => setSignal(1)}>
-						<Text
-							style={{
-								fontSize: 70,
-								textAlign: "center",
-								fontFamily: "BlackHanSans_400Regular",
-								color: signal != 0 ? "black" : "gray",
-								opacity: signal != 0 ? 1 : 0.3,
-							}}
-						>
-							싫어
-						</Text>
-					</TouchableOpacity>
-				</View>
-				<SearchBar onPress={onPress} />
-				<SelectedFoodList foodList={foodList} setFoodList={setFoodList} />
-				<View style={styles.buttonalign}>
-					<TouchableOpacity
-						style={styles.buttonstyle}
-						onPress={() => {
-
-							const okFunc = (value) => {
-
-								const resFunc = () => navigation.navigate("Setting");
-								const params = updateFoodList(originLikeFood, originDisLikeFood, likeFoodList, disLikeFoodList);
-								putDataToServer(`${ip}/user/info/food`, params, value, resFunc, 0, 0);
-							};
-							getTokenFromStorage(okFunc, 0, 0);
-						}}
-					>
-						<Text style={styles.textstyle}>적용</Text>
-					</TouchableOpacity>
-				</View>
-			</View>
-		</>
-	);
+    <View style={{ flex: 1, justifyContent: "center", alignContent: "center" }}>
+      <View style={{ flex: 0.2 }}>
+        <HomeButton navigation={navigation} />
+      </View>
+      <View style={styles.titlealign}>
+        <TouchableOpacity style={{ flex: 1 }} onPress={() => setSignal(0)}>
+          <Text
+            style={{
+              fontSize: 70,
+              textAlign: "center",
+              fontFamily: "BlackHanSans_400Regular",
+              color: signal == 0 ? "black" : "gray",
+              opacity: signal == 0 ? 1 : 0.3,
+            }}
+          >
+            좋아
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ flex: 1 }} onPress={() => setSignal(1)}>
+          <Text
+            style={{
+              fontSize: 70,
+              textAlign: "center",
+              fontFamily: "BlackHanSans_400Regular",
+              color: signal != 0 ? "black" : "gray",
+              opacity: signal != 0 ? 1 : 0.3,
+            }}
+          >
+            싫어
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{flex : 0.9, alignItems : 'center'}}>
+        <SearchBar onPress={onPress} />
+        <SelectedFoodList foodList={foodList} setFoodList={setFoodList} />
+      </View>
+      <View style={styles.buttonalign}>
+        <TouchableOpacity
+          style={styles.buttonstyle}
+          onPress={() => {
+            const okFunc = (value) => {
+              const resFunc = () => navigation.navigate("Setting");
+              const params = updateFoodList(
+                originLikeFood,
+                originDisLikeFood,
+                likeFoodList,
+                disLikeFoodList
+              );
+              putDataToServer(
+                `${ip}/user/info/food`,
+                params,
+                value,
+                resFunc,
+                0,
+                0
+              );
+            };
+            getTokenFromStorage(okFunc, 0, 0);
+          }}
+        >
+          <Text style={styles.textstyle}>적용</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-		marginBottom: "5%",
-	},
 	titlealign: {
-		flex: 0.2,
+		flex : 0.1,
 		flexDirection: "row",
-		marginTop: "13%",
 		alignItems: "center",
 	},
 	textstyle: {
@@ -157,7 +165,8 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	buttonalign: {
-		flex: 0.3,
+		flex : 0.2,
+		alignItems : 'center',
 	},
 });
 

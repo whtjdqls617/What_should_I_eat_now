@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import {
-	Text,
-	View,
-	ScrollView,
-	StyleSheet,
-	TouchableOpacity,
-	KeyboardAvoidingView,
-	Platform
+  Text,
+  View,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
 } from "react-native";
 import { AddEatenFood } from "./AddEatenFood";
 import { ApplyButton } from "./ApplyButton";
@@ -21,81 +20,84 @@ import { StatusMessage } from "./StatusMessage";
 import { DateText } from "./DateText";
 
 export const CustomCalendar = ({ navigation, route }) => {
+  const monthFoodData = route.params.data.data.monthFoodData;
+  const today = route.params.today;
 
-	const monthFoodData = route.params.data.data.monthFoodData;
-	const today = route.params.today;
+  const initialDayFood = monthFoodData
+    .map((object) => {
+      if (object.date == today) return object.foodName;
+    })
+    .filter((ele) => ele != null);
 
-	const initialDayFood = monthFoodData.map(object => {
+  const [day, setDay] = useState(initialDayFood);
+  const [date, setDate] = useState(today);
+  const [month, setMonth] = useState(monthFoodData);
 
-		if (object.date == today)
-		return object.foodName;
+  const onXPress = (index) => {
+    //day에서 해당 음식이 지워져야 함
+    const array = day.slice();
+    const deletedFood = array.splice(index, 1)[0];
+    setDay(array);
+    for (let i = 0; i < month.length; i++) {
+      if (month[i].date == date && month[i].foodName == deletedFood) {
+        let copyMonth = month.slice();
+        copyMonth.splice(i, 1);
+        setMonth(copyMonth);
+        break;
+      }
+    }
 
-	}).filter(ele => ele != null);
+    const okFunc = (value) => {
+      const name = deletedFood;
 
-	const [day, setDay] = useState(initialDayFood);
-	const [date, setDate] = useState(today);
-	const [month, setMonth] = useState(monthFoodData);
+      const params = {
+        headers: {
+          "X-AUTH-TOKEN": value,
+        },
+      };
+      deleteDataFromServer(
+        `${ip}/calendar/food/${name}/${date}`,
+        params,
+        0,
+        0,
+        0
+      );
+    };
 
-	const onXPress = (index) => {
-		//day에서 해당 음식이 지워져야 함
-		const array = day.slice();
-		const deletedFood = array.splice(index, 1)[0];
-		setDay(array);
-		for (let i = 0; i < month.length; i++) {
-			if (month[i].date == date && month[i].foodName == deletedFood) {
-				let copyMonth = month.slice();
-				copyMonth.splice(i, 1);
-				setMonth(copyMonth);
-				break;
-			}
-		}
+    getTokenFromStorage(okFunc, 0, 0);
+  };
 
-		const okFunc = (value) => {
-
-			const name = deletedFood;
-
-			const params = {
-				headers: {
-				  "X-AUTH-TOKEN": value,
-				}
-			  };
-			deleteDataFromServer(`${ip}/calendar/food/${name}/${date}`, params, 0, 0, 0);
-		}
-
-		getTokenFromStorage(okFunc, 0, 0);
-	};
-
-	return (
-		<KeyboardAvoidingView
-			behavior={Platform.OS === "ios" ? "padding" : "heigth"}
-		>
-			<HomeButton navigation={navigation}/>
-			<View style={styles.top}>
-				<ThisMonthCalendar setDay={setDay} month={month} setMonth={setMonth} setDate={setDate}/>
-			</View>
-			<View style={{marginTop : '5%'}}>
-				<DateText date={date} />
-			</View>
-			<View style={styles.bottom}>
-				<ScrollView horizontal={true}>
-					<EatenFoods
-						number={day.length}
-						day={day}
-						onXPress={onXPress} />
-					<AddEatenFood
-						day={day}
-						setDay={setDay}
-						month={month}
-						setMonth={setMonth}
-						date={date}
-					/>
-				</ScrollView>
-			</View>
-			<View style={{marginTop : '11%'}}>
-				<StatusMessage day={day} />
-			</View>
-		</KeyboardAvoidingView>
-	);
+  return (
+    <>
+      <HomeButton navigation={navigation} />
+      <View style={styles.top}>
+        <ThisMonthCalendar
+          setDay={setDay}
+          month={month}
+          setMonth={setMonth}
+          setDate={setDate}
+        />
+      </View>
+      <View style={{ marginTop: "5%" }}>
+        <DateText date={date} />
+      </View>
+      <View style={styles.bottom}>
+        <ScrollView horizontal={true}>
+          <EatenFoods number={day.length} day={day} onXPress={onXPress} />
+          <AddEatenFood
+            day={day}
+            setDay={setDay}
+            month={month}
+            setMonth={setMonth}
+            date={date}
+          />
+        </ScrollView>
+      </View>
+      <View style={{ marginTop: "11%" }}>
+        <StatusMessage day={day} />
+      </View>
+    </>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -132,11 +134,11 @@ const styles = StyleSheet.create({
     fontFamily: "BlackHanSans_400Regular",
   },
   date: {
-	marginTop : '2%',
+    marginTop: "2%",
     fontSize: 23,
     color: "black",
     fontFamily: "BlackHanSans_400Regular",
-	textAlign : 'center'
+    textAlign: "center",
   },
 });
 /*
