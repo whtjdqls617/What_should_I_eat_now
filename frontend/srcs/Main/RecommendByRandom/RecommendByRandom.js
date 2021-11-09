@@ -23,7 +23,7 @@ export const RecommendByRandom = ({ navigation, SignInExpired }) => {
 				{
 					foodName.length > 0 ?
 						<>
-							<View style={{flex : 0.8}}>
+							<View style={{flex : 0.9}}>
 								<Image
 									style={styles.img_recommend_food}
 									source={food_image[foodName_without_space]}
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "center",
 		alignItems: "center",
-		marginTop: '25%'
+		marginTop: '18%'
 	},
 	img_recommend_food: {
 		borderWidth: 3,

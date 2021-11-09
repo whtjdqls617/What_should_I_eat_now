@@ -20,7 +20,7 @@ export const UserInfo = ({ navigation, route }) => {
 	return (
 		<>
 			<HomeButton navigation={navigation} />
-			<View style={{ flex: 1, marginTop: "15%" }}>
+			<View style={{ flex: 1, marginTop: "10%" }}>
 				<View style={{ marginTop: "25%", alignItems: "center" }}>
 					<Text style={styles.head}>회원정보</Text>
 				</View>
