@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, StyleSheet, Alert } from "react-native";
 import { getTokenFromStorage, putDataToServer } from "../../../func/func_data_communication";
 import { ip } from "../../../data/data";
 
-export const OkButton = ({ navigation, passwords }) => {
+export const OkButton = ({ navigation, passwords, SignInExpired }) => {
 
 	console.log("passwords: ", passwords);
 
@@ -25,7 +25,7 @@ export const OkButton = ({ navigation, passwords }) => {
 							oldPass: passwords[0]
 						};
 
-						putDataToServer(`${ip}/user/info/pass`, params, value, resFunc, 0, 0);
+						putDataToServer(`${ip}/user/info/pass`, params, value, resFunc, 0, SignInExpired);
 					};
 
 					getTokenFromStorage(okFunc, 0, 0);
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 		margin: "3%",
 		backgroundColor: "orange",
 		alignItems: "center",
-		height: 45,
+		height: 55,
 		width: 100,
 		alignItems: "center",
 		justifyContent: "center",

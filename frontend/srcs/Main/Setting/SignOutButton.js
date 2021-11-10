@@ -2,16 +2,13 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const SignOutButton = ({ navigation, setSignIn }) => {
+export const SignOutButton = ({ navigation, SignInExpired }) => {
 
 	return (
 		<View style={styles.buttonalign}>
           <TouchableOpacity
             style={styles.buttonstyle}
-            onPress={() => {
-              AsyncStorage.clear();
-              setSignIn(false);
-            }}
+            onPress={() => SignInExpired()}
           >
             <Text style={styles.textstyle}>로그아웃</Text>
           </TouchableOpacity>

@@ -3,8 +3,17 @@ import { AskQuestion } from "./AskQuestion";
 import { RecommendedFood } from "./RecommendedFood";
 import { OtherFood } from "./OtherFood";
 import { Loading } from "./Loading";
+import { LogBox } from 'react-native';
 
-export const RecommendByAlgorithm = ({ navigation, SignInExpired }) => {
+
+export const RecommendByAlgorithm = ({ navigation, route }) => {
+
+	const SignInExpired = route.params;
+
+	LogBox.ignoreLogs([
+		'Non-serializable values were found in the navigation state',
+	   ]);
+
 	const [index, setIndex] = useState(0);
 	const [data, setData] = useState([]);
 

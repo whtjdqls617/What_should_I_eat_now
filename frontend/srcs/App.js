@@ -65,7 +65,7 @@ export default function App() {
 		} else
 			return (
 				<NavigationContainer theme={MyTheme}>
-					<MainStackNav setSignIn={setSignIn} SignInExpired={SignInExpired}/>
+					<MainStackNav SignInExpired={SignInExpired}/>
 				</NavigationContainer>
 			);
 	}

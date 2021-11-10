@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
 	  alignItems: "center",
 	},
 	buttonstyle: {
-	  height: 40,
-	  width: 110,
+	  height: 55,
+	  width: 100,
 	  backgroundColor: "orange",
 	  borderRadius: 40,
 	  justifyContent: "center",
@@ -92,4 +92,3 @@ const styles = StyleSheet.create({
 	  opacity : 0.4
 	},
   });
-  

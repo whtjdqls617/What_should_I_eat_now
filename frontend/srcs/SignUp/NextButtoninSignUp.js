@@ -39,8 +39,8 @@ export const NextButtoninSignUp = ({ navigation, userinfo }) => {
 
 const styles = StyleSheet.create({
 	buttonstyle: {
-		height: 40,
-		width: 110,
+		height: 55,
+		width: 100,
 		backgroundColor: "orange",
 		borderRadius: 40,
 		justifyContent: "center",
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
 		fontFamily: "BlackHanSans_400Regular",
 	},
 	buttonText: {
+		fontSize : 18,
 		color: "white",
 		fontFamily: "BlackHanSans_400Regular",
 	},

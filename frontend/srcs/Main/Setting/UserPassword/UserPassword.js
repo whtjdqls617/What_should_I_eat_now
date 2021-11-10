@@ -4,11 +4,18 @@ import { CurrentPassword } from "./CurrentPassword";
 import { TouchableOpacity, Text, StyleSheet, View, Alert } from "react-native";
 import { CancelButton } from "./CancelButton";
 import { OkButton } from "./OkButton";
+import { LogBox } from 'react-native';
 
 
-export const UserPassword = ({ navigation }) => {
+export const UserPassword = ({ navigation, route }) => {
 
+	LogBox.ignoreLogs([
+		'Non-serializable values were found in the navigation state',
+	]);
+
+	const SignInExpired = route.params;
 	const [passwords, setPasswords] = useState([]);
+
 	return (
 			<View style={styles.container}>
 				<CurrentPassword
@@ -20,7 +27,8 @@ export const UserPassword = ({ navigation }) => {
 				<View style={styles.buttonalign}>
 					<OkButton
 						navigation={navigation}
-						passwords={passwords} />
+						passwords={passwords}
+						SignInExpired={SignInExpired} />
 					<CancelButton navigation={navigation} />
 				</View>
 			</View>

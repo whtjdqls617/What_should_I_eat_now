@@ -11,25 +11,25 @@ import { UserPassword } from "../Main/Setting/UserPassword/UserPassword";
 
 const MainStack = createStackNavigator();
 
-export const MainStackNav = ({ setSignIn, SignInExpired }) => {
+export const MainStackNav = ({ SignInExpired }) => {
   return (
     <MainStack.Navigator
-		screenOptions={{
-			headerShown: false
-	  }}>
-      <MainStack.Screen name="Main" component={Main} />
-	  <MainStack.Screen name="RecommendByAlgorithm" children={({ navigation }) => (
-		<RecommendByAlgorithm SignInExpired={SignInExpired} navigation={navigation} />
-	  )} />
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <MainStack.Screen
+        name="Main"
+        children={({ navigation }) => (
+          <Main SignInExpired={SignInExpired} navigation={navigation} />
+        )}
+      />
+      <MainStack.Screen name="RecommendByAlgorithm" component={RecommendByAlgorithm} />
       <MainStack.Screen name="CustomCalendar" component={CustomCalendar} />
-      <MainStack.Screen name="RecommendByRandom" children={({ navigation }) => (
-		<RecommendByRandom SignInExpired={SignInExpired} navigation={navigation} />
-	  )} />
-      <MainStack.Screen name="Setting" children={({ navigation }) => (
-          <Setting setSignIn={setSignIn} SignInExpired={SignInExpired} navigation={navigation} />
-        )}/>
-	  <MainStack.Screen name="UserInfo" component={UserInfo} />
-	  <MainStack.Screen name="UserPassword" component={UserPassword} />
+      <MainStack.Screen name="RecommendByRandom" component={RecommendByRandom} />
+      <MainStack.Screen name="Setting" component={Setting} />
+      <MainStack.Screen name="UserInfo" component={UserInfo} />
+      <MainStack.Screen name="UserPassword" component={UserPassword} />
       <MainStack.Screen name="FoodList" component={FoodList} />
     </MainStack.Navigator>
   );

@@ -2,8 +2,9 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ip } from "../../data/data";
 import { getDataFromServer, getTokenFromStorage } from "../../func/func_data_communication";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const FoodListButton = ({ navigation }) => {
+export const FoodListButton = ({ navigation, SignInExpired }) => {
 
 	return (
 		<View style={styles.buttonalign}>
@@ -13,14 +14,22 @@ export const FoodListButton = ({ navigation }) => {
 
 				const okFunc = (value) => {
 
-					const okFunc1 = (data) => navigation.navigate("FoodList", data);
+					const okFunc1 = (data) => {
+
+						const object = {
+							data: data,
+							SignInExpired: SignInExpired
+						};
+						navigation.navigate("FoodList", object);
+					};
 
 					const params = {
 						headers: {
 							"X-AUTH-TOKEN": value,
 						}
 					};
-					getDataFromServer(`${ip}/user/info/food`, params, okFunc1, 0, 0);
+
+					getDataFromServer(`${ip}/user/info/food`, params, okFunc1, 0, SignInExpired);
 				};
 				getTokenFromStorage(okFunc, 0, 0);
 			}}

@@ -31,7 +31,7 @@ export const SearchPreview = ({ input, previewFood, onPress }) => {
 const styles = StyleSheet.create({
 	flatlist: {
 		width: '80%',
-		maxHeight: 150,
+		maxHeight: 135,
 		borderWidth: 1,
 		borderColor: 'gray',
 		marginStart: -2,

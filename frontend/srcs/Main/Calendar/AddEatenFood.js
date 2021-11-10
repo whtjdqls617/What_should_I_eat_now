@@ -9,69 +9,79 @@ import { getTokenFromStorage } from "../../func/func_data_communication";
 import { ip } from "../../data/data";
 import { putDataToServer } from "../../func/func_data_communication";
 
-export const AddEatenFood = ({ day, setDay, month, setMonth, date }) => {
-	const [ismodalVisible, setModalVisible] = useState(false);
-	const toggleModal = () => {
-		setModalVisible(!ismodalVisible);
-	};
+export const AddEatenFood = ({
+  day,
+  setDay,
+  month,
+  setMonth,
+  date,
+  SignInExpired,
+}) => {
+  const [ismodalVisible, setModalVisible] = useState(false);
+  const toggleModal = () => {
+    setModalVisible(!ismodalVisible);
+  };
 
-	const onPress = (newFood) => {
+  const onPress = (newFood) => {
+    const copyDay = day.slice();
+    copyDay.push(newFood);
+    toggleModal();
+    setDay(copyDay);
 
-		const copyDay = day.slice();
-		copyDay.push(newFood);
-		toggleModal();
-		setDay(copyDay);
+    let copyMonth = month.slice();
+    copyMonth.push({ date: date, foodName: newFood });
+    setMonth(copyMonth);
 
-		let copyMonth = month.slice();
-		copyMonth.push({ date: date, foodName: newFood });
-		setMonth(copyMonth);
+    const okFunc = (token) => {
+      const name = newFood;
 
-		const okFunc = (token) => {
+      putDataToServer(
+        `${ip}/calendar/food/${name}/${date}`,
+        "",
+        token,
+        0,
+        0,
+        SignInExpired
+      );
+    };
 
-			const name = newFood;
+    getTokenFromStorage(okFunc, 0, 0);
+  };
 
-			putDataToServer(`${ip}/calendar/food/${name}/${date}`, "", token, 0, 0, 0);
-		};
-
-		getTokenFromStorage(okFunc, 0, 0);
-	}
-
-	return (
-		<>
-			<View
-				style={{ flexDirection: "column", alignItems: "center", margin: 10 }}
-			>
-				<AddEatenFoodSign toggleModal={toggleModal} />
-				<BlankSpace />
-				{
-					ismodalVisible ?
-						<Modal
-							style={{ position: "absolute", width: "90%", height: 700 }}
-							isVisible={true}
-							animationOutTiming={400}
-							onBackdropPress={() => toggleModal()}
-						>
-							<View style={styles.centeredView}>
-								<View style={styles.modalView}>
-									<Text
-										style={{
-											marginTop: "15%",
-											textAlign: "center",
-											fontFamily: "BlackHanSans_400Regular",
-											fontSize: 35,
-										}}
-									>
-										음식 검색!
-									</Text>
-									<SearchBar onPress={onPress} />
-								</View>
-							</View>
-						</Modal>
-						: null
-				}
-			</View>
-		</>
-	);
+  return (
+    <>
+      <View
+        style={{ flexDirection: "column", alignItems: "center", margin: 10 }}
+      >
+        <AddEatenFoodSign toggleModal={toggleModal} />
+        <BlankSpace />
+        {ismodalVisible ? (
+          <Modal
+            style={{ position: "absolute", width: "90%", height: 700 }}
+            isVisible={true}
+            animationOutTiming={400}
+            onBackdropPress={() => toggleModal()}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text
+                  style={{
+                    marginTop: "15%",
+                    textAlign: "center",
+                    fontFamily: "BlackHanSans_400Regular",
+                    fontSize: 35,
+                  }}
+                >
+                  음식 검색!
+                </Text>
+                <SearchBar onPress={onPress} />
+              </View>
+            </View>
+          </Modal>
+        ) : null}
+      </View>
+    </>
+  );
 };
 const styles = StyleSheet.create({
 	centeredView: {
