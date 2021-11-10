@@ -5,28 +5,47 @@ import { getTokenFromStorage } from "../../func/func_data_communication";
 import { getDataFromServer } from "../../func/func_data_communication";
 import { ip } from "../../data/data";
 
-export const ThisMonthCalendar = ({ setDay, setMonth, month, setDate }) => {
+export const ThisMonthCalendar = ({
+  setDay,
+  setMonth,
+  month,
+  setDate,
+  SignInExpired,
+}) => {
+  let foodNumber = {};
+  month.map((day) => {
+    foodNumber[day.date] =
+      foodNumber[day.date] == undefined ? 1 : foodNumber[day.date] + 1;
+  });
 
-	let foodNumber = {};
-  	month.map(day => {
-		foodNumber[day.date] = foodNumber[day.date] == undefined ? 1 : foodNumber[day.date] + 1;
-	  });
-
-	let markedDates = {};
-	const dates = Object.keys(foodNumber);
-	dates.map(day => {
-
-		if (foodNumber[day] == 1)
-			markedDates[day] = { selected: true, marked: true, selectedColor: "#FF684C" };
-		else if (foodNumber[day] == 2)
-			markedDates[day] = { selected: true, marked: true, selectedColor: "#FFBB00" };
-		else if (foodNumber[day] > 2 && foodNumber[day] < 7)
-			markedDates[day] = { selected: true, marked: true, selectedColor: "#7DBD38" };
-		else if (foodNumber[day] >= 7)
-			markedDates[day] = { selected: true, marked: true, selectedColor: "#FF684C" };
-
-	})
-
+  let markedDates = {};
+  const dates = Object.keys(foodNumber);
+  dates.map((day) => {
+    if (foodNumber[day] == 1)
+      markedDates[day] = {
+        selected: true,
+        marked: true,
+        selectedColor: "#FF684C",
+      };
+    else if (foodNumber[day] == 2)
+      markedDates[day] = {
+        selected: true,
+        marked: true,
+        selectedColor: "#FFBB00",
+      };
+    else if (foodNumber[day] > 2 && foodNumber[day] < 7)
+      markedDates[day] = {
+        selected: true,
+        marked: true,
+        selectedColor: "#7DBD38",
+      };
+    else if (foodNumber[day] >= 7)
+      markedDates[day] = {
+        selected: true,
+        marked: true,
+        selectedColor: "#FF684C",
+      };
+  });
 
   return (
     <Calendar
@@ -59,10 +78,10 @@ export const ThisMonthCalendar = ({ setDay, setMonth, month, setDate }) => {
               })
               .filter((ele) => ele != null);
             setDay(dayFood);
-			setDate(firstDay);
+            setDate(firstDay);
           };
 
-          getDataFromServer(`${ip}/calendar/food`, params, resFunc, 0, 0);
+          getDataFromServer(`${ip}/calendar/food`, params, resFunc, 0, SignInExpired);
         };
 
         getTokenFromStorage(okFunc, 0, 0);

@@ -18,10 +18,19 @@ import { deleteDataFromServer } from "../../func/func_data_communication";
 import { HomeButton } from "../HomeButton";
 import { StatusMessage } from "./StatusMessage";
 import { DateText } from "./DateText";
+import { LogBox } from 'react-native';
 
-export const CustomCalendar = ({ navigation, route }) => {
+
+
+export const CustomCalendar = ({ navigation, route}) => {
+
+  LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state',
+   ]);
+
   const monthFoodData = route.params.data.data.monthFoodData;
   const today = route.params.today;
+  const SignInExpired = route.params.SignInExpired;
 
   const initialDayFood = monthFoodData
     .map((object) => {
@@ -34,7 +43,7 @@ export const CustomCalendar = ({ navigation, route }) => {
   const [month, setMonth] = useState(monthFoodData);
 
   const onXPress = (index) => {
-    //day에서 해당 음식이 지워져야 함
+
     const array = day.slice();
     const deletedFood = array.splice(index, 1)[0];
     setDay(array);
@@ -55,13 +64,10 @@ export const CustomCalendar = ({ navigation, route }) => {
           "X-AUTH-TOKEN": value,
         },
       };
+
+
       deleteDataFromServer(
-        `${ip}/calendar/food/${name}/${date}`,
-        params,
-        0,
-        0,
-        0
-      );
+        `${ip}/calendar/food/${name}/${date}`, params, 0, 0, SignInExpired)
     };
 
     getTokenFromStorage(okFunc, 0, 0);
@@ -72,6 +78,7 @@ export const CustomCalendar = ({ navigation, route }) => {
       <HomeButton navigation={navigation} />
       <View style={styles.top}>
         <ThisMonthCalendar
+          SignInExpired={SignInExpired}
           setDay={setDay}
           month={month}
           setMonth={setMonth}
@@ -90,6 +97,7 @@ export const CustomCalendar = ({ navigation, route }) => {
             month={month}
             setMonth={setMonth}
             date={date}
+            SignInExpired={SignInExpired}
           />
         </ScrollView>
       </View>

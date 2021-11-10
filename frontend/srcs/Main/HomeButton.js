@@ -6,10 +6,10 @@ export const HomeButton = ({ navigation }) => {
 
     return (
         <>
-			<TouchableOpacity 
+			<TouchableOpacity
 			style={styles.home}
 			onPress={() => navigation.navigate("Main")}>
-				<Image style={{	width : 40, height : 40 }} source={home}/>
+				<Image style={{	width : 30, height : 30 }} source={home}/>
       	 	</TouchableOpacity>
 		</>
     );
@@ -20,10 +20,9 @@ const styles = StyleSheet.create({
 	  flex: 1,
 	},
 	home : {
-		marginTop : '13%',
-		marginEnd : '6%',
+		marginTop : '12%',
+		marginEnd : '5%',
 		justifyContent: 'flex-end',
 		alignItems : 'flex-end'
 	}
   });
-  

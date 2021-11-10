@@ -17,6 +17,7 @@ import {
 import { HomeButton } from "../HomeButton";
 
 export const RecommendedFood = ({ SignInExpired, data, updateIndex, navigation }) => {
+
   const food_name = data.list[0].name;
 
   let food_name_without_space = food_name.slice();
@@ -37,7 +38,7 @@ export const RecommendedFood = ({ SignInExpired, data, updateIndex, navigation }
         <Text style={styles.foodname}>{food_name}</Text>
         <View style={styles.button_align}>
           <TouchableOpacity
-            style={styles.button}
+            style={styles.button_yes}
             onPress={() => {
               const okFunc = (value) => {
                 postDataToServer(
@@ -56,7 +57,7 @@ export const RecommendedFood = ({ SignInExpired, data, updateIndex, navigation }
             <Text style={styles.buttonText}>응!</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.button}
+            style={styles.button_no}
             onPress={() => updateIndex(true)}
           >
             <Text style={styles.buttonText}>고민좀...</Text>
@@ -98,9 +99,19 @@ const styles = StyleSheet.create({
     width: "50%",
     alignItems: "center",
   },
-  button: {
+  button_yes: {
     margin: "10%",
     backgroundColor: "orange",
+    alignItems: "center",
+    height: 55,
+    width: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 30,
+  },
+  button_no: {
+    margin: "10%",
+    backgroundColor: "gray",
     alignItems: "center",
     height: 55,
     width: 100,
@@ -111,7 +122,7 @@ const styles = StyleSheet.create({
   img_recommend_food: {
     borderWidth: 3,
     borderRadius: 140,
-	borderColor : 'black',
+    borderColor: "black",
     width: 242,
     height: 242,
     marginTop: "14%",

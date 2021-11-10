@@ -12,7 +12,8 @@ import { ip } from "../../data/data";
 
 export const UserInfo = ({ navigation, route }) => {
 
-	const [nickName, setNickName] = useState(route.params.data.nickName);
+  const SignInExpired = route.params.SignInExpired;
+	const [nickName, setNickName] = useState(route.params.data.data.nickName);
 	const [modalVisible, setModalVisible] = useState(false);
 	const [alertMessage, setAlertMessage] = useState("");
 
@@ -25,7 +26,7 @@ export const UserInfo = ({ navigation, route }) => {
             <Text style={styles.head}>회원정보</Text>
           </View>
           <View style={styles.container}>
-            <UserEmail email={route.params.data.email} />
+            <UserEmail email={route.params.data.data.email} />
             <View style={{ marginTop : '20%'}}>
               <Text style={styles.title}>닉네임</Text>
               <View style={styles.nicknamealign}>
@@ -52,9 +53,7 @@ export const UserInfo = ({ navigation, route }) => {
                         setAlertMessage("중복된 닉네임입니다.");
                         setModalVisible(true);
                       };
-                      const errFunc = () => {
-                        Alert.alert("서버와 통신이 되지 않습니다.");
-                      };
+
                       const params = nickName;
                       putDataToServer(
                         `${ip}/user/info/nickname`,
@@ -62,7 +61,7 @@ export const UserInfo = ({ navigation, route }) => {
                         value,
                         resFunc,
                         noFunc,
-                        errFunc
+                        SignInExpired
                       );
                     };
                     getTokenFromStorage(okFunc, 0, 0);
@@ -109,7 +108,7 @@ export const UserInfo = ({ navigation, route }) => {
           <View style={{ alignItems: "center", marginTop : '15%' }}>
             <TouchableOpacity
               style={styles.buttonstyle}
-              onPress={() => navigation.navigate("UserPassword")}
+              onPress={() => navigation.navigate("UserPassword", SignInExpired)}
             >
               <Text style={styles.buttonText}>비밀번호 변경</Text>
             </TouchableOpacity>

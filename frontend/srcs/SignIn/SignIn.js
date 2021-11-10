@@ -68,15 +68,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttonstyle_signup: {
-    height: 40,
-    width: 110,
+    height: 55,
+    width: 100,
     backgroundColor: "gray",
     borderRadius: 40,
     margin: 8,
     justifyContent: "center",
   },
   buttonText: {
-    fontSize: 15,
+    fontSize: 17,
     textAlign: "center",
     color: "white",
     fontFamily: "BlackHanSans_400Regular",

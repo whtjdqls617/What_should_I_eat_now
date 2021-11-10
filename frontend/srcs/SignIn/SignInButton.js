@@ -44,15 +44,15 @@ export const SigninButton = ({ json, setSignIn }) => {
 const styles = StyleSheet.create({
 
 	buttonstyle: {
-		height: 40,
-		width: 110,
+		height: 50,
+		width: 100,
 		backgroundColor: "orange",
 		borderRadius: 40,
 		margin: 8,
 		justifyContent: "center",
 	},
 	textstyle: {
-		fontSize: 15,
+		fontSize: 17,
 		textAlign: "center",
 		color: "white",
 		fontFamily: "BlackHanSans_400Regular",

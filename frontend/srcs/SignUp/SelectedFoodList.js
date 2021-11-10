@@ -15,7 +15,7 @@ export const SelectedFoodList = ({ foodList, setFoodList }) => {
   return (
     <>
       <FlatList
-        style={{marginTop: "8%" }}
+        style={{marginTop: "4%" }}
         data={foodList}
         initialNumToRender={10}
 		    keyExtractor={( item, index ) => index.toString() }
@@ -59,9 +59,6 @@ export const SelectedFoodList = ({ foodList, setFoodList }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   todolistalign: {
     flexDirection: "row",
     justifyContent: "center",

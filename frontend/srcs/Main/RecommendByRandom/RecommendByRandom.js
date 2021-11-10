@@ -6,7 +6,9 @@ import { DecisionButton } from "./DecisionButton";
 import { PushButton } from "./PushButton";
 import { SlotMachine } from "./SlotMachine";
 
-export const RecommendByRandom = ({ navigation, SignInExpired }) => {
+export const RecommendByRandom = ({ navigation, route}) => {
+
+	const SignInExpired = route.params;
 	const [foodName, setFoodName] = useState("");
 	const headerText = foodName.length > 0 ? "이건 어때?" : "랜덤 추천";
 
@@ -32,7 +34,7 @@ export const RecommendByRandom = ({ navigation, SignInExpired }) => {
 							<Text style={styles.foodname}>{foodName}</Text>
 							<PushButton setFoodName={setFoodName} />
 							<View style={{ flex: 0.6, marginTop: '5%' }}>
-								<DecisionButton SignInExpired={SignInExpired} navigation={navigation} foodName={foodName}/>
+								<DecisionButton navigation={navigation} SignInExpired={SignInExpired} foodName={foodName} />
 							</View>
 						</>
 						:

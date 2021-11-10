@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Text, TouchableOpacity, Button, StyleSheet, View, KeyboardAvoidingView } from "react-native";
+import { Text, TouchableOpacity, StyleSheet, View, LogBox } from "react-native";
 import { SearchBar } from "../../SignUp/SearchBar";
 import { SelectedFoodList } from "../../SignUp/SelectedFoodList";
 import { HomeButton } from "../HomeButton";
@@ -10,17 +10,22 @@ import {
 } from "../../func/func_on_press";
 import { getTokenFromStorage, putDataToServer } from "../../func/func_data_communication";
 import { ip } from "../../data/data";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 
 export const FoodList = ({ navigation, route }) => {
 
-	const originLikeFood = route.params.data.likeFoodList;
-	const originDisLikeFood = route.params.data.dislikeFoodList;
+	  LogBox.ignoreLogs([
+      "Non-serializable values were found in the navigation state",
+    ]);
+
+	const SignInExpired = route.params.SignInExpired;
+
+	const originLikeFood = route.params.data.data.likeFoodList;
+	const originDisLikeFood = route.params.data.data.dislikeFoodList;
 
 	const [signal, setSignal] = useState(0);
-	const [likeFoodList, setLikeFoodList] = useState(route.params.data.likeFoodList);
-	const [disLikeFoodList, setDisLikeFoodList] = useState(route.params.data.dislikeFoodList);
+	const [likeFoodList, setLikeFoodList] = useState(route.params.data.data.likeFoodList);
+	const [disLikeFoodList, setDisLikeFoodList] = useState(route.params.data.data.dislikeFoodList);
 
 	const updateFoodList = (originLikeFood, originDisLikeFood, likeFoodList, disLikeFoodList) => {
 
@@ -79,9 +84,7 @@ export const FoodList = ({ navigation, route }) => {
 
 	return (
     <View style={{ flex: 1, justifyContent: "center", alignContent: "center" }}>
-      <View style={{ flex: 0.2 }}>
         <HomeButton navigation={navigation} />
-      </View>
       <View style={styles.titlealign}>
         <TouchableOpacity style={{ flex: 1 }} onPress={() => setSignal(0)}>
           <Text
@@ -110,7 +113,9 @@ export const FoodList = ({ navigation, route }) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={{flex : 0.9, alignItems : 'center'}}>
+      <View
+        style={{ flex: 1, alignItems: "center", justifyContent: "center"}}
+      >
         <SearchBar onPress={onPress} />
         <SelectedFoodList foodList={foodList} setFoodList={setFoodList} />
       </View>
@@ -132,7 +137,7 @@ export const FoodList = ({ navigation, route }) => {
                 value,
                 resFunc,
                 0,
-                0
+                SignInExpired
               );
             };
             getTokenFromStorage(okFunc, 0, 0);
@@ -150,6 +155,8 @@ const styles = StyleSheet.create({
 		flex : 0.1,
 		flexDirection: "row",
 		alignItems: "center",
+		justifyContent :'center',
+		marginTop : '5%'
 	},
 	textstyle: {
 		fontSize: 20,
@@ -165,8 +172,10 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	buttonalign: {
-		flex : 0.2,
+		flex : 0.15,
 		alignItems : 'center',
+		justifyContent : 'center',
+		marginBottom : '9%'
 	},
 });
 

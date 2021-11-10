@@ -4,14 +4,14 @@ import { TouchableOpacity, Image } from "react-native";
 import { icons } from "../data/icons";
 import { getDataFromServer, getTokenFromStorage } from "../func/func_data_communication";
 import { ip } from "../data/data";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const Main = ({ navigation }) => {
-
-	return (
+export const Main = ({ navigation, SignInExpired }) => {
+  return (
     <>
       <View style={styles.top}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("RecommendByAlgorithm")}
+          onPress={() => navigation.navigate("RecommendByAlgorithm", SignInExpired)}
         >
           <Image
             source={icons[3]}
@@ -26,36 +26,45 @@ export const Main = ({ navigation }) => {
           <TouchableOpacity
             style={{ flex: 1, alignItems: "center" }}
             onPress={() => {
-
               const okFunc = (value) => {
-
                 const now = new Date();
                 const year = now.getFullYear().toString();
-                const month = (now.getMonth() + 1).toString().padStart(2, '0');
-                const day = '01';
-                const date = year + '-' + month + '-' + day;
-                const today = year + '-' + month + '-' + now.getDate().toString().padStart(2, '0');
+                const month = (now.getMonth() + 1).toString().padStart(2, "0");
+                const day = "01";
+                const date = year + "-" + month + "-" + day;
+                const today =
+                  year +
+                  "-" +
+                  month +
+                  "-" +
+                  now.getDate().toString().padStart(2, "0");
 
                 const params = {
                   params: { month: date },
                   headers: {
                     "X-AUTH-TOKEN": value,
-                  }
+                  },
                 };
 
                 const resFunc = (data) => {
                   const object = {
                     data: data,
-                    today: today
+                    today: today,
+                    SignInExpired: SignInExpired
                   };
                   navigation.navigate("CustomCalendar", object);
                 };
 
-                getDataFromServer(`${ip}/calendar/food`, params, resFunc, 0, 0);
+                getDataFromServer(
+                  `${ip}/calendar/food`,
+                  params,
+                  resFunc,
+                  0,
+                  SignInExpired
+                );
               };
 
               getTokenFromStorage(okFunc, 0, 0);
-
             }}
           >
             <Image
@@ -66,7 +75,7 @@ export const Main = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={{ flex: 1, alignItems: "center" }}
-            onPress={() => navigation.navigate("RecommendByRandom")}
+            onPress={() => navigation.navigate("RecommendByRandom", SignInExpired)}
           >
             <Image
               source={icons[1]}
@@ -76,7 +85,7 @@ export const Main = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={{ flex: 1, alignItems: "center" }}
-            onPress={() => navigation.navigate("Setting")}
+            onPress={() => navigation.navigate("Setting", SignInExpired)}
           >
             <Image
               source={icons[2]}

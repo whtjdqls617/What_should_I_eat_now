@@ -4,15 +4,24 @@ import { HomeButton } from "../HomeButton";
 import { FoodListButton } from "./FoodListButton";
 import { SignOutButton } from "./SignOutButton";
 import { UserInfoButton } from "./UserInfoButton";
+import { LogBox } from 'react-native';
 
-export const Setting = ({ navigation, setSignIn }) => {
+
+export const Setting = ({ navigation, route }) => {
+
+  LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state',
+   ]);
+
+	const SignInExpired = route.params;
+
   return (
     <>
       <HomeButton navigation={navigation} />
       <View style={styles.container}>
-         <UserInfoButton navigation={navigation} />
-         <FoodListButton navigation={navigation} />
-         <SignOutButton setSignIn={setSignIn} />
+         <UserInfoButton navigation={navigation} SignInExpired={SignInExpired}/>
+         <FoodListButton navigation={navigation} SignInExpired={SignInExpired}/>
+         <SignOutButton SignInExpired={SignInExpired}/>
       </View>
     </>
   );

@@ -30,9 +30,9 @@ export const AskDisLike = ({ navigation, route }) => {
 				setFoodList={setDisLikeFoodList}
 			/>
 			<View style={styles.buttonalign}>
-				<PrevButtoninAskDisLike 
+				<PrevButtoninAskDisLike
 					navigation={navigation}
-					params={navigationParams} 
+					params={navigationParams}
 				/>
 				<NextButtoninAskDisLike
 					userinfo={userinfo}
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 		fontFamily: "BlackHanSans_400Regular",
 	},
 	buttonalign: {
-		marginBottom: '20%',
+		marginBottom: '10%',
 		flexDirection: "row",
 		margin: 10,
 		alignItems: "center",
