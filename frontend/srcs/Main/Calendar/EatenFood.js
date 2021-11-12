@@ -10,12 +10,17 @@ export const EatenFood = ({ food_name, index, onXPress }) => {
     setModalVisible(!ismodalVisible);
   };
 
+  let food_name_without_space = food_name.slice();
+  while (food_name_without_space.includes(" ")) {
+    food_name_without_space = food_name_without_space.replace(" ", "");
+  }
+
   if (ismodalVisible)
     return (
       <View
         style={{ flexDirection: "column", alignItems: "center", margin: 10 }}
       >
-        <Image style={styles.imagestyle} source={food_image[food_name]} />
+        <Image style={styles.imagestyle} source={food_image[food_name_without_space]} />
         <Text style={styles.textstyle}>{food_name}</Text>
         <TouchableOpacity style={{ marginTop: 5 }} onPress={toggleModal}>
           <Text style={{ fontSize : 30, fontFamily: "BlackHanSans_400Regular", color: "red" }}>

@@ -15,72 +15,85 @@ export const SignIn = ({ navigation, setSignIn }) => {
 	};
 
 	return (
-		<KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
-			<View style={styles.container}>
-				<Text style={styles.headerText}>로그인</Text>
-				<View style={styles.textinputstyle}>
-					<TextInput
-						style={styles.textinput}
-						placeholder="이메일"
-						onChangeText={(input) => setEmail(input)}
-					/>
-					<TextInput
-						style={styles.textinput}
-						placeholder="비밀번호"
-						onChangeText={(input) => setPassword(input)}
-					/>
-				</View>
-				<SigninButton
-					json={makePostData(email, password)}
-					setSignIn={setSignIn}
-				/>
-				<TouchableOpacity
-					style={styles.buttonstyle_signup}
-					onPress={() => navigation.navigate("SignUp")}
-				>
-					<Text style={styles.buttonText}>회원가입</Text>
-				</TouchableOpacity>
-			</View>
-		</KeyboardAvoidingView>
-	);
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <View
+        style={{ flex: 1, alignItems: "center", justifyContent : 'flex-end'}}
+      >
+        <Text style={styles.headerText}>로그인</Text>
+      </View>
+      <View style={styles.textinputstyle}>
+        <TextInput
+          style={styles.textinput}
+          placeholder="이메일"
+          onChangeText={(input) => setEmail(input)}
+        />
+        <TextInput
+          style={styles.textinput}
+          placeholder="비밀번호"
+          onChangeText={(input) => setPassword(input)}
+        />
+      </View>
+      <View
+        style={{ flex: 0.3, alignItems: "center", justifyContent: 'flex-end' }}
+      >
+        <SigninButton
+          json={makePostData(email, password)}
+          setSignIn={setSignIn}
+        />
+      </View>
+      <View
+        style={{ flex: 1, alignItems: "center", justifyContent: 'flex-start'}}
+      >
+        <TouchableOpacity
+          style={styles.buttonstyle_signup}
+          onPress={() => navigation.navigate("SignUp")}
+        >
+          <Text style={styles.buttonText}>회원가입</Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
+  );
 };
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		marginTop: "13%",
-		justifyContent: "center",
-		alignItems: "center",
-	},
-	headerText: {
-		fontSize: 45,
-		fontFamily: "BlackHanSans_400Regular",
-	},
-	textinput: {
-		margin: 8,
-		width: 200,
-		height: 40,
-		borderBottomWidth: 0.5,
-		borderRadius: 8,
-		paddingHorizontal: "4%",
-		fontFamily: "BlackHanSans_400Regular",
-	},
-	textinputstyle: {
-		flex: 0.3,
-		justifyContent: "center",
-	},
-	buttonstyle_signup: {
-		height: 55,
-		width: 100,
-		backgroundColor: "gray",
-		borderRadius: 40,
-		margin: 8,
-		justifyContent: "center",
-	},
-	buttonText: {
-		fontSize: 17,
-		textAlign: "center",
-		color: "white",
-		fontFamily: "BlackHanSans_400Regular",
-	},
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  headerText: {
+    fontSize: 45,
+    fontFamily: "BlackHanSans_400Regular",
+  },
+  textinput: {
+    margin: 8,
+    width: 200,
+    height: 40,
+    borderBottomWidth: 0.5,
+    borderRadius: 8,
+    paddingHorizontal: "4%",
+    fontFamily: "BlackHanSans_400Regular",
+  },
+  textinputstyle: {
+    flex: 0.9,
+    justifyContent: "center",
+	alignItems : 'center'
+  },
+  buttonstyle_signup: {
+    height: 55,
+    width: 100,
+    backgroundColor: "gray",
+    borderRadius: 40,
+    margin: 8,
+    justifyContent: "center",
+  },
+  buttonText: {
+    fontSize: 17,
+    textAlign: "center",
+    color: "white",
+    fontFamily: "BlackHanSans_400Regular",
+  },
 });

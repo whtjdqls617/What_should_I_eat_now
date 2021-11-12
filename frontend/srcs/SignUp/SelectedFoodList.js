@@ -15,7 +15,7 @@ export const SelectedFoodList = ({ foodList, setFoodList }) => {
   return (
     <>
       <FlatList
-        style={{marginTop: "4%" }}
+        style={{marginTop: "3%", height : 200 }}
         data={foodList}
         initialNumToRender={10}
 		    keyExtractor={( item, index ) => index.toString() }

@@ -40,7 +40,6 @@ export const UserInfo = ({ navigation, route }) => {
 							<TouchableOpacity
 								style={styles.changebutton}
 								onPress={() => {
-									setModalVisible(true);
 
 									const okFunc = (value) => {
 										const resFunc = () => {

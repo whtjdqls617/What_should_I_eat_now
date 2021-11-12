@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native"; 
+import { Text, StyleSheet } from "react-native";
 
 export const DateText = ({ date }) => {
 
@@ -12,16 +12,15 @@ export const DateText = ({ date }) => {
 		if (i < 2)
 			dateText += ' ';
 	});
-		
+
 	return (
 		<Text style={styles.date}>{dateText}</Text>
 	);
 };
 
 const styles = StyleSheet.create({
-	
+
 	date: {
-	  marginTop : '2%',
 	  fontSize: 23,
 	  color: "black",
 	  fontFamily: "BlackHanSans_400Regular",
