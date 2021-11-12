@@ -4,6 +4,7 @@ import { CurrentPassword } from "./CurrentPassword";
 import { View, KeyboardAvoidingView, StyleSheet, LogBox } from "react-native";
 import { CancelButton } from "./CancelButton";
 import { OkButton } from "./OkButton";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 
 export const UserPassword = ({ navigation, route }) => {
@@ -16,7 +17,7 @@ export const UserPassword = ({ navigation, route }) => {
 	const [passwords, setPasswords] = useState([]);
 
 	return (
-		<KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+		<KeyboardAwareScrollView>
 			<View style={styles.container}>
 				<CurrentPassword
 					setPasswords={setPasswords}
@@ -32,7 +33,7 @@ export const UserPassword = ({ navigation, route }) => {
 					<CancelButton navigation={navigation} />
 				</View>
 			</View>
-		</KeyboardAvoidingView>
+		</KeyboardAwareScrollView>
 	);
 };
 
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
-		marginTop : '10%'
+		marginTop : '60%'
 	},
 	buttonalign: {
 		flex: 0.1,

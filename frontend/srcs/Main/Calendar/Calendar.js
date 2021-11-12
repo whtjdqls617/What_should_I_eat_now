@@ -18,15 +18,12 @@ import { deleteDataFromServer } from "../../func/func_data_communication";
 import { HomeButton } from "../HomeButton";
 import { StatusMessage } from "./StatusMessage";
 import { DateText } from "./DateText";
-import { LogBox } from 'react-native';
+import { LogBox } from "react-native";
 
-
-
-export const CustomCalendar = ({ navigation, route}) => {
-
+export const CustomCalendar = ({ navigation, route }) => {
   LogBox.ignoreLogs([
-    'Non-serializable values were found in the navigation state',
-   ]);
+    "Non-serializable values were found in the navigation state",
+  ]);
 
   const monthFoodData = route.params.data.data.monthFoodData;
   const today = route.params.today;
@@ -43,7 +40,6 @@ export const CustomCalendar = ({ navigation, route}) => {
   const [month, setMonth] = useState(monthFoodData);
 
   const onXPress = (index) => {
-
     const array = day.slice();
     const deletedFood = array.splice(index, 1)[0];
     setDay(array);
@@ -65,16 +61,21 @@ export const CustomCalendar = ({ navigation, route}) => {
         },
       };
 
-
       deleteDataFromServer(
-        `${ip}/calendar/food/${name}/${date}`, params, 0, 0, SignInExpired)
+        `${ip}/calendar/food/${name}/${date}`,
+        params,
+        0,
+        0,
+        SignInExpired
+      );
     };
 
     getTokenFromStorage(okFunc, 0, 0);
   };
 
   return (
-    <>
+    <ScrollView>
+    <View style={styles.container}>
       <HomeButton navigation={navigation} />
       <View style={styles.top}>
         <ThisMonthCalendar
@@ -85,7 +86,7 @@ export const CustomCalendar = ({ navigation, route}) => {
           setDate={setDate}
         />
       </View>
-      <View style={{ marginTop: "5%" }}>
+      <View style={{ marginTop : '10%', justifyContent : 'center' }}>
         <DateText date={date} />
       </View>
       <View style={styles.bottom}>
@@ -101,31 +102,25 @@ export const CustomCalendar = ({ navigation, route}) => {
           />
         </ScrollView>
       </View>
-      <View style={{ marginTop: "11%" }}>
+      <View style={{ marginTop : '12%', justifyContent : 'center' }}>
         <StatusMessage day={day} />
       </View>
-    </>
+    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   top: {
-    marginTop: "2%",
+    flex: 2.6,
   },
   bottom: {
-    marginTop: "8%",
-  },
-  imagerow: {
-    flexDirection: "row",
-  },
-  imagestyle: {
-    borderRadius: 130,
-    borderWidth: 3,
-    height: 100,
-    width: 100,
-  },
-  textrow: {
-    flexDirection: "row",
+    flex: 1,
+	marginTop : '10%',
+	justifyContent : 'center'
   },
   textstyle: {
     textAlign: "center",
@@ -136,13 +131,7 @@ const styles = StyleSheet.create({
   xbuttonstyles: {
     flex: 1,
   },
-  buttontextstyle: {
-    fontSize: 20,
-    color: "white",
-    fontFamily: "BlackHanSans_400Regular",
-  },
   date: {
-    marginTop: "2%",
     fontSize: 23,
     color: "black",
     fontFamily: "BlackHanSans_400Regular",

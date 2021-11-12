@@ -152,7 +152,7 @@ export const FoodList = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
 	titlealign: {
-		flex : 0.1,
+		flex : 0.13,
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent :'center',
