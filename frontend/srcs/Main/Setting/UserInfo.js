@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
-import { StyledImage } from "../../style";
+import { Text, View, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView } from "react-native";
 import { checkNickname } from "../../func/func_check_userinfo";
 import Modal from "react-native-modal";
 import { HomeButton } from "../HomeButton";
@@ -12,110 +10,110 @@ import { ip } from "../../data/data";
 
 export const UserInfo = ({ navigation, route }) => {
 
-  const SignInExpired = route.params.SignInExpired;
+	const SignInExpired = route.params.SignInExpired;
 	const [nickName, setNickName] = useState(route.params.data.data.nickName);
 	const [modalVisible, setModalVisible] = useState(false);
 	const [alertMessage, setAlertMessage] = useState("");
 
 
 	return (
-      <View>
-        <HomeButton navigation={navigation} />
-        <View style={{ marginTop: "10%" }}>
-          <View style={{ marginTop: "25%", alignItems: "center" }}>
-            <Text style={styles.head}>회원정보</Text>
-          </View>
-          <View style={styles.container}>
-            <UserEmail email={route.params.data.data.email} />
-            <View style={{ marginTop : '20%'}}>
-              <Text style={styles.title}>닉네임</Text>
-              <View style={styles.nicknamealign}>
-                <TextInput
-                  style={styles.textinputstyle}
-                  onChangeText={(input) => {
-                    if (checkNickname(input) && input.length != 0)
-                      setNickName(input);
-                  }}
-                >
-                  <Text>{nickName}</Text>
-                </TextInput>
-                <TouchableOpacity
-                  style={styles.changebutton}
-                  onPress={() => {
-                    setModalVisible(true);
+		<KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+			<HomeButton navigation={navigation} />
+			<View style={{ marginTop: "10%" }}>
+				<View style={{ marginTop: "25%", alignItems: "center" }}>
+					<Text style={styles.head}>회원정보</Text>
+				</View>
+				<View style={styles.container}>
+					<UserEmail email={route.params.data.data.email} />
+					<View style={{ marginTop: '20%' }}>
+						<Text style={styles.title}>닉네임</Text>
+						<View style={styles.nicknamealign}>
+							<TextInput
+								style={styles.textinputstyle}
+								onChangeText={(input) => {
+									if (checkNickname(input) && input.length != 0)
+										setNickName(input);
+								}}
+							>
+								<Text>{nickName}</Text>
+							</TextInput>
+							<TouchableOpacity
+								style={styles.changebutton}
+								onPress={() => {
+									setModalVisible(true);
 
-                    const okFunc = (value) => {
-                      const resFunc = () => {
-                        setAlertMessage("사용 가능한 닉네임입니다.");
-                        setModalVisible(true);
-                      };
-                      const noFunc = () => {
-                        setAlertMessage("중복된 닉네임입니다.");
-                        setModalVisible(true);
-                      };
+									const okFunc = (value) => {
+										const resFunc = () => {
+											setAlertMessage("사용 가능한 닉네임입니다.");
+											setModalVisible(true);
+										};
+										const noFunc = () => {
+											setAlertMessage("중복된 닉네임입니다.");
+											setModalVisible(true);
+										};
 
-                      const params = nickName;
-                      putDataToServer(
-                        `${ip}/user/info/nickname`,
-                        params,
-                        value,
-                        resFunc,
-                        noFunc,
-                        SignInExpired
-                      );
-                    };
-                    getTokenFromStorage(okFunc, 0, 0);
-                  }}
-                >
-                  <Text style={styles.buttonText}>변경</Text>
-                </TouchableOpacity>
+										const params = nickName;
+										putDataToServer(
+											`${ip}/user/info/nickname`,
+											params,
+											value,
+											resFunc,
+											noFunc,
+											SignInExpired
+										);
+									};
+									getTokenFromStorage(okFunc, 0, 0);
+								}}
+							>
+								<Text style={styles.buttonText}>변경</Text>
+							</TouchableOpacity>
 
-                {modalVisible ? (
-                  <Modal isVisible={true}>
-                    <View style={styles.centeredView}>
-                      <View style={styles.modalView}>
-                        <Text
-                          style={{
-                            margin: 25,
-                            fontSize: 16,
-                            fontFamily: "BlackHanSans_400Regular",
-                          }}
-                        >
-                          {alertMessage}
-                        </Text>
-                        <TouchableOpacity
-                          onPress={() => {
-                            setModalVisible(false);
-                          }}
-                          style={styles.button}
-                        >
-                          <Text
-                            style={{
-                              color: "white",
-                              fontFamily: "BlackHanSans_400Regular",
-                            }}
-                          >
-                            확인
-                          </Text>
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  </Modal>
-                ) : null}
-              </View>
-            </View>
-          </View>
-          <View style={{ alignItems: "center", marginTop : '15%' }}>
-            <TouchableOpacity
-              style={styles.buttonstyle}
-              onPress={() => navigation.navigate("UserPassword", SignInExpired)}
-            >
-              <Text style={styles.buttonText}>비밀번호 변경</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-  );
+							{modalVisible ? (
+								<Modal isVisible={true}>
+									<View style={styles.centeredView}>
+										<View style={styles.modalView}>
+											<Text
+												style={{
+													margin: 25,
+													fontSize: 16,
+													fontFamily: "BlackHanSans_400Regular",
+												}}
+											>
+												{alertMessage}
+											</Text>
+											<TouchableOpacity
+												onPress={() => {
+													setModalVisible(false);
+												}}
+												style={styles.button}
+											>
+												<Text
+													style={{
+														color: "white",
+														fontFamily: "BlackHanSans_400Regular",
+													}}
+												>
+													확인
+												</Text>
+											</TouchableOpacity>
+										</View>
+									</View>
+								</Modal>
+							) : null}
+						</View>
+					</View>
+				</View>
+				<View style={{ alignItems: "center", marginTop: '15%' }}>
+					<TouchableOpacity
+						style={styles.buttonstyle}
+						onPress={() => navigation.navigate("UserPassword", SignInExpired)}
+					>
+						<Text style={styles.buttonText}>비밀번호 변경</Text>
+					</TouchableOpacity>
+				</View>
+			</View>
+		</KeyboardAvoidingView>
+	);
 
 };
 

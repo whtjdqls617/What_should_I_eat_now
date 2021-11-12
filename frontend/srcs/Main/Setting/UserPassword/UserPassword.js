@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { NewPassword } from "./NewPassword";
 import { CurrentPassword } from "./CurrentPassword";
-import { TouchableOpacity, Text, StyleSheet, View, Alert } from "react-native";
+import { View, KeyboardAvoidingView, StyleSheet, LogBox } from "react-native";
 import { CancelButton } from "./CancelButton";
 import { OkButton } from "./OkButton";
-import { LogBox } from 'react-native';
 
 
 export const UserPassword = ({ navigation, route }) => {
@@ -17,6 +16,7 @@ export const UserPassword = ({ navigation, route }) => {
 	const [passwords, setPasswords] = useState([]);
 
 	return (
+		<KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
 			<View style={styles.container}>
 				<CurrentPassword
 					setPasswords={setPasswords}
@@ -32,6 +32,7 @@ export const UserPassword = ({ navigation, route }) => {
 					<CancelButton navigation={navigation} />
 				</View>
 			</View>
+		</KeyboardAvoidingView>
 	);
 };
 
