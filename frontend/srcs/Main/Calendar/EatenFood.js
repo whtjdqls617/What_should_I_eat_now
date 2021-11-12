@@ -82,7 +82,7 @@ export const EatenFood = ({ food_name, index, onXPress }) => {
       <View
         style={{ flexDirection: "column", alignItems: "center", margin: 10 }}
       >
-        <Image style={styles.imagestyle} source={food_image[food_name]} />
+        <Image style={styles.imagestyle} source={food_image[food_name_without_space]} />
         <Text style={styles.textstyle}>{food_name}</Text>
         <TouchableOpacity style={{ marginTop: 5 }} onPress={toggleModal}>
           <Text
