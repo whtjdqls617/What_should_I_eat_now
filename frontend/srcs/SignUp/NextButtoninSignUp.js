@@ -18,7 +18,7 @@ export const NextButtoninSignUp = ({ navigation, userinfo }) => {
 
 	const onPress = () => {
 		for (let i = 0; i < 3; i++) {
-			if (userinfo[i] == 0) {
+			if (userinfo[i].length == 0) {
 				Alert.alert(alertMessage[i]);
 				return (0);
 			}

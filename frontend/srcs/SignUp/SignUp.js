@@ -8,6 +8,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 export const SignUp = ({ navigation }) => {
 	const [userinfo, setUserinfo] = useState([0, 0, 0]);
 
+	console.log("userInfo: ", userinfo);
 	return (
     <KeyboardAwareScrollView style={{marginTop : '45%'}}>
 		<View style={{flex : 1, justifyContent : 'center'}}>
