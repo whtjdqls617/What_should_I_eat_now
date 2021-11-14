@@ -43,7 +43,7 @@ export const SignUp_PassWord = ({ userinfo, setUserinfo }) => {
           fontFamily: "BlackHanSans_400Regular",
         }}
       >
-        잘못된 비밀번호 형식입니다.
+        8자에서 20자 사이로 입력해주세요.
       </Text>
       <TextInput
         style={styles.textinput}
