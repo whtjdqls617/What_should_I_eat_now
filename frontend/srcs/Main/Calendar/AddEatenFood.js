@@ -60,7 +60,8 @@ export const AddEatenFood = ({
             style={{ position: "absolute", width: "90%", height: 700 }}
             isVisible={true}
             animationOutTiming={400}
-            onBackdropPress={() => toggleModal()}
+            onBackdropPress={toggleModal}
+			onRequestClose={toggleModal}
           >
             <View style={styles.centeredView}>
               <View style={styles.modalView}>

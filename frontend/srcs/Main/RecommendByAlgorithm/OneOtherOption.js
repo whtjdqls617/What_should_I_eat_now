@@ -21,7 +21,7 @@ export const OneOtherOption = ({ SignInExpired, image, navigation, name }) => {
         <TouchableOpacity onPress={toggleModal}>
           <Image source={image} style={styles.image} />
         </TouchableOpacity>
-        <Modal isVisible={true} hasBackdrop={true}>
+        <Modal isVisible={true} hasBackdrop={true} onBackdropPress={toggleModal} onRequestClose={toggleModal}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <TouchableOpacity

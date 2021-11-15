@@ -21,6 +21,7 @@ export const SignUp_PassWord = ({ userinfo, setUserinfo }) => {
     <>
       <TextInput
         style={styles.textinput}
+		secureTextEntry={true}
         placeholder="비밀번호"
         onChangeText={(input) => {
           let copy = userinfo.slice();
@@ -48,6 +49,7 @@ export const SignUp_PassWord = ({ userinfo, setUserinfo }) => {
       <TextInput
         style={styles.textinput}
         placeholder="비밀번호 확인"
+		secureTextEntry={true}
         onChangeText={(input) => {
           if (checkSamePassword(input)) {
             let copy = userinfo.slice();

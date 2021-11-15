@@ -27,7 +27,7 @@ export const EatenFood = ({ food_name, index, onXPress }) => {
             x
           </Text>
         </TouchableOpacity>
-        <Modal isVisible={true} animationOutTiming={400}>
+        <Modal isVisible={true} animationOutTiming={400} onBackdropPress={toggleModal} onRequestClose={toggleModal}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text

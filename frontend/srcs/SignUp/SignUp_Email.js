@@ -72,7 +72,7 @@ export const SignUp_Email = ({ userinfo, setUserinfo }) => {
               중복 확인
             </Text>
           </TouchableOpacity>
-          <Modal isVisible={true} hasBackdrop={true}>
+          <Modal isVisible={true} hasBackdrop={true} onBackdropPress={toggleokModal} onRequestClose={toggleokModal}>
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <Text
