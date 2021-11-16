@@ -5,8 +5,6 @@ import { ip } from "../../../data/data";
 
 export const OkButton = ({ navigation, passwords, SignInExpired }) => {
 
-	console.log("passwords: ", passwords);
-
 	return (
 		<TouchableOpacity
 			style={styles.buttonstyle}

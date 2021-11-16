@@ -13,7 +13,7 @@ export const SigninButton = ({ json, setSignIn }) => {
 			await AsyncStorage.setItem('@storage_Key', value);
 			setSignIn(true);
 		} catch (e) {
-			console.log("error: ", e);
+			// console.log("error: ", e);
 		}
 	};
 
