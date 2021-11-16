@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import {
-  Text,
   View,
   ScrollView,
   StyleSheet,
-  TouchableOpacity,
-  Platform,
 } from "react-native";
 import { AddEatenFood } from "./AddEatenFood";
-import { ApplyButton } from "./ApplyButton";
-import { CancelButton } from "./CancelButton";
 import { EatenFoods } from "./EatenFoods";
 import { ThisMonthCalendar } from "./ThisMonthCalendar";
 import { ip } from "../../data/data";
@@ -90,7 +85,7 @@ export const CustomCalendar = ({ navigation, route }) => {
         <DateText date={date} />
       </View>
       <View style={styles.bottom}>
-        <ScrollView horizontal={true}>
+        <ScrollView horizontal={true} key={Number(date.substring(date.length - 2))}>
           <EatenFoods number={day.length} day={day} onXPress={onXPress} />
           <AddEatenFood
             day={day}

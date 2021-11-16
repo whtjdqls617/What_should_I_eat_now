@@ -28,7 +28,7 @@ export var opts = [
 export var icons = [
   require("../../image/calendar.png"),
   require("../../image/random.png"),
-  require("../../image/setting.png"),
+  require("../../image/settings.png"),
   require("../../image/food.png"),
 ]
 

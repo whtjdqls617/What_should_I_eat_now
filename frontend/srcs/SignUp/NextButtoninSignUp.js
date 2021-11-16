@@ -15,10 +15,10 @@ export const NextButtoninSignUp = ({ navigation, userinfo }) => {
 		disLikeFoodList: [],
 		likeFoodList: []
 	};
-
+	
 	const onPress = () => {
 		for (let i = 0; i < 3; i++) {
-			if (userinfo[i] == 0) {
+			if (userinfo[i].toString().length < 2) {
 				Alert.alert(alertMessage[i]);
 				return (0);
 			}

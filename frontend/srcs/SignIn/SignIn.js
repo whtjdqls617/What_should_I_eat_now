@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, TextInput, StyleSheet, View, KeyboardAvoidingView } from "react-native";
+import { Text, TextInput, StyleSheet, View, ScrollView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SigninButton } from "./SignInButton";
 
@@ -15,13 +15,8 @@ export const SignIn = ({ navigation, setSignIn }) => {
 	};
 
 	return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <View
-        style={{ flex: 1, alignItems: "center", justifyContent : 'flex-end'}}
-      >
+    <ScrollView>
+      <View style={{ alignItems: "center", marginTop : '60%'}}>
         <Text style={styles.headerText}>로그인</Text>
       </View>
       <View style={styles.textinputstyle}>
@@ -32,12 +27,13 @@ export const SignIn = ({ navigation, setSignIn }) => {
         />
         <TextInput
           style={styles.textinput}
+		  secureTextEntry={true}
           placeholder="비밀번호"
           onChangeText={(input) => setPassword(input)}
         />
       </View>
       <View
-        style={{ flex: 0.3, alignItems: "center", justifyContent: 'flex-end' }}
+        style={{ alignItems: "center", marginTop : '10%' }}
       >
         <SigninButton
           json={makePostData(email, password)}
@@ -45,7 +41,7 @@ export const SignIn = ({ navigation, setSignIn }) => {
         />
       </View>
       <View
-        style={{ flex: 1, alignItems: "center", justifyContent: 'flex-start'}}
+        style={{ alignItems: "center", marginTop : '2%' }}
       >
         <TouchableOpacity
           style={styles.buttonstyle_signup}
@@ -54,7 +50,7 @@ export const SignIn = ({ navigation, setSignIn }) => {
           <Text style={styles.buttonText}>회원가입</Text>
         </TouchableOpacity>
       </View>
-    </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
@@ -78,9 +74,8 @@ const styles = StyleSheet.create({
     fontFamily: "BlackHanSans_400Regular",
   },
   textinputstyle: {
-    flex: 0.9,
-    justifyContent: "center",
-	alignItems : 'center'
+	  alignItems : 'center',
+    marginTop : '15%'
   },
   buttonstyle_signup: {
     height: 55,

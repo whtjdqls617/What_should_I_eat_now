@@ -1,12 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
 import { StyleSheet, View, TouchableOpacity, Text, Alert } from "react-native";
 import { ip } from "../../data/data";
 import { getTokenFromStorage, getDataFromServer } from "../../func/func_data_communication";
 
 export const NextButton = ({ SignInExpired, updateIndex, answer, index, setData, navigation }) => {
-
-	console.log("SignInExpired: ", SignInExpired);
 
 	const answers = {
 		answer1: answer[0].slice(1).join(),
@@ -45,7 +42,8 @@ export const NextButton = ({ SignInExpired, updateIndex, answer, index, setData,
 	};
 
 	const prevPressEvent = () => {
-		if (index > 0) updateIndex(false);
+		if (index == 0) navigation.reset({ routes: [{ name: "Main" }] });
+		else updateIndex(false);
 	};
 
 	return (
@@ -62,8 +60,6 @@ export const NextButton = ({ SignInExpired, updateIndex, answer, index, setData,
 	);
 };
 
-// 응 클릭시 postData, 메인페이지로 화면 이동
-// export const YesButton
 
 const styles = StyleSheet.create({
   buttonalign: {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, TextInput, ScrollView } from "react-native";
 import { checkNickname } from "../../func/func_check_userinfo";
 import Modal from "react-native-modal";
 import { HomeButton } from "../HomeButton";
@@ -15,9 +15,12 @@ export const UserInfo = ({ navigation, route }) => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [alertMessage, setAlertMessage] = useState("");
 
+	const toggleModal = () => {
+		setModalVisible(!modalVisible);
+	  };
 
 	return (
-		<KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+		<ScrollView>
 			<HomeButton navigation={navigation} />
 			<View style={{ marginTop: "10%" }}>
 				<View style={{ marginTop: "25%", alignItems: "center" }}>
@@ -68,7 +71,7 @@ export const UserInfo = ({ navigation, route }) => {
 							</TouchableOpacity>
 
 							{modalVisible ? (
-								<Modal isVisible={true}>
+								<Modal isVisible={true} onBackdropPress={toggleModal} onRequestClose={toggleModal}>
 									<View style={styles.centeredView}>
 										<View style={styles.modalView}>
 											<Text
@@ -111,7 +114,7 @@ export const UserInfo = ({ navigation, route }) => {
 					</TouchableOpacity>
 				</View>
 			</View>
-		</KeyboardAvoidingView>
+		</ScrollView>
 	);
 
 };

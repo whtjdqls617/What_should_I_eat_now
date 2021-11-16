@@ -11,6 +11,7 @@ export const NewPasswordFirstInput = ({ setPassword, setfirstOpacity, setPasswor
 
 	return (
 		<TextInput
+		secureTextEntry={true}
         style={styles.textinputstyle}
         placeholder="8자에서 20자 사이로 입력"
         onChangeText={(input) => {

@@ -8,6 +8,7 @@ export const CurrentPassword = ({ navigation, setPasswords, passwords }) => {
     <>
         <Text style={styles.titlestyle}>현재 비밀번호 입력</Text>
         <TextInput
+          secureTextEntry={true}
           style={styles.textinputstyle}
           onChangeText={(input) => {
             const copy = passwords.slice();
