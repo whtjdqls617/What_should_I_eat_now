@@ -36,7 +36,7 @@ export default function App() {
 				setSignIn(true);
 			}
 		} catch (e) {
-			console.log(error);
+			// console.log(error);
 		}
 	}
 

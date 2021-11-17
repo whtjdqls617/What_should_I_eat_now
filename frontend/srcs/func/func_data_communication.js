@@ -14,16 +14,14 @@ export const putDataToServer = (url, object, token, okFunc, noFunc, errFunc) => 
 		baseURL: ip,
 	});
 	api.defaults.headers.put['Content-Type'] = 'application/json';
-	console.log("token:", token);
 	if (token != 0)
 		api.defaults.headers.put['X-AUTH-TOKEN'] = token;
 
-	console.log(json);
 	api
 		.put(url, json)
 		.then(function (response) {
-			console.log("put_res: ");
-			console.log(response);
+			// console.log("put_res: ");
+			// console.log(response);
 			const success = response.data.success;
 			if (success && okFunc)
 				okFunc(response.data);
@@ -31,8 +29,8 @@ export const putDataToServer = (url, object, token, okFunc, noFunc, errFunc) => 
 				noFunc();
 		})
 		.catch(function (error) {
-			console.log("put_err: ");
-			console.log(error);
+			// console.log("put_err: ");
+			// console.log(error);
 			const status = error.response.status;
 			if (status == 403 && errFunc != 0)
 				errFunc();
@@ -49,8 +47,8 @@ export const getDataFromServer = (url, params, okFunc, noFunc, errFunc) => {
 	axios
 		.get(url, params)
 		.then(function (response) {
-			console.log("response: ");
-			console.log(response);
+			// console.log("response: ");
+			// console.log(response);
 			const success = response.data.success;
 			if (success && okFunc)
 				okFunc(response.data);
@@ -59,8 +57,8 @@ export const getDataFromServer = (url, params, okFunc, noFunc, errFunc) => {
 			return 0;
 		})
 		.catch(function (error) {
-			console.log("err: ");
-			console.log(error);
+			// console.log("err: ");
+			// console.log(error);
 			const status = error.response.status;
 			if (status == 403 && errFunc != 0)
 				errFunc();
@@ -84,22 +82,20 @@ export const postDataToServer = (url, object, token, resFunc, errFunc) => {
 		baseURL: ip,
 	});
 	api.defaults.headers.post['Content-Type'] = 'application/json';
-	console.log("token:", token);
 	if (token != 0)
 		api.defaults.headers.post['X-AUTH-TOKEN'] = token;
 
-	console.log(json);
 	api
 		.post(url, json)
 		.then(function (response) {
-			console.log("post_res: ");
-			console.log(response);
+			// console.log("post_res: ");
+			// console.log(response);
 			if (resFunc != 0)
 				resFunc(response.data);
 		})
 		.catch(function (error) {
-			console.log("post_err: ");
-			console.log(error.response);
+			// console.log("post_err: ");
+			// console.log(error.response);
 			const status = error.response.status;
 			if (status == 403 && errFunc != 0)
 				errFunc();
@@ -119,7 +115,7 @@ export const getTokenFromStorage = async (okFunc, noFunc, errFunc) => {
 		else if (token == null && noFunc != 0)
 			noFunc();
 	} catch (e) {
-		console.log("error: ", e);
+		// console.log("error: ", e);
 		if (errFunc)
 			errFunc();
 	}
@@ -130,8 +126,8 @@ export const deleteDataFromServer = (url, params, okFunc, noFunc, errFunc) => {
 	axios
 		.delete(url, params)
 		.then(function (response) {
-			console.log("response: ");
-			console.log(response);
+			// console.log("response: ");
+			// console.log(response);
 			const success = response.data.success;
 			if (success && okFunc)
 				okFunc(response.data);
@@ -140,8 +136,8 @@ export const deleteDataFromServer = (url, params, okFunc, noFunc, errFunc) => {
 			return 0;
 		})
 		.catch(function (error) {
-			console.log("delete err: ");
-			console.log(error.response);
+			// console.log("delete err: ");
+			// console.log(error.response);
 			const status = error.response.status;
 			if (status == 403 && errFunc != 0)
 				errFunc();

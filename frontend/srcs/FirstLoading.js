@@ -11,7 +11,7 @@ export const FirstLoading = () => {
             fontSize: 55,
           }}
         >
-          지금 뭐먹지
+          지금 뭐 먹지
         </Text>
       </View>
       <View style={styles.editor}>

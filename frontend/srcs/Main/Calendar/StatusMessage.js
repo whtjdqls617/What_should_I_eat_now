@@ -8,19 +8,19 @@ export const StatusMessage = ({ day }) => {
 
 	switch (foodNumber) {
 		case 0:
-			message = "\"힘들어도 밥은 먹자!\"";
+			message = "\"밥은 먹고 다니냐?\"";
 			break;
 		case 1:
-			message = "\"하루에 세 끼는 먹어야지!\"";
+			message = "\"괜찮아? 어디 아픈 거야?\"";
 			break;
 		case 2:
-			message = "\" 그만하면 됐지... \"";
+			message = "\"한 끼만 더 챙겨먹을까?\"";
 			break;
 		case 3:
-			message = "\"잘했어 아주 잘했어!\"";
+			message = "\"참 잘했어요~\"";
 			break;
 		case 20:
-			message = "\"위는 무사한 거지?\"";
+			message = "\"폭식은 안 좋아. 줄이도록 하자\"";
 			break;
 		default:
 			message = "\"오늘도 좋은 하루 보내!\"";

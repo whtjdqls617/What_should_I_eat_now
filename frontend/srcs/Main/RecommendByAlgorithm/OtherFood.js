@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { OtherOptions } from "./OtherOptions";
-import YoutubePlayer from "react-native-youtube-iframe";
 import { youtubeURLtoID } from "../../func/func_change_var_type";
 import { food_image } from "../../data/data";
 import { HomeButton } from "../HomeButton";
@@ -9,7 +8,6 @@ import { YoutubeVideos } from "./YoutubeVideos";
 
 export const OtherFood = ({ data, navigation, SignInExpired }) => {
 
-	console.log("navigation: ", navigation);
 	const youtube_url = [
 		data.list[1].youtube_url,
 		data.list[2].youtube_url,
