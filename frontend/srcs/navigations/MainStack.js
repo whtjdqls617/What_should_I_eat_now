@@ -8,6 +8,7 @@ import { Setting } from "../Main/Setting/Setting";
 import { FoodList } from "../Main/Setting/FoodList";
 import { UserInfo } from "../Main/Setting/UserInfo";
 import { UserPassword } from "../Main/Setting/UserPassword/UserPassword";
+import { CreditPage } from "../Main/Setting/CreditPage";
 
 const MainStack = createStackNavigator();
 
@@ -31,6 +32,7 @@ export const MainStackNav = ({ SignInExpired }) => {
       <MainStack.Screen name="UserInfo" component={UserInfo} />
       <MainStack.Screen name="UserPassword" component={UserPassword} />
       <MainStack.Screen name="FoodList" component={FoodList} />
+	  <MainStack.Screen name="CreditPage" component={CreditPage} />
     </MainStack.Navigator>
   );
 };
