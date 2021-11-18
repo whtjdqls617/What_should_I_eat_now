@@ -1,16 +1,17 @@
 import React from "react";
 import { ScrollView, Text, FlatList, StyleSheet} from "react-native";
 import { HomeButton } from "../HomeButton";
-import { icon_source } from "../../data/data";
+import { icon_source, food_image_source } from "../../data/data";
 
 export const CreditPage = ({ navigation }) => {
 
+	const data = icon_source.concat(food_image_source);
 	return (
 		<>
 		<HomeButton navigation={navigation} />
-		<Text style={styles.text0}>아이콘 출처</Text>
+		<Text style={styles.text0}>이미지 출처</Text>
 		<FlatList
-					data={icon_source}
+					data={data}
 					initialNumToRender={5}
 					style={styles.flatlist}
 					keyExtractor={( item, index ) => index.toString() }
