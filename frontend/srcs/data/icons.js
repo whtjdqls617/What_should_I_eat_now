@@ -38,6 +38,8 @@ export var home = require("../../image/home.png");
 
 export var random = require("../../image/rotation3.png");
 
+export var info = require("../../image/info.png");
+
 export var loading = [
   require("../../image/loading1.png"),
   require("../../image/loading2.png"),
