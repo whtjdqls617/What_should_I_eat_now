@@ -9,38 +9,42 @@ export const SignUp = ({ navigation }) => {
 	const [userinfo, setUserinfo] = useState([0, 0, 0]);
 
 	return (
-    <KeyboardAwareScrollView style={{marginTop : '45%'}}>
-		<View style={{flex : 1, justifyContent : 'center'}}>
-        	<Text style={styles.headerText}>회원가입</Text>
-		</View>
-        <View style={styles.body}>
-          <SignUp_NickName userinfo={userinfo} setUserinfo={setUserinfo} />
-          <SignUp_Email userinfo={userinfo} setUserinfo={setUserinfo} />
-          <SignUp_PassWord userinfo={userinfo} setUserinfo={setUserinfo} />
-        </View>
-        <View style={styles.buttonalign}>
-          <NextButtoninSignUp navigation={navigation} userinfo={userinfo} />
-        </View>
-	</KeyboardAwareScrollView>
+    <KeyboardAwareScrollView contentContainerStyle={styles.contentContainer}>
+      <View style={{ flex: 0.5, justifyContent: "center" }}>
+        <Text style={styles.headerText}>회원가입</Text>
+      </View>
+      <View style={styles.body}>
+        <SignUp_NickName userinfo={userinfo} setUserinfo={setUserinfo} />
+        <SignUp_Email userinfo={userinfo} setUserinfo={setUserinfo} />
+        <SignUp_PassWord userinfo={userinfo} setUserinfo={setUserinfo} />
+      </View>
+      <View style={styles.buttonalign}>
+        <NextButtoninSignUp navigation={navigation} userinfo={userinfo} />
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-	buttonalign: {
-		flex: 1,
-		marginTop : '15%',
-		alignItems: "center",
-		justifyContent : 'center'
-	},
-	headerText: {
-		textAlign : 'center',
-		fontSize: 45,
-		fontFamily: "BlackHanSans_400Regular",
-	},
-	body: {
-		flex: 1,
-		marginTop : '15%',
-		justifyContent : 'flex-end',
-		marginLeft: "13%",
-	},
+  contentContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+	marginTop : '20%'
+  },
+  buttonalign: {
+    flex: 0.7,
+    alignItems: "center",
+    justifyContent: "center",
+	marginTop : '25%'
+  },
+  headerText: {
+    textAlign: "center",
+    fontSize: 45,
+    fontFamily: "BlackHanSans_400Regular",
+  },
+  body: {
+    flex: 0.5,
+    marginLeft: "13%",
+  },
 });

@@ -54,6 +54,6 @@ const styles = StyleSheet.create({
 		height: 50,
 		flexDirection: "row",
 		justifyContent: "space-around",
-		marginTop: "30%",
+		marginTop: "20%",
 	},
 });

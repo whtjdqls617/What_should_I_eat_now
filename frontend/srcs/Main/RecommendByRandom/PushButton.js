@@ -22,6 +22,7 @@ export const PushButton = ({ setFoodName }) => {
 
 const styles = StyleSheet.create({
   button: {
+	flex : 0.4,
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",

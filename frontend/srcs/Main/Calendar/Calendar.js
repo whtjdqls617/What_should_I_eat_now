@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-} from "react-native";
+import { View, ScrollView, StyleSheet } from "react-native";
 import { AddEatenFood } from "./AddEatenFood";
 import { EatenFoods } from "./EatenFoods";
 import { ThisMonthCalendar } from "./ThisMonthCalendar";
@@ -69,53 +65,61 @@ export const CustomCalendar = ({ navigation, route }) => {
   };
 
   return (
-    <ScrollView>
-    <View style={styles.container}>
+    <>
       <HomeButton navigation={navigation} />
-      <View style={styles.top}>
-        <ThisMonthCalendar
-          SignInExpired={SignInExpired}
-          setDay={setDay}
-          month={month}
-          setMonth={setMonth}
-          setDate={setDate}
-        />
-      </View>
-      <View style={{ marginTop : '10%', justifyContent : 'center' }}>
-        <DateText date={date} />
-      </View>
-      <View style={styles.bottom}>
-        <ScrollView horizontal={true} key={Number(date.substring(date.length - 2))}>
-          <EatenFoods number={day.length} day={day} onXPress={onXPress} />
-          <AddEatenFood
-            day={day}
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        <View style={styles.top}>
+          <ThisMonthCalendar
+            SignInExpired={SignInExpired}
             setDay={setDay}
             month={month}
             setMonth={setMonth}
-            date={date}
-            SignInExpired={SignInExpired}
+            setDate={setDate}
           />
-        </ScrollView>
-      </View>
-      <View style={{ marginTop : '12%', justifyContent : 'center' }}>
-        <StatusMessage day={day} />
-      </View>
-    </View>
-    </ScrollView>
+        </View>
+        <View style={{ justifyContent: "center", flex: 0.15, marginTop : '20%' }}>
+          <DateText date={date} />
+        </View>
+        <View style={styles.bottom}>
+          <ScrollView
+            horizontal={true}
+            key={Number(date.substring(date.length - 2))}
+          >
+            <EatenFoods number={day.length} day={day} onXPress={onXPress} />
+            <AddEatenFood
+              day={day}
+              setDay={setDay}
+              month={month}
+              setMonth={setMonth}
+              date={date}
+              SignInExpired={SignInExpired}
+            />
+          </ScrollView>
+        </View>
+        <View style={{ justifyContent: "center", flex: 0.2 }}>
+          <StatusMessage day={day} />
+        </View>
+      </ScrollView>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  contentContainer: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  contentContainer2: {
+    justifyContent: "center",
+    alignItems: "center",
   },
   top: {
-    flex: 2.6,
+    flex: 0.7,
   },
   bottom: {
-    flex: 1,
-	marginTop : '10%',
-	justifyContent : 'center'
+    flex: 0.32,
+    justifyContent: "center",
   },
   textstyle: {
     textAlign: "center",

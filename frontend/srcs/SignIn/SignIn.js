@@ -15,8 +15,8 @@ export const SignIn = ({ navigation, setSignIn }) => {
 	};
 
 	return (
-    <ScrollView>
-      <View style={{ alignItems: "center", marginTop : '60%'}}>
+    <ScrollView contentContainerStyle={styles.contentContainer}>
+      <View style={{ alignItems: "center", flex: 0.2, marginTop : '10%' }}>
         <Text style={styles.headerText}>로그인</Text>
       </View>
       <View style={styles.textinputstyle}>
@@ -27,22 +27,18 @@ export const SignIn = ({ navigation, setSignIn }) => {
         />
         <TextInput
           style={styles.textinput}
-		  secureTextEntry={true}
+          secureTextEntry={true}
           placeholder="비밀번호"
           onChangeText={(input) => setPassword(input)}
         />
       </View>
-      <View
-        style={{ alignItems: "center", marginTop : '10%' }}
-      >
+      <View style={{ alignItems: "center", marginTop: "15%" }}>
         <SigninButton
           json={makePostData(email, password)}
           setSignIn={setSignIn}
         />
       </View>
-      <View
-        style={{ alignItems: "center", marginTop : '2%' }}
-      >
+      <View style={{ alignItems: "center", marginTop: "2%" }}>
         <TouchableOpacity
           style={styles.buttonstyle_signup}
           onPress={() => navigation.navigate("SignUp")}
@@ -55,7 +51,7 @@ export const SignIn = ({ navigation, setSignIn }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  contentContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",

@@ -54,9 +54,9 @@ export const OtherFood = ({ data, navigation, SignInExpired }) => {
 					}
 				</View>
 				<Text style={styles.youtube}>유튜브 먹방</Text>
-				<YoutubeVideos 
-					other_food_name={other_food_name} 
-					youtube_id={youtube_id} 
+				<YoutubeVideos
+					other_food_name={other_food_name}
+					youtube_id={youtube_id}
 				/>
 			</View>
 		</ScrollView>
@@ -66,17 +66,13 @@ export const OtherFood = ({ data, navigation, SignInExpired }) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		marginTop: "5%",
 	},
 	foodname: {
 		flex: 1,
 		fontFamily: "BlackHanSans_400Regular",
-		height: 24,
-		width: 88,
 		textAlign: "center",
 	},
 	foodnameRow: {
-		height: 24,
 		flexDirection: "row",
 		marginTop: "5%",
 	},
@@ -105,6 +101,5 @@ const styles = StyleSheet.create({
 		fontFamily: "BlackHanSans_400Regular",
 		fontSize: 18,
 		marginStart: "3%",
-		marginBottom: "1.5%",
 	},
 });

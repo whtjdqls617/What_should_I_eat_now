@@ -53,10 +53,10 @@ export const Main = ({ navigation, SignInExpired }) => {
 
 const styles = StyleSheet.create({
   top: {
-    flex: 1.8,
+    flex: 1.7,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "12%",
+    marginTop: "8%",
   },
   bottom: {
     flex: 1,
