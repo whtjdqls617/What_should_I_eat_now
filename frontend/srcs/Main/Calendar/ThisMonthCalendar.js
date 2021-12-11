@@ -1,9 +1,11 @@
 import React from "react";
-import { Alert } from "react-native";
+import { Dimensions } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { getTokenFromStorage } from "../../func/func_data_communication";
 import { getDataFromServer } from "../../func/func_data_communication";
 import { ip } from "../../data/data";
+import { screenWidth } from "react-native-calendars/src/expandableCalendar/commons";
+
 
 export const ThisMonthCalendar = ({
   setDay,
@@ -47,6 +49,10 @@ export const ThisMonthCalendar = ({
       };
   });
 
+  const screenWidth = Dimensions.get('window').width;
+  const screenHeight = Dimensions.get("window").height;
+
+
   return (
     <Calendar
       onDayPress={(date) => {
@@ -88,7 +94,7 @@ export const ThisMonthCalendar = ({
       }}
       markingType={"multi-dot"}
       markedDates={markedDates}
-      style={{ borderWidth: 0, borderColor: "gray" }}
+      style={{ width : screenWidth, height : screenHeight, borderWidth: 0, borderColor: "gray" }}
       theme={{
         textMonthFontFamily: "BlackHanSans_400Regular",
         textDayFontFamily: "BlackHanSans_400Regular",

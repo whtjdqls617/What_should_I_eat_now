@@ -25,21 +25,19 @@ export const RecommendByRandom = ({ navigation, route}) => {
 				{
 					foodName.length > 0 ?
 						<>
-							<View style={{flex : 0.9}}>
 								<Image
 									style={styles.img_recommend_food}
 									source={food_image[foodName_without_space]}
 								/>
-							</View>
 							<Text style={styles.foodname}>{foodName}</Text>
 							<PushButton setFoodName={setFoodName} />
-							<View style={{ flex: 0.6, marginTop: '5%' }}>
+							<View style={{ flex: 0.5 }}>
 								<DecisionButton navigation={navigation} SignInExpired={SignInExpired} foodName={foodName} />
 							</View>
 						</>
 						:
 				<>
-				<View style={{flex : 0.2, marginBottom : '30%'}}>
+				<View style={{flex : 0.2}}>
 					<SlotMachine
 						setFoodName={setFoodName}
 					/>
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "center",
 		alignItems: "center",
-		marginTop: '18%'
+		marginTop : '8%'
 	},
 	img_recommend_food: {
 		borderWidth: 3,
@@ -87,13 +85,13 @@ const styles = StyleSheet.create({
 		fontSize: 45,
 	},
 	foodname: {
+		flex : 0.2,
 		textAlign: "center",
 		fontFamily: "BlackHanSans_400Regular",
-		height: 49,
-		width: 207,
 		fontSize: 25,
-		marginTop: '5%',
-		color : 'black'
+		color : 'black',
+		justifyContent : 'center',
+		marginTop : '5%'
 	},
 	button: {
 		margin: "10%",

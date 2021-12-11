@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   question: {
     fontFamily: "BlackHanSans_400Regular",
     fontSize: 56,
-    marginTop: "18%",
+    marginTop: "15%",
     marginLeft: "5%",
   },
 });

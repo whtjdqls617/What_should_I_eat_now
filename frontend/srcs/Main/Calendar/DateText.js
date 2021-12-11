@@ -21,7 +21,7 @@ export const DateText = ({ date }) => {
 const styles = StyleSheet.create({
 
 	date: {
-	  fontSize: 23,
+	  fontSize: 18,
 	  color: "black",
 	  fontFamily: "BlackHanSans_400Regular",
 	  textAlign : 'center'

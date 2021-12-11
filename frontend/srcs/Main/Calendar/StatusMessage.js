@@ -8,22 +8,22 @@ export const StatusMessage = ({ day }) => {
 
 	switch (foodNumber) {
 		case 0:
-			message = "\"밥은 먹고 다니냐?\"";
+			message = "\"단식 투쟁 중이야?\"";
 			break;
 		case 1:
-			message = "\"괜찮아? 어디 아픈 거야?\"";
+			message = "\"원푸드 다이어트해?\"";
 			break;
 		case 2:
-			message = "\"한 끼만 더 챙겨먹을까?\"";
+			message = "\"사는데 두 끼면 충분하지\"";
 			break;
 		case 3:
-			message = "\"참 잘했어요~\"";
+			message = "\"훌륭해!\"";
 			break;
-		case 20:
-			message = "\"폭식은 안 좋아. 줄이도록 하자\"";
+		case 6:
+			message = "\"신종자살법?\"";
 			break;
 		default:
-			message = "\"오늘도 좋은 하루 보내!\"";
+			message = "\"오늘 하루도 힘내자!\"";
 			break;
 	}
 

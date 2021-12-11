@@ -17,51 +17,51 @@ export const UserPassword = ({ navigation, route }) => {
 	const [passwords, setPasswords] = useState([]);
 
 	return (
-		<KeyboardAwareScrollView>
-			<View style={styles.container}>
-				<CurrentPassword
-					setPasswords={setPasswords}
-					passwords={passwords} />
-				<NewPassword
-					setPasswords={setPasswords}
-					passwords={passwords} />
-				<View style={styles.buttonalign}>
-					<OkButton
-						navigation={navigation}
-						passwords={passwords}
-						SignInExpired={SignInExpired} />
-					<CancelButton navigation={navigation} />
-				</View>
-			</View>
-		</KeyboardAwareScrollView>
-	);
+    <KeyboardAwareScrollView contentContainerStyle={styles.contentContainer}>
+        <CurrentPassword setPasswords={setPasswords} passwords={passwords} />
+        <NewPassword setPasswords={setPasswords} passwords={passwords} />
+        <View style={styles.buttonalign}>
+          <OkButton
+            navigation={navigation}
+            passwords={passwords}
+            SignInExpired={SignInExpired}
+          />
+          <CancelButton navigation={navigation} />
+        </View>
+    </KeyboardAwareScrollView>
+  );
 };
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-		marginTop : '60%'
-	},
-	buttonalign: {
-		flex: 0.1,
-		flexDirection: "row",
-		marginTop: "8%",
-	},
-	buttonstyle: {
-		margin: "3%",
-		backgroundColor: "orange",
-		alignItems: "center",
-		height: 45,
-		width: 100,
-		alignItems: "center",
-		justifyContent: "center",
-		borderRadius: 30,
-	},
-	textstyle: {
-		fontSize: 20,
-		color: "white",
-		fontFamily: "BlackHanSans_400Regular",
-	},
+  contentContainer: {
+    flex: 1,
+    justifyContent: "center",
+	alignItems : 'center',
+	marginTop : '5%'
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonalign: {
+    flex: 0.1,
+    flexDirection: "row",
+    marginTop: "8%",
+  },
+  buttonstyle: {
+    margin: "3%",
+    backgroundColor: "orange",
+    alignItems: "center",
+    height: 45,
+    width: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 30,
+  },
+  textstyle: {
+    fontSize: 20,
+    color: "white",
+    fontFamily: "BlackHanSans_400Regular",
+  },
 });
