@@ -30,7 +30,8 @@ export var icons = [
   require("../../image/random.png"),
   require("../../image/settings.png"),
   require("../../image/food.png"),
-]
+  require("../../image/youtube.png"),
+];
 
 export var plus = require("../../image/plus.png");
 

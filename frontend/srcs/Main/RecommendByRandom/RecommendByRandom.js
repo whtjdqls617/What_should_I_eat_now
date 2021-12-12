@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, Image, View, TouchableOpacity, Linking } from "react-native";
 import { food_name, food_image } from "../../data/data";
 import { HomeButton } from "../HomeButton";
 import { DecisionButton } from "./DecisionButton";
 import { PushButton } from "./PushButton";
 import { SlotMachine } from "./SlotMachine";
+import { icons } from "../../data/icons";
 
 export const RecommendByRandom = ({ navigation, route}) => {
 
@@ -18,50 +19,65 @@ export const RecommendByRandom = ({ navigation, route}) => {
 	}
 
 	return (
-		<>
-			<HomeButton navigation={navigation} />
-			<View style={styles.container}>
-				<Text style={styles.title}>{headerText}</Text>
-				{
-					foodName.length > 0 ?
-						<>
-								<Image
-									style={styles.img_recommend_food}
-									source={food_image[foodName_without_space]}
-								/>
-							<Text style={styles.foodname}>{foodName}</Text>
-							<PushButton setFoodName={setFoodName} />
-							<View style={{ flex: 0.5 }}>
-								<DecisionButton navigation={navigation} SignInExpired={SignInExpired} foodName={foodName} />
-							</View>
-						</>
-						:
-				<>
-				<View style={{flex : 0.2}}>
-					<SlotMachine
-						setFoodName={setFoodName}
-					/>
-					</View>
-					<Text
-						style={{
-							textAlign: "center",
-							fontFamily: "BlackHanSans_400Regular",
-							height: 49,
-							width: 207,
-							fontSize: 25,
-							marginTop: '5%',
-							color: 'white'
-						}}>
-						{foodName}
-					</Text>
-					<TouchableOpacity
-						style={{ marginTop: '7%', borderRadius: 130, backgroundColor: 'white' }}>
-					</TouchableOpacity>
-				</>
-				}
-			</View>
-		</>
-	);
+    <>
+      <HomeButton navigation={navigation} />
+      <View style={styles.container}>
+        <Text style={styles.title}>{headerText}</Text>
+        {foodName.length > 0 ? (
+          <>
+            <Image
+              style={styles.img_recommend_food}
+              source={food_image[foodName_without_space]}
+            />
+            <Text style={styles.foodname}>{foodName}</Text>
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL(
+                  `https://www.youtube.com/results?search_query=${foodName}먹방`
+                )
+              }
+            >
+              <Image style={{height : 30}} source={icons[4]} resizeMode="contain" />
+            </TouchableOpacity>
+            <PushButton setFoodName={setFoodName} />
+            <View style={{ flex: 0.5 }}>
+              <DecisionButton
+                navigation={navigation}
+                SignInExpired={SignInExpired}
+                foodName={foodName}
+              />
+            </View>
+          </>
+        ) : (
+          <>
+            <View style={{ flex: 0.2 }}>
+              <SlotMachine setFoodName={setFoodName} />
+            </View>
+            <Text
+              style={{
+                textAlign: "center",
+                fontFamily: "BlackHanSans_400Regular",
+                height: 49,
+                width: 207,
+                fontSize: 25,
+                marginTop: "5%",
+                color: "white",
+              }}
+            >
+              {foodName}
+            </Text>
+            <TouchableOpacity
+              style={{
+                marginTop: "7%",
+                borderRadius: 130,
+                backgroundColor: "white",
+              }}
+            ></TouchableOpacity>
+          </>
+        )}
+      </View>
+    </>
+  );
 };
 
 const styles = StyleSheet.create({
