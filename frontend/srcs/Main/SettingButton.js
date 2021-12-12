@@ -5,7 +5,7 @@ export const SettingButton = ({ navigation, icon, SignInExpired }) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate("Setting", SignInExpired)}
+      onPress={() => navigation.navigate("FoodList", SignInExpired)}
     >
       <Image
         source={icon}
