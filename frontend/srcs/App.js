@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { MainStackNav } from "./navigations/MainStack";
-import { SignInStackNav } from "./navigations/SignInStack";
 import { StyleSheet, Alert } from "react-native";
 import { FirstLoading } from "./FirstLoading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -11,7 +10,6 @@ import AppLoading from "expo-app-loading";
 
 export default function App() {
 	const [isLoading, setIsLoading] = useState(true);
-	const [signIn, setSignIn] = useState(false);
 	let [fontsLoaded] = useFonts({
 		BlackHanSans_400Regular,
 	});
@@ -21,12 +19,6 @@ export default function App() {
 		colors: {
 			background: "white",
 		},
-	};
-
-	const SignInExpired = () => {
-		Alert.alert("새로 로그인 해주세요");
-		AsyncStorage.clear();
-		setSignIn(false);
 	};
 
 	const getData = async () => {
@@ -56,16 +48,10 @@ export default function App() {
 					<FirstLoading />
 				</>
 			);
-		} else if (signIn == false) {
-			return (
-				<NavigationContainer theme={MyTheme}>
-					<SignInStackNav setSignIn={setSignIn} />
-				</NavigationContainer>
-			);
 		} else
 			return (
 				<NavigationContainer theme={MyTheme}>
-					<MainStackNav SignInExpired={SignInExpired}/>
+					<MainStackNav />
 				</NavigationContainer>
 			);
 	}
