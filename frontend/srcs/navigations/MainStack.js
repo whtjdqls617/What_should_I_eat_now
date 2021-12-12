@@ -12,7 +12,7 @@ import { CreditPage } from "../Main/Setting/CreditPage";
 
 const MainStack = createStackNavigator();
 
-export const MainStackNav = ({ SignInExpired }) => {
+export const MainStackNav = () => {
   return (
     <MainStack.Navigator
       screenOptions={{
@@ -22,7 +22,7 @@ export const MainStackNav = ({ SignInExpired }) => {
       <MainStack.Screen
         name="Main"
         children={({ navigation }) => (
-          <Main SignInExpired={SignInExpired} navigation={navigation} />
+          <Main navigation={navigation} />
         )}
       />
       <MainStack.Screen name="RecommendByAlgorithm" component={RecommendByAlgorithm} />
