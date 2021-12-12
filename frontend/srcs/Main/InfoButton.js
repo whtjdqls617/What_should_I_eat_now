@@ -15,7 +15,7 @@ export const InfoButton = ({ navigation }) => {
 const styles = StyleSheet.create({
 
 	info: {
-		marginTop: '5%',
+		marginTop: '10%',
 		marginRight: '5.5%',
 		justifyContent: 'flex-end',
 		alignItems: 'flex-end'

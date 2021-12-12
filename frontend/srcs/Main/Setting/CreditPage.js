@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { Text, FlatList, StyleSheet } from "react-native";
 import { HomeButton } from "../HomeButton";
 import { icon_source, food_image_source } from "../../data/data";
 

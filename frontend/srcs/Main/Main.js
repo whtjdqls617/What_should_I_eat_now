@@ -1,21 +1,16 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { TouchableOpacity, Image } from "react-native";
-import { icons } from "../data/icons";
-import {
-  getDataFromServer,
-  getTokenFromStorage,
-} from "../func/func_data_communication";
-import { ip } from "../data/data";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { icons, info } from "../data/icons";
 import { RecommendByAlgorithmButton } from "./RecommendByAlgorithmButton";
 import { CalendarButton } from "./CalendarButton";
 import { RecommendByRandomButton } from "./RecommendByRandomButton";
 import { SettingButton } from "./SettingButton";
+import { InfoButton } from "./InfoButton";
 
 export const Main = ({ navigation, SignInExpired }) => {
   return (
     <>
+			<InfoButton navigation={navigation} />
       <View style={styles.top}>
         <RecommendByAlgorithmButton
           navigation={navigation}
@@ -44,7 +39,7 @@ export const Main = ({ navigation, SignInExpired }) => {
         <View style={styles.bottomtext_align}>
           <Text style={styles.text_calendar}>뭐 먹었지</Text>
           <Text style={styles.text_random}>랜덤 추천</Text>
-          <Text style={styles.text_setting}>설정</Text>
+          <Text style={styles.text_setting}>음식 리스트</Text>
         </View>
       </View>
     </>
