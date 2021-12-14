@@ -1,23 +1,26 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { makeDateString } from "../../func/func_calculate_date";
 import {
-  getTokenFromStorage,
-  postDataToServer,
+  getdataFromStorage,
+  setDataToStorage,
 } from "../../func/func_data_communication";
-import { ip } from "../../data/data";
 
 export const DecisionButton = ({ navigation, foodName }) => {
+  const onPress = () => {
+    const keyName = makeDateString();
+    const goToMain = () => navigation.navigate("Main");
+    const existenceFunc = (data) => {
+      let newData = JSON.parse(data);
+      newData.push(foodName);
+      setDataToStorage(keyName, newData, goToMain);
+    };
+    const absenceFunc = (ele) => setDataToStorage(ele, [foodName], goToMain);
+    getdataFromStorage(keyName, existenceFunc, absenceFunc, 0);
+  };
+
   return (
-    <TouchableOpacity
-      style={styles.button}
-      onPress={() => {
-        const okFunc = (value) => {
-          postDataToServer(`${ip}/recommend-food/select`, foodName, value, 0);
-          navigation.navigate("Main");
-        };
-        getTokenFromStorage(okFunc, 0, 0);
-      }}
-    >
+    <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.buttonText}>결정</Text>
     </TouchableOpacity>
   );

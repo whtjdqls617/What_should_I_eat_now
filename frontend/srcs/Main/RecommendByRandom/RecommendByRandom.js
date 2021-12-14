@@ -7,14 +7,14 @@ import {
   TouchableOpacity,
   Linking,
 } from "react-native";
-import { food_name, food_image } from "../../data/data";
+import { food_image } from "../../data/data";
 import { HomeButton } from "../HomeButton";
 import { DecisionButton } from "./DecisionButton";
 import { PushButton } from "./PushButton";
 import { SlotMachine } from "./SlotMachine";
 import { icons } from "../../data/icons";
 
-export const RecommendByRandom = ({ navigation, route }) => {
+export const RecommendByRandom = ({ navigation }) => {
   const [foodName, setFoodName] = useState("");
   const headerText = foodName.length > 0 ? "이건 어때?" : "랜덤 추천";
 
@@ -58,26 +58,8 @@ export const RecommendByRandom = ({ navigation, route }) => {
             <View style={{ flex: 0.2 }}>
               <SlotMachine setFoodName={setFoodName} />
             </View>
-            <Text
-              style={{
-                textAlign: "center",
-                fontFamily: "BlackHanSans_400Regular",
-                height: 49,
-                width: 207,
-                fontSize: 25,
-                marginTop: "5%",
-                color: "white",
-              }}
-            >
-              {foodName}
-            </Text>
-            <TouchableOpacity
-              style={{
-                marginTop: "7%",
-                borderRadius: 130,
-                backgroundColor: "white",
-              }}
-            ></TouchableOpacity>
+            <Text style={styles.invisibleFoodname}>{foodName}</Text>
+            <TouchableOpacity style={styles.invisibleButton}></TouchableOpacity>
           </>
         )}
       </View>
@@ -105,6 +87,15 @@ const styles = StyleSheet.create({
     fontFamily: "BlackHanSans_400Regular",
     fontSize: 45,
   },
+  invisibleFoodname: {
+    textAlign: "center",
+    fontFamily: "BlackHanSans_400Regular",
+    height: 49,
+    width: 207,
+    fontSize: 25,
+    marginTop: "5%",
+    color: "white",
+  },
   foodname: {
     flex: 0.2,
     textAlign: "center",
@@ -113,6 +104,11 @@ const styles = StyleSheet.create({
     color: "black",
     justifyContent: "center",
     marginTop: "5%",
+  },
+  invisibleButton: {
+    marginTop: "7%",
+    borderRadius: 130,
+    backgroundColor: "white",
   },
   button: {
     margin: "10%",
