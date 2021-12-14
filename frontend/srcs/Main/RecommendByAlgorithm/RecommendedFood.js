@@ -16,12 +16,7 @@ import {
 } from "../../func/func_data_communication";
 import { HomeButton } from "../HomeButton";
 
-export const RecommendedFood = ({
-  SignInExpired,
-  data,
-  updateIndex,
-  navigation,
-}) => {
+export const RecommendedFood = ({ data, updateIndex, navigation }) => {
   const food_name = data.list[0].name;
 
   let food_name_without_space = food_name.slice();
@@ -50,8 +45,7 @@ export const RecommendedFood = ({
                     `${ip}/recommend-food/select`,
                     food_name,
                     value,
-                    0,
-                    SignInExpired
+                    0
                   );
                   navigation.reset({ routes: [{ name: "Main" }] });
                 };
@@ -82,21 +76,21 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     justifyContent: "center",
-	marginTop : '10%'
+    marginTop: "10%",
   },
   container: {
     flex: 0.9,
     alignItems: "center",
-	justifyContent : 'center'
+    justifyContent: "center",
   },
   title: {
-	flex : 0.6,
+    flex: 0.6,
     textAlign: "center",
     fontFamily: "BlackHanSans_400Regular",
     fontSize: 40,
   },
   foodname: {
-	  flex : 0.3,
+    flex: 0.3,
     fontSize: 25,
     fontFamily: "BlackHanSans_400Regular",
     marginTop: 30,
@@ -104,7 +98,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   button_align: {
-	  flex : 1,
+    flex: 1,
     justifyContent: "center",
     flexDirection: "row",
     width: "50%",
@@ -136,14 +130,14 @@ const styles = StyleSheet.create({
     height: 242,
   },
   youtube: {
-	  flex : 0.3,
+    flex: 0.3,
     width: 200,
     fontFamily: "BlackHanSans_400Regular",
     fontSize: 30,
     textAlign: "center",
   },
   youtubealign: {
-	  flex : 0.1
+    flex: 0.1,
   },
   buttonText: {
     fontSize: 20,

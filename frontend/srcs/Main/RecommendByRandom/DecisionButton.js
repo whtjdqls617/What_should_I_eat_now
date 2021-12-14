@@ -6,19 +6,13 @@ import {
 } from "../../func/func_data_communication";
 import { ip } from "../../data/data";
 
-export const DecisionButton = ({ navigation, SignInExpired, foodName }) => {
+export const DecisionButton = ({ navigation, foodName }) => {
   return (
     <TouchableOpacity
       style={styles.button}
       onPress={() => {
         const okFunc = (value) => {
-          postDataToServer(
-            `${ip}/recommend-food/select`,
-            foodName,
-            value,
-            0,
-            SignInExpired
-          );
+          postDataToServer(`${ip}/recommend-food/select`, foodName, value, 0);
           navigation.navigate("Main");
         };
         getTokenFromStorage(okFunc, 0, 0);

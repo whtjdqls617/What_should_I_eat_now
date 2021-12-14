@@ -9,52 +9,38 @@ import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 
 export default function App() {
-	const [isLoading, setIsLoading] = useState(true);
-	let [fontsLoaded] = useFonts({
-		BlackHanSans_400Regular,
-	});
+  const [isLoading, setIsLoading] = useState(true);
+  let [fontsLoaded] = useFonts({
+    BlackHanSans_400Regular,
+  });
 
-	const MyTheme = {
-		dark: false,
-		colors: {
-			background: "white",
-		},
-	};
+  const MyTheme = {
+    dark: false,
+    colors: {
+      background: "white",
+    },
+  };
 
-	const getData = async () => {
-		try {
-			const value = await AsyncStorage.getItem('@storage_Key')
-			if (value !== null) {
-				setSignIn(true);
-			}
-		} catch (e) {
-			// console.log(error);
-		}
-	}
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 1400);
 
-	getData();
-
-	setTimeout(() => {
-		setIsLoading(false);
-	}, 1400);
-
-
-	if (!fontsLoaded) {
-		return <AppLoading />;
-	} else {
-		if (isLoading == true) {
-			return (
-				<>
-					<FirstLoading />
-				</>
-			);
-		} else
-			return (
-				<NavigationContainer theme={MyTheme}>
-					<MainStackNav />
-				</NavigationContainer>
-			);
-	}
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    if (isLoading == true) {
+      return (
+        <>
+          <FirstLoading />
+        </>
+      );
+    } else
+      return (
+        <NavigationContainer theme={MyTheme}>
+          <MainStackNav />
+        </NavigationContainer>
+      );
+  }
 }
 
 /*
@@ -73,7 +59,7 @@ export default function App() {
 */
 
 const sytles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
+  container: {
+    flex: 1,
+  },
 });

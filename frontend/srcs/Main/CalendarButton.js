@@ -7,10 +7,8 @@ import {
 import { ip } from "../data/data";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const CalendarButton = ({ navigation, icon, SignInExpired }) => {
-
+export const CalendarButton = ({ navigation, icon }) => {
   const onPressCalendarButton = () => {
-
     const okFunc = (value) => {
       const now = new Date();
       const year = now.getFullYear().toString();
@@ -31,28 +29,18 @@ export const CalendarButton = ({ navigation, icon, SignInExpired }) => {
         const object = {
           data: data,
           today: today,
-          SignInExpired: SignInExpired,
         };
         navigation.navigate("CustomCalendar", object);
       };
 
-      getDataFromServer(
-        `${ip}/calendar/food`,
-        params,
-        resFunc,
-        0,
-        SignInExpired
-      );
+      getDataFromServer(`${ip}/calendar/food`, params, resFunc, 0);
     };
 
     getTokenFromStorage(okFunc, 0, 0);
   };
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={onPressCalendarButton}
-    >
+    <TouchableOpacity style={styles.container} onPress={onPressCalendarButton}>
       <Image
         source={icon}
         resizeMode="contain"
@@ -63,10 +51,10 @@ export const CalendarButton = ({ navigation, icon, SignInExpired }) => {
 };
 
 const styles = StyleSheet.create({
-
   container: {
-	flex: 1,
-	alignItems: "center" },
+    flex: 1,
+    alignItems: "center",
+  },
   img_calendar: {
     width: 88,
     height: 88,

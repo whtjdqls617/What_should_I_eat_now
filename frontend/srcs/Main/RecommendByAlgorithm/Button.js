@@ -1,65 +1,70 @@
 import React from "react";
 import { StyleSheet, View, TouchableOpacity, Text, Alert } from "react-native";
 import { ip } from "../../data/data";
-import { getTokenFromStorage, getDataFromServer } from "../../func/func_data_communication";
+import {
+  getTokenFromStorage,
+  getDataFromServer,
+} from "../../func/func_data_communication";
 
-export const NextButton = ({ SignInExpired, updateIndex, answer, index, setData, navigation }) => {
+export const NextButton = ({
+  updateIndex,
+  answer,
+  index,
+  setData,
+  navigation,
+}) => {
+  const answers = {
+    answer1: answer[0].slice(1).join(),
+    answer2: answer[1].slice(1).join(),
+    answer3: answer[2].slice(1).join(),
+    question1: answer[0][0],
+    question2: answer[1][0],
+    question3: answer[2][0],
+  };
 
-	const answers = {
-		answer1: answer[0].slice(1).join(),
-		answer2: answer[1].slice(1).join(),
-		answer3: answer[2].slice(1).join(),
-		question1: answer[0][0],
-		question2: answer[1][0],
-		question3: answer[2][0],
-	};
+  const okFunc = (value) => {
+    const params = {
+      params: answers,
+      headers: {
+        "X-AUTH-TOKEN": value,
+      },
+    };
 
-	const okFunc = (value) => {
+    const okFunc2 = (food_list) => {
+      setData(food_list);
+    };
 
-		const params = {
-			params: answers,
-			headers: {
-				"X-AUTH-TOKEN": value,
-			}
-		};
+    getDataFromServer(`${ip}/recommend-food/`, params, okFunc2, 0);
+  };
 
-		const okFunc2 = (food_list) => {
-			setData(food_list);
-		};
+  const errFunc = () => {
+    Alert.alert("서버와 통신이 끊어졌습니다.");
+    navigation.navigate("Main");
+  };
 
-		getDataFromServer(`${ip}/recommend-food/`, params, okFunc2, 0, SignInExpired);
-	};
+  const nextPressEvent = () => {
+    if (index == 2) getTokenFromStorage(okFunc, 0, errFunc);
+    else updateIndex(true);
+  };
 
-	const errFunc = () => {
-		Alert.alert("서버와 통신이 끊어졌습니다.");
-		navigation.navigate("Main");
-	};
+  const prevPressEvent = () => {
+    if (index == 0) navigation.reset({ routes: [{ name: "Main" }] });
+    else updateIndex(false);
+  };
 
-	const nextPressEvent = () => {
-		if (index == 2)
-			getTokenFromStorage(okFunc, 0, errFunc);
-		else updateIndex(true);
-	};
-
-	const prevPressEvent = () => {
-		if (index == 0) navigation.reset({ routes: [{ name: "Main" }] });
-		else updateIndex(false);
-	};
-
-	return (
-		<>
-			<View style={styles.buttonalign}>
-				<TouchableOpacity style={styles.button_prev} onPress={prevPressEvent}>
-					<Text style={styles.textstyle}>이전</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.button_next} onPress={nextPressEvent}>
-					<Text style={styles.textstyle}>다음</Text>
-				</TouchableOpacity>
-			</View>
-		</>
-	);
+  return (
+    <>
+      <View style={styles.buttonalign}>
+        <TouchableOpacity style={styles.button_prev} onPress={prevPressEvent}>
+          <Text style={styles.textstyle}>이전</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button_next} onPress={nextPressEvent}>
+          <Text style={styles.textstyle}>다음</Text>
+        </TouchableOpacity>
+      </View>
+    </>
+  );
 };
-
 
 const styles = StyleSheet.create({
   buttonalign: {

@@ -6,14 +6,7 @@ import { getDataFromServer } from "../../func/func_data_communication";
 import { ip } from "../../data/data";
 import { screenWidth } from "react-native-calendars/src/expandableCalendar/commons";
 
-
-export const ThisMonthCalendar = ({
-  setDay,
-  setMonth,
-  month,
-  setDate,
-  SignInExpired,
-}) => {
+export const ThisMonthCalendar = ({ setDay, setMonth, month, setDate }) => {
   let foodNumber = {};
   month.map((day) => {
     foodNumber[day.date] =
@@ -49,9 +42,8 @@ export const ThisMonthCalendar = ({
       };
   });
 
-  const screenWidth = Dimensions.get('window').width;
+  const screenWidth = Dimensions.get("window").width;
   const screenHeight = Dimensions.get("window").height;
-
 
   return (
     <Calendar
@@ -87,14 +79,19 @@ export const ThisMonthCalendar = ({
             setDate(firstDay);
           };
 
-          getDataFromServer(`${ip}/calendar/food`, params, resFunc, 0, SignInExpired);
+          getDataFromServer(`${ip}/calendar/food`, params, resFunc, 0);
         };
 
         getTokenFromStorage(okFunc, 0, 0);
       }}
       markingType={"multi-dot"}
       markedDates={markedDates}
-      style={{ width : screenWidth, height : screenHeight, borderWidth: 0, borderColor: "gray" }}
+      style={{
+        width: screenWidth,
+        height: screenHeight,
+        borderWidth: 0,
+        borderColor: "gray",
+      }}
       theme={{
         textMonthFontFamily: "BlackHanSans_400Regular",
         textDayFontFamily: "BlackHanSans_400Regular",

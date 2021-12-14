@@ -16,17 +16,18 @@ export const MainStackNav = () => {
         headerShown: false,
       }}
     >
+      <MainStack.Screen name="Main" component={Main} />
       <MainStack.Screen
-        name="Main"
-        children={({ navigation }) => (
-          <Main navigation={navigation} />
-        )}
+        name="RecommendByAlgorithm"
+        component={RecommendByAlgorithm}
       />
-      <MainStack.Screen name="RecommendByAlgorithm" component={RecommendByAlgorithm} />
       <MainStack.Screen name="CustomCalendar" component={CustomCalendar} />
-      <MainStack.Screen name="RecommendByRandom" component={RecommendByRandom} />
+      <MainStack.Screen
+        name="RecommendByRandom"
+        component={RecommendByRandom}
+      />
       <MainStack.Screen name="FoodList" component={FoodList} />
-	  	<MainStack.Screen name="CreditPage" component={CreditPage} />
+      <MainStack.Screen name="CreditPage" component={CreditPage} />
     </MainStack.Navigator>
   );
 };

@@ -8,7 +8,7 @@ import {
 } from "../../func/func_data_communication";
 import { ip } from "../../data/data";
 
-export const OneOtherOption = ({ SignInExpired, image, navigation, name }) => {
+export const OneOtherOption = ({ image, navigation, name }) => {
   const [ismodalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -21,13 +21,23 @@ export const OneOtherOption = ({ SignInExpired, image, navigation, name }) => {
         <TouchableOpacity onPress={toggleModal}>
           <Image source={image} style={styles.image} />
         </TouchableOpacity>
-        <Modal isVisible={true} hasBackdrop={true} onBackdropPress={toggleModal} onRequestClose={toggleModal}>
+        <Modal
+          isVisible={true}
+          hasBackdrop={true}
+          onBackdropPress={toggleModal}
+          onRequestClose={toggleModal}
+        >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <TouchableOpacity
                 onPress={() => {
                   const okFunc = (value) => {
-                    postDataToServer(`${ip}/recommend-food/select`, name, value, 0, SignInExpired);
+                    postDataToServer(
+                      `${ip}/recommend-food/select`,
+                      name,
+                      value,
+                      0
+                    );
                     navigation.reset({ routes: [{ name: "Main" }] });
                   };
 
@@ -101,12 +111,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-	height: 100,
-	width : 100,
-	marginTop : 10,
-	padding : 10,
-	borderColor : 'black',
-	borderRadius : 130,
-	borderWidth : 3
-  }
+    height: 100,
+    width: 100,
+    marginTop: 10,
+    padding: 10,
+    borderColor: "black",
+    borderRadius: 130,
+    borderWidth: 3,
+  },
 });

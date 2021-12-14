@@ -1,11 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 
-export const SettingButton = ({ navigation, icon, SignInExpired }) => {
+export const SettingButton = ({ navigation, icon }) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate("FoodList", SignInExpired)}
+      onPress={() => navigation.navigate("FoodList")}
     >
       <Image
         source={icon}

@@ -18,7 +18,6 @@ export const CustomCalendar = ({ navigation, route }) => {
 
   const monthFoodData = route.params.data.data.monthFoodData;
   const today = route.params.today;
-  const SignInExpired = route.params.SignInExpired;
 
   const initialDayFood = monthFoodData
     .map((object) => {
@@ -52,13 +51,7 @@ export const CustomCalendar = ({ navigation, route }) => {
         },
       };
 
-      deleteDataFromServer(
-        `${ip}/calendar/food/${name}/${date}`,
-        params,
-        0,
-        0,
-        SignInExpired
-      );
+      deleteDataFromServer(`${ip}/calendar/food/${name}/${date}`, params, 0, 0);
     };
 
     getTokenFromStorage(okFunc, 0, 0);
@@ -70,14 +63,15 @@ export const CustomCalendar = ({ navigation, route }) => {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.top}>
           <ThisMonthCalendar
-            SignInExpired={SignInExpired}
             setDay={setDay}
             month={month}
             setMonth={setMonth}
             setDate={setDate}
           />
         </View>
-        <View style={{ justifyContent: "center", flex: 0.15, marginTop : '20%' }}>
+        <View
+          style={{ justifyContent: "center", flex: 0.15, marginTop: "20%" }}
+        >
           <DateText date={date} />
         </View>
         <View style={styles.bottom}>
@@ -92,7 +86,6 @@ export const CustomCalendar = ({ navigation, route }) => {
               month={month}
               setMonth={setMonth}
               date={date}
-              SignInExpired={SignInExpired}
             />
           </ScrollView>
         </View>
