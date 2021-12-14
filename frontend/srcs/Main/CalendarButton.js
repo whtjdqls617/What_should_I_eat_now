@@ -18,7 +18,7 @@ export const CalendarButton = ({ navigation, icon }) => {
 
     const absenceFunc = (keyName) => {
       const object = {
-        data: "",
+        data: {},
         today: dateString,
       };
       navigation.navigate("CustomCalendar", object);

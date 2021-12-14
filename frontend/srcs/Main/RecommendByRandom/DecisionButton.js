@@ -13,15 +13,14 @@ export const DecisionButton = ({ navigation, foodName }) => {
     const goToMain = () => navigation.navigate("Main");
 
     const existenceFunc = (keyName, data) => {
-      let newData = JSON.parse(data);
       if (keyName.length > 8) {
-        newData.push(foodName);
-        setDataToStorage(keyName, newData, 0);
+        data.push(foodName);
+        setDataToStorage(keyName, data, 0);
       } else {
         const key = firstKeyName.substring(1);
-        if (newData[key] === undefined) newData[key] = [];
-        newData[key].push(foodName);
-        setDataToStorage(keyName, newData, goToMain);
+        if (data[key] === undefined) data[key] = [];
+        data[key].push(foodName);
+        setDataToStorage(keyName, data, goToMain);
       }
     };
 

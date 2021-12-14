@@ -17,7 +17,7 @@ export const CustomCalendar = ({ navigation, route }) => {
     "Non-serializable values were found in the navigation state",
   ]);
 
-  const monthFoodData = JSON.parse(route.params.data);
+  const monthFoodData = route.params.data;
   const today = route.params.today;
 
   let initialDayFood =
