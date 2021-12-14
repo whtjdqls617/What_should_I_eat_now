@@ -4,14 +4,12 @@ import { Calendar } from "react-native-calendars";
 import { getTokenFromStorage } from "../../func/func_data_communication";
 import { getDataFromServer } from "../../func/func_data_communication";
 import { ip } from "../../data/data";
-import { screenWidth } from "react-native-calendars/src/expandableCalendar/commons";
 
 export const ThisMonthCalendar = ({ setDay, setMonth, month, setDate }) => {
   let foodNumber = {};
-  month.map((day) => {
-    foodNumber[day.date] =
-      foodNumber[day.date] == undefined ? 1 : foodNumber[day.date] + 1;
-  });
+  for (let key in month) {
+    foodNumber[key] = month[key].length;
+  }
 
   let markedDates = {};
   const dates = Object.keys(foodNumber);

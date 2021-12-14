@@ -8,15 +8,34 @@ import {
 
 export const DecisionButton = ({ navigation, foodName }) => {
   const onPress = () => {
-    const keyName = makeDateString();
+    const firstKeyName = makeDateString();
+    const secondKeyName = firstKeyName.substring(0, 8);
     const goToMain = () => navigation.navigate("Main");
-    const existenceFunc = (data) => {
+
+    const existenceFunc = (keyName, data) => {
       let newData = JSON.parse(data);
-      newData.push(foodName);
-      setDataToStorage(keyName, newData, goToMain);
+      if (keyName.length > 8) {
+        newData.push(foodName);
+        setDataToStorage(keyName, newData, 0);
+      } else {
+        const key = firstKeyName.substring(1);
+        if (newData[key] === undefined) newData[key] = [];
+        newData[key].push(foodName);
+        setDataToStorage(keyName, newData, goToMain);
+      }
     };
-    const absenceFunc = (ele) => setDataToStorage(ele, [foodName], goToMain);
-    getdataFromStorage(keyName, existenceFunc, absenceFunc, 0);
+
+    const absenceFunc = (ele) => {
+      const key = firstKeyName.substring(1);
+      let object = {};
+      object[key] = [foodName];
+      ele.length > 8
+        ? setDataToStorage(ele, [foodName], 0)
+        : setDataToStorage(ele, object, goToMain);
+    };
+
+    getdataFromStorage(firstKeyName, existenceFunc, absenceFunc, 0);
+    getdataFromStorage(secondKeyName, existenceFunc, absenceFunc, 0);
   };
 
   return (

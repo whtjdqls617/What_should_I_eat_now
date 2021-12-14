@@ -3,58 +3,55 @@ import { View, ScrollView, StyleSheet } from "react-native";
 import { AddEatenFood } from "./AddEatenFood";
 import { EatenFoods } from "./EatenFoods";
 import { ThisMonthCalendar } from "./ThisMonthCalendar";
-import { ip } from "../../data/data";
-import { getTokenFromStorage } from "../../func/func_data_communication";
-import { deleteDataFromServer } from "../../func/func_data_communication";
 import { HomeButton } from "../HomeButton";
 import { StatusMessage } from "./StatusMessage";
 import { DateText } from "./DateText";
 import { LogBox } from "react-native";
+import {
+  getdataFromStorage,
+  setDataToStorage,
+} from "../../func/func_data_communication";
 
 export const CustomCalendar = ({ navigation, route }) => {
   LogBox.ignoreLogs([
     "Non-serializable values were found in the navigation state",
   ]);
 
-  const monthFoodData = route.params.data.data.monthFoodData;
+  const monthFoodData = JSON.parse(route.params.data);
   const today = route.params.today;
 
-  const initialDayFood = monthFoodData
-    .map((object) => {
-      if (object.date == today) return object.foodName;
-    })
-    .filter((ele) => ele != null);
+  let initialDayFood =
+    monthFoodData[today] === undefined ? [] : monthFoodData[today];
 
   const [day, setDay] = useState(initialDayFood);
   const [date, setDate] = useState(today);
   const [month, setMonth] = useState(monthFoodData);
 
   const onXPress = (index) => {
-    const array = day.slice();
-    const deletedFood = array.splice(index, 1)[0];
-    setDay(array);
-    for (let i = 0; i < month.length; i++) {
-      if (month[i].date == date && month[i].foodName == deletedFood) {
-        let copyMonth = month.slice();
-        copyMonth.splice(i, 1);
-        setMonth(copyMonth);
-        break;
+    const newDay = day.slice();
+    newDay.splice(index, 1);
+    setDay(newDay);
+    let newMonth = JSON.parse(JSON.stringify(month));
+    newMonth[date] = newDay;
+    setMonth(newMonth);
+
+    const firstKeyName = "@" + date;
+    const secondKeyName = firstKeyName.substring(0, 8);
+
+    const existenceFunc = (keyName, data) => {
+      let newData = JSON.parse(data);
+      if (keyName.length > 8) {
+        newData = newDay;
+        setDataToStorage(keyName, newData, 0);
+      } else {
+        const key = firstKeyName.substring(1);
+        newData[key] = newDay;
+        setDataToStorage(keyName, newData, 0);
       }
-    }
-
-    const okFunc = (value) => {
-      const name = deletedFood;
-
-      const params = {
-        headers: {
-          "X-AUTH-TOKEN": value,
-        },
-      };
-
-      deleteDataFromServer(`${ip}/calendar/food/${name}/${date}`, params, 0, 0);
     };
 
-    getTokenFromStorage(okFunc, 0, 0);
+    getdataFromStorage(firstKeyName, existenceFunc, 0, 0);
+    getdataFromStorage(secondKeyName, existenceFunc, 0, 0);
   };
 
   return (
@@ -69,9 +66,7 @@ export const CustomCalendar = ({ navigation, route }) => {
             setDate={setDate}
           />
         </View>
-        <View
-          style={{ justifyContent: "center", flex: 0.15, marginTop: "20%" }}
-        >
+        <View style={styles.dateText}>
           <DateText date={date} />
         </View>
         <View style={styles.bottom}>
@@ -114,6 +109,7 @@ const styles = StyleSheet.create({
     flex: 0.32,
     justifyContent: "center",
   },
+  dateText: { justifyContent: "center", flex: 0.15, marginTop: "20%" },
   textstyle: {
     textAlign: "center",
   },

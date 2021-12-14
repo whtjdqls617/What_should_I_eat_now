@@ -102,7 +102,7 @@ export const getdataFromStorage = async (
 ) => {
   try {
     const data = await AsyncStorage.getItem(keyName);
-    if (data !== null && existenceFunc) existenceFunc(data);
+    if (data !== null && existenceFunc) existenceFunc(keyName, data);
     else if (data == null && absenceFunc) absenceFunc(keyName);
   } catch (e) {
     if (errorFunc) errorFunc();
@@ -113,8 +113,9 @@ export const setDataToStorage = async (keyName, data, nextStep) => {
   try {
     const jsonData = JSON.stringify(data);
     await AsyncStorage.setItem(keyName, jsonData);
-    Alert.alert("저장되었습니다");
-    if (nextStep) nextStep();
+    if (nextStep) {
+      nextStep();
+    }
   } catch (e) {
     Alert.alert("다시 클릭해주세요");
   }
