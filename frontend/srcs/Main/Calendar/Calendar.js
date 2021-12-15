@@ -30,23 +30,21 @@ export const CustomCalendar = ({ navigation, route }) => {
   const onXPress = (index) => {
     const newDay = day.slice();
     newDay.splice(index, 1);
-    setDay(newDay);
     let newMonth = JSON.parse(JSON.stringify(month));
     newMonth[date] = newDay;
     setMonth(newMonth);
+    setDay(newDay);
 
     const firstKeyName = "@" + date;
     const secondKeyName = firstKeyName.substring(0, 8);
 
     const existenceFunc = (keyName, data) => {
-      let newData = JSON.parse(data);
       if (keyName.length > 8) {
-        newData = newDay;
-        setDataToStorage(keyName, newData, 0);
+        setDataToStorage(keyName, newDay, 0);
       } else {
         const key = firstKeyName.substring(1);
-        newData[key] = newDay;
-        setDataToStorage(keyName, newData, 0);
+        data[key] = newDay;
+        setDataToStorage(keyName, data, 0);
       }
     };
 

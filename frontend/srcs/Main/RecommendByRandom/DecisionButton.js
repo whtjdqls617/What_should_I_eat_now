@@ -1,44 +1,17 @@
 import React from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { makeDateString } from "../../func/func_calculate_date";
 import {
   getdataFromStorage,
   setDataToStorage,
 } from "../../func/func_data_communication";
+import { onPressSelectFood } from "../../func/func_on_press";
 
 export const DecisionButton = ({ navigation, foodName }) => {
-  const onPress = () => {
-    const firstKeyName = makeDateString();
-    const secondKeyName = firstKeyName.substring(0, 8);
-    const goToMain = () => navigation.navigate("Main");
-
-    const existenceFunc = (keyName, data) => {
-      if (keyName.length > 8) {
-        data.push(foodName);
-        setDataToStorage(keyName, data, 0);
-      } else {
-        const key = firstKeyName.substring(1);
-        if (data[key] === undefined) data[key] = [];
-        data[key].push(foodName);
-        setDataToStorage(keyName, data, goToMain);
-      }
-    };
-
-    const absenceFunc = (ele) => {
-      const key = firstKeyName.substring(1);
-      let object = {};
-      object[key] = [foodName];
-      ele.length > 8
-        ? setDataToStorage(ele, [foodName], 0)
-        : setDataToStorage(ele, object, goToMain);
-    };
-
-    getdataFromStorage(firstKeyName, existenceFunc, absenceFunc, 0);
-    getdataFromStorage(secondKeyName, existenceFunc, absenceFunc, 0);
-  };
-
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.button}
+      onPress={() => onPressSelectFood(navigation, foodName)}
+    >
       <Text style={styles.buttonText}>결정</Text>
     </TouchableOpacity>
   );

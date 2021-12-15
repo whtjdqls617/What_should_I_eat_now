@@ -4,8 +4,8 @@ import { RecommendByRandom } from "../Main/RecommendByRandom/RecommendByRandom";
 import { RecommendByAlgorithm } from "../Main/RecommendByAlgorithm/RecommendByAlgorithm";
 import { CustomCalendar } from "../Main/Calendar/Calendar";
 import { Main } from "../Main/Main";
-import { FoodList } from "../Main/Setting/FoodList";
-import { CreditPage } from "../Main/Setting/CreditPage";
+import { FoodList } from "../Main/FoodList/FoodList";
+import { CreditPage } from "../Main/CreditPage";
 
 const MainStack = createStackNavigator();
 

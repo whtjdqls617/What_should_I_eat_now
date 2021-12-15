@@ -7,23 +7,16 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { ip, food_image } from "../../data/data";
-import YoutubePlayer from "react-native-youtube-iframe";
-import { youtubeURLtoID } from "../../func/func_change_var_type";
-import {
-  getTokenFromStorage,
-  postDataToServer,
-} from "../../func/func_data_communication";
+import { food_image } from "../../data/data";
+import { onPressSelectFood } from "../../func/func_on_press";
 import { HomeButton } from "../HomeButton";
 
 export const RecommendedFood = ({ data, updateIndex, navigation }) => {
-  const food_name = data.list[0].name;
-
+  const food_name = data[0];
   let food_name_without_space = food_name.slice();
   while (food_name_without_space.includes(" ")) {
     food_name_without_space = food_name_without_space.replace(" ", "");
   }
-  const youtube_id = youtubeURLtoID(data.list[0].youtube_url);
 
   return (
     <>
@@ -39,33 +32,11 @@ export const RecommendedFood = ({ data, updateIndex, navigation }) => {
           <View style={styles.button_align}>
             <TouchableOpacity
               style={styles.button_yes}
-              onPress={() => {
-                const okFunc = (value) => {
-                  postDataToServer(
-                    `${ip}/recommend-food/select`,
-                    food_name,
-                    value,
-                    0
-                  );
-                  navigation.reset({ routes: [{ name: "Main" }] });
-                };
-
-                getTokenFromStorage(okFunc, 0, 0);
-              }}
+              onPress={() => onPressSelectFood(navigation, food_name)}
             >
               <Text style={styles.buttonText}>응!</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button_no}
-              onPress={() => updateIndex(true)}
-            >
-              <Text style={styles.buttonText}>고민좀...</Text>
-            </TouchableOpacity>
           </View>
-          <Text style={styles.youtube}>유튜브 먹방</Text>
-        </View>
-        <View style={styles.youtubealign}>
-          <YoutubePlayer height={270} videoId={youtube_id} />
         </View>
       </ScrollView>
     </>
@@ -128,16 +99,6 @@ const styles = StyleSheet.create({
     borderColor: "black",
     width: 242,
     height: 242,
-  },
-  youtube: {
-    flex: 0.3,
-    width: 200,
-    fontFamily: "BlackHanSans_400Regular",
-    fontSize: 30,
-    textAlign: "center",
-  },
-  youtubealign: {
-    flex: 0.1,
   },
   buttonText: {
     fontSize: 20,

@@ -1,6 +1,5 @@
 import React from "react";
-import { StyleSheet, View, TouchableOpacity, Text, Alert } from "react-native";
-import { ip } from "../../data/data";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import {
   getTokenFromStorage,
   getDataFromServer,
@@ -13,37 +12,8 @@ export const NextButton = ({
   setData,
   navigation,
 }) => {
-  const answers = {
-    answer1: answer[0].slice(1).join(),
-    answer2: answer[1].slice(1).join(),
-    answer3: answer[2].slice(1).join(),
-    question1: answer[0][0],
-    question2: answer[1][0],
-    question3: answer[2][0],
-  };
-
-  const okFunc = (value) => {
-    const params = {
-      params: answers,
-      headers: {
-        "X-AUTH-TOKEN": value,
-      },
-    };
-
-    const okFunc2 = (food_list) => {
-      setData(food_list);
-    };
-
-    getDataFromServer(`${ip}/recommend-food/`, params, okFunc2, 0);
-  };
-
-  const errFunc = () => {
-    Alert.alert("서버와 통신이 끊어졌습니다.");
-    navigation.navigate("Main");
-  };
-
   const nextPressEvent = () => {
-    if (index == 2) getTokenFromStorage(okFunc, 0, errFunc);
+    if (index == 2) setData(["케이크", "염라대왕라면", "카스테라"]);
     else updateIndex(true);
   };
 

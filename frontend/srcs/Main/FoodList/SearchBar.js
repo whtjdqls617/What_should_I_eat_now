@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import {
-  TextInput,
-  StyleSheet,
-} from "react-native";
-import { food_name } from "../data/data";
+import { TextInput, StyleSheet } from "react-native";
+import { food_name } from "../../data/data";
 import { SearchPreview } from "./SearchPreview";
 
 export const SearchBar = ({ onPress }) => {
@@ -12,15 +9,15 @@ export const SearchBar = ({ onPress }) => {
 
   const matchFoodName = (input) => {
     let food = [];
-	if (input.length > 0) {
+    if (input.length > 0) {
       food = food_name.filter((food) => food.includes(input));
     }
     setPreviewFood(food);
   };
 
   const searchFoodName = (input) => {
-	setValue(input);
-	matchFoodName(input);
+    setValue(input);
+    matchFoodName(input);
   };
 
   return (
@@ -43,14 +40,14 @@ export const SearchBar = ({ onPress }) => {
 
 const styles = StyleSheet.create({
   textInputStyle: {
-	marginTop: "5%",
-	height: 40,
-	width: "90%",
-	backgroundColor: "gray",
-	borderRadius: 30,
-	color: "white",
-	paddingHorizontal: "4%",
-	fontFamily: "BlackHanSans_400Regular",
-	opacity: 0.8,
+    marginTop: "5%",
+    height: 40,
+    width: "90%",
+    backgroundColor: "gray",
+    borderRadius: 30,
+    color: "white",
+    paddingHorizontal: "4%",
+    fontFamily: "BlackHanSans_400Regular",
+    opacity: 0.8,
   },
 });

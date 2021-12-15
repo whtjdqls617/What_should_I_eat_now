@@ -1,16 +1,7 @@
 import React, { useState } from "react";
-import {
-  TouchableOpacity,
-  Image,
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  KeyboardAvoidingView,
-} from "react-native";
-import { plus } from "../../data/icons";
+import { View, Text, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
-import { SearchBar } from "../../SignUp/SearchBar";
+import { SearchBar } from "../FoodList/SearchBar";
 import { AddEatenFoodSign } from "./AddEatenFoodSign";
 import { BlankSpace } from "./BlankSpace";
 import { getTokenFromStorage } from "../../func/func_data_communication";
