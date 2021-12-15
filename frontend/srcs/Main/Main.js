@@ -7,34 +7,18 @@ import { RecommendByRandomButton } from "./RecommendByRandomButton";
 import { SettingButton } from "./SettingButton";
 import { InfoButton } from "./InfoButton";
 
-export const Main = ({ navigation, SignInExpired }) => {
+export const Main = ({ navigation }) => {
   return (
     <>
-			<InfoButton navigation={navigation} />
+      <InfoButton navigation={navigation} />
       <View style={styles.top}>
-        <RecommendByAlgorithmButton
-          navigation={navigation}
-          SignInExpired={SignInExpired}
-          icon={icons[3]}
-        />
+        <RecommendByAlgorithmButton navigation={navigation} icon={icons[3]} />
       </View>
       <View style={styles.bottom}>
         <View style={styles.bottomimg_align}>
-          <CalendarButton
-            navigation={navigation}
-            SignInExpired={SignInExpired}
-            icon={icons[0]}
-          />
-          <RecommendByRandomButton
-            navigation={navigation}
-            SignInExpired={SignInExpired}
-            icon={icons[1]}
-          />
-          <SettingButton
-            navigation={navigation}
-            SignInExpired={SignInExpired}
-            icon={icons[2]}
-          />
+          <CalendarButton navigation={navigation} icon={icons[0]} />
+          <RecommendByRandomButton navigation={navigation} icon={icons[1]} />
+          <SettingButton navigation={navigation} icon={icons[2]} />
         </View>
         <View style={styles.bottomtext_align}>
           <Text style={styles.text_calendar}>뭐 먹었지</Text>

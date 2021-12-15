@@ -1,29 +1,44 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { makeDateString } from "../../func/func_calculate_date";
 import {
-  getTokenFromStorage,
-  postDataToServer,
+  getdataFromStorage,
+  setDataToStorage,
 } from "../../func/func_data_communication";
-import { ip } from "../../data/data";
 
-export const DecisionButton = ({ navigation, SignInExpired, foodName }) => {
+export const DecisionButton = ({ navigation, foodName }) => {
+  const onPress = () => {
+    const firstKeyName = makeDateString();
+    const secondKeyName = firstKeyName.substring(0, 8);
+    const goToMain = () => navigation.navigate("Main");
+
+    const existenceFunc = (keyName, data) => {
+      if (keyName.length > 8) {
+        data.push(foodName);
+        setDataToStorage(keyName, data, 0);
+      } else {
+        const key = firstKeyName.substring(1);
+        if (data[key] === undefined) data[key] = [];
+        data[key].push(foodName);
+        setDataToStorage(keyName, data, goToMain);
+      }
+    };
+
+    const absenceFunc = (ele) => {
+      const key = firstKeyName.substring(1);
+      let object = {};
+      object[key] = [foodName];
+      ele.length > 8
+        ? setDataToStorage(ele, [foodName], 0)
+        : setDataToStorage(ele, object, goToMain);
+    };
+
+    getdataFromStorage(firstKeyName, existenceFunc, absenceFunc, 0);
+    getdataFromStorage(secondKeyName, existenceFunc, absenceFunc, 0);
+  };
+
   return (
-    <TouchableOpacity
-      style={styles.button}
-      onPress={() => {
-        const okFunc = (value) => {
-          postDataToServer(
-            `${ip}/recommend-food/select`,
-            foodName,
-            value,
-            0,
-            SignInExpired
-          );
-          navigation.navigate("Main");
-        };
-        getTokenFromStorage(okFunc, 0, 0);
-      }}
-    >
+    <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.buttonText}>결정</Text>
     </TouchableOpacity>
   );

@@ -1,58 +1,34 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
-import {
-  getDataFromServer,
-  getTokenFromStorage,
-} from "../func/func_data_communication";
-import { ip } from "../data/data";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StyleSheet, TouchableOpacity, Image } from "react-native";
+import { getdataFromStorage } from "../func/func_data_communication";
+import { makeDateString } from "../func/func_calculate_date";
 
-export const CalendarButton = ({ navigation, icon, SignInExpired }) => {
+export const CalendarButton = ({ navigation, icon }) => {
+  const onPress = () => {
+    const dateString = makeDateString().substring(1);
+    const keyName = "@" + dateString.substring(0, 7);
 
-  const onPressCalendarButton = () => {
-
-    const okFunc = (value) => {
-      const now = new Date();
-      const year = now.getFullYear().toString();
-      const month = (now.getMonth() + 1).toString().padStart(2, "0");
-      const day = "01";
-      const date = year + "-" + month + "-" + day;
-      const today =
-        year + "-" + month + "-" + now.getDate().toString().padStart(2, "0");
-
-      const params = {
-        params: { month: date },
-        headers: {
-          "X-AUTH-TOKEN": value,
-        },
+    const existenceFunc = (keyName, data) => {
+      const object = {
+        data: data,
+        today: dateString,
       };
-
-      const resFunc = (data) => {
-        const object = {
-          data: data,
-          today: today,
-          SignInExpired: SignInExpired,
-        };
-        navigation.navigate("CustomCalendar", object);
-      };
-
-      getDataFromServer(
-        `${ip}/calendar/food`,
-        params,
-        resFunc,
-        0,
-        SignInExpired
-      );
+      navigation.navigate("CustomCalendar", object);
     };
 
-    getTokenFromStorage(okFunc, 0, 0);
+    const absenceFunc = (keyName) => {
+      const object = {
+        data: {},
+        today: dateString,
+      };
+      navigation.navigate("CustomCalendar", object);
+    };
+
+    getdataFromStorage(keyName, existenceFunc, absenceFunc, 0);
   };
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={onPressCalendarButton}
-    >
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image
         source={icon}
         resizeMode="contain"
@@ -63,10 +39,10 @@ export const CalendarButton = ({ navigation, icon, SignInExpired }) => {
 };
 
 const styles = StyleSheet.create({
-
   container: {
-	flex: 1,
-	alignItems: "center" },
+    flex: 1,
+    alignItems: "center",
+  },
   img_calendar: {
     width: 88,
     height: 88,

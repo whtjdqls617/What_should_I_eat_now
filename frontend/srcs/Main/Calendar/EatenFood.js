@@ -17,30 +17,25 @@ export const EatenFood = ({ food_name, index, onXPress }) => {
 
   if (ismodalVisible)
     return (
-      <View
-        style={{ flexDirection: "column", alignItems: "center", margin: 10 }}
-      >
-        <Image style={styles.imagestyle} source={food_image[food_name_without_space]} />
+      <View style={styles.container}>
+        <Image
+          style={styles.imagestyle}
+          source={food_image[food_name_without_space]}
+        />
         <Text style={styles.textstyle}>{food_name}</Text>
         <TouchableOpacity style={{ marginTop: 5 }} onPress={toggleModal}>
-          <Text style={{ fontSize : 30, fontFamily: "BlackHanSans_400Regular", color: "red" }}>
-            x
-          </Text>
+          <Text style={styles.xButton}>x</Text>
         </TouchableOpacity>
-        <Modal isVisible={true} animationOutTiming={400} onBackdropPress={toggleModal} onRequestClose={toggleModal}>
+        <Modal
+          isVisible={true}
+          animationOutTiming={400}
+          onBackdropPress={toggleModal}
+          onRequestClose={toggleModal}
+        >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text
-                style={{
-                  marginTop: "4%",
-                  textAlign: "center",
-                  fontFamily: "BlackHanSans_400Regular",
-                  fontSize: 20,
-                }}
-              >
-                진짜 지울꺼야?
-              </Text>
-              <View style={{ flexDirection: "row", marginTop: "5%" }}>
+              <Text style={styles.questionText}>진짜 지울꺼야?</Text>
+              <View style={styles.buttons}>
                 <TouchableOpacity
                   onPress={() => {
                     toggleModal();
@@ -48,28 +43,14 @@ export const EatenFood = ({ food_name, index, onXPress }) => {
                   }}
                   style={styles.button2}
                 >
-                  <Text
-                    style={{
-                      color: "white",
-                      fontFamily: "BlackHanSans_400Regular",
-                    }}
-                  >
-                    응
-                  </Text>
+                  <Text style={styles.buttonText}>응</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   title="선택"
                   onPress={toggleModal}
                   style={styles.button}
                 >
-                  <Text
-                    style={{
-                      color: "white",
-                      fontFamily: "BlackHanSans_400Regular",
-                    }}
-                  >
-                    아니
-                  </Text>
+                  <Text style={styles.buttonText}>아니</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -79,27 +60,25 @@ export const EatenFood = ({ food_name, index, onXPress }) => {
     );
   else
     return (
-      <View
-        style={{ flexDirection: "column", alignItems: "center", margin: 10 }}
-      >
-        <Image style={styles.imagestyle} source={food_image[food_name_without_space]} />
+      <View style={styles.container}>
+        <Image
+          style={styles.imagestyle}
+          source={food_image[food_name_without_space]}
+        />
         <Text style={styles.textstyle}>{food_name}</Text>
         <TouchableOpacity style={{ marginTop: 5 }} onPress={toggleModal}>
-          <Text
-            style={{
-              fontSize: 30,
-              fontFamily: "BlackHanSans_400Regular",
-              color: "red",
-            }}
-          >
-            x
-          </Text>
+          <Text style={styles.xButton}>x</Text>
         </TouchableOpacity>
       </View>
     );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: "column",
+    alignItems: "center",
+    margin: 10,
+  },
   centeredView: {
     flex: 1,
     justifyContent: "center",
@@ -110,10 +89,24 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 30,
   },
+  buttons: {
+    flexDirection: "row",
+    marginTop: "5%",
+  },
+  questionText: {
+    marginTop: "4%",
+    textAlign: "center",
+    fontFamily: "BlackHanSans_400Regular",
+    fontSize: 20,
+  },
+  buttonText: {
+    color: "white",
+    fontFamily: "BlackHanSans_400Regular",
+  },
   imagestyle: {
     borderRadius: 130,
     borderWidth: 3,
-	borderColor : 'black',
+    borderColor: "black",
     height: 90,
     width: 90,
   },
@@ -121,6 +114,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "BlackHanSans_400Regular",
     marginTop: 8,
+  },
+  xButton: {
+    fontSize: 30,
+    fontFamily: "BlackHanSans_400Regular",
+    color: "red",
   },
   xbuttonstyles: {
     flex: 1,
