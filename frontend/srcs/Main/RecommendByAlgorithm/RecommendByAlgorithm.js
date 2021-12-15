@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { AskQuestion } from "./AskQuestion";
 import { RecommendedFood } from "./RecommendedFood";
-import { OtherFood } from "./OtherFood";
 import { Loading } from "./Loading";
 import { LogBox } from "react-native";
 
@@ -37,7 +36,5 @@ export const RecommendByAlgorithm = ({ navigation }) => {
         navigation={navigation}
       />
     );
-  } else {
-    return <OtherFood data={data} navigation={navigation} />;
   }
 };

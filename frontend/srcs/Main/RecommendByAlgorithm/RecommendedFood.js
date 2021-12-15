@@ -36,12 +36,6 @@ export const RecommendedFood = ({ data, updateIndex, navigation }) => {
             >
               <Text style={styles.buttonText}>응!</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button_no}
-              onPress={() => updateIndex(true)}
-            >
-              <Text style={styles.buttonText}>고민좀...</Text>
-            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
