@@ -6,21 +6,16 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import {
-  ObjectsInArrayToArray,
-  arrayToObjectsInArray,
-} from "../func/func_change_var_type";
 
 export const SelectedFoodList = ({ foodList, setFoodList }) => {
   return (
     <>
       <FlatList
-        style={{marginTop: "3%", height : 200 }}
+        style={{ marginTop: "3%", height: 200 }}
         data={foodList}
         initialNumToRender={10}
-		    keyExtractor={( item, index ) => index.toString() }
+        keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => {
-
           return (
             <>
               <View style={styles.todolistalign}>

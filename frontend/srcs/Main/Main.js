@@ -4,7 +4,7 @@ import { icons, info } from "../data/icons";
 import { RecommendByAlgorithmButton } from "./RecommendByAlgorithmButton";
 import { CalendarButton } from "./CalendarButton";
 import { RecommendByRandomButton } from "./RecommendByRandomButton";
-import { SettingButton } from "./SettingButton";
+import { FoodListButton } from "./FoodListButton";
 import { InfoButton } from "./InfoButton";
 
 export const Main = ({ navigation }) => {
@@ -18,7 +18,7 @@ export const Main = ({ navigation }) => {
         <View style={styles.bottomimg_align}>
           <CalendarButton navigation={navigation} icon={icons[0]} />
           <RecommendByRandomButton navigation={navigation} icon={icons[1]} />
-          <SettingButton navigation={navigation} icon={icons[2]} />
+          <FoodListButton navigation={navigation} icon={icons[2]} />
         </View>
         <View style={styles.bottomtext_align}>
           <Text style={styles.text_calendar}>뭐 먹었지</Text>

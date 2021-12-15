@@ -101,11 +101,9 @@ export const getdataFromStorage = async (
   errorFunc
 ) => {
   try {
-    console.log("HI");
     const data = await AsyncStorage.getItem(keyName);
     if (data !== null && existenceFunc) {
       const parseData = JSON.parse(data);
-      console.log("hi");
       existenceFunc(keyName, parseData);
     } else if (data == null && absenceFunc) absenceFunc(keyName);
   } catch (e) {

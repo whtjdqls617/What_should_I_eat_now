@@ -1,71 +1,34 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Text, TouchableOpacity, StyleSheet, View, LogBox } from "react-native";
-import { SearchBar } from "../../SignUp/SearchBar";
-import { SelectedFoodList } from "../../SignUp/SelectedFoodList";
+import { SearchBar } from "./SearchBar";
+import { SelectedFoodList } from "./SelectedFoodList";
 import { HomeButton } from "../HomeButton";
 import {
   onPressInLikeSearchPreview,
   onPressInDisLikeSearchPreview,
 } from "../../func/func_on_press";
-import {
-  getTokenFromStorage,
-  putDataToServer,
-} from "../../func/func_data_communication";
-import { ip } from "../../data/data";
+import { setDataToStorage } from "../../func/func_data_communication";
 
 export const FoodList = ({ navigation, route }) => {
   LogBox.ignoreLogs([
     "Non-serializable values were found in the navigation state",
   ]);
 
-  const originLikeFood = route.params.data.data.likeFoodList;
-  const originDisLikeFood = route.params.data.data.dislikeFoodList;
+  const initialLikeFood = route.params.likeFood;
+  const initialDisLikeFood = route.params.disLikeFood;
 
   const [signal, setSignal] = useState(0);
-  const [likeFoodList, setLikeFoodList] = useState(
-    route.params.data.data.likeFoodList
-  );
-  const [disLikeFoodList, setDisLikeFoodList] = useState(
-    route.params.data.data.dislikeFoodList
-  );
+  const [likeFoodList, setLikeFoodList] = useState(initialLikeFood);
+  const [disLikeFoodList, setDisLikeFoodList] = useState(initialDisLikeFood);
 
-  const updateFoodList = (
-    originLikeFood,
-    originDisLikeFood,
-    likeFoodList,
-    disLikeFoodList
-  ) => {
-    let object = {
-      dislikeFood: {},
-      likeFood: {},
+  const onPressApplyButton = () => {
+    const keyName = "@food_list";
+    const data = {
+      likeFood: likeFoodList,
+      disLikeFood: disLikeFoodList,
     };
-
-    object.likeFood.deleteFoodList = originLikeFood
-      .map((food) => {
-        if (!likeFoodList.includes(food)) return food;
-      })
-      .filter((food) => food != null);
-
-    object.dislikeFood.deleteFoodList = originDisLikeFood
-      .map((food) => {
-        if (!disLikeFoodList.includes(food)) return food;
-      })
-      .filter((food) => food != null);
-
-    object.likeFood.addFoodList = likeFoodList
-      .map((food) => {
-        if (!originLikeFood.includes(food)) return food;
-      })
-      .filter((food) => food != null);
-
-    object.dislikeFood.addFoodList = disLikeFoodList
-      .map((food) => {
-        if (!originDisLikeFood.includes(food)) return food;
-      })
-      .filter((food) => food != null);
-
-    return object;
+    const nextStep = () => navigation.navigate("Main");
+    setDataToStorage(keyName, data, nextStep);
   };
 
   const onPressInLSP = (item) => {
@@ -129,25 +92,7 @@ export const FoodList = ({ navigation, route }) => {
       <View style={styles.buttonalign}>
         <TouchableOpacity
           style={styles.buttonstyle}
-          onPress={() => {
-            const okFunc = (value) => {
-              const resFunc = () => navigation.navigate("Setting");
-              const params = updateFoodList(
-                originLikeFood,
-                originDisLikeFood,
-                likeFoodList,
-                disLikeFoodList
-              );
-              putDataToServer(
-                `${ip}/user/info/food`,
-                params,
-                value,
-                resFunc,
-                0
-              );
-            };
-            getTokenFromStorage(okFunc, 0, 0);
-          }}
+          onPress={onPressApplyButton}
         >
           <Text style={styles.textstyle}>적용</Text>
         </TouchableOpacity>
@@ -184,22 +129,3 @@ const styles = StyleSheet.create({
     marginBottom: "9%",
   },
 });
-
-// {
-// 	"dislikeFood": {
-// 	  "addFoodList": [
-// 		"string"
-// 	  ],
-// 	  "deleteFoodList": [
-// 		"string"
-// 	  ]
-// 	},
-// 	"likeFood": {
-// 	  "addFoodList": [
-// 		"string"
-// 	  ],
-// 	  "deleteFoodList": [
-// 		"string"
-// 	  ]
-// 	}
-//   }
