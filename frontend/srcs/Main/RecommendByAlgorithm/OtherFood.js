@@ -1,18 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { OtherOptions } from "./OtherOptions";
-import { youtubeURLtoID } from "../../func/func_change_var_type";
 import { food_image } from "../../data/data";
 import { HomeButton } from "../HomeButton";
-import { YoutubeVideos } from "./YoutubeVideos";
 
 export const OtherFood = ({ data, navigation }) => {
-  const youtube_url = [
-    data.list[1].youtube_url,
-    data.list[2].youtube_url,
-    data.list[3].youtube_url,
-  ];
-  const youtube_id = youtube_url.map((ele) => youtubeURLtoID(ele));
   const other_food_name = [
     data.list[1].name,
     data.list[2].name,
@@ -51,11 +43,6 @@ export const OtherFood = ({ data, navigation }) => {
             );
           })}
         </View>
-        <Text style={styles.youtube}>유튜브 먹방</Text>
-        <YoutubeVideos
-          other_food_name={other_food_name}
-          youtube_id={youtube_id}
-        />
       </View>
     </ScrollView>
   );
@@ -79,25 +66,11 @@ const styles = StyleSheet.create({
     fontSize: 56,
     marginLeft: "5%",
   },
-  youtube: {
-    fontFamily: "BlackHanSans_400Regular",
-    fontSize: 30,
-    marginTop: "9%",
-    marginLeft: "5%",
-  },
   img_food_align: {
     height: 96,
     flexDirection: "row",
     marginTop: "8%",
     justifyContent: "space-around",
     alignItems: "center",
-  },
-  youtubealign: {
-    marginTop: "6%",
-  },
-  youtubetext: {
-    fontFamily: "BlackHanSans_400Regular",
-    fontSize: 18,
-    marginStart: "3%",
   },
 });
