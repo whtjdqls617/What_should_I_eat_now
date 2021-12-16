@@ -27,19 +27,17 @@ export const RecommendByRandom = ({ navigation }) => {
   }
 
   const findLocation = () => {
-      let enable = Location.hasServicesEnabledAsync(); // 위치 서비스 사용이 가능한지?
-      if (enable == false) {
-        let { status } = Location.requestForegroundPermissionsAsync(); // 권한 설정
-        if (status !== "granted") {
-          Alert.alert("Permission to access location was denied");
-          return;
-        }
-      }
-	  else {
-      let location = Location.getCurrentPositionAsync({}); // 현재 위치 받아오기
-      setLocation(location);
-    };
-  };
+	  (async () => {
+		  let { status } = await Location.requestForegroundPermissionsAsync(); // 권한 설정
+		  console.log(status);
+		  if (status !== "granted") {
+			Alert.alert("Permission to access location was denied");
+			return;
+		  }
+		let location = await Location.getCurrentPositionAsync({}); // 현재 위치 받아오기
+		setLocation(location);
+	  })();
+    }
 
   return (
     <>
@@ -64,9 +62,10 @@ export const RecommendByRandom = ({ navigation }) => {
                   onPress={() => {
                     findLocation();
                     console.log("in?");
-					console.log(foodName);
+					console.log(location);
+					if (location)
                       Linking.openURL(
-                        `https://map.naver.com/v5/search/${foodName_without_space}?c=${location._W.coords.latitude},${location._W.coords.longitude},15,0,0,0,dh`
+                        `https://map.naver.com/v5/search/${foodName_without_space}?c=${location.coords.latitude},${location.coords.longitude},15,0,0,0,dh`
                       );
                   }}
                 >
