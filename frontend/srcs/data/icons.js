@@ -31,6 +31,7 @@ export var icons = [
   require("../../image/settings.png"),
   require("../../image/food.png"),
   require("../../image/youtube.png"),
+  require("../../image/map.png"),
 ];
 
 export var plus = require("../../image/plus.png");

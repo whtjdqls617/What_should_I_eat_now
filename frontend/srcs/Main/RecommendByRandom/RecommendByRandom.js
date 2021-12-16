@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Linking,
+  Alert,
 } from "react-native";
 import { food_image } from "../../data/data";
 import { HomeButton } from "../HomeButton";
@@ -13,8 +14,10 @@ import { DecisionButton } from "./DecisionButton";
 import { PushButton } from "./PushButton";
 import { SlotMachine } from "./SlotMachine";
 import { icons } from "../../data/icons";
+import * as Location from "expo-location";
 
 export const RecommendByRandom = ({ navigation }) => {
+  const [location, setLocation] = useState("");
   const [foodName, setFoodName] = useState("");
   const headerText = foodName.length > 0 ? "이건 어때?" : "랜덤 추천";
 
@@ -22,6 +25,21 @@ export const RecommendByRandom = ({ navigation }) => {
   while (foodName_without_space.includes(" ")) {
     foodName_without_space = foodName_without_space.replace(" ", "");
   }
+
+  const findLocation = () => {
+      let enable = Location.hasServicesEnabledAsync(); // 위치 서비스 사용이 가능한지?
+      if (enable == false) {
+        let { status } = Location.requestForegroundPermissionsAsync(); // 권한 설정
+        if (status !== "granted") {
+          Alert.alert("Permission to access location was denied");
+          return;
+        }
+      }
+	  else {
+      let location = Location.getCurrentPositionAsync({}); // 현재 위치 받아오기
+      setLocation(location);
+    };
+  };
 
   return (
     <>
@@ -35,19 +53,46 @@ export const RecommendByRandom = ({ navigation }) => {
               source={food_image[foodName_without_space]}
             />
             <Text style={styles.foodname}>{foodName}</Text>
-            <TouchableOpacity
-              onPress={() =>
-                Linking.openURL(
-                  `https://www.youtube.com/results?search_query=${foodName}먹방`
-                )
-              }
+            <View
+              style={{
+                flex: 0.3,
+                flexDirection: "column",
+              }}
             >
-              <Image
-                style={{ height: 30 }}
-                source={icons[4]}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
+              <View style={{ flex: 1, alignItems: "center" }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    findLocation();
+                    console.log("in?");
+					console.log(foodName);
+                      Linking.openURL(
+                        `https://map.naver.com/v5/search/${foodName_without_space}?c=${location._W.coords.latitude},${location._W.coords.longitude},15,0,0,0,dh`
+                      );
+                  }}
+                >
+                  <Image
+                    style={{ height: 30 }}
+                    source={icons[5]}
+                    resizeMode="contain"
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={{ flex: 1, alignItems: "center" }}>
+                <TouchableOpacity
+                  onPress={() =>
+                    Linking.openURL(
+                      `https://www.youtube.com/results?search_query=${foodName_without_space}먹방`
+                    )
+                  }
+                >
+                  <Image
+                    style={{ height: 30 }}
+                    source={icons[4]}
+                    resizeMode="contain"
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
             <PushButton setFoodName={setFoodName} />
             <View style={{ flex: 0.5 }}>
               <DecisionButton navigation={navigation} foodName={foodName} />
