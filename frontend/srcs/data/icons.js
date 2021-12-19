@@ -1,25 +1,25 @@
 export var opts = [
   [
-    require("../../image/date2.png"),
-    require("../../image/birthday.png"),
-    require("../../image/work.png"),
-    require("../../image/cold_weather.png"),
-    require("../../image/hot.png"),
-    require("../../image/rain.png")
+    require("../../image/rice.png"),
+    require("../../image/noodles.png"),
+    require("../../image/meat.png"),
+    require("../../image/seafood.png"),
+    require("../../image/soup2.png"),
+    require("../../image/flour.png")
   ],
   [
-    require("../../image/angry.png"),
-    require("../../image/happy.png"),
-    require("../../image/soju.png"),
-    require("../../image/cry.png"),
-    require("../../image/busy.png"),
-    require("../../image/tired.png")
+    require("../../image/korean_food.png"),
+    require("../../image/chinese_food.png"),
+    require("../../image/japanese_food.png"),
+    require("../../image/american_food.png"),
+    require("../../image/thai_food.png"),
+    require("../../image/other_food.png")
   ],
   [
     require("../../image/sweet.png"),
     require("../../image/spicy.png"),
     require("../../image/cold.png"),
-    require("../../image/salt.png"),
+    require("../../image/greasy.png"),
     require("../../image/soup.png"),
     require("../../image/sour.png")
   ],
