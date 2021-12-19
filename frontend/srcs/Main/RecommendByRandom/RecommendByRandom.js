@@ -53,24 +53,23 @@ export const RecommendByRandom = ({ navigation }) => {
             <Text style={styles.foodname}>{foodName}</Text>
             <View
               style={{
-                flex: 0.3,
-                flexDirection: "column",
+                flex: 0.14,
+                flexDirection: "row",
+				paddingHorizontal : '25%'
               }}
             >
               <View style={{ flex: 1, alignItems: "center" }}>
                 <TouchableOpacity
                   onPress={() => {
                     findLocation();
-                    console.log("in?");
-					console.log(location);
-					if (location)
+                    if (location)
                       Linking.openURL(
                         `https://map.naver.com/v5/search/${foodName_without_space}?c=${location.coords.latitude},${location.coords.longitude},15,0,0,0,dh`
                       );
                   }}
                 >
                   <Image
-                    style={{ height: 30 }}
+                    style={{ height: 35, width : 50 }}
                     source={icons[5]}
                     resizeMode="contain"
                   />
@@ -78,6 +77,7 @@ export const RecommendByRandom = ({ navigation }) => {
               </View>
               <View style={{ flex: 1, alignItems: "center" }}>
                 <TouchableOpacity
+                  sytle={{ height: 10, width: 100 }}
                   onPress={() =>
                     Linking.openURL(
                       `https://www.youtube.com/results?search_query=${foodName_without_space}먹방`
@@ -85,14 +85,29 @@ export const RecommendByRandom = ({ navigation }) => {
                   }
                 >
                   <Image
-                    style={{ height: 30 }}
+                    style={{ height: 35, width : 50 }}
                     source={icons[4]}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
               </View>
             </View>
-            <PushButton setFoodName={setFoodName} />
+            <View style={{ flex: 0.2, flexDirection: "row", paddingHorizontal: '25%' }}>
+              <View style={{ flex: 1, alignItems: "center" }}>
+                <Text style={{ fontFamily: "BlackHanSans_400Regular" }}>
+                  식당 찾기!
+                </Text>
+              </View>
+              <View style={{ flex: 1, alignItems: "center" }}>
+                <Text style={{ fontFamily: "BlackHanSans_400Regular" }}>
+                  먹방 검색!
+                </Text>
+              </View>
+            </View>
+            <View style={{ flex: 0.16 }}>
+              <PushButton setFoodName={setFoodName} />
+            </View>
+            <Text style={{ fontFamily: "BlackHanSans_400Regular" }}>다시!</Text>
             <View style={{ flex: 0.5 }}>
               <DecisionButton navigation={navigation} foodName={foodName} />
             </View>
