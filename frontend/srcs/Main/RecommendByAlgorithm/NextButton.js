@@ -1,17 +1,7 @@
 import React from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
-import {
-  getTokenFromStorage,
-  getDataFromServer,
-} from "../../func/func_data_communication";
 
-export const NextButton = ({
-  updateIndex,
-  answer,
-  index,
-  setData,
-  navigation,
-}) => {
+export const NextButton = ({ updateIndex, index, setData, navigation }) => {
   const nextPressEvent = () => {
     if (index == 2) setData(["케이크", "염라대왕라면", "카스테라"]);
     else updateIndex(true);
