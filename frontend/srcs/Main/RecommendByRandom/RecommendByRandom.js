@@ -15,6 +15,7 @@ import { PushButton } from "./PushButton";
 import { SlotMachine } from "./SlotMachine";
 import { icons } from "../../data/icons";
 import * as Location from "expo-location";
+import * as Animatable from "react-native-animatable";
 
 export const RecommendByRandom = ({ navigation }) => {
   const [location, setLocation] = useState("");
@@ -46,16 +47,21 @@ export const RecommendByRandom = ({ navigation }) => {
         <Text style={styles.title}>{headerText}</Text>
         {foodName.length > 0 ? (
           <>
-            <Image
+            <Animatable.Image
+              animation="swing"
+              iterationCount={2}
+              easing="ease-out"
               style={styles.img_recommend_food}
               source={food_image[foodName_without_space]}
             />
-            <Text style={styles.foodname}>{foodName}</Text>
+            <Animatable.Text style={styles.foodname}>
+              {foodName}
+            </Animatable.Text>
             <View
               style={{
-                flex: 0.14,
+                flex: 0.16,
                 flexDirection: "row",
-				paddingHorizontal : '25%'
+                paddingHorizontal: "25%",
               }}
             >
               <View style={{ flex: 1, alignItems: "center" }}>
@@ -69,7 +75,7 @@ export const RecommendByRandom = ({ navigation }) => {
                   }}
                 >
                   <Image
-                    style={{ height: 35, width : 50 }}
+                    style={{ height: 35, width: 50 }}
                     source={icons[5]}
                     resizeMode="contain"
                   />
@@ -85,14 +91,20 @@ export const RecommendByRandom = ({ navigation }) => {
                   }
                 >
                   <Image
-                    style={{ height: 35, width : 50 }}
+                    style={{ height: 35, width: 50 }}
                     source={icons[4]}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
               </View>
             </View>
-            <View style={{ flex: 0.2, flexDirection: "row", paddingHorizontal: '25%' }}>
+            <View
+              style={{
+                flex: 0.25,
+                flexDirection: "row",
+                paddingHorizontal: "25%",
+              }}
+            >
               <View style={{ flex: 1, alignItems: "center" }}>
                 <Text style={{ fontFamily: "BlackHanSans_400Regular" }}>
                   식당 찾기!
@@ -104,7 +116,7 @@ export const RecommendByRandom = ({ navigation }) => {
                 </Text>
               </View>
             </View>
-            <View style={{ flex: 0.16 }}>
+            <View style={{ flex: 0.2 }}>
               <PushButton setFoodName={setFoodName} />
             </View>
             <Text style={{ fontFamily: "BlackHanSans_400Regular" }}>다시!</Text>
@@ -139,6 +151,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     width: 242,
     height: 242,
+	transform : [{scale : 0}]
   },
   title: {
     flex: 0.3,
@@ -162,7 +175,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "black",
     justifyContent: "center",
-    marginTop: "5%",
+    marginTop: "10%",
   },
   invisibleButton: {
     marginTop: "7%",
