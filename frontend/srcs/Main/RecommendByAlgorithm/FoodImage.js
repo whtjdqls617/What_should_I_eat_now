@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { food_image } from "../../data/data";
 import Carousel from "react-native-snap-carousel";
 
@@ -34,7 +34,7 @@ export const FoodImage = ({ name, setFunc }) => {
   ];
 
   return (
-    <>
+    <View style={{ flex: 1.5, marginLeft: "15%" }}>
       <Carousel
         data={items}
         renderItem={renderItem}
@@ -43,7 +43,7 @@ export const FoodImage = ({ name, setFunc }) => {
         layout={"stack"}
         onSnapToItem={(index) => setFunc(items[index].title)}
       />
-    </>
+    </View>
   );
 };
 
