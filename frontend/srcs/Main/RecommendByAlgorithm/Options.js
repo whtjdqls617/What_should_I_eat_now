@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
-import { NextButton } from "./Button";
+import { NextButton } from "./NextButton";
 import { opts } from "../../data/icons";
 import { OptionImageRow } from "./OptionImageRow";
 import { OptionTextRow } from "./OptionTextRow";
