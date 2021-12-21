@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity } from "react-native";
 import {
-  getdataFromStorage,
+  getDataFromStorage,
   setDataToStorage,
 } from "../../func/func_data_communication";
 import { onPressSelectFood } from "../../func/func_on_press";

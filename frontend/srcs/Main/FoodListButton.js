@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, Image } from "react-native";
-import { getdataFromStorage } from "../func/func_data_communication";
+import { getDataFromStorage } from "../func/func_data_communication";
 
 export const FoodListButton = ({ navigation, icon }) => {
   const onPress = () => {
@@ -18,7 +18,7 @@ export const FoodListButton = ({ navigation, icon }) => {
       navigation.navigate("FoodList", object);
     };
 
-    getdataFromStorage(keyName, existenceFunc, absenceFunc, 0);
+    getDataFromStorage(keyName, existenceFunc, absenceFunc, 0);
   };
 
   return (

@@ -8,7 +8,7 @@ import { StatusMessage } from "./StatusMessage";
 import { DateText } from "./DateText";
 import { LogBox } from "react-native";
 import {
-  getdataFromStorage,
+  getDataFromStorage,
   setDataToStorage,
 } from "../../func/func_data_communication";
 
@@ -48,8 +48,8 @@ export const CustomCalendar = ({ navigation, route }) => {
       }
     };
 
-    getdataFromStorage(firstKeyName, existenceFunc, 0, 0);
-    getdataFromStorage(secondKeyName, existenceFunc, 0, 0);
+    getDataFromStorage(firstKeyName, existenceFunc, 0, 0);
+    getDataFromStorage(secondKeyName, existenceFunc, 0, 0);
   };
 
   return (

@@ -12,7 +12,7 @@ export const OptionImageRow = ({ add, image, qna, selectOption, lightEffect}) =>
 				<OptionImage
 					key={i + add}
 					image={image[i + add]}
-					array={[qna[0], qna[i + 1 + add]]}
+					tag={qna[i + 1 + add]}
 					selectOption={selectOption}
 					lightEffect={lightEffect[i + add]}
 				/>)}

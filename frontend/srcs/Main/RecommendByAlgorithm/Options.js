@@ -4,31 +4,26 @@ import { NextButton } from "./NextButton";
 import { opts } from "../../data/icons";
 import { OptionImageRow } from "./OptionImageRow";
 import { OptionTextRow } from "./OptionTextRow";
+import { question_and_answers } from "../../data/question_data";
 
 export const Options = ({ index, qna, updateIndex, setData, navigation }) => {
-  const [answer, setAnswer] = useState([
-    ["특별한 날이야?"],
-    ["기분이 어때?"],
-    ["무슨 맛이 땡겨?"],
-  ]);
+  const [answer, setAnswer] = useState([]);
 
-  const selectOption = ([, option]) => {
+  const selectOption = (tag) => {
     const new_answer = answer.slice();
-    if (new_answer[index].includes(option))
-      new_answer[index].splice(new_answer[index].indexOf(option), 1);
-    else new_answer[index].push(option);
+    if (new_answer.includes(tag))
+      new_answer.splice(new_answer.indexOf(tag), 1);
+    else new_answer.push(tag);
     setAnswer(new_answer);
   };
 
   const findSelectedOne = (answer) => {
-    if (answer[index].length > 1) {
       let array = [];
       for (let i = 1; i < 7; i++) {
-        const element = answer[index].includes(qna[i]) ? true : false;
+        const element = answer.includes(qna[i]) ? true : false;
         array.push(element);
       }
-      return array;
-    } else return Array(6).fill(false);
+      return array.length > 0 ? array : Array(6).fill(false);
   };
 
   const selectStatus = findSelectedOne(answer);

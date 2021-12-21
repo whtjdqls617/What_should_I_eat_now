@@ -16,13 +16,8 @@ import { icons } from "../../data/icons";
 import * as Location from "expo-location";
 
 export const RecommendedFood = ({ data, navigation }) => {
-  const [foodName, setFoodName] = useState(data[0]);
+  const [foodName, setFoodName] = useState("");
   const [location, setLocation] = useState("");
-
-  let foodName_without_space = foodName.slice();
-  while (foodName_without_space.includes(" ")) {
-    foodName_without_space = foodName_without_space.replace(" ", "");
-  }
 
   const findLocation = () => {
     (async () => {
@@ -40,16 +35,15 @@ export const RecommendedFood = ({ data, navigation }) => {
   return (
     <>
       <HomeButton navigation={navigation} />
-      {/* <ScrollView contentContainerStyle={styles.contentContainer}> */}
       <View style={styles.container}>
         <View style={{ flex: 0.2 }}>
           <TitleText />
         </View>
         <View style={{ flex: 0.51 }}>
-          <FoodImage name={foodName} setFunc={setFoodName} />
+          <FoodImage name={FoodName} list={data} setName={setFoodName} />
         </View>
         <View style={{ flex: 0.25 }}>
-          <FoodName name={foodName} />
+          <FoodName name={FoodName} list={data}/>
         </View>
         <View
           style={{
@@ -64,7 +58,7 @@ export const RecommendedFood = ({ data, navigation }) => {
                 findLocation();
                 if (location)
                   Linking.openURL(
-                    `https://map.naver.com/v5/search/${foodName_without_space}?c=${location.coords.latitude},${location.coords.longitude},15,0,0,0,dh`
+                    `https://map.naver.com/v5/search/${foodName}?c=${location.coords.latitude},${location.coords.longitude},15,0,0,0,dh`
                   );
               }}
             >
@@ -80,7 +74,7 @@ export const RecommendedFood = ({ data, navigation }) => {
               sytle={{ height: 10, width: 100 }}
               onPress={() =>
                 Linking.openURL(
-                  `https://www.youtube.com/results?search_query=${foodName_without_space}먹방`
+                  `https://www.youtube.com/results?search_query=${foodName}먹방`
                 )
               }
             >
@@ -114,7 +108,6 @@ export const RecommendedFood = ({ data, navigation }) => {
           <YesButton nav={navigation} name={foodName} />
         </View>
       </View>
-      {/* </ScrollView> */}
     </>
   );
 };
