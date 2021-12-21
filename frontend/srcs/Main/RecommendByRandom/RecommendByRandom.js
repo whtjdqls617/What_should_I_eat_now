@@ -30,7 +30,6 @@ export const RecommendByRandom = ({ navigation }) => {
   const findLocation = () => {
 	  (async () => {
 		  let { status } = await Location.requestForegroundPermissionsAsync(); // 권한 설정
-		  console.log(status);
 		  if (status !== "granted") {
 			Alert.alert("Permission to access location was denied");
 			return;

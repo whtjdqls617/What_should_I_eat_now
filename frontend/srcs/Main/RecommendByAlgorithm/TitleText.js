@@ -7,7 +7,6 @@ export const TitleText = () => {
 
 const styles = StyleSheet.create({
   title: {
-    flex: 0.6,
     textAlign: "center",
     fontFamily: "BlackHanSans_400Regular",
     fontSize: 40,
