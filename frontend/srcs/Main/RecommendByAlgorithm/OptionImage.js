@@ -2,9 +2,9 @@ import { TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import { StyledImage, StyledImage2 } from "../../style";
 
-export const OptionImage = ({ array, image, selectOption, lightEffect }) => {
+export const OptionImage = ({ tag, image, selectOption, lightEffect }) => {
   const onPress = () => {
-    selectOption(array);
+    selectOption(tag);
   };
 if (lightEffect)
 {

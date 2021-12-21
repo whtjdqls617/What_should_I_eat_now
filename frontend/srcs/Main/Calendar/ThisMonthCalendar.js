@@ -1,7 +1,7 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import { Calendar } from "react-native-calendars";
-import { getdataFromStorage } from "../../func/func_data_communication";
+import { getDataFromStorage } from "../../func/func_data_communication";
 
 export const ThisMonthCalendar = ({ setDay, setMonth, month, setDate }) => {
   let foodNumber = {};
@@ -71,7 +71,7 @@ export const ThisMonthCalendar = ({ setDay, setMonth, month, setDate }) => {
           setDay([]);
         };
 
-        getdataFromStorage(keyName, existenceFunc, absenceFunc, 0);
+        getDataFromStorage(keyName, existenceFunc, absenceFunc, 0);
       }}
       markingType={"multi-dot"}
       markedDates={markedDates}

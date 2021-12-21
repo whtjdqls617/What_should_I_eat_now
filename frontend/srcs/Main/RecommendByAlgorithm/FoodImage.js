@@ -3,35 +3,24 @@ import { Image, StyleSheet, View } from "react-native";
 import { food_image } from "../../data/data";
 import Carousel from "react-native-snap-carousel";
 
-export const FoodImage = ({ name, setFunc }) => {
-  let food_name_without_space = name.slice();
-  while (food_name_without_space.includes(" ")) {
-    food_name_without_space = food_name_without_space.replace(" ", "");
-  }
+export const FoodImage = ({ name, list, setName }) => {
 
   const renderItem = ({ item, index }) => {
+
+    const foodNameWithoutSpace = item.title.replace(/' '/, '');
+  }
     return (
       <Image
-        source={food_image[item.title]}
+        source={food_image[foodNameWithoutSpace]}
         style={styles.img_recommend_food}
       />
     );
   };
 
-  const items = [
-    {
-      title: "케이크",
-      text: "Text 1",
-    },
-    {
-      title: "토스트",
-      text: "Text 2",
-    },
-    {
-      title: "김밥",
-      text: "Text 3",
-    },
-  ];
+  const items = list.map((food, i) => {
+    const text = "Text " + i;
+    return { title: food, text: text};
+  });
 
   return (
     <View style={{ flex: 1.5, marginLeft: "15%" }}>
@@ -41,7 +30,7 @@ export const FoodImage = ({ name, setFunc }) => {
         sliderWidth={300}
         itemWidth={300}
         layout={"stack"}
-        onSnapToItem={(index) => setFunc(items[index].title)}
+        onSnapToItem={(index) => setName(items[index].title)}
       />
     </View>
   );

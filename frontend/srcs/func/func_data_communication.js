@@ -94,7 +94,7 @@ export const postDataToServer = (url, object, token, resFunc, errFunc) => {
     });
 };
 
-export const getdataFromStorage = async (
+export const getDataFromStorage = async (
   keyName,
   existenceFunc,
   absenceFunc,

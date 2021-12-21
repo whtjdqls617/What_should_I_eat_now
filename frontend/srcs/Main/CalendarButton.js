@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, Image } from "react-native";
-import { getdataFromStorage } from "../func/func_data_communication";
+import { getDataFromStorage } from "../func/func_data_communication";
 import { makeDateString } from "../func/func_calculate_date";
 
 export const CalendarButton = ({ navigation, icon }) => {
@@ -24,7 +24,7 @@ export const CalendarButton = ({ navigation, icon }) => {
       navigation.navigate("CustomCalendar", object);
     };
 
-    getdataFromStorage(keyName, existenceFunc, absenceFunc, 0);
+    getDataFromStorage(keyName, existenceFunc, absenceFunc, 0);
   };
 
   return (

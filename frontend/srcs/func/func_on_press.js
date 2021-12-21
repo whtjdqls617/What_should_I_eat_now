@@ -1,5 +1,5 @@
 import { makeDateString } from "./func_calculate_date";
-import { getdataFromStorage } from "./func_data_communication";
+import { getDataFromStorage } from "./func_data_communication";
 import { setDataToStorage } from "./func_data_communication";
 
 export const onPressInLikeSearchPreview = (
@@ -54,6 +54,6 @@ export const onPressSelectFood = (navigation, foodName) => {
       : setDataToStorage(ele, object, goToMain);
   };
 
-  getdataFromStorage(firstKeyName, existenceFunc, absenceFunc, 0);
-  getdataFromStorage(secondKeyName, existenceFunc, absenceFunc, 0);
+  getDataFromStorage(firstKeyName, existenceFunc, absenceFunc, 0);
+  getDataFromStorage(secondKeyName, existenceFunc, absenceFunc, 0);
 };
