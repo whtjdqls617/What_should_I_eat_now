@@ -9,7 +9,7 @@ export const YesButton = ({ nav, name }) => {
         style={styles.buttonYes}
         onPress={() => onPressSelectFood(nav, name)}
       >
-        <Text style={styles.buttonText}>응!</Text>
+        <Text style={styles.buttonText}>결정!</Text>
       </TouchableOpacity>
     </>
   );

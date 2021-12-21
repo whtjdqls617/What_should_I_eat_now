@@ -7,7 +7,6 @@ export const FoodName = ({ name }) => {
 
 const styles = StyleSheet.create({
   foodname: {
-    flex: 0.3,
     fontSize: 25,
     fontFamily: "BlackHanSans_400Regular",
     marginTop: 30,
