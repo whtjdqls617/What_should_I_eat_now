@@ -200,3 +200,8 @@ export const food = {
   게딱지볶음밥: ["해산물", "밥", "한식"],
   케밥: ["기타", "고기", "다른나라", "매콤한맛"],
 };
+
+export const food_image = {
+  케밥: require(""),
+
+}
