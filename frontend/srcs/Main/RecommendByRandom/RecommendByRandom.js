@@ -45,13 +45,13 @@ export const RecommendByRandom = ({ navigation }) => {
         <Text style={styles.title}>{headerText}</Text>
         {foodName.length > 0 ? (
           <>
-            {/* <Animatable.Image
+            <Animatable.Image
               animation="swing"
               iterationCount={2}
               easing="ease-out"
               style={styles.img_recommend_food}
               source={food_image[foodName_without_space]}
-            /> */}
+            />
             <Animatable.Text style={styles.foodname}>
               {foodName}
             </Animatable.Text>
