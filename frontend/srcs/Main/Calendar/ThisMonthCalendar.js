@@ -58,7 +58,6 @@ export const ThisMonthCalendar = ({ setDay, setMonth, month, setDate }) => {
         const firstDay =
           date.dateString.substring(0, 8).replace(/-/g, "_") + "01";
         const existenceFunc = (keyName, data) => {
-          console.log("month: ", data);
           setMonth(data);
           if (month[firstDay] === undefined) month[firstDay] = [];
           setDate(firstDay);

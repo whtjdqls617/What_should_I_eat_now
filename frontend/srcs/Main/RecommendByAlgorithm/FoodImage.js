@@ -1,25 +1,23 @@
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
-import { food_image } from "../../data/data";
+import { icons } from "../../data/icons";
 import Carousel from "react-native-snap-carousel";
 
 export const FoodImage = ({ name, list, setName }) => {
-
   const renderItem = ({ item, index }) => {
-
-    const foodNameWithoutSpace = item.title.replace(/' '/, '');
-  }
+    const foodNameWithoutSpace = item.title.replace(/' '/, "");
     return (
-      <Image
-        source={food_image[foodNameWithoutSpace]}
-        style={styles.img_recommend_food}
-      />
+      <Image source={icons[1]} style={styles.img_recommend_food} />
+      // <Image
+      //   source={food_image[foodNameWithoutSpace]}
+      //   style={styles.img_recommend_food}
+      // />
     );
   };
 
   const items = list.map((food, i) => {
     const text = "Text " + i;
-    return { title: food, text: text};
+    return { title: food, text: text };
   });
 
   return (

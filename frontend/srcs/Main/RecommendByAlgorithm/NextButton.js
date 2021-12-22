@@ -2,13 +2,17 @@ import React from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { recommendFood } from "../../func/func_recommend_food";
 
-export const NextButton = ({ updateIndex, answer, index, setData, navigation }) => {
+export const NextButton = ({
+  updateIndex,
+  answer,
+  index,
+  setData,
+  navigation,
+}) => {
   const nextPressEvent = () => {
     if (index == 2) {
-      const chosenFood = recommendFood(answer);
-      setData(chosenFood);
-    }
-    else updateIndex(true);
+      recommendFood(answer, setData);
+    } else updateIndex(true);
   };
 
   const prevPressEvent = () => {

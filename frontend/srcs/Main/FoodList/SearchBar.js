@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextInput, StyleSheet } from "react-native";
 import { food_name } from "../../data/data";
+import { food } from "../../data/food";
 import { SearchPreview } from "./SearchPreview";
 
 export const SearchBar = ({ onPress }) => {
@@ -8,11 +9,11 @@ export const SearchBar = ({ onPress }) => {
   const [value, setValue] = useState("");
 
   const matchFoodName = (input) => {
-    let food = [];
+    let foodNames = [];
     if (input.length > 0) {
-      food = food_name.filter((food) => food.includes(input));
+      foodNames = Object.keys(food).filter((name) => name.includes(input));
     }
-    setPreviewFood(food);
+    setPreviewFood(foodNames);
   };
 
   const searchFoodName = (input) => {

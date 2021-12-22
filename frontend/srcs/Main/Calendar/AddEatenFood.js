@@ -4,9 +4,10 @@ import Modal from "react-native-modal";
 import { SearchBar } from "../FoodList/SearchBar";
 import { AddEatenFoodSign } from "./AddEatenFoodSign";
 import { BlankSpace } from "./BlankSpace";
-import { getTokenFromStorage } from "../../func/func_data_communication";
-import { ip } from "../../data/data";
-import { putDataToServer } from "../../func/func_data_communication";
+import {
+  getDataFromStorage,
+  setDataToStorage,
+} from "../../func/func_data_communication";
 
 export const AddEatenFood = ({ day, setDay, month, setMonth, date }) => {
   const [ismodalVisible, setModalVisible] = useState(false);
@@ -15,22 +16,29 @@ export const AddEatenFood = ({ day, setDay, month, setMonth, date }) => {
   };
 
   const onPress = (newFood) => {
-    const copyDay = day.slice();
-    copyDay.push(newFood);
-    toggleModal();
-    setDay(copyDay);
+    const newDay = day.slice();
+    newDay.push(newFood);
+    let newMonth = JSON.parse(JSON.stringify(month));
+    newMonth[date] = newDay;
+    setMonth(newMonth);
+    setDay(newDay);
 
-    let copyMonth = month.slice();
-    copyMonth.push({ date: date, foodName: newFood });
-    setMonth(copyMonth);
+    const firstKeyName = "@" + date;
+    const secondKeyName = firstKeyName.substring(0, 8);
 
-    const okFunc = (token) => {
-      const name = newFood;
-
-      putDataToServer(`${ip}/calendar/food/${name}/${date}`, "", token, 0, 0);
+    const existenceFunc = (keyName, data) => {
+      if (keyName.length > 8) {
+        setDataToStorage(keyName, newDay, 0);
+      } else {
+        const key = firstKeyName.substring(1);
+        data[key] = newDay;
+        setDataToStorage(keyName, data, 0);
+      }
     };
 
-    getTokenFromStorage(okFunc, 0, 0);
+    getDataFromStorage(firstKeyName, existenceFunc, 0, 0);
+    getDataFromStorage(secondKeyName, existenceFunc, 0, 0);
+    toggleModal();
   };
 
   return (
