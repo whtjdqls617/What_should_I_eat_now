@@ -16,13 +16,13 @@ import { icons } from "../../data/icons";
 import * as Location from "expo-location";
 
 export const RecommendedFood = ({ data, navigation }) => {
-  const [foodName, setFoodName] = useState("");
+  const [foodName, setFoodName] = useState(data[0]);
   const [location, setLocation] = useState("");
 
   const findLocation = () => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync(); // 권한 설정
-    //   console.log(status);
+      //   console.log(status);
       if (status !== "granted") {
         Alert.alert("Permission to access location was denied");
         return;
@@ -40,10 +40,10 @@ export const RecommendedFood = ({ data, navigation }) => {
           <TitleText />
         </View>
         <View style={{ flex: 0.51 }}>
-          <FoodImage name={FoodName} list={data} setName={setFoodName} />
+          <FoodImage name={foodName} list={data} setName={setFoodName} />
         </View>
         <View style={{ flex: 0.25 }}>
-          <FoodName name={FoodName} list={data}/>
+          <FoodName name={foodName} />
         </View>
         <View
           style={{

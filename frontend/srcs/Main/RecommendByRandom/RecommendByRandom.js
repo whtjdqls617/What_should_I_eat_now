@@ -8,7 +8,6 @@ import {
   Linking,
   Alert,
 } from "react-native";
-import { food_image } from "../../data/data";
 import { HomeButton } from "../HomeButton";
 import { DecisionButton } from "./DecisionButton";
 import { PushButton } from "./PushButton";
@@ -28,16 +27,16 @@ export const RecommendByRandom = ({ navigation }) => {
   }
 
   const findLocation = () => {
-	  (async () => {
-		  let { status } = await Location.requestForegroundPermissionsAsync(); // 권한 설정
-		  if (status !== "granted") {
-			Alert.alert("Permission to access location was denied");
-			return;
-		  }
-		let location = await Location.getCurrentPositionAsync({}); // 현재 위치 받아오기
-		setLocation(location);
-	  })();
-    }
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync(); // 권한 설정
+      if (status !== "granted") {
+        Alert.alert("Permission to access location was denied");
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({}); // 현재 위치 받아오기
+      setLocation(location);
+    })();
+  };
 
   return (
     <>
@@ -46,13 +45,13 @@ export const RecommendByRandom = ({ navigation }) => {
         <Text style={styles.title}>{headerText}</Text>
         {foodName.length > 0 ? (
           <>
-            <Animatable.Image
+            {/* <Animatable.Image
               animation="swing"
               iterationCount={2}
               easing="ease-out"
               style={styles.img_recommend_food}
               source={food_image[foodName_without_space]}
-            />
+            /> */}
             <Animatable.Text style={styles.foodname}>
               {foodName}
             </Animatable.Text>
@@ -150,7 +149,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     width: 242,
     height: 242,
-	transform : [{scale : 0}]
+    transform: [{ scale: 0 }],
   },
   title: {
     flex: 0.3,
