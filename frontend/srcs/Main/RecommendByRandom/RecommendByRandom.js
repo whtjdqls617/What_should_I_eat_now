@@ -30,6 +30,10 @@ export const RecommendByRandom = ({ navigation }) => {
   const findLocation = () => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync(); // 권한 설정
+      if (status == "denied") {
+        Alert.alert("권한 설정을 다시 한번 확인해주세요!");
+        return;
+      }
       if (status !== "granted") {
         Alert.alert("권한 설정이 되어있지 않습니다!");
         return;
