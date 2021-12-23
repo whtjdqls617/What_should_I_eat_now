@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Image,
   Text,
-  Alert,
 } from "react-native";
 import { HomeButton } from "../HomeButton";
 import { FoodImage } from "./FoodImage";
@@ -14,27 +13,11 @@ import { FoodName } from "./FoodName";
 import { TitleText } from "./TitleText";
 import { YesButton } from "./YesButton";
 import { icons } from "../../data/icons";
-import * as Location from "expo-location";
+import { findLocation } from "../../func/func_find_userinfo";
 
 export const RecommendedFood = ({ data, navigation }) => {
   const [foodName, setFoodName] = useState(data[0]);
   const [location, setLocation] = useState("");
-
-  const findLocation = () => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync(); // 권한 설정
-      if (status == "denied") {
-        Alert.alert("위치 정보 액세스 권한 설정을 해주세요!");
-        return;
-      }
-      if (status !== "granted") {
-        Alert.alert("권한 설정이 되어있지 않습니다!");
-        return;
-      }
-      let location = await Location.getCurrentPositionAsync({}); // 현재 위치 받아오기
-      setLocation(location);
-    })();
-  };
 
   return (
     <>
@@ -44,7 +27,7 @@ export const RecommendedFood = ({ data, navigation }) => {
           <TitleText />
         </View>
         <View style={{ flex: 0.51 }}>
-          <FoodImage name={foodName} list={data} setName={setFoodName} />
+          <FoodImage list={data} setName={setFoodName} />
         </View>
         <View style={{ flex: 0.25 }}>
           <FoodName name={foodName} />
@@ -59,7 +42,7 @@ export const RecommendedFood = ({ data, navigation }) => {
           <View style={{ flex: 1, alignItems: "center" }}>
             <TouchableOpacity
               onPress={() => {
-                findLocation();
+                findLocation(setLocation);
                 if (location)
                   Linking.openURL(
                     `https://map.naver.com/v5/search/${foodName}?c=${location.coords.latitude},${location.coords.longitude},15,0,0,0,dh`
