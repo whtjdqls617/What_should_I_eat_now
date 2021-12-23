@@ -302,8 +302,9 @@ export const food_image = {
   해물파전: require("../../img_food/seafood_pajeon.png"),
   감자전: require("../../img_food/potato_jeon.png"),
   깻잎전: require("../../img_food/sesame_leaf_jeon.png"),
-  아구찜: require("../../img_food/agujjim.jpg"),
+  아구찜: require("../../img_food/agujjim.png"),
   알탕: require("../../img_food/altang.jpg"),
+  닭꼬치: require("../../img_food/chicken_kkochi.jpg"),
   백숙: require("../../img_food/baeksuk.jpg"),
   바지락칼국수: require("../../img_food/bajirak_kalguksu.jpg"),
   콩국수: require("../../img_food/bean_guksu.jpg"),
@@ -399,7 +400,6 @@ export const food_image = {
   탕수육: require("../../img_food/tangsuyuk.jpg"),
   토마토리조또: require("../../img_food/tomato_risotto.jpg"),
   떡만두국: require("../../img_food/tteokdumplingguk.jpg"),
-  야끼만두: require("../../img_food/yakki_dumpling.jpg"),
   육회비빔밥: require("../../img_food/yukhoe_bibimbab.jpg"),
   육사시미: require("../../img_food/yuksasimi.jpg"),
 };
