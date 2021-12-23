@@ -6,12 +6,12 @@ import { icon_source, food_image_source } from "../data/data";
 export const CreditPage = ({ navigation }) => {
   const food_data = icon_source.concat(food_image_source);
   const person_data = [
+	  "seocho, hayelee",
+	  "프론트엔드 구현",
     "suhong",
     "추천 알고리즘 구현",
     "hyahn",
     "백엔드 구현",
-    "seocho, hayelee",
-    "프론트엔드 구현",
   ];
 
   return (
