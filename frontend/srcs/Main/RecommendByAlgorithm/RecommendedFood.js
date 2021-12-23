@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Linking,
-  TouchableOpacity,
-  Image,
-  Text,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 import { HomeButton } from "../HomeButton";
 import { FoodImage } from "./FoodImage";
 import { FoodName } from "./FoodName";
@@ -83,10 +76,6 @@ const styles = StyleSheet.create({
     flex: 0.1,
     flexDirection: "row",
     paddingHorizontal: "25%",
-  },
-  map_and_youtube_icon_or_text: {
-    flex: 1,
-    alignItems: "center",
   },
   map_and_youtube_text_align: {
     flex: 0.1,

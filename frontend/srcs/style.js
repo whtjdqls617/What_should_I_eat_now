@@ -22,10 +22,9 @@ export const StyledImage2 = styled.Image`
 `;
 
 export const StyledText = styled.Text`
-  flex : 1;
+  flex: 1;
   font-size: 16px;
   font-family: BlackHanSans_400Regular;
   text-align: center;
-  color : ${({ lightEffect }) =>
-  lightEffect == true ? "#31ad33" : "black"};
+  color: ${({ lightEffect }) => (lightEffect == true ? "#31ad33" : "black")};
 `;

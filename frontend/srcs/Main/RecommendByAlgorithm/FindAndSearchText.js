@@ -8,7 +8,7 @@ export const FindAndSearchText = () => {
     <>
       {textArray.map((ele, i) => {
         return (
-          <View style={styles.map_and_youtube_icon_or_text}>
+          <View key={i + 2} style={styles.map_and_youtube_icon_or_text}>
             <Text key={i} style={styles.text}>
               {ele}
             </Text>

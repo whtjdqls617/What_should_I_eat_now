@@ -1,28 +1,23 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
-import { random } from '../../data/icons';
+import { random } from "../../data/icons";
 
 export const PushButton = ({ setFoodName }) => {
-
-	return (
-		<TouchableOpacity
-			style={styles.button}
-			onPress={() => {
-				setFoodName("");
-			}}
-		>
-			<Image
-			style={{height : 70, width : 70}}
-				source={random}
-			/>
-
-		</TouchableOpacity>
-	);
+  return (
+    <TouchableOpacity
+      style={styles.button}
+      onPress={() => {
+        setFoodName("");
+      }}
+    >
+      <Image style={{ height: 70, width: 70 }} source={random} />
+    </TouchableOpacity>
+  );
 };
 
 const styles = StyleSheet.create({
   button: {
-	flex : 0.4,
+    flex: 0.4,
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
