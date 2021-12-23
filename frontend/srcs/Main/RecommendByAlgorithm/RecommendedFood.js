@@ -24,7 +24,7 @@ export const RecommendedFood = ({ data, navigation }) => {
       let { status } = await Location.requestForegroundPermissionsAsync(); // 권한 설정
       //   console.log(status);
       if (status !== "granted") {
-        Alert.alert("Permission to access location was denied");
+        Alert.alert("권한 설정이 되어있지 않습니다!");
         return;
       }
       let location = await Location.getCurrentPositionAsync({}); // 현재 위치 받아오기

@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View , Dimensions} from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { food_image } from "../../data/food";
 
@@ -14,6 +14,8 @@ export const FoodImage = ({ name, list, setName }) => {
     );
   };
 
+  const screenWidth = Dimensions.get("window").width;
+
   const items = list.map((food, i) => {
     const text = "Text " + i;
     return { title: food, text: text };
@@ -24,7 +26,7 @@ export const FoodImage = ({ name, list, setName }) => {
       <Carousel
         data={items}
         renderItem={renderItem}
-        sliderWidth={300}
+        sliderWidth={screenWidth}
         itemWidth={300}
         layout={"stack"}
         onSnapToItem={(index) => setName(items[index].title)}
