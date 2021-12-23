@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { food_image } from "../../data/data";
+import { food_image } from "../../data/food";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
 
@@ -18,10 +18,10 @@ export const EatenFood = ({ food_name, index, onXPress }) => {
   if (ismodalVisible)
     return (
       <View style={styles.container}>
-        {/* <Image
+        <Image
           style={styles.imagestyle}
           source={food_image[food_name_without_space]}
-        /> */}
+        />
         <Text style={styles.textstyle}>{food_name}</Text>
         <TouchableOpacity style={{ marginTop: 5 }} onPress={toggleModal}>
           <Text style={styles.xButton}>x</Text>
@@ -61,10 +61,10 @@ export const EatenFood = ({ food_name, index, onXPress }) => {
   else
     return (
       <View style={styles.container}>
-        {/* <Image
+        <Image
           style={styles.imagestyle}
           source={food_image[food_name_without_space]}
-        /> */}
+        />
         <Text style={styles.textstyle}>{food_name}</Text>
         <TouchableOpacity style={{ marginTop: 5 }} onPress={toggleModal}>
           <Text style={styles.xButton}>x</Text>
