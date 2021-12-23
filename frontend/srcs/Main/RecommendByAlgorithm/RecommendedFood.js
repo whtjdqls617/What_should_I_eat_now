@@ -14,6 +14,7 @@ import { TitleText } from "./TitleText";
 import { YesButton } from "./YesButton";
 import { icons } from "../../data/icons";
 import { findLocation } from "../../func/func_find_userinfo";
+import { GuideText } from "./GuideText";
 
 export const RecommendedFood = ({ data, navigation }) => {
   const [foodName, setFoodName] = useState(data[0]);
@@ -25,6 +26,7 @@ export const RecommendedFood = ({ data, navigation }) => {
       <View style={styles.container}>
         <View style={{ flex: 0.2 }}>
           <TitleText />
+          <GuideText />
         </View>
         <View style={{ flex: 0.51 }}>
           <FoodImage list={data} setName={setFoodName} />
