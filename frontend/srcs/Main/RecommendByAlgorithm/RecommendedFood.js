@@ -13,8 +13,10 @@ import { FoodName } from "./FoodName";
 import { TitleText } from "./TitleText";
 import { YesButton } from "./YesButton";
 import { icons } from "../../data/icons";
-import { findLocation } from "../../func/func_find_userinfo";
 import { GuideText } from "./GuideText";
+import { FindRestaurant } from "./FindRestaurant";
+import { SearchMukbang } from "./SearchMukbang";
+import { FindAndSearchText } from "./FindAndSearchText";
 
 export const RecommendedFood = ({ data, navigation }) => {
   const [foodName, setFoodName] = useState(data[0]);
@@ -34,64 +36,21 @@ export const RecommendedFood = ({ data, navigation }) => {
         <View style={{ flex: 0.25 }}>
           <FoodName name={foodName} />
         </View>
-        <View
-          style={{
-            flex: 0.1,
-            flexDirection: "row",
-            paddingHorizontal: "25%",
-          }}
-        >
-          <View style={{ flex: 1, alignItems: "center" }}>
-            <TouchableOpacity
-              onPress={() => {
-                findLocation(setLocation);
-                if (location)
-                  Linking.openURL(
-                    `https://map.naver.com/v5/search/${foodName}?c=${location.coords.latitude},${location.coords.longitude},15,0,0,0,dh`
-                  );
-              }}
-            >
-              <Image
-                style={{ height: 35, width: 50 }}
-                source={icons[5]}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
+        <View style={styles.map_and_youtube_icon_align}>
+          <View style={styles.map_and_youtube_icon_or_text}>
+            <FindRestaurant
+              location={location}
+              setLocation={setLocation}
+              iconImage={icons[5]}
+              foodName={foodName}
+            />
           </View>
-          <View style={{ flex: 1, alignItems: "center" }}>
-            <TouchableOpacity
-              sytle={{ height: 10, width: 100 }}
-              onPress={() =>
-                Linking.openURL(
-                  `https://www.youtube.com/results?search_query=${foodName}먹방`
-                )
-              }
-            >
-              <Image
-                style={{ height: 35, width: 50 }}
-                source={icons[4]}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
+          <View style={styles.map_and_youtube_icon_or_text}>
+            <SearchMukbang foodName={foodName} iconImage={icons[4]} />
           </View>
         </View>
-        <View
-          style={{
-            flex: 0.1,
-            flexDirection: "row",
-            paddingHorizontal: "25%",
-          }}
-        >
-          <View style={{ flex: 1, alignItems: "center" }}>
-            <Text style={{ fontFamily: "BlackHanSans_400Regular" }}>
-              식당 찾기!
-            </Text>
-          </View>
-          <View style={{ flex: 1, alignItems: "center" }}>
-            <Text style={{ fontFamily: "BlackHanSans_400Regular" }}>
-              먹방 검색!
-            </Text>
-          </View>
+        <View style={styles.map_and_youtube_text_align}>
+          <FindAndSearchText />
         </View>
         <View style={styles.button_align}>
           <YesButton nav={navigation} name={foodName} />
@@ -119,5 +78,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "50%",
     alignItems: "center",
+  },
+  map_and_youtube_icon_align: {
+    flex: 0.1,
+    flexDirection: "row",
+    paddingHorizontal: "25%",
+  },
+  map_and_youtube_icon_or_text: {
+    flex: 1,
+    alignItems: "center",
+  },
+  map_and_youtube_text_align: {
+    flex: 0.1,
+    flexDirection: "row",
+    paddingHorizontal: "25%",
   },
 });
