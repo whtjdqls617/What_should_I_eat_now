@@ -13,6 +13,7 @@ import { DecisionButton } from "./DecisionButton";
 import { PushButton } from "./PushButton";
 import { SlotMachine } from "./SlotMachine";
 import { icons } from "../../data/icons";
+import { food_image } from "../../data/food";
 import * as Location from "expo-location";
 import * as Animatable from "react-native-animatable";
 
