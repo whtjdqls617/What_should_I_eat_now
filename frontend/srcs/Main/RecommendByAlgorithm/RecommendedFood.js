@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Text,
+  Alert,
 } from "react-native";
 import { HomeButton } from "../HomeButton";
 import { FoodImage } from "./FoodImage";
@@ -22,7 +23,10 @@ export const RecommendedFood = ({ data, navigation }) => {
   const findLocation = () => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync(); // 권한 설정
-      //   console.log(status);
+      if (status == "denied") {
+        Alert.alert("위치 정보 액세스 권한 설정을 해주세요!");
+        return;
+      }
       if (status !== "granted") {
         Alert.alert("권한 설정이 되어있지 않습니다!");
         return;
