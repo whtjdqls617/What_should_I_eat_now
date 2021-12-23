@@ -82,4 +82,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingHorizontal: "25%",
   },
+  map_and_youtube_icon_or_text: {
+    flex: 1,
+    alignItems: "center",
+  },
 });
