@@ -36,8 +36,16 @@ export const AddEatenFood = ({ day, setDay, month, setMonth, date }) => {
       }
     };
 
-    getDataFromStorage(firstKeyName, existenceFunc, 0, 0);
-    getDataFromStorage(secondKeyName, existenceFunc, 0, 0);
+    const absenceFunc = (ele) => {
+      const key = firstKeyName.substring(1);
+      let object = {};
+      object[key] = newDay;
+      ele.length > 8
+        ? setDataToStorage(ele, newDay, 0)
+        : setDataToStorage(ele, object, 0);
+    };
+    getDataFromStorage(firstKeyName, existenceFunc, absenceFunc, 0);
+    getDataFromStorage(secondKeyName, existenceFunc, absenceFunc, 0);
     toggleModal();
   };
 

@@ -1,9 +1,5 @@
 import React from "react";
-import { Alert, StyleSheet, Text, TouchableOpacity } from "react-native";
-import {
-  getDataFromStorage,
-  setDataToStorage,
-} from "../../func/func_data_communication";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { onPressSelectFood } from "../../func/func_on_press";
 
 export const DecisionButton = ({ navigation, foodName }) => {
