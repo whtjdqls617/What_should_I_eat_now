@@ -11,19 +11,18 @@ export const Options = ({ index, qna, updateIndex, setData, navigation }) => {
 
   const selectOption = (tag) => {
     const new_answer = answer.slice();
-    if (new_answer.includes(tag))
-      new_answer.splice(new_answer.indexOf(tag), 1);
+    if (new_answer.includes(tag)) new_answer.splice(new_answer.indexOf(tag), 1);
     else new_answer.push(tag);
     setAnswer(new_answer);
   };
 
   const findSelectedOne = (answer) => {
-      let array = [];
-      for (let i = 1; i < 7; i++) {
-        const element = answer.includes(qna[i]) ? true : false;
-        array.push(element);
-      }
-      return array.length > 0 ? array : Array(6).fill(false);
+    let array = [];
+    for (let i = 1; i < 7; i++) {
+      const element = answer.includes(qna[i]) ? true : false;
+      array.push(element);
+    }
+    return array.length > 0 ? array : Array(6).fill(false);
   };
 
   const selectStatus = findSelectedOne(answer);

@@ -6,8 +6,7 @@ export const OptionImage = ({ tag, image, selectOption, lightEffect }) => {
   const onPress = () => {
     selectOption(tag);
   };
-if (lightEffect)
-{
+  if (lightEffect) {
     return (
       <>
         <TouchableOpacity onPress={onPress}>
@@ -15,19 +14,15 @@ if (lightEffect)
         </TouchableOpacity>
       </>
     );
-	}
-	else{
-	    return (
-        <>
-          <TouchableOpacity onPress={onPress}>
-            <StyledImage2
-              source={image}
-              style={styles.optImage}
-            />
-          </TouchableOpacity>
-        </>
-      );
-		}
+  } else {
+    return (
+      <>
+        <TouchableOpacity onPress={onPress}>
+          <StyledImage2 source={image} style={styles.optImage} />
+        </TouchableOpacity>
+      </>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

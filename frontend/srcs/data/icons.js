@@ -5,7 +5,7 @@ export var opts = [
     require("../../image/meat.png"),
     require("../../image/seafood.png"),
     require("../../image/soup2.png"),
-    require("../../image/flour.png")
+    require("../../image/flour.png"),
   ],
   [
     require("../../image/korean_food.png"),
@@ -13,7 +13,7 @@ export var opts = [
     require("../../image/japanese_food.png"),
     require("../../image/american_food.png"),
     require("../../image/thai_food.png"),
-    require("../../image/other_food.png")
+    require("../../image/other_food.png"),
   ],
   [
     require("../../image/sweet.png"),
@@ -21,7 +21,7 @@ export var opts = [
     require("../../image/cold.png"),
     require("../../image/greasy.png"),
     require("../../image/soup.png"),
-    require("../../image/sour.png")
+    require("../../image/sour.png"),
   ],
 ];
 

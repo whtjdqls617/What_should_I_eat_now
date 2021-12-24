@@ -1,5 +1,3 @@
-export const ip = "http://3.36.175.164:8080";
-
 export const icon_source = [
   "뭐먹지아이콘",
   "made by Freepik from www.flaticon.com",

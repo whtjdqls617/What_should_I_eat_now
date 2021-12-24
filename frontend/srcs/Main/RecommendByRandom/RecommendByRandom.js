@@ -6,7 +6,6 @@ import {
   View,
   TouchableOpacity,
   Linking,
-  Alert,
 } from "react-native";
 import { HomeButton } from "../HomeButton";
 import { DecisionButton } from "./DecisionButton";
@@ -14,8 +13,8 @@ import { PushButton } from "./PushButton";
 import { SlotMachine } from "./SlotMachine";
 import { icons } from "../../data/icons";
 import { food_image } from "../../data/food";
-import * as Location from "expo-location";
 import * as Animatable from "react-native-animatable";
+import { findLocation } from "../../func/func_find_userinfo";
 
 export const RecommendByRandom = ({ navigation }) => {
   const [location, setLocation] = useState("");
@@ -26,22 +25,6 @@ export const RecommendByRandom = ({ navigation }) => {
   while (foodName_without_space.includes(" ")) {
     foodName_without_space = foodName_without_space.replace(" ", "");
   }
-
-  const findLocation = () => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync(); // 권한 설정
-      if (status == "denied") {
-        Alert.alert("권한 설정을 다시 한번 확인해주세요!");
-        return;
-      }
-      if (status !== "granted") {
-        Alert.alert("권한 설정이 되어있지 않습니다!");
-        return;
-      }
-      let location = await Location.getCurrentPositionAsync({}); // 현재 위치 받아오기
-      setLocation(location);
-    })();
-  };
 
   return (
     <>
@@ -70,7 +53,7 @@ export const RecommendByRandom = ({ navigation }) => {
               <View style={{ flex: 1, alignItems: "center" }}>
                 <TouchableOpacity
                   onPress={() => {
-                    findLocation();
+                    findLocation(setLocation);
                     if (location)
                       Linking.openURL(
                         `https://map.naver.com/v5/search/${foodName_without_space}?c=${location.coords.latitude},${location.coords.longitude},15,0,0,0,dh`

@@ -1,10 +1,10 @@
 import React from "react";
-import { Image, StyleSheet, View , Dimensions} from "react-native";
+import { Image, StyleSheet, View, Dimensions } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { food_image } from "../../data/food";
 
-export const FoodImage = ({ name, list, setName }) => {
-  const renderItem = ({ item, index }) => {
+export const FoodImage = ({ list, setName }) => {
+  const renderItem = ({ item }) => {
     const foodNameWithoutSpace = item.title.replace(/' '/, "");
     return (
       <Image
@@ -22,7 +22,7 @@ export const FoodImage = ({ name, list, setName }) => {
   });
 
   return (
-    <View style={{ flex: 1.5, marginLeft: "15%" }}>
+    <View style={styles.slider}>
       <Carousel
         data={items}
         renderItem={renderItem}
@@ -42,5 +42,9 @@ const styles = StyleSheet.create({
     borderColor: "black",
     width: 242,
     height: 242,
+  },
+  slider: {
+    flex: 1.5,
+    marginLeft: "15%",
   },
 });
