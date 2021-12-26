@@ -17,7 +17,7 @@
       "**/*"
     ],
 	"ios": {
-		"bundleIdentifier": "com.hayeonlee.whatShouldIEatNow",
+		"bundleIdentifier": "com.openProject.whatShouldIEatNow",
 		"buildNumber": "2.0.0"
 	  },
     "android": {
@@ -25,7 +25,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.seocho.what_should_i_eat_now",
+      "package": "com.leehayeon.what_should_i_eat_now",
 	  "versionCode": 2
     },
     "web": {
