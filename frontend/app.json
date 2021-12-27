@@ -27,8 +27,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.leehayeon.what_should_i_eat_now",
-      "versionCode": 3,
-	  "versionName" : "2.0.1"
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"
