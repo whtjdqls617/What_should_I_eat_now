@@ -2,7 +2,7 @@
   "expo": {
     "name": "지금 뭐 먹지",
     "slug": "what_should_i_eat_now",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -13,20 +13,21 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-	"ios": {
-		"bundleIdentifier": "com.openProject.whatShouldIEatNow",
-		"buildNumber": "2.0.0"
-	  },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "bundleIdentifier": "com.openProject.whatShouldIEatNow",
+      "buildNumber": "2.0.0",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app uses the location to find a restaurant that sells recommended food around the user."
+      }
+    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.leehayeon.what_should_i_eat_now",
-	  "versionCode": 2
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
