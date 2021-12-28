@@ -1,6 +1,7 @@
 # 지금 뭐 먹지 - "당신만을 위한 맞춤형 음식 추천 어플!"
 ![logo](https://user-images.githubusercontent.com/66169740/142158715-d965f0df-7a6d-4d7f-b3d3-785a12672762.png)
 - Android 앱 다운로드: https://play.google.com/store/apps/details?id=com.leehayeon.what_should_i_eat_now
+- iOS 앱 다운로드: https://apps.apple.com/kr/app/%EC%A7%80%EA%B8%88-%EB%AD%90-%EB%A8%B9%EC%A7%80/id1596290830
 
 ## ver 2.0.1
 1. 회원가입/로그인 과정 삭제
