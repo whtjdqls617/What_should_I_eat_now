@@ -1,47 +1,30 @@
 import styled from "styled-components/native";
 
-export const Pcontainer = styled.View`
-	flex-direction : column;
-	align-items : center;
-`;
-
-export const Container = styled.View`
-	background-color: white;
-	flex-direction : row;
-`;
-
-export const StyledText = styled.Text`
-  font-size: 40px;
-  margin-top: 20%;
-  font-weight: 800;
-`;
-
-export const StyledView = styled.View`
-  flex-direction: row;
-  align-items: center;
-  padding : 40px;
-`;
-
 export const StyledImage = styled.Image`
   height: 100px;
   width: 100px;
   margin-top: 10px;
   padding: 10px;
-  border: 6px solid ${({ lightEffect }) => (lightEffect == true ? "green" : "black")};
-  border-radius : 20px;
-`;
-export const StyledOptionText = styled.Text`
-  font-size: 20px;
-  text-align : center;
+  border-width: 5.5px;
+  border-color: #31ad33;
+  tint-color: #31ad33;
+  border-radius: 20px;
 `;
 
-export const MainContainer = styled.View`
+export const StyledImage2 = styled.Image`
+  height: 100px;
+  width: 100px;
+  margin-top: 10px;
+  padding: 10px;
+  border-width: 5.5px;
+  border-color: black;
+  border-radius: 20px;
+`;
+
+export const StyledText = styled.Text`
   flex: 1;
-  background-color: white;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const StyledButton = styled.Button`
-  background-color: red;
+  font-size: 16px;
+  font-family: BlackHanSans_400Regular;
+  text-align: center;
+  color: ${({ lightEffect }) => (lightEffect == true ? "#31ad33" : "black")};
 `;
