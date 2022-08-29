@@ -1,7 +1,8 @@
-# 지금 뭐 먹지 - "당신만을 위한 맞춤형 음식 추천 어플!"
+# 지금 뭐 먹지
+
+> 지금 뭐 먹지는 세 가지 질문에 대한 답변을 바탕으로 사용자가 좋아할 만한 음식을 골라 추천하는 식사 메뉴 추천 앱
+
 ![logo](https://user-images.githubusercontent.com/66169740/142158715-d965f0df-7a6d-4d7f-b3d3-785a12672762.png)
-- Android 앱 다운로드: https://play.google.com/store/apps/details?id=com.leehayeon.what_should_i_eat_now
-- iOS 앱 다운로드: https://apps.apple.com/kr/app/%EC%A7%80%EA%B8%88-%EB%AD%90-%EB%A8%B9%EC%A7%80/id1596290830
 
 ## ver 2.0.1
 1. 회원가입/로그인 과정 삭제
@@ -9,10 +10,20 @@
 3. 음식 데이터 추가 및 변경(총 200개 음식)
 4. 네이버 지도 및 유튜브 연결 기능 추가
 
-## ver 1.0.0
-1. 추천 알고리즘에 의한 메뉴 추천
-2. 랜덤 메뉴 추천
-3. 음식 먹은 기록 조회 및 수정
-4. 좋아하는/싫어하는 음식 리스트 관리
-5. 로그인 및 회원가입
-6. 회원 정보 관리
+## 변경점
+### "회원 가입의 필요성”
+
+  > 서버를 과감하게 없애고 로컬에서 관리되도록 변경
+    
+
+### “유튜브 영상 시청에 대한 선택권을 사용자에게 넘김”
+
+  > 유튜브 검색화면 까지 연결되도록 버튼을 생성하여 원하는 사용자만 볼 수 있도록 변경
+
+### “음식 데이터 추가”
+
+  > 음식 데이터를 200개로 늘려서 사용자가 최대한 원하는 음식들이 추천으로 나올 수 있도록 변경
+
+## 다운로드
+- Android 앱 다운로드: https://play.google.com/store/apps/details?id=com.leehayeon.what_should_i_eat_now
+- iOS 앱 다운로드: https://apps.apple.com/kr/app/%EC%A7%80%EA%B8%88-%EB%AD%90-%EB%A8%B9%EC%A7%80/id1596290830
